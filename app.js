@@ -52,19 +52,31 @@ passport.deserializeUser(User.deserializeUser());
 app.get("/",(req,res)=>{
     res.render("index")
 })
+app.get("/write",(req,res)=>{
+    res.render("write")
+})
+
+app.post("/write",(req,res)=>{
+    console.log(req.body)
+})
 
 app.get("/dashboard/:userId",(req,res)=>{
-  let _id = req.params.userId;
-  User.find({_id},(err,user)=>{
-    if (err) throw err;
-    if(req.isAuthenticated()){
-      console.log(user)
-      res.render("dashboard",{username:user})
-    }else{
-      res.redirect("/login");
+  let id = req.params.userId;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send("Invalid user ID.");
+  }
+  User.findOne({_id: id}, function(err, user) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("An error occurred while retrieving the user.");
     }
-  })
-})
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+    res.render("dashboard", {username: user.username});
+  });
+});
+
 
 app.get("/register",function(req,res){
   res.render("register");
@@ -81,14 +93,22 @@ app.post("/login",function(req,res){
    });
 
    req.login(user, function(err){
-    console.log(user)
     if(!err){
         passport.authenticate("local")(req,res,function(){
-            res.redirect("/dashboard/"+ user._id);
+            // Retrieve the user object from the database
+            User.findOne({username: req.body.username}, function(err, user){
+              if (err) {
+                console.log(err);
+              } else {
+                // Redirect to the dashboard with the actual user ID
+                res.redirect("/dashboard/"+ user._id);
+              }
+            });
         })
     }
    })
 })
+
 
 app.post("/signup",function(req,res){
   
