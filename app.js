@@ -50,7 +50,11 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/",(req,res)=>{
+  if(req.isAuthenticated()){
     res.render("index")
+  }else{
+    res.redirect("/login")
+  }
 })
 app.get("/write",(req,res)=>{
     res.render("write")
