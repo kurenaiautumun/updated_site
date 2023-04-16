@@ -136,6 +136,7 @@
                             <input required="required" type="name" name="username" id="username" placeholder="Enter Your Name">
                             <input required="required" type="email" name="email" id="email" placeholder="Enter Your E-mail">
                             <input required="required" type="password" name="password" id="password" placeholder="Enter Your Password">
+                            <input type="text" name="reference_code" id="reference_code" placeholder="Reference Code">
                             <!-- <button type="submit" class="sing_up_data_submit_btn" onsubmit="handleSignup();return false">Sign Up</button> -->
                             <input type="submit" id="btt" class="sing_up_data_submit_btn" value="Submit">
                         </form>
@@ -148,6 +149,30 @@
     <!-- ======= main close ====== -->
 
     <script>
+
+        blogID = getParams();
+            function getParams() {
+                var idx = document.URL.indexOf('?');
+                var params = {};
+                if (idx != -1) {
+                    var pairs = document.URL.substring(idx + 1, document.URL.length).split('&');
+                    for (var i = 0; i < pairs.length; i++) {
+                        nameVal = pairs[i].split('=');
+                        params[nameVal[0]] = nameVal[1];
+                    }
+                }
+                return params["reference"];
+            }
+
+        function getReference(){
+            reference = getParams();
+            if (reference){
+                code = document.getElementById("reference_code")
+                code.value = reference
+            }
+        }
+
+        getReference();
         
         function burgerFuncation() {
             var element = document.getElementById("myNAV");
