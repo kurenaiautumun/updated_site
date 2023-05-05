@@ -33,7 +33,7 @@ phases:
       - echo Entered the post_build phase...
       - echo Build completed on `date`
       - echo Writing image definitions file...
-      - printf '[{"name":"NodeJS"}]' > imagedefinitions.json
+      - printf '[{"name":"Deployment"}]' > imagedefinitions.json
 
 #reports:
 #  arn:aws:codebuild:your-region:your-aws-account-id:report-group/report-group-name-1:
