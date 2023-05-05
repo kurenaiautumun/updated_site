@@ -1,0 +1,50 @@
+version: 0.2
+
+env:
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
+  parameter-store:
+    LOGIN_PASSWORD: "123"
+
+phases:
+  install:
+    commands:
+      - echo Entered the install phase...
+      - sudo apt install nodejs
+      - npm i
+      - echo NodeJS installed
+    finally:
+      - echo This always runs even if the update or install command fails 
+  #pre_build:
+  #  commands:
+  #    - echo Entered the pre_build phase...
+  #    - 
+  #  finally:
+  #    - echo This always runs even if the login command fails 
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build started on `date`
+      - node app.js
+    finally:
+      - echo This always runs even if the install command fails
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
+      - echo Writing image definitions file...
+      - printf '[{"name":"NodeJS"}]' > imagedefinitions.json
+
+#reports:
+#  arn:aws:codebuild:your-region:your-aws-account-id:report-group/report-group-name-1:
+#    files:
+#      - "**/*"
+#    base-directory: 'target/tests/reports'
+#    discard-paths: no
+#  reportGroupCucumberJson:
+#    files:
+#      - 'cucumber/target/cucumber-tests.xml'
+#    discard-paths: yes
+#    file-format: CUCUMBERJSON # default is JUNITXML
+artifacts:
+    files: imagedefinitions.json
