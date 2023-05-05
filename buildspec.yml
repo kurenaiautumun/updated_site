@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
-      - sudo apt install nodejs
+      #- sudo apt install nodejs
       - npm i
       - echo NodeJS installed
     finally:
