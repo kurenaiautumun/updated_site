@@ -1,16 +1,18 @@
 version: 0.0
 os: linux
-#files:
-#  - source: Config/config.txt
-#    destination: /webapps/Config
-#  - source: source
-#    destination: /webapps/myApp
+files:
+  - source: /
+    destination: /updated_site
 hooks:
   BeforeInstall:
     - location: Scripts/install.sh
-  AfterInstall:
-    - location: Scripts/version.sh
-      timeout: 180
+      runas: root
+
   ApplicationStart:
     - location: Scripts/node.sh
-      timeout: 3600
+      timeout: 300
+      runas: root
+
+  ValidateService:
+    - location: Scripts/version.sh
+      timeout: 300
