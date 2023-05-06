@@ -5,7 +5,7 @@ phases:
     commands:
       - echo Entered the install phase...
       #- sudo apt install nodejs
-      - npm i
+      - #npm i
       - echo NodeJS installed
     finally:
       - echo This always runs even if the update or install command fails 
