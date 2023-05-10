@@ -6,16 +6,12 @@
  .header {
      margin-left: 20px;
  }
- @media only screen and (max-width: 320px) {
+ @media screen and (max-width: 320px) {
     .header{
         width: 100%;
     }
  }
- @media only screen and (max-width: 320px) {
-    .column-leftt,columnrightt{
-        width: 100%;
-    }
- }
+
  ul {
      list-style-type: none;
  }
@@ -44,6 +40,7 @@
 
  .main-body {
     overflow: scroll;
+    width: 100%;
     }
 
  .column-leftt {
@@ -164,4 +161,18 @@
  }
  .msgg{
     margin-left: 10px;
+ }
+
+ @media screen and (max-width: 900px) {
+    .column-leftt{
+        display: none;
+        width: 100%;
+
+    }
+ }
+
+ @media screen and (max-width: 900px) {
+    .columnrightt{
+        width: 100%;
+    }
  }
