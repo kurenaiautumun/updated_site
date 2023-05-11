@@ -1,0 +1,178 @@
+ * {
+     margin: 0;
+     padding: 0;
+ }
+ 
+ .header {
+     margin-left: 20px;
+ }
+ @media screen and (max-width: 320px) {
+    .header{
+        width: 100%;
+    }
+ }
+
+ ul {
+     list-style-type: none;
+ }
+
+ li {
+     display: inline-block;
+     margin: 5px;
+     font-size: 0px;
+ }
+
+ .right {
+     float: right;
+     margin-right: 20px;
+
+ }
+
+ .btn {
+     background-color: black;
+     padding: 10px;
+     color: white;
+     border-radius: 10px;
+     width: 80px;
+     text-align: center;
+     line-height: 2px;
+ }
+
+ .main-body {
+    overflow: scroll;
+    width: 100%;
+    }
+
+ .column-leftt {
+     width: 25%;
+     height: 100%; 
+     float: left;
+ }
+
+ .rightt {
+     width: 75%;
+     background-color: rgb(208, 209, 207);
+     margin-top: 0;
+     height: 100%;
+     float: left;
+ }
+
+ .main-body:after {
+     content: "";
+     display: table;
+     clear: both;
+ }
+
+ .mid-box {
+     padding: 50px;
+     background-color: white;
+     margin: 20px 50px 20px 50px;
+     height: 90%;
+     border-radius: 10px;
+ }
+
+ .community-btn {
+     background-color: black;
+     color: white;
+     padding: 15px;
+     border-radius: 10px;
+     width: 250px;
+     margin: 25px 5px -10px 25px;
+     display: flex;
+
+ }
+
+ .search-btn {
+     background-color: rgb(150, 132, 132);
+     color: black;
+     padding: 15px;
+     border-radius: 10px;
+     width: 250px;
+     margin: 25px 5px -10px 25px;
+     display: flex;
+
+ }
+
+ .your-btn {
+     background-color: rgb(150, 132, 132);
+     color: black;
+     padding: 15px;
+     border-radius: 10px;
+     width: 250px;
+     margin: 10px 5px -10px 25px;
+     display: flex;
+
+ }
+
+ .your-btn span {
+     margin-left: 40px;
+ }
+
+ .members-box {
+     background-color: rgb(160, 179, 179);
+     margin: 15px 20px 10px 25px;
+     width: 250px;
+     height: 50%;
+     border-radius: 10px;
+     padding: 5px;
+ }
+
+ .photo {
+     height: 45px;
+     width: 45px;
+     border-radius: 50%;
+     background-color: gray;
+     margin-right: 10px;
+ }
+
+ .chat-dialog {
+     display: flex;
+
+     margin: 6px 2px 2px 10px;
+ }
+
+ .red-circle {
+     margin-left: 35px;
+     border-radius: 50%;
+     background-color: red;
+     line-height: 24px;
+     text-align: center;
+     display: inline-block;
+     width: 25px;
+ }
+
+ .namee{
+    font-size: 15px;
+     font-weight: bold;
+ }
+ 
+ .last-msg{
+    display: flex;
+    margin-top: 470px;
+
+ }
+ .write-msg{
+    background-color: gray;
+    align-items: center;
+    width: 90%;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+ }
+ .msgg{
+    margin-left: 10px;
+ }
+
+ @media screen and (max-width: 900px) {
+    .column-leftt{
+        display: none;
+        width: 100%;
+
+    }
+ }
+
+ @media screen and (max-width: 900px) {
+    .columnrightt{
+        width: 100%;
+    }
+ }
