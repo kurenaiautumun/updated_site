@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ====== TITLE ====== -->
+    <title>Devender - Test Page</title>
+
+    <!-- ====== CSS LINKS ===== -->
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="blog.css">
+
+    <style>
+        
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+        .close_nav_berger{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .open_nav_burger{
+            display: none;
+        }
+        @media (max-width: 920px){
+            .close_nav_berger,
+            .open_nav_burger{
+                display: block;
+                cursor: pointer;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    
+    <!-- ======= header ====== -->
+    <header class="top_header">
+       <div class="container">
+            <nav class="navigation_bar r-flex ali-c jut-sb  ">
+
+                <!-- ==== left nav === -->
+                <div class="left_side_nav_bar">
+                    <a href="/" class="nav_logo_box">
+                        <img src="images/logo.png" alt="nav-logo">
+                    </a>
+                </div>
+                <!-- ==== left nav close=== -->
+
+                <!-- ==== right nav === -->
+                <div class="right_side_bar">
+                    <div class="nav_manu_bar">
+                        <ul class="manu_box r-flex ali-c " id="myNAV">
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Home</a></li>
+                            <li class="nav_manu_points">
+                                <a class="nav_manu_link" href="#">
+                                    <span class=" nav_drop_menu r-flex ali-c"> 
+                                        <span>Categories </span> 
+                                        <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                        </svg>                                             
+                                    </span>
+
+                                    <ul class="nav_megha_manu">
+                                        <li class="nav_megha_manu_points">
+                                            <a href="#" class="nav_megha_menu_point">Beauty</a>
+                                        </li>
+                                        <li class="nav_megha_manu_points">
+                                            <a href="#" class="nav_megha_menu_point">Fation</a>
+                                        </li>
+                                        <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Travel</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Avchitecture</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Recies</a></li>
+                                    </ul>
+
+                                </a>
+                            </li>
+                            <li class="nav_manu_points"> 
+                                <a class="nav_manu_link" href="#">
+                                    <span class=" nav_drop_menur-flex ali-c"> 
+                                        <span>Features </span> 
+                                        <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                        </svg>                                             
+                                    </span>
+
+                                    <ul class="nav_megha_manu">
+                                        <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Beauty</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Fation</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Travel</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Avchitecture</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Recies</a></li>
+                                    </ul>
+
+                                </a>
+                            </li>
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Food</a></li>
+
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Lifestyle</a></li>
+
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Travle</a></li>
+
+                            <li class="nav_manu_points">
+                                <a class="nav_manu_link write_nav_btn r-flex ali-c" href="#">
+                                    <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20.847 0.543159L21.4504 1.14002C22.2818 1.9635 22.156 3.42329 21.1671 4.40053L8.72436 16.7091L4.69301 18.1679C4.18679 18.352 3.69387 18.1133 3.59365 17.6368C3.55978 17.464 3.57572 17.2852 3.63967 17.1209L5.14299 13.0986L17.551 0.823382C18.5399 -0.15386 20.0156 -0.280315 20.847 0.543159ZM8.18132 1.76724C8.31562 1.76724 8.44861 1.79341 8.57268 1.84425C8.69676 1.89509 8.80949 1.9696 8.90446 2.06354C8.99942 2.15748 9.07475 2.269 9.12614 2.39174C9.17754 2.51448 9.20399 2.64603 9.20399 2.77888C9.20399 2.91173 9.17754 3.04328 9.12614 3.16602C9.07475 3.28875 8.99942 3.40028 8.90446 3.49421C8.80949 3.58815 8.69676 3.66267 8.57268 3.71351C8.44861 3.76435 8.31562 3.79052 8.18132 3.79052H4.09066C3.54821 3.79052 3.02797 4.00368 2.64439 4.38312C2.26082 4.76256 2.04533 5.27719 2.04533 5.81379V17.9534C2.04533 18.4901 2.26082 19.0047 2.64439 19.3841C3.02797 19.7636 3.54821 19.9767 4.09066 19.9767H16.3626C16.9051 19.9767 17.4253 19.7636 17.8089 19.3841C18.1925 19.0047 18.408 18.4901 18.408 17.9534V13.9069C18.408 13.6386 18.5157 13.3813 18.7075 13.1916C18.8993 13.0018 19.1594 12.8953 19.4306 12.8953C19.7019 12.8953 19.962 13.0018 20.1538 13.1916C20.3456 13.3813 20.4533 13.6386 20.4533 13.9069V17.9534C20.4533 19.0267 20.0223 20.0559 19.2552 20.8148C18.488 21.5737 17.4476 22 16.3626 22H4.09066C3.00575 22 1.96528 21.5737 1.19813 20.8148C0.430979 20.0559 0 19.0267 0 17.9534V5.81379C0 4.74058 0.430979 3.71132 1.19813 2.95245C1.96528 2.19357 3.00575 1.76724 4.09066 1.76724H8.18132Z" fill="#ffffff"/>
+                                    </svg>
+                                    <span>Write Blog</span>
+                                </a>
+                            </li>
+                            <div class="close_nav_berger" onclick="burgerFuncation()">
+                                <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="1.46967" y1="18.4402" x2="18.4402" y2="1.46967" stroke="url(#paint0_linear_412_2)" stroke-width="1.5"/>
+                                    <line y1="-0.75" x2="24.0208" y2="-0.75" transform="matrix(-0.706494 -0.707719 0.706494 -0.707719 18.9707 18)" stroke="url(#paint1_linear_412_2)" stroke-width="1.5"/>
+                                    <defs>
+                                    <linearGradient id="paint0_linear_412_2" x1="3.17851" y1="19.2063" x2="25.3345" y2="-2.94974" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#000000"/>
+                                    <stop offset="0.449933" stop-color="#989898"/>
+                                    <stop offset="1" stop-color="#000000"/>
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_412_2" x1="0.667245" y1="1" x2="32.0278" y2="0.999999" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#000000"/>
+                                    <stop offset="0.449933" stop-color="#989898"/>
+                                    <stop offset="1" stop-color="#000000"/>
+                                    </linearGradient>
+                                    </defs>
+                                </svg>                                
+                            </div>
+
+                        </ul>
+                        <div class="open_nav_burger" onclick="burgerFuncation()">
+                            <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line y1="8.25" x2="18" y2="8.25" stroke="url(#paint0_linear_115_6)" stroke-width="1.5"/>
+                            <line y1="1.25" x2="21" y2="1.25" stroke="url(#paint1_linear_115_6)" stroke-width="1.5"/>
+                            <line y1="15.25" x2="24" y2="15.25" stroke="url(#paint2_linear_115_6)" stroke-width="1.5"/>
+                            <defs>
+                            <linearGradient id="paint0_linear_115_6" x1="0.5" y1="10" x2="24" y2="10" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#000000"/>
+                            <stop offset="0.449933" stop-color="#989898"/>
+                            <stop offset="1" stop-color="#000000"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_115_6" x1="0.583333" y1="3" x2="28" y2="3" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#000000"/>
+                            <stop offset="0.449933" stop-color="#989898"/>
+                            <stop offset="1" stop-color="#000000"/>
+                            </linearGradient>
+                            <linearGradient id="paint2_linear_115_6" x1="0.666667" y1="17" x2="32" y2="17" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#000000"/>
+                            <stop offset="0.449933" stop-color="#989898"/>
+                            <stop offset="1" stop-color="#000000"/>
+                            </linearGradient>
+                            </defs>
+                            </svg>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+            </nav>
+       </div>
+    </header>
+    <!-- ======= header close ====== -->
+
+
+    <!-- ======= main ===== -->
+    <main class="home_main">
+        <section class="blog_hero_section">
+            <div class="container">
+                <div class="hero_blog_container">
+                    <div class="breadcrumbs_container r-flex ali-c">
+                        <a href="/">Home</a>
+                        <span>/</span>
+                        <a href="#">Blog</a>
+                        <span>/</span>
+                        <a href="#" class="breadcrumbs_active">641bff8aa84bb40773be02ec</a>
+                    </div>
+                    <div class="blog_main_img">
+                        <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                    </div>
+
+                    <div class="hero_blog_box r-flex jut-sb">
+                        <div class="hero_blog_left">
+                            <div class="content_table_box">Table of Contents</div>
+                            <div style="width: 30%; background-color: #c9c9c9; height: 2px; "></div>
+                            <ul>
+                                <li><a href="#one_line"> <span>1.</span> This is a new Headding</a></li>
+                                <li><a href="#one_line"> <span>2.</span> This is a new Headding</a></li>
+                                <li><a href="#one_line"> <span>3.</span> This is a new Headding</a></li>
+                                <li><a href="#one_line"> <span>4.</span> This is a new Headding</a></li>
+                                <li><a href="#one_line"> <span>5.</span> This is a new Headding</a></li>
+                                <li><a href="#one_line"> <span>6.</span> This is a new Headding</a></li>
+                                <li><a href="#one_line"> <span>7.</span> This is a new Headding</a></li>
+                                <li><a href="#one_line"> <span>8.</span> This is a new Headding</a></li>
+                                <li><a href="#one_line"> <span>9.</span> This is a new Headding</a></li>
+                            </ul>
+                        </div>
+                        <div class="hero_blog_right">
+                            <div class="hero_blog_contant_container">
+                                <h1 class="hero_blog_main_heading">Living Life to the fullest, Everyday</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic at in dicta ea perferendis, quisquam quis ducimus temporibus laborum architecto iste repudiandae voluptatem asperiores ad. Natus provident odio delectus nulla hic deserunt ea dolores minima facilis, quae, laudantium aliquam exercitationem porro laboriosam magni explicabo? Voluptas, deserunt voluptatibus libero repudiandae neque dolorum eum quidem pariatur soluta illo, quam optio laborum. Unde eos iure distinctio, provident, perspiciatis labore earum obcaecati dolorum assumenda rerum numquam modi aspernatur similique pariatur illo! Dolorum est tenetur exercitationem libero perferendis laudantium cumque, animi quasi ea nulla delectus tempore doloribus voluptatum, reprehenderit, blanditiis adipisci perspiciatis corrupti asperiores impedit! Obcaecati ratione explicabo eveniet amet, nam rem omnis fuga id cupiditate! Accusantium eius veniam, in iusto recusandae repellat nobis assumenda?</p>
+                                <div class="adds_container">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </div>
+                                <h2>This is h2 Heading</h2>
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga veritatis quibusdam ut unde expedita officiis quia, nesciunt numquam quaerat aliquam nemo iure atque saepe magnam id vitae! Soluta quae, excepturi consequatur, dolores quidem neque veniam aliquam tenetur magni facilis rerum iusto, distinctio repellat nesciunt officia! Aut tempore voluptate eaque? Perspiciatis officia aliquam recusandae, aperiam ea at, pariatur adipisci quibusdam quasi dignissimos repellat laboriosam! Incidunt quos ad quis id cum consequatur repellendus reprehenderit sunt doloremque nesciunt aspernatur ducimus, nisi illo facilis dolor vitae temporibus! Reprehenderit sed tempore eum beatae nam nobis animi, labore exercitationem, eius velit delectus expedita placeat, quas non!</p>
+                                <h2>This is H2 Heading</h2>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex deserunt corrupti cum voluptate obcaecati eveniet enim, libero in soluta nesciunt dolore qui delectus sapiente tenetur quae quas quod veniam possimus tempore. Esse provident eveniet ex rerum eum rem commodi adipisci quod voluptas, excepturi exercitationem sequi nobis magnam culpa quasi dignissimos dolorem fuga nam sed! Ullam dicta id officiis commodi architecto reiciendis maiores, laborum modi sit iure exercitationem labore. Officiis consectetur vel provident! Quibusdam velit unde consectetur laborum iste. Aliquam inventore sequi similique modi libero quibusdam neque corrupti, labore doloribus nisi ipsa? Soluta fuga at fugit quia est, necessitatibus id explicabo.</p>
+
+                                <div class="adds_container">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </div>
+
+                                <h3>This is H3 heading</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam fuga totam dolorum ratione id consectetur ullam quidem, rem iusto reiciendis voluptate fugit vel harum aut in minus, repudiandae veritatis sapiente, soluta laboriosam natus eveniet? Quas, nemo eaque cumque dicta iusto nobis et quia minus! Facilis, quam dolore? Totam eius sed voluptate, earum est, hic doloremque possimus voluptatem eveniet et deleniti facilis animi odit soluta consequatur dicta. Corporis ea dignissimos vel deleniti sequi eius, ducimus unde doloribus neque fuga iure sit beatae eos quasi? Atque odio magni rem et impedit numquam! Praesentium non odio assumenda asperiores maxime corrupti dolores natus optio doloremque commodi consectetur, ipsam modi voluptas sapiente id? Saepe doloribus minima facilis ut quidem eligendi? Non pariatur officiis ipsa quo velit iusto quae nobis officia explicabo minima! Dolorem, odit neque?</p>
+
+                                <h4>This is H4 heading</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis itaque nemo saepe sequi quae, hic, necessitatibus asperiores ea ratione similique rerum, quam tempore. Inventore porro adipisci consequuntur dolore? Quaerat quibusdam cupiditate vel eum numquam, dolorum facere laborum, dolore dignissimos hic sit possimus voluptatibus sed neque illo! Dolorem ad id iste voluptate accusantium corporis fugit repudiandae, molestias dolores omnis quae corrupti accusamus facere culpa ipsum, reiciendis magnam sapiente modi animi ipsam amet nobis reprehenderit maiores expedita. Libero ad doloribus sunt voluptatibus, tempore quae, id atque accusamus, omnis ut sapiente dicta velit corporis voluptates. Excepturi, repellendus ipsam praesentium officia enim ea sed.</p>
+
+                                <div class="adds_container">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </div>
+
+                                <h4>This is H4 heading</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis itaque nemo saepe sequi quae, hic, necessitatibus asperiores ea ratione similique rerum, quam tempore. Inventore porro adipisci consequuntur dolore? Quaerat quibusdam cupiditate vel eum numquam, dolorum facere laborum, dolore dignissimos hic sit possimus voluptatibus sed neque illo! Dolorem ad id iste voluptate accusantium corporis fugit repudiandae, molestias dolores omnis quae corrupti accusamus facere culpa ipsum, reiciendis magnam sapiente modi animi ipsam amet nobis reprehenderit maiores expedita. Libero ad doloribus sunt voluptatibus, tempore quae, id atque accusamus, omnis ut sapiente dicta velit corporis voluptates. Excepturi, repellendus ipsam praesentium officia enim ea sed.</p>
+
+                                <h4>This is H4 heading</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis itaque nemo saepe sequi quae, hic, necessitatibus asperiores ea ratione similique rerum, quam tempore. Inventore porro adipisci consequuntur dolore? Quaerat quibusdam cupiditate vel eum numquam, dolorum facere laborum, dolore dignissimos hic sit possimus voluptatibus sed neque illo! Dolorem ad id iste voluptate accusantium corporis fugit repudiandae, molestias dolores omnis quae corrupti accusamus facere culpa ipsum, reiciendis magnam sapiente modi animi ipsam amet nobis reprehenderit maiores expedita. Libero ad doloribus sunt voluptatibus, tempore quae, id atque accusamus, omnis ut sapiente dicta velit corporis voluptates. Excepturi, repellendus ipsam praesentium officia enim ea sed.</p>
+
+                                <h4>This is H4 heading</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis itaque nemo saepe sequi quae, hic, necessitatibus asperiores ea ratione similique rerum, quam tempore. Inventore porro adipisci consequuntur dolore? Quaerat quibusdam cupiditate vel eum numquam, dolorum facere laborum, dolore dignissimos hic sit possimus voluptatibus sed neque illo! Dolorem ad id iste voluptate accusantium corporis fugit repudiandae, molestias dolores omnis quae corrupti accusamus facere culpa ipsum, reiciendis magnam sapiente modi animi ipsam amet nobis reprehenderit maiores expedita. Libero ad doloribus sunt voluptatibus, tempore quae, id atque accusamus, omnis ut sapiente dicta velit corporis voluptates. Excepturi, repellendus ipsam praesentium officia enim ea sed.</p>
+
+                                <div class="adds_container">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </div>
+
+                                <h4>This is H4 heading</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis itaque nemo saepe sequi quae, hic, necessitatibus asperiores ea ratione similique rerum, quam tempore. Inventore porro adipisci consequuntur dolore? Quaerat quibusdam cupiditate vel eum numquam, dolorum facere laborum, dolore dignissimos hic sit possimus voluptatibus sed neque illo! Dolorem ad id iste voluptate accusantium corporis fugit repudiandae, molestias dolores omnis quae corrupti accusamus facere culpa ipsum, reiciendis magnam sapiente modi animi ipsam amet nobis reprehenderit maiores expedita. Libero ad doloribus sunt voluptatibus, tempore quae, id atque accusamus, omnis ut sapiente dicta velit corporis voluptates. Excepturi, repellendus ipsam praesentium officia enim ea sed.</p>
+
+                                <h4>This is H4 heading</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis itaque nemo saepe sequi quae, hic, necessitatibus asperiores ea ratione similique rerum, quam tempore. Inventore porro adipisci consequuntur dolore? Quaerat quibusdam cupiditate vel eum numquam, dolorum facere laborum, dolore dignissimos hic sit possimus voluptatibus sed neque illo! Dolorem ad id iste voluptate accusantium corporis fugit repudiandae, molestias dolores omnis quae corrupti accusamus facere culpa ipsum, reiciendis magnam sapiente modi animi ipsam amet nobis reprehenderit maiores expedita. Libero ad doloribus sunt voluptatibus, tempore quae, id atque accusamus, omnis ut sapiente dicta velit corporis voluptates. Excepturi, repellendus ipsam praesentium officia enim ea sed.</p>
+
+                                <h4>This is H4 heading</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis itaque nemo saepe sequi quae, hic, necessitatibus asperiores ea ratione similique rerum, quam tempore. Inventore porro adipisci consequuntur dolore? Quaerat quibusdam cupiditate vel eum numquam, dolorum facere laborum, dolore dignissimos hic sit possimus voluptatibus sed neque illo! Dolorem ad id iste voluptate accusantium corporis fugit repudiandae, molestias dolores omnis quae corrupti accusamus facere culpa ipsum, reiciendis magnam sapiente modi animi ipsam amet nobis reprehenderit maiores expedita. Libero ad doloribus sunt voluptatibus, tempore quae, id atque accusamus, omnis ut sapiente dicta velit corporis voluptates. Excepturi, repellendus ipsam praesentium officia enim ea sed.</p>
+
+                                <div class="adds_container">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </div>
+
+                                <p><b>This is bold - </b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic beatae earum nesciunt labore consequuntur dignissimos libero quasi eos debitis, molestiae deserunt dolore repudiandae iste blanditiis iure consectetur voluptatibus autem excepturi alias amet ad voluptatum in! Iure, eius voluptate repellendus pariatur voluptatibus quia nulla repudiandae. Ab eaque earum error quos nisi.</p>
+
+                                <p><b>This is bold - </b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic beatae earum nesciunt labore consequuntur dignissimos libero quasi eos debitis, molestiae deserunt dolore repudiandae iste blanditiis iure consectetur voluptatibus autem excepturi alias amet ad voluptatum in! Iure, eius voluptate repellendus pariatur voluptatibus quia nulla repudiandae. Ab eaque earum error quos nisi.</p>
+
+                                <p><b>This is bold - </b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic beatae earum nesciunt labore consequuntur dignissimos libero quasi eos debitis, molestiae deserunt dolore repudiandae iste blanditiis iure consectetur voluptatibus autem excepturi alias amet ad voluptatum in! Iure, eius voluptate repellendus pariatur voluptatibus quia nulla repudiandae. Ab eaque earum error quos nisi.</p>
+
+                                <div class="adds_container">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </div>
+
+                                <p><b>This is bold - </b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic beatae earum nesciunt labore consequuntur dignissimos libero quasi eos debitis, molestiae deserunt dolore repudiandae iste blanditiis iure consectetur voluptatibus autem excepturi alias amet ad voluptatum in! Iure, eius voluptate repellendus pariatur voluptatibus quia nulla repudiandae. Ab eaque earum error quos nisi.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent_blog_section">
+            <div class="container">
+                <div class="recent_blog_container">
+                    <h2 class="home_populer_main_heading">Recent Posts</h2>
+                    <span class="heading_under_lines"></span>
+                    <div class="recent_blog_box r-flex jut-sb flex-w">
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a href="#" class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a href="#" class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a href="#" class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                    <a href="#" class="recent_blog_date">28 Feb 2020</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a href="#" class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a href="#" class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a href="#" class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                    <a href="#" class="recent_blog_date">28 Feb 2020</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a href="#" class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a href="#" class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a href="#" class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                    <a href="#" class="recent_blog_date">28 Feb 2020</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a href="#" class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a href="#" class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a href="#" class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                    <a href="#" class="recent_blog_date">28 Feb 2020</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a href="#" class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a href="#" class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a href="#" class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                    <a href="#" class="recent_blog_date">28 Feb 2020</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a href="#" class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a href="#" class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a href="#" class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                    <a href="#" class="recent_blog_date">28 Feb 2020</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- ======= main close ====== -->
+
+
+    <script>
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll"); 
+        }
+        
+
+    </script>
+
+
+</body>
+</html>
