@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>single blog page</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/blog.css">
+
+    <style>
+        
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+        .close_nav_berger{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .open_nav_burger{
+            display: none;
+        }
+        @media (max-width: 920px){
+            .close_nav_berger,
+            .open_nav_burger{
+                display: block;
+                cursor: pointer;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- ======= header ====== -->
+    <header class="top_header">
+        <div class="container">
+            <nav class="navigation_bar r-flex ali-c jut-sb  ">
+ 
+                 <!-- ==== left nav === -->
+                 <div class="left_side_nav_bar">
+                     <a href="/" class="nav_logo_box">
+                         <img src="images/logo.png" alt="nav-logo">
+                     </a>
+                 </div>
+                 <!-- ==== left nav close=== -->
+ 
+                 <!-- ==== right nav === -->
+                 <div class="right_side_bar">
+                     <div class="nav_manu_bar">
+                         <ul class="manu_box r-flex ali-c " id="myNAV">
+                             <li class="nav_manu_points"><a class="nav_manu_link" href="#">Home</a></li>
+                             <li class="nav_manu_points">
+                                 <a class="nav_manu_link" href="#">
+                                     <span class=" nav_drop_menu r-flex ali-c"> 
+                                         <span>Categories </span> 
+                                         <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                         </svg>                                             
+                                     </span>
+ 
+                                     <ul class="nav_megha_manu">
+                                         <li class="nav_megha_manu_points">
+                                             <a href="#" class="nav_megha_menu_point">Beauty</a>
+                                         </li>
+                                         <li class="nav_megha_manu_points">
+                                             <a href="#" class="nav_megha_menu_point">Fation</a>
+                                         </li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Travel</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Avchitecture</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Recies</a></li>
+                                     </ul>
+ 
+                                 </a>
+                             </li>
+                             <li class="nav_manu_points"> 
+                                 <a class="nav_manu_link" href="#">
+                                     <span class=" nav_drop_menur-flex ali-c"> 
+                                         <span>Features </span> 
+                                         <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                         </svg>                                             
+                                     </span>
+ 
+                                     <ul class="nav_megha_manu">
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Beauty</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Fation</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Travel</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Avchitecture</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Recies</a></li>
+                                     </ul>
+ 
+                                 </a>
+                             </li>
+                             <li class="nav_manu_points"><a class="nav_manu_link" href="#">Food</a></li>
+ 
+                             <li class="nav_manu_points"><a class="nav_manu_link" href="#">Lifestyle</a></li>
+ 
+                             <li class="nav_manu_points"><a class="nav_manu_link" href="#">Travle</a></li>
+ 
+                             <li class="nav_manu_points">
+                                 <a class="nav_manu_link write_nav_btn r-flex ali-c" href="#">
+                                     <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                         <path d="M20.847 0.543159L21.4504 1.14002C22.2818 1.9635 22.156 3.42329 21.1671 4.40053L8.72436 16.7091L4.69301 18.1679C4.18679 18.352 3.69387 18.1133 3.59365 17.6368C3.55978 17.464 3.57572 17.2852 3.63967 17.1209L5.14299 13.0986L17.551 0.823382C18.5399 -0.15386 20.0156 -0.280315 20.847 0.543159ZM8.18132 1.76724C8.31562 1.76724 8.44861 1.79341 8.57268 1.84425C8.69676 1.89509 8.80949 1.9696 8.90446 2.06354C8.99942 2.15748 9.07475 2.269 9.12614 2.39174C9.17754 2.51448 9.20399 2.64603 9.20399 2.77888C9.20399 2.91173 9.17754 3.04328 9.12614 3.16602C9.07475 3.28875 8.99942 3.40028 8.90446 3.49421C8.80949 3.58815 8.69676 3.66267 8.57268 3.71351C8.44861 3.76435 8.31562 3.79052 8.18132 3.79052H4.09066C3.54821 3.79052 3.02797 4.00368 2.64439 4.38312C2.26082 4.76256 2.04533 5.27719 2.04533 5.81379V17.9534C2.04533 18.4901 2.26082 19.0047 2.64439 19.3841C3.02797 19.7636 3.54821 19.9767 4.09066 19.9767H16.3626C16.9051 19.9767 17.4253 19.7636 17.8089 19.3841C18.1925 19.0047 18.408 18.4901 18.408 17.9534V13.9069C18.408 13.6386 18.5157 13.3813 18.7075 13.1916C18.8993 13.0018 19.1594 12.8953 19.4306 12.8953C19.7019 12.8953 19.962 13.0018 20.1538 13.1916C20.3456 13.3813 20.4533 13.6386 20.4533 13.9069V17.9534C20.4533 19.0267 20.0223 20.0559 19.2552 20.8148C18.488 21.5737 17.4476 22 16.3626 22H4.09066C3.00575 22 1.96528 21.5737 1.19813 20.8148C0.430979 20.0559 0 19.0267 0 17.9534V5.81379C0 4.74058 0.430979 3.71132 1.19813 2.95245C1.96528 2.19357 3.00575 1.76724 4.09066 1.76724H8.18132Z" fill="#ffffff"/>
+                                     </svg>
+                                     <span>Write Blog</span>
+                                 </a>
+                             </li>
+                             <div class="close_nav_berger" onclick="burgerFuncation()">
+                                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                     <line x1="1.46967" y1="18.4402" x2="18.4402" y2="1.46967" stroke="url(#paint0_linear_412_2)" stroke-width="1.5"/>
+                                     <line y1="-0.75" x2="24.0208" y2="-0.75" transform="matrix(-0.706494 -0.707719 0.706494 -0.707719 18.9707 18)" stroke="url(#paint1_linear_412_2)" stroke-width="1.5"/>
+                                     <defs>
+                                     <linearGradient id="paint0_linear_412_2" x1="3.17851" y1="19.2063" x2="25.3345" y2="-2.94974" gradientUnits="userSpaceOnUse">
+                                     <stop stop-color="#000000"/>
+                                     <stop offset="0.449933" stop-color="#989898"/>
+                                     <stop offset="1" stop-color="#000000"/>
+                                     </linearGradient>
+                                     <linearGradient id="paint1_linear_412_2" x1="0.667245" y1="1" x2="32.0278" y2="0.999999" gradientUnits="userSpaceOnUse">
+                                     <stop stop-color="#000000"/>
+                                     <stop offset="0.449933" stop-color="#989898"/>
+                                     <stop offset="1" stop-color="#000000"/>
+                                     </linearGradient>
+                                     </defs>
+                                 </svg>                                
+                             </div>
+ 
+                         </ul>
+                         <div class="open_nav_burger" onclick="burgerFuncation()">
+                             <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <line y1="8.25" x2="18" y2="8.25" stroke="url(#paint0_linear_115_6)" stroke-width="1.5"/>
+                             <line y1="1.25" x2="21" y2="1.25" stroke="url(#paint1_linear_115_6)" stroke-width="1.5"/>
+                             <line y1="15.25" x2="24" y2="15.25" stroke="url(#paint2_linear_115_6)" stroke-width="1.5"/>
+                             <defs>
+                             <linearGradient id="paint0_linear_115_6" x1="0.5" y1="10" x2="24" y2="10" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             <linearGradient id="paint1_linear_115_6" x1="0.583333" y1="3" x2="28" y2="3" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             <linearGradient id="paint2_linear_115_6" x1="0.666667" y1="17" x2="32" y2="17" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             </defs>
+                             </svg>
+                         </div>
+                         
+                     </div>
+                 </div>
+ 
+ 
+            </nav>
+        </div>
+     </header>
+     <!-- ======= header close ====== -->
+
+
+     <main>
+        <!-- ======== hero section ======= -->
+        <section class="bloge_herosection">
+            <div class="container">
+                <div class="blog_hero_container r-flex jut-sb">
+
+                    <!-- ====== left ===== -->
+                    <div class="left_hero_blog">
+                        <div class="breadcrumb_box r-flex ali-c">
+                            <a href="#">Home</a>
+                            <span>/</span>
+                            <a href="#">Blog</a>
+                            <span>/</span>
+                            <span>This is Golden Blog</span>
+                        </div>
+                        <div class="blog_hero_category">
+                            <a href="#">Lifestyle</a>
+                        </div>
+
+                        <div class="main_blog_heading">
+                            <h1>The golden rules you need to know for a positive life</h1>
+                        </div>
+    
+                        <div class="publish_time_name_view r-flex ali-c">
+                            <a href="#">21 July, 2023</a>
+                            <span>/</span>
+                            <a href="#">21 July, 2023</a>
+                            <span>/</span>
+                            <a href="#" class=" hero_blog_view r-flex ali-c">
+                                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.33329 10.0009V10C3.33579 9.98669 3.34746 9.91335 3.41246 9.76919C3.48413 9.61002 3.59996 9.41002 3.76579 9.17919C4.09746 8.71835 4.59329 8.18585 5.21996 7.68085C6.48079 6.66335 8.17663 5.83335 9.99996 5.83335C11.8233 5.83335 13.5191 6.66335 14.78 7.68002C15.4066 8.18502 15.9025 8.71752 16.2341 9.17835C16.4008 9.40919 16.5158 9.60919 16.5875 9.76835C16.6525 9.91252 16.6641 9.98585 16.6666 9.99919V10C16.6641 10.0134 16.6525 10.0867 16.5875 10.2309C16.4891 10.4385 16.3708 10.6361 16.2341 10.8209C15.9025 11.2817 15.4066 11.8142 14.78 12.3192C13.52 13.3367 11.8233 14.1667 9.99996 14.1667C8.17663 14.1667 6.48079 13.3367 5.21996 12.32C4.59329 11.815 4.09746 11.2825 3.76579 10.8217C3.62905 10.637 3.51071 10.4394 3.41246 10.2317C3.37604 10.1586 3.34942 10.0809 3.33329 10.0009ZM9.99996 4.16669C7.68079 4.16669 5.62663 5.21169 4.17413 6.38252C3.44329 6.97085 2.84079 7.61085 2.41329 8.20502C2.21086 8.48001 2.03638 8.77453 1.89246 9.08419C1.76913 9.35835 1.66663 9.67585 1.66663 10C1.66663 10.3234 1.76913 10.6425 1.89163 10.9159C2.02079 11.2009 2.19996 11.4992 2.41329 11.795C2.84079 12.3892 3.44329 13.0284 4.17413 13.6175C5.62663 14.7884 7.68079 15.8334 9.99996 15.8334C12.3191 15.8334 14.3733 14.7884 15.8258 13.6175C16.5566 13.0292 17.1591 12.3892 17.5866 11.795C17.8008 11.4984 17.9791 11.2009 18.1075 10.9159C18.2308 10.6425 18.3333 10.3242 18.3333 10C18.3333 9.67669 18.2308 9.35752 18.1083 9.08419C17.9639 8.7746 17.7892 8.4801 17.5866 8.20502C17.1591 7.61085 16.5566 6.97169 15.8258 6.38252C14.3733 5.21169 12.3191 4.16669 9.99996 4.16669ZM9.16663 10C9.16663 9.77901 9.25442 9.56705 9.4107 9.41077C9.56698 9.25448 9.77895 9.16669 9.99996 9.16669C10.221 9.16669 10.4329 9.25448 10.5892 9.41077C10.7455 9.56705 10.8333 9.77901 10.8333 10C10.8333 10.221 10.7455 10.433 10.5892 10.5893C10.4329 10.7456 10.221 10.8334 9.99996 10.8334C9.77895 10.8334 9.56698 10.7456 9.4107 10.5893C9.25442 10.433 9.16663 10.221 9.16663 10ZM9.99996 7.50002C9.33692 7.50002 8.70103 7.76341 8.23219 8.23225C7.76335 8.70109 7.49996 9.33698 7.49996 10C7.49996 10.6631 7.76335 11.2989 8.23219 11.7678C8.70103 12.2366 9.33692 12.5 9.99996 12.5C10.663 12.5 11.2989 12.2366 11.7677 11.7678C12.2366 11.2989 12.5 10.6631 12.5 10C12.5 9.33698 12.2366 8.70109 11.7677 8.23225C11.2989 7.76341 10.663 7.50002 9.99996 7.50002Z" fill="#676767"/>
+                                </svg>                                
+                                <span>23590</span>
+                            </a>
+                        </div>
+    
+                        <div class="sharing_btns_box">
+                            <ul class="blog_sharing_box r-flex ali-c">
+                                <li>
+                                    <a href="#" class="hero_sharing_facebook r-flex ali-c">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.66488 17.9166H10.9982V11.2416H14.0015L14.3315 7.92498H10.9982V6.24998C10.9982 6.02897 11.086 5.817 11.2423 5.66072C11.3986 5.50444 11.6105 5.41665 11.8315 5.41665H14.3315V2.08331H11.8315C10.7265 2.08331 9.66667 2.5223 8.88527 3.3037C8.10387 4.0851 7.66488 5.14491 7.66488 6.24998V7.92498H5.99821L5.66821 11.2416H7.66488V17.9166Z" fill="#ffffff"/>
+                                        </svg>                                        
+                                        <span>Share on Facbook</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hero_sharing_twitter r-flex ali-c">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M22.2119 5.65599C21.4488 5.99359 20.6395 6.21536 19.8109 6.31399C20.6839 5.79112 21.3372 4.96873 21.6489 3.99999C20.8289 4.48799 19.9299 4.82999 18.9939 5.01499C18.3645 4.34157 17.5302 3.89495 16.6208 3.74457C15.7114 3.59419 14.7778 3.74848 13.9651 4.18344C13.1525 4.6184 12.5063 5.30967 12.127 6.14978C11.7477 6.98989 11.6566 7.93177 11.8679 8.82899C10.2048 8.74578 8.57785 8.31371 7.09262 7.56085C5.60739 6.80799 4.29712 5.75116 3.24688 4.45899C2.87517 5.09744 2.67984 5.82321 2.68088 6.56199C2.68088 8.01199 3.41988 9.29299 4.54088 10.043C3.8769 10.022 3.22753 9.84273 2.64688 9.51999V9.57099C2.64685 10.5369 2.98091 11.473 3.59241 12.2207C4.20391 12.9683 5.05519 13.4814 6.00188 13.673C5.38552 13.8402 4.73917 13.8648 4.11188 13.745C4.3788 14.5764 4.89909 15.3035 5.59988 15.8244C6.30066 16.3453 7.14684 16.634 8.01988 16.65C7.15224 17.3314 6.15877 17.8352 5.09629 18.1324C4.03381 18.4295 2.92317 18.5144 1.82788 18.382C3.7396 19.6114 5.96499 20.2641 8.23788 20.262C15.9319 20.262 20.1379 13.889 20.1379 8.36199C20.1379 8.18199 20.1339 7.99999 20.1259 7.82099C20.9443 7.22935 21.6507 6.49555 22.2119 5.65599Z" fill="#ffffff"/>
+                                        </svg>                                            
+                                        <span>Tweet on Twitter</span>
+                                    </a>
+                                    
+                                </li>
+
+                                <li>
+                                    <a href="#" class="hero_sharing_google r-flex ali-c">
+                                        <svg width="28" height="20" viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 5.6749e-06C4.027 5.6749e-06 0 4.02701 0 9.00001C0 13.973 4.027 18 9 18C13.973 18 18 13.973 18 9.00001C18 8.38301 17.934 7.78101 17.812 7.20001L17.766 7.00001H9V10H15C14.523 12.836 11.973 15 9 15C5.687 15 3 12.312 3 9.00001C3 5.68701 5.688 3.00001 9 3.00001C10.5 3.00001 11.867 3.55501 12.922 4.46501L15.07 2.35901C13.414 0.839436 11.2475 -0.00252201 9 5.6749e-06ZM23 4.00001V7.00001H20V9.00001H23V12H25V9.00001H28V7.00001H25V4.00001H23Z" fill="#ffffff"/>
+                                        </svg>                                           
+                                                                                   
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="blog_main_cont_box">
+                            <img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat hic doloremque nobis est rerum ad voluptatum non, officia quae odio iure nam, aspernatur magni! Quia iusto distinctio atque tenetur odio excepturi et, aliquam cumque voluptatum quasi ea, sunt suscipit, reprehenderit nisi ab corporis. Vel unde fugiat est delectus eveniet esse obcaecati, modi adipisci laudantium, cum numquam doloremque, aut magni corporis.</p>
+
+                            <h2>Maecenas non convallis quam, eu sodales justo. Pellentesque quis lectus elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                            <div class="ads_box_space"></div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum, facilis minus cupiditate, reprehenderit ullam tempora cumque recusandae omnis dicta autem dolores porro qui? Hic ab iste sint repellendus aut, explicabo blanditiis. Molestias dolorum officiis, autem magnam, rem possimus aperiam similique natus iusto atque veniam eligendi quis nihil ducimus necessitatibus totam.</p>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum, facilis minus cupiditate, reprehenderit ullam tempora cumque recusandae omnis dicta autem dolores porro qui? Hic ab iste sint repellendus aut, explicabo blanditiis. Molestias dolorum officiis, autem magnam, rem possimus aperiam similique natus iusto atque veniam eligendi quis nihil ducimus necessitatibus totam.</p>
+                            <img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat hic doloremque nobis est rerum ad voluptatum non, officia quae odio iure nam, aspernatur magni! Quia iusto distinctio atque tenetur odio excepturi et, aliquam cumque voluptatum quasi ea, sunt suscipit, reprehenderit nisi ab corporis. Vel unde fugiat est delectus eveniet esse obcaecati, modi adipisci laudantium, cum numquam doloremque, aut magni corporis.</p>
+
+                            <h2>Maecenas non convallis quam, eu sodales justo. Pellentesque quis lectus elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum, facilis minus cupiditate, reprehenderit ullam tempora cumque recusandae omnis dicta autem dolores porro qui? Hic ab iste sint repellendus aut, explicabo blanditiis. Molestias dolorum officiis, autem magnam, rem possimus aperiam similique natus iusto atque veniam eligendi quis nihil ducimus necessitatibus totam.</p>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum, facilis minus cupiditate, reprehenderit ullam tempora cumque recusandae omnis dicta autem dolores porro qui? Hic ab iste sint repellendus aut, explicabo blanditiis. Molestias dolorum officiis, autem magnam, rem possimus aperiam similique natus iusto atque veniam eligendi quis nihil ducimus necessitatibus totam.</p>
+
+                            <ul >
+                                <li class="r-flex ali-c blog_cont_list">
+                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.29007 9.88L5.17007 6L1.29007 2.12C1.19749 2.02742 1.12405 1.91751 1.07394 1.79654C1.02384 1.67558 0.998047 1.54593 0.998047 1.415C0.998047 1.28407 1.02384 1.15442 1.07394 1.03346C1.12405 0.912494 1.19749 0.802583 1.29007 0.710001C1.38265 0.617419 1.49256 0.543979 1.61352 0.493874C1.73449 0.443769 1.86414 0.41798 1.99507 0.41798C2.126 0.41798 2.25565 0.443769 2.37661 0.493874C2.49757 0.543979 2.60749 0.617419 2.70007 0.710001L7.29007 5.3C7.68007 5.69 7.68007 6.32 7.29007 6.71L2.70007 11.3C2.60755 11.3927 2.49767 11.4663 2.37669 11.5164C2.25572 11.5666 2.12604 11.5924 1.99507 11.5924C1.8641 11.5924 1.73442 11.5666 1.61344 11.5164C1.49247 11.4663 1.38258 11.3927 1.29007 11.3C0.910068 10.91 0.900068 10.27 1.29007 9.88Z" fill="#303030"/>
+                                    </svg>                                        
+                                    <span>Integer sit amet odio ac lectus imperdiet elementum</span>
+                                </li>
+                                <li class="r-flex ali-c blog_cont_list">
+                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.29007 9.88L5.17007 6L1.29007 2.12C1.19749 2.02742 1.12405 1.91751 1.07394 1.79654C1.02384 1.67558 0.998047 1.54593 0.998047 1.415C0.998047 1.28407 1.02384 1.15442 1.07394 1.03346C1.12405 0.912494 1.19749 0.802583 1.29007 0.710001C1.38265 0.617419 1.49256 0.543979 1.61352 0.493874C1.73449 0.443769 1.86414 0.41798 1.99507 0.41798C2.126 0.41798 2.25565 0.443769 2.37661 0.493874C2.49757 0.543979 2.60749 0.617419 2.70007 0.710001L7.29007 5.3C7.68007 5.69 7.68007 6.32 7.29007 6.71L2.70007 11.3C2.60755 11.3927 2.49767 11.4663 2.37669 11.5164C2.25572 11.5666 2.12604 11.5924 1.99507 11.5924C1.8641 11.5924 1.73442 11.5666 1.61344 11.5164C1.49247 11.4663 1.38258 11.3927 1.29007 11.3C0.910068 10.91 0.900068 10.27 1.29007 9.88Z" fill="#303030"/>
+                                    </svg>                                        
+                                    <span>Integer sit amet odio ac lectus imperdiet elementum</span>
+                                </li>
+                                <li class="r-flex ali-c blog_cont_list">
+                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.29007 9.88L5.17007 6L1.29007 2.12C1.19749 2.02742 1.12405 1.91751 1.07394 1.79654C1.02384 1.67558 0.998047 1.54593 0.998047 1.415C0.998047 1.28407 1.02384 1.15442 1.07394 1.03346C1.12405 0.912494 1.19749 0.802583 1.29007 0.710001C1.38265 0.617419 1.49256 0.543979 1.61352 0.493874C1.73449 0.443769 1.86414 0.41798 1.99507 0.41798C2.126 0.41798 2.25565 0.443769 2.37661 0.493874C2.49757 0.543979 2.60749 0.617419 2.70007 0.710001L7.29007 5.3C7.68007 5.69 7.68007 6.32 7.29007 6.71L2.70007 11.3C2.60755 11.3927 2.49767 11.4663 2.37669 11.5164C2.25572 11.5666 2.12604 11.5924 1.99507 11.5924C1.8641 11.5924 1.73442 11.5666 1.61344 11.5164C1.49247 11.4663 1.38258 11.3927 1.29007 11.3C0.910068 10.91 0.900068 10.27 1.29007 9.88Z" fill="#303030"/>
+                                    </svg>                                        
+                                    <span>Integer sit amet odio ac lectus imperdiet elementum</span>
+                                </li>
+                                <li class="r-flex ali-c blog_cont_list">
+                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.29007 9.88L5.17007 6L1.29007 2.12C1.19749 2.02742 1.12405 1.91751 1.07394 1.79654C1.02384 1.67558 0.998047 1.54593 0.998047 1.415C0.998047 1.28407 1.02384 1.15442 1.07394 1.03346C1.12405 0.912494 1.19749 0.802583 1.29007 0.710001C1.38265 0.617419 1.49256 0.543979 1.61352 0.493874C1.73449 0.443769 1.86414 0.41798 1.99507 0.41798C2.126 0.41798 2.25565 0.443769 2.37661 0.493874C2.49757 0.543979 2.60749 0.617419 2.70007 0.710001L7.29007 5.3C7.68007 5.69 7.68007 6.32 7.29007 6.71L2.70007 11.3C2.60755 11.3927 2.49767 11.4663 2.37669 11.5164C2.25572 11.5666 2.12604 11.5924 1.99507 11.5924C1.8641 11.5924 1.73442 11.5666 1.61344 11.5164C1.49247 11.4663 1.38258 11.3927 1.29007 11.3C0.910068 10.91 0.900068 10.27 1.29007 9.88Z" fill="#303030"/>
+                                    </svg>                                        
+                                    <span>Integer sit amet odio ac lectus imperdiet elementum</span>
+                                </li>
+                                <li class="r-flex ali-c blog_cont_list">
+                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.29007 9.88L5.17007 6L1.29007 2.12C1.19749 2.02742 1.12405 1.91751 1.07394 1.79654C1.02384 1.67558 0.998047 1.54593 0.998047 1.415C0.998047 1.28407 1.02384 1.15442 1.07394 1.03346C1.12405 0.912494 1.19749 0.802583 1.29007 0.710001C1.38265 0.617419 1.49256 0.543979 1.61352 0.493874C1.73449 0.443769 1.86414 0.41798 1.99507 0.41798C2.126 0.41798 2.25565 0.443769 2.37661 0.493874C2.49757 0.543979 2.60749 0.617419 2.70007 0.710001L7.29007 5.3C7.68007 5.69 7.68007 6.32 7.29007 6.71L2.70007 11.3C2.60755 11.3927 2.49767 11.4663 2.37669 11.5164C2.25572 11.5666 2.12604 11.5924 1.99507 11.5924C1.8641 11.5924 1.73442 11.5666 1.61344 11.5164C1.49247 11.4663 1.38258 11.3927 1.29007 11.3C0.910068 10.91 0.900068 10.27 1.29007 9.88Z" fill="#303030"/>
+                                    </svg>                                        
+                                    <span>Integer sit amet odio ac lectus imperdiet elementum</span>
+                                </li>
+                            </ul>
+
+                            <h2>Maecenas non convallis quam, eu sodales justo. Pellentesque quis lectus elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum, facilis minus cupiditate, reprehenderit ullam tempora cumque recusandae omnis dicta autem dolores porro qui? Hic ab iste sint repellendus aut, explicabo blanditiis. Molestias dolorum officiis, autem magnam, rem possimus aperiam similique natus iusto atque veniam eligendi quis nihil ducimus necessitatibus totam.</p>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum, facilis minus cupiditate, reprehenderit ullam tempora cumque recusandae omnis dicta autem dolores porro qui? Hic ab iste sint repellendus aut, explicabo blanditiis. Molestias dolorum officiis, autem magnam, rem possimus aperiam similique natus iusto atque veniam eligendi quis nihil ducimus necessitatibus totam.</p>
+                            <img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+
+                        </div>
+
+                        <div class="blog_cont_tag r-flex ali-c">
+                            <span>Tag</span>
+                            <a href="#" class="blog_cont_tag_list">Lifestyle</a>
+                            <a href="#" class="blog_cont_tag_list">colorful</a>
+                            <a href="#" class="blog_cont_tag_list">tranding</a>
+                            <a href="#" class="blog_cont_tag_list">auther</a>
+                            <a href="#" class="blog_cont_tag_list">fation</a>
+                        </div>
+
+                        <div class="sharing_btns_box">
+                            <ul class="blog_sharing_box r-flex ali-c">
+                                <li>
+                                    <a href="#" class="hero_sharing_facebook r-flex ali-c">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.66488 17.9166H10.9982V11.2416H14.0015L14.3315 7.92498H10.9982V6.24998C10.9982 6.02897 11.086 5.817 11.2423 5.66072C11.3986 5.50444 11.6105 5.41665 11.8315 5.41665H14.3315V2.08331H11.8315C10.7265 2.08331 9.66667 2.5223 8.88527 3.3037C8.10387 4.0851 7.66488 5.14491 7.66488 6.24998V7.92498H5.99821L5.66821 11.2416H7.66488V17.9166Z" fill="#ffffff"/>
+                                        </svg>                                        
+                                        <span>Share on Facbook</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="hero_sharing_twitter r-flex ali-c">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M22.2119 5.65599C21.4488 5.99359 20.6395 6.21536 19.8109 6.31399C20.6839 5.79112 21.3372 4.96873 21.6489 3.99999C20.8289 4.48799 19.9299 4.82999 18.9939 5.01499C18.3645 4.34157 17.5302 3.89495 16.6208 3.74457C15.7114 3.59419 14.7778 3.74848 13.9651 4.18344C13.1525 4.6184 12.5063 5.30967 12.127 6.14978C11.7477 6.98989 11.6566 7.93177 11.8679 8.82899C10.2048 8.74578 8.57785 8.31371 7.09262 7.56085C5.60739 6.80799 4.29712 5.75116 3.24688 4.45899C2.87517 5.09744 2.67984 5.82321 2.68088 6.56199C2.68088 8.01199 3.41988 9.29299 4.54088 10.043C3.8769 10.022 3.22753 9.84273 2.64688 9.51999V9.57099C2.64685 10.5369 2.98091 11.473 3.59241 12.2207C4.20391 12.9683 5.05519 13.4814 6.00188 13.673C5.38552 13.8402 4.73917 13.8648 4.11188 13.745C4.3788 14.5764 4.89909 15.3035 5.59988 15.8244C6.30066 16.3453 7.14684 16.634 8.01988 16.65C7.15224 17.3314 6.15877 17.8352 5.09629 18.1324C4.03381 18.4295 2.92317 18.5144 1.82788 18.382C3.7396 19.6114 5.96499 20.2641 8.23788 20.262C15.9319 20.262 20.1379 13.889 20.1379 8.36199C20.1379 8.18199 20.1339 7.99999 20.1259 7.82099C20.9443 7.22935 21.6507 6.49555 22.2119 5.65599Z" fill="#ffffff"/>
+                                        </svg>                                            
+                                        <span>Tweet on Twitter</span>
+                                    </a>
+                                    
+                                </li>
+
+                                <li>
+                                    <a href="#" class="hero_sharing_google r-flex ali-c">
+                                        <svg width="28" height="20" viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 5.6749e-06C4.027 5.6749e-06 0 4.02701 0 9.00001C0 13.973 4.027 18 9 18C13.973 18 18 13.973 18 9.00001C18 8.38301 17.934 7.78101 17.812 7.20001L17.766 7.00001H9V10H15C14.523 12.836 11.973 15 9 15C5.687 15 3 12.312 3 9.00001C3 5.68701 5.688 3.00001 9 3.00001C10.5 3.00001 11.867 3.55501 12.922 4.46501L15.07 2.35901C13.414 0.839436 11.2475 -0.00252201 9 5.6749e-06ZM23 4.00001V7.00001H20V9.00001H23V12H25V9.00001H28V7.00001H25V4.00001H23Z" fill="#ffffff"/>
+                                        </svg>                                           
+                                                                                   
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ads_barner_box">
+                            <img src="images/logo.png" alt="">
+                        </div>
+
+                        <div class="perv_and_next_post r-flex ali-c jut-sb">
+                            <div class="blog_perv_box r-flex ali-c jut-sb">
+                                <div class="left_prev_box">
+                                    <h3 class="blog_prve_head">5 Beautiful buildings you need to before dying</h3>
+                                    <a href="#" class="vlog_perv_btn">Prev Post</a>
+                                </div>
+                                <div class="right_prev_box"><img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt=""></div>
+                            </div>
+                            <div class="blog_next_box r-flex ali-c jut-sb">
+                                <div class="left_prev_box">
+                                    <h3 class="blog_next_head">5 Beautiful buildings you need to before dying</h3>
+                                    <a href="#" class="vlog_next_btn r-flex ali-c">Next Post</a>
+                                </div>
+                                <div class="right_prev_box"><img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt=""></div>
+                            </div>
+                        </div>
+
+                        <div class="blog_author_container">
+                            <div class="about_author_text">About author</div>
+                            <div class="blog_author_box r-flex ">
+                                <div class="blog_author_pi"><img src="images/logo.png" alt=""></div>
+                                <div class="blog_about_author_cont">
+                                    <div class="blog_author_name">Devender</div>
+                                    <div class="blog_author_details">
+                                        Quisque sed tristique felis. Lorem visit my website amet, consectetur adipiscing elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus congue feugiat. Thanks for stop Cloapedia!
+                                    </div>
+                                    <div class="blog_author_socile_media r-flex ali-c">
+
+                                        <a href="#" title="Facebook">
+                                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_70_2)">
+                                                <path d="M25 12.5C25 5.59648 19.4035 0 12.5 0C5.59648 0 0 5.59639 0 12.5C0 18.7391 4.57109 23.9104 10.5469 24.8481V16.1133H7.37305V12.5H10.5469V9.74609C10.5469 6.61328 12.4131 4.88281 15.2683 4.88281C16.6359 4.88281 18.0664 5.12695 18.0664 5.12695V8.20312H16.4902C14.9373 8.20312 14.4531 9.1667 14.4531 10.1553V12.5H17.9199L17.3657 16.1133H14.4531V24.8481C20.4289 23.9104 25 18.7392 25 12.5Z" fill="#1877F2"/>
+                                                <path d="M17.3657 16.1133L17.9199 12.5H14.4531V10.1553C14.4531 9.1666 14.9374 8.20312 16.4902 8.20312H18.0664V5.12695C18.0664 5.12695 16.6359 4.88281 15.2683 4.88281C12.4131 4.88281 10.5469 6.61328 10.5469 9.74609V12.5H7.37305V16.1133H10.5469V24.8481C11.193 24.9494 11.846 25.0002 12.5 25C13.154 25.0002 13.807 24.9494 14.4531 24.8481V16.1133H17.3657Z" fill="white"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_70_2">
+                                                <rect width="25" height="25" fill="white"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>                                                
+                                        </a>
+
+                                        <a href="#" title="You Tube">
+                                            <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_70_5)">
+                                                <path d="M24.4479 3.11944C24.3045 2.51651 24.0248 1.96683 23.6366 1.52514C23.2484 1.08346 22.7653 0.765179 22.2354 0.602C20.2953 0 12.4873 0 12.4873 0C12.4873 0 4.67892 0.0182222 2.73889 0.620222C2.20895 0.783411 1.72584 1.10171 1.33766 1.54341C0.949476 1.98512 0.669767 2.53482 0.526386 3.13778C-0.0604304 7.05978 -0.288067 13.036 0.542499 16.8011C0.685895 17.4041 0.965611 17.9537 1.35379 18.3954C1.74198 18.8371 2.22508 19.1554 2.755 19.3186C4.69504 19.9206 12.5032 19.9206 12.5032 19.9206C12.5032 19.9206 20.3113 19.9206 22.2513 19.3186C22.7812 19.1554 23.2644 18.8371 23.6526 18.3954C24.0408 17.9538 24.3205 17.4041 24.4639 16.8011C25.0828 12.8736 25.2736 6.901 24.4479 3.11944Z" fill="#FF0000"/>
+                                                <path d="M10.002 14.2289L16.4793 9.96019L10.002 5.69153V14.2289Z" fill="white"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_70_5">
+                                                <rect width="25" height="20" fill="white"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>                                                
+                                        </a>
+
+                                        <a href="#" title="Twitter">
+                                            <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_70_8)">
+                                                <path d="M25 2.43542C24.0638 2.84181 23.0709 3.10856 22.0541 3.22681C23.1132 2.6048 23.9264 1.61982 24.3093 0.446234C23.3025 1.03167 22.201 1.44415 21.0523 1.66585C20.1167 0.689105 18.7838 0.0786743 17.3085 0.0786743C14.4759 0.0786743 12.1793 2.32901 12.1793 5.10451C12.1793 5.49848 12.2247 5.88202 12.3121 6.24997C8.04941 6.0403 4.27012 4.03944 1.74033 0.998674C1.29893 1.74097 1.046 2.60442 1.046 3.52537C1.046 5.26911 1.95156 6.80738 3.32773 7.70872C2.51323 7.68373 1.71665 7.46816 1.00449 7.08001C1.0042 7.10107 1.0042 7.12212 1.0042 7.14327C1.0042 9.57839 2.77217 11.6098 5.11846 12.0715C4.36317 12.2728 3.57093 12.3022 2.80225 12.1576C3.45488 14.1544 5.34912 15.6074 7.59346 15.6481C5.83809 16.996 3.62646 17.7995 1.22354 17.7995C0.809473 17.7995 0.40127 17.7757 0 17.7293C2.26982 19.1553 4.96582 19.9874 7.8623 19.9874C17.2966 19.9874 22.4555 12.3289 22.4555 5.68738C22.4555 5.46939 22.4506 5.25265 22.4406 5.03714C23.4448 4.32584 24.3114 3.44481 25 2.43542Z" fill="#55ACEE"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_70_8">
+                                                <rect width="25" height="20" fill="white"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>                                                
+                                        </a>
+
+                                        <a href="#" title="Instagram">
+                                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_70_10)">
+                                                <path d="M19.1406 0H5.85938C2.62333 0 0 2.62333 0 5.85938V19.1406C0 22.3767 2.62333 25 5.85938 25H19.1406C22.3767 25 25 22.3767 25 19.1406V5.85938C25 2.62333 22.3767 0 19.1406 0Z" fill="url(#paint0_radial_70_10)"/>
+                                                <path d="M19.1406 0H5.85938C2.62333 0 0 2.62333 0 5.85938V19.1406C0 22.3767 2.62333 25 5.85938 25H19.1406C22.3767 25 25 22.3767 25 19.1406V5.85938C25 2.62333 22.3767 0 19.1406 0Z" fill="url(#paint1_radial_70_10)"/>
+                                                <path d="M12.5009 2.73438C9.84873 2.73438 9.51582 2.746 8.47422 2.79336C7.43457 2.84102 6.7249 3.00557 6.104 3.24707C5.46162 3.49648 4.9168 3.83018 4.37402 4.37314C3.83076 4.91602 3.49707 5.46084 3.24688 6.10293C3.00469 6.72402 2.83994 7.43398 2.79316 8.47314C2.74658 9.51484 2.73438 9.84785 2.73438 12.5001C2.73438 15.1523 2.74609 15.4842 2.79336 16.5258C2.84121 17.5654 3.00576 18.2751 3.24707 18.896C3.49668 19.5384 3.83037 20.0832 4.37334 20.626C4.91602 21.1692 5.46084 21.5037 6.10273 21.7531C6.72412 21.9946 7.43389 22.1592 8.47334 22.2068C9.51504 22.2542 9.84766 22.2658 12.4997 22.2658C15.1521 22.2658 15.484 22.2542 16.5256 22.2068C17.5652 22.1592 18.2757 21.9946 18.8971 21.7531C19.5392 21.5037 20.0832 21.1692 20.6258 20.626C21.169 20.0832 21.5026 19.5384 21.7529 18.8963C21.993 18.2751 22.1578 17.5652 22.2066 16.526C22.2534 15.4844 22.2656 15.1523 22.2656 12.5001C22.2656 9.84785 22.2534 9.51504 22.2066 8.47334C22.1578 7.43369 21.993 6.72412 21.7529 6.10322C21.5026 5.46084 21.169 4.91602 20.6258 4.37314C20.0826 3.82998 19.5394 3.49629 18.8965 3.24717C18.2739 3.00557 17.5639 2.84092 16.5242 2.79336C15.4825 2.746 15.1509 2.73438 12.4979 2.73438H12.5009ZM11.6248 4.49424C11.8849 4.49385 12.175 4.49424 12.5009 4.49424C15.1084 4.49424 15.4174 4.50361 16.4471 4.55039C17.3992 4.59395 17.916 4.75303 18.2603 4.88672C18.716 5.06367 19.0409 5.27529 19.3825 5.61719C19.7243 5.95898 19.9358 6.28447 20.1133 6.74023C20.247 7.08398 20.4063 7.60078 20.4496 8.55293C20.4964 9.58242 20.5065 9.8916 20.5065 12.4979C20.5065 15.1041 20.4964 15.4134 20.4496 16.4428C20.4061 17.3949 20.247 17.9117 20.1133 18.2556C19.9363 18.7113 19.7243 19.0358 19.3825 19.3774C19.0407 19.7192 18.7162 19.9308 18.2603 20.1078C17.9164 20.2421 17.3992 20.4008 16.4471 20.4443C15.4176 20.4911 15.1084 20.5013 12.5009 20.5013C9.89326 20.5013 9.58418 20.4911 8.55478 20.4443C7.60264 20.4004 7.08584 20.2413 6.74131 20.1076C6.28564 19.9306 5.96006 19.719 5.61826 19.3772C5.27646 19.0354 5.06494 18.7107 4.8875 18.2548C4.75381 17.9109 4.59453 17.3941 4.55117 16.442C4.50439 15.4125 4.49502 15.1033 4.49502 12.4954C4.49502 9.8876 4.50439 9.57998 4.55117 8.55049C4.59473 7.59834 4.75381 7.08154 4.8875 6.7373C5.06455 6.28154 5.27646 5.95605 5.61836 5.61426C5.96016 5.27246 6.28564 5.06084 6.74141 4.8835C7.08564 4.74922 7.60264 4.59053 8.55478 4.54678C9.45566 4.50605 9.80479 4.49385 11.6248 4.4918V4.49424ZM17.7138 6.11572C17.0668 6.11572 16.5419 6.64014 16.5419 7.28721C16.5419 7.93418 17.0668 8.45908 17.7138 8.45908C18.3607 8.45908 18.8856 7.93418 18.8856 7.28721C18.8856 6.64023 18.3607 6.11533 17.7138 6.11533V6.11572ZM12.5009 7.48496C9.73135 7.48496 7.48584 9.73047 7.48584 12.5001C7.48584 15.2697 9.73135 17.5142 12.5009 17.5142C15.2705 17.5142 17.5152 15.2697 17.5152 12.5001C17.5152 9.73057 15.2703 7.48496 12.5007 7.48496H12.5009ZM12.5009 9.24482C14.2986 9.24482 15.7562 10.7021 15.7562 12.5001C15.7562 14.2979 14.2986 15.7554 12.5009 15.7554C10.703 15.7554 9.2457 14.2979 9.2457 12.5001C9.2457 10.7021 10.703 9.24482 12.5009 9.24482Z" fill="white"/>
+                                                </g>
+                                                <defs>
+                                                <radialGradient id="paint0_radial_70_10" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(6.64062 26.9255) rotate(-90) scale(24.7769 23.0444)">
+                                                <stop stop-color="#FFDD55"/>
+                                                <stop offset="0.1" stop-color="#FFDD55"/>
+                                                <stop offset="0.5" stop-color="#FF543E"/>
+                                                <stop offset="1" stop-color="#C837AB"/>
+                                                </radialGradient>
+                                                <radialGradient id="paint1_radial_70_10" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-4.1876 1.80088) rotate(78.681) scale(11.0754 45.6531)">
+                                                <stop stop-color="#3771C8"/>
+                                                <stop offset="0.128" stop-color="#3771C8"/>
+                                                <stop offset="1" stop-color="#6600FF" stop-opacity="0"/>
+                                                </radialGradient>
+                                                <clipPath id="clip0_70_10">
+                                                <rect width="25" height="25" fill="white"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>                                                
+                                        </a>
+
+                                        <a href="#" title="Profile link">
+                                            <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.32192 13.2544C9.80987 13.7396 9.80987 14.5359 9.32192 15.0212C8.85777 15.5064 8.09608 15.5064 7.63193 15.0212C6.51723 13.854 5.89114 12.2721 5.89114 10.6228C5.89114 8.9735 6.51723 7.3916 7.63193 6.22448L11.845 1.81992C12.9614 0.65455 14.4745 0 16.0521 0C17.6297 0 19.1428 0.65455 20.2592 1.81992C21.3739 2.98704 22 4.56894 22 6.21826C22 7.86758 21.3739 9.44948 20.2592 10.6166L18.4859 12.4705C18.4978 11.4502 18.3431 10.43 18.0099 9.45947L18.5692 8.86224C18.9029 8.5172 19.1677 8.10641 19.3485 7.65364C19.5293 7.20087 19.6223 6.71511 19.6223 6.22448C19.6223 5.73385 19.5293 5.2481 19.3485 4.79532C19.1677 4.34255 18.9029 3.93176 18.5692 3.58672C18.2392 3.23792 17.8463 2.96101 17.4132 2.77203C16.9801 2.58304 16.5154 2.48573 16.0461 2.48573C15.5769 2.48573 15.1122 2.58304 14.6791 2.77203C14.246 2.96101 13.8531 3.23792 13.5231 3.58672L9.32192 7.97884C8.98828 8.32388 8.72341 8.73467 8.54264 9.18744C8.36188 9.64021 8.2688 10.126 8.2688 10.6166C8.2688 11.1072 8.36188 11.593 8.54264 12.0458C8.72341 12.4985 8.98828 12.9093 9.32192 13.2544ZM12.6781 7.97884C13.1422 7.49359 13.9039 7.49359 14.3681 7.97884C15.4828 9.14596 16.1089 10.7279 16.1089 12.3772C16.1089 14.0265 15.4828 15.6084 14.3681 16.7755L10.155 21.1801C9.03863 22.3455 7.52551 23 5.9479 23C4.37029 23 2.85717 22.3455 1.74079 21.1801C0.626092 20.013 0 18.4311 0 16.7817C0 15.1324 0.626092 13.5505 1.74079 12.3834L3.51409 10.5295C3.50218 11.5498 3.6569 12.57 3.99014 13.553L3.43078 14.1378C3.09714 14.4828 2.83227 14.8936 2.6515 15.3464C2.47074 15.7991 2.37766 16.2849 2.37766 16.7755C2.37766 17.2661 2.47074 17.7519 2.6515 18.2047C2.83227 18.6574 3.09714 19.0682 3.43078 19.4133C3.76081 19.7621 4.15375 20.039 4.58683 20.228C5.01992 20.417 5.48455 20.5143 5.95385 20.5143C6.42315 20.5143 6.88779 20.417 7.32087 20.228C7.75396 20.039 8.14689 19.7621 8.47693 19.4133L12.6781 15.0212C13.0117 14.6761 13.2766 14.2653 13.4574 13.8126C13.6381 13.3598 13.7312 12.874 13.7312 12.3834C13.7312 11.8928 13.6381 11.407 13.4574 10.9542C13.2766 10.5015 13.0117 10.0907 12.6781 9.74564C12.5625 9.63241 12.4704 9.49558 12.4074 9.34364C12.3444 9.19169 12.3119 9.02784 12.3119 8.86224C12.3119 8.69664 12.3444 8.53279 12.4074 8.38084C12.4704 8.2289 12.5625 8.09207 12.6781 7.97884Z" fill="#3771C8"/>
+                                            </svg>                                                
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog_also_container">
+                            <div class="blog_also_head">You may also like</div>
+                            <div class="blog_also_box r-flex">
+                                <div class="blog_also_blog">
+                                    <img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                    <div class="blog_also_blog_heading">We are guests of ABC Design Studio</div>
+                                    <div class="alos_publice_blog r-flex ali-c">
+                                        <a href="#">Trends</a>
+                                        <span>/</span>
+                                        <a href="#">23 july, 2019</a>
+                                    </div>
+                                </div>
+                                <div class="blog_also_blog">
+                                    <img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                    <div class="blog_also_blog_heading">We are guests of ABC Design Studio</div>
+                                    <div class="alos_publice_blog r-flex ali-c">
+                                        <a href="#">Trends</a>
+                                        <span>/</span>
+                                        <a href="#">23 july, 2019</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ======== comment box ======== -->
+
+                        <div class="comments__show_container">
+                            <div class="comment_show_boder_head">3 Comments</div>
+                            <div class="comments_show_box c-flex ali-c jut-c">
+                                <div class="comments_show_cmt r-flex ">
+                                    <div class="comment_user_img">
+                                        <img src="images/logo.png" alt="">
+                                    </div>
+                                    <div class="comments_right_side_show">
+                                        <div class="comments_show_name_and_time r-flex ali-c">
+                                            <span class="comment_show_name">Devender</span>
+                                            <span class="comment_show_time">30 days ago</span>
+                                        </div>
+                                        <div class="comment_show_main_cont">Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. Selfies iPhone Kickstarter, drinking vinegar jean.</div>
+                                        <button class="comment_cont_reply">Reply</button>
+                                    </div>
+                                </div>
+                                <div class="comments_show_cmt r-flex ">
+                                    <div class="comment_user_img">
+                                        <img src="images/logo.png" alt="">
+                                    </div>
+                                    <div class="comments_right_side_show">
+                                        <div class="comments_show_name_and_time r-flex ali-c">
+                                            <span class="comment_show_name">Devender</span>
+                                            <span class="comment_show_time">30 days ago</span>
+                                        </div>
+                                        <div class="comment_show_main_cont">Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. Selfies iPhone Kickstarter, drinking vinegar jean.</div>
+                                        <button class="comment_cont_reply">Reply</button>
+                                    </div>
+                                </div>
+                                <div class="comments_show_cmt r-flex ">
+                                    <div class="comment_user_img">
+                                        <img src="images/logo.png" alt="">
+                                    </div>
+                                    <div class="comments_right_side_show">
+                                        <div class="comments_show_name_and_time r-flex ali-c">
+                                            <span class="comment_show_name">Devender</span>
+                                            <span class="comment_show_time">30 days ago</span>
+                                        </div>
+                                        <div class="comment_show_main_cont">Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. Selfies iPhone Kickstarter, drinking vinegar jean.</div>
+                                        <button class="comment_cont_reply">Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ============ leave reply box ========= -->
+
+                        <div class="reply_container">
+                            <div class="blog_reply_border_head">Leave a Reply</div>
+                            <form class="comments_form_box">
+                                <input type="name" name="naem" placeholder="Your name">
+                                <input type="email" name="email" id="comment_email" placeholder="E-mail address">
+                                <input type="url" name="url" id="web_url" placeholder="Website">
+                                <textarea name="comment" id="comment_text" cols="30" rows="10" placeholder="Your comment"></textarea>
+                                <button class="blog_comment_btn" type="submit">Submit Comment</button>
+                            </form>
+                        </div>
+
+                    </div>
+
+
+                    
+
+                    
+                    <!-- ====== right ====== -->
+                    <div class="right_hero_blog">
+                        <div class="right_container">
+
+                            <!-- ====== right search ===== -->
+                            <div class="blog_right_search_box">
+                                <div class="blog_search_head">Search</div>
+                                <form class="blog_search_box r-flex ali-c">
+                                    <input type="search" name="search" id="blog_search" placeholder="Search blog">
+                                    <button type="submit">
+                                        <svg width="16" height="16" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M26.2083 26.2083L32.375 32.375M4.625 16.9583C4.625 20.2293 5.9244 23.3664 8.23735 25.6793C10.5503 27.9923 13.6873 29.2917 16.9583 29.2917C20.2293 29.2917 23.3664 27.9923 25.6793 25.6793C27.9923 23.3664 29.2917 20.2293 29.2917 16.9583C29.2917 13.6873 27.9923 10.5503 25.6793 8.23735C23.3664 5.9244 20.2293 4.625 16.9583 4.625C13.6873 4.625 10.5503 5.9244 8.23735 8.23735C5.9244 10.5503 4.625 13.6873 4.625 16.9583Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </button>
+                                </form>
+
+                            </div>
+
+                            <!-- ======= right recent post ======= -->
+                            <div class="bolg_right_recent_post_container">
+                                <div class="main_hading_right_recent_post">Recent Post</div>
+                                <div class="recent_right_blog_box r-flex ali-c">
+                                    <div class="recent_rght_blog_post_img"><img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt=""></div>
+                                    <div class="recent_blog_cont_box">
+                                        <div class="recent_blog_box_heading">5 Beautiful buildings you need</div>
+                                        <div class="recent_right_blog_post_time">12 Jan, 2024</div>
+                                    </div>
+                                </div>
+                                <div class="recent_right_blog_box r-flex ali-c">
+                                    <div class="recent_rght_blog_post_img"><img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt=""></div>
+                                    <div class="recent_blog_cont_box">
+                                        <div class="recent_blog_box_heading">5 Beautiful buildings you need</div>
+                                        <div class="recent_right_blog_post_time">12 Jan, 2024</div>
+                                    </div>
+                                </div>
+                                <div class="recent_right_blog_box r-flex ali-c">
+                                    <div class="recent_rght_blog_post_img"><img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt=""></div>
+                                    <div class="recent_blog_cont_box">
+                                        <div class="recent_blog_box_heading">5 Beautiful buildings you need</div>
+                                        <div class="recent_right_blog_post_time">12 Jan, 2024</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ====== ads ==== -->
+                            <div class="ads_right_blog_side">
+                                <div class="ads_main_head_blog">Advertising</div>
+                                <div class="ads_img_box_right_blog">
+                                    <img src="https://images.unsplash.com/photo-1681316151065-f75049d1b7ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1641&q=80" alt="">
+                                </div>
+                                <div class="ads_img_box_right_blog">
+                                    <img src="https://images.unsplash.com/photo-1681316152147-e8dffd56404c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1477&q=80" alt="">
+                                </div>
+                            </div>
+
+                            <!-- ===== right populer categories ===== -->
+                            <div class="populer_categ_container">
+                                <div class="main_right_popu_categ_head">Popular Categories</div>
+                                <div class="right_blog_categ_box">
+                                        <a href="#" class="r-flex ali-c jut-sb">
+                                            <span>Fation</span>
+                                            <span>(21)</span>
+                                        </a>
+                                        <a href="#" class="r-flex ali-c jut-sb">
+                                            <span>Lifestyle</span>
+                                            <span>(26)</span>
+                                        </a>
+                                        <a href="#" class="r-flex ali-c jut-sb">
+                                            <span>Art & Design</span>
+                                            <span>(51)</span>
+                                        </a>
+                                        <a href="#" class="r-flex ali-c jut-sb">
+                                            <span>Health Beauty</span>
+                                            <span>(26)</span>
+                                        </a>
+                                        <a href="#" class="r-flex ali-c jut-sb">
+                                            <span>Clothing</span>
+                                            <span>(31)</span>
+                                        </a>
+                                        <a href="#" class="r-flex ali-c jut-sb">
+                                            <span>Food & Drink</span>
+                                            <span>(21)</span>
+                                        </a>
+                                        <a href="#" class="r-flex ali-c jut-sb">
+                                            <span>Entertaintment</span>
+                                            <span>(34)</span>
+                                        </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+     </main>
+
+     <script src="js/jquery.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+        function ImageUploaded(e){
+        console.log(e.files)
+        console.log(e.id)
+        let body = new FormData();
+        body.append("blogId", "6437cf61159891149608d102")
+        body.append("userId", "641be792bacccc03c37fc0e4")
+        body.append("image", e.files[0])
+        fetch ("https://back.autumnkurenai.com/image", 
+        {
+            method: "POST",
+            body: body
+        })
+        .then(res => res.json())
+        .then(data=>{
+          console.log(data.file.url);
+          elem = document.getElementById("image_"+e.id)
+          elem.src = data.file.url;
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+    }
+
+    class SimpleImage {
+      static get toolbox() {
+        return {
+          title: 'Image',
+          icon: '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z"/></svg>'
+        };
+      }
+      constructor({data}){
+          console.log(data.url)
+          if (data.url){
+            this.data = data.url;
+        }
+        else{
+            this.data = "";
+        }
+    }
+
+      render(){
+        var uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
+        var div = document.createElement("div")
+
+        div.innerHTML = '<input type="file" id="' + uid + '" onChange="ImageUploaded(this)" hidden/>'+ '<label style="text-align: center;" for="' + uid + '"><img src=' + this.data + ' id=' + "image_" + uid + ' style="display:block; background-color:grey; width:500px; height:400px"></img></label>'
+        var i=i+1
+        return div;
+      }
+
+      save(blockContent){
+        console.log(blockContent.getElementsByTagName('img')[0])
+        var img = blockContent.getElementsByTagName('img')[0]
+        return {
+          url: img.src
+        }
+      }
+    }
+        function saveEditor() {
+            editor.save().then((output) => {
+                console.log('Data: ', output);
+                const blog = {
+                    id: "6437cf61159891149608d102",
+                    body: output,
+                    title: document.getElementById('title').innerHTML,
+                    // "cleanHtml(document.getElementById("BlogTitle").innerHTML),"
+                    titleImage: document.getElementById("titleImage").src,
+                    tags: getTags()
+                };
+                console.log(blog)
+                saveData(blog);
+                alert("Blog submitted for review")
+            })
+        
+            // .catch((err) => {
+            //   //console.error(err);
+            //   toast.error("Blog not published.Please login again")
+            // });)
+            // .catch((error) => {
+            //     console.log('Saving failed: ', error)
+            // });
+        }
+
+    function saveData(blog) {
+        fetch(`https://back.autumnkurenai.com/updateBlog`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(blog),
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                //console.log("blog = ", blog)
+                //console.log(data);
+                if (data.message) {
+                    console.log(data.message);
+
+                }
+            });
+    }
+
+    var editor = null;
+
+    function editorJS(blogBody) {
+        const editor = new EditorJS({
+            holder: 'editorjs',
+            //data: blogBody,
+            tools: {
+                header: Header,
+                delimiter: Delimiter,
+                paragraph: {
+                    class: Paragraph,
+                    inlineToolbar: true,
+                },
+
+                image: SimpleImage,
+                list: {
+                    class: List,
+                    inlineToolbar: true,
+                    config: {
+                        defaultStyle: "unordered",
+                    }
+                }
+
+            }
+        });
+
+        return editor;
+
+    }
+
+
+    let options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+
+        },
+
+    };
+
+    function generateRandomColor(){
+        let maxVal = 0xFFFFFF; // 16777215
+        let randomNumber = (Math.random()*0.5 + 0.5) * maxVal; 
+        randomNumber = Math.floor(randomNumber);
+        randomNumber = randomNumber.toString(16);
+        let randColor = randomNumber.padStart(6, 0);   
+        return `#${randColor.toUpperCase()}`
+    }
+
+    function getTags(){
+        elem = document.getElementsByClassName("tag")
+        console.log(elem[0])
+        var list_tags = []
+        for (i in elem){
+            console.log(elem[i])
+            if (elem[i].value){
+                list_tags.push(elem[i].value)
+            }
+        }
+        console.log(list_tags)
+        return list_tags
+    }
+
+    function setTags(tags){
+        div  = document.getElementById("add_tags")
+        for (i in tags){
+            new_tag = '<input value=' + i + ' class="tag" placeholder="Tag #1" type="text" style="border:none; text-align: center; width: 70px; border-radius:3px; background-color:' + generateRandomColor() + '; color: white" onSubmit=newTags(this)>'
+            new_div = document.createElement("div")
+            new_div.style.width =  "70px"
+            new_div.style.display = "inline"
+            new_div.style.margin= "5px"
+            new_div.innerHTML = new_tag
+            // convert html string into DOM
+            div.parentElement.insertBefore(new_div, div)
+        }
+    }
+
+    function newTags(e){
+        console.log(e)
+        new_tag = '<input class="tag" placeholder="Tag #1" type="text" style="border:none; text-align: center; width: 70px; border-radius:3px; background-color:' + generateRandomColor() + '; color: white" onSubmit=newTags(this)>'
+        console.log(e.parentElement)
+        new_div = document.createElement("div")
+        new_div.style.width =  "70px"
+        new_div.style.display = "inline"
+        new_div.style.margin= "5px"
+        new_div.innerHTML = new_tag
+        const parser = new DOMParser();
+
+        // convert html string into DOM
+        e.parentElement.insertBefore(new_div, e)
+    }
+
+    async function setTitleImage(e){
+        if (e.files){
+          //console.log("files = ", e.target.files[0])
+          let body = new FormData();
+          body.append("blogId", "6437cf61159891149608d102")
+          body.append("userId", "641be792bacccc03c37fc0e4")
+          body.append("image", e.files[0])
+
+          fetch(`https://back.autumnkurenai.com/titleImage`, {
+            method: "POST",
+            body: body
+          }).then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            elem = document.getElementById("titleImage")
+            elem.src = data.file.url
+            //console.log("url image of uploaded = ", data.file);
+            })
+          .catch((err) => {
+            console.error(err);
+            toast.error("Blog not published.Please login again")
+          });
+        }
+    }
+
+    $("h3[contenteditable]").keypress(function (evt) {
+
+        console.log("key pressed")
+
+        var keycode = evt.charCode || evt.keyCode;
+        if (keycode  == 13) { //Enter key's keycode
+          return false;
+        }
+    });
+
+
+
+    fetch("https://back.autumnkurenai.com/blog?blogId=6437cf61159891149608d102", options)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            console.log(jsonData[0])
+            
+            titleImage = document.getElementById("titleImage")
+            titleImage.src = jsonData[0]["titleImage"]
+            title  = document.getElementById("title")
+            title.innerHTML = jsonData[0]["title"]
+            document.title = jsonData[0]["title"]
+            setTags(jsonData[0].tags)
+
+            console.log("body=  ", jsonData[0].body);
+            if (jsonData[0].body !== null) {
+                editor = editorJS(jsonData[0].body);
+            } else {
+                editor = editorJS([]);
+            }
+            changeMeta(jsonData[0]);
+        });
+
+    var authorName = ""
+    function userData(url){
+        fetch(url, options).then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            console.log(data.userInfo.body)
+            elem = document.getElementById("author_name")
+            elem.innerHTML = data.userInfo.body.name
+            authorName = data.userInfo.body.name;
+        })
+    }
+
+    function changeMeta(data){
+        document.querySelector('meta[property="og:url"]').setAttribute("content", window.location.href);
+        document.querySelector('meta[property="og:title"]').setAttribute("content", data["title"]);
+        document.querySelector('meta[property="og:image"]').setAttribute("content", data["titleImage"]);
+        setTimeout(changeDesc, 3000);
+    }
+
+    function changeDesc(){
+        meta = document.getElementsByClassName("ce-paragraph")[0]
+        console.log(meta)
+        document.querySelector('meta[property="og:description"]').setAttribute("content", meta.innerHTML);
+    }
+
+    //userData("https://back.autumnkurenai.com/userinfo/63f621a7b474349f41946e78");
+    editorJS([]);
+
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll"); 
+        }
+
+    </script>
+</body>
+</html>
