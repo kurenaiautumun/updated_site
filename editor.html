@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EditorJS Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1 class="EditorJSh">EditorJS</h1>
+    <div id="editorjs"></div>
+
+
+    <div onclick="myFunction()" class="btn">Save</div>
+    <h1 class="EditorJSh">***</h1>
+
+    <script>
+        function myFunction() {
+            editor.save().then((output) => {
+                console.log('Data: ', output);
+                const blog = {
+                    id: "6437cf61159891149608d102",
+                    body: output,
+                    title: "sravan",
+                    // "cleanHtml(document.getElementById("BlogTitle").innerHTML),"
+                    // titleImage: gotImage
+                };
+                saveData(blog);
+            })
+        
+            // .catch((err) => {
+            //   //console.error(err);
+            //   toast.error("Blog not published.Please login again")
+            // });)
+            // .catch((error) => {
+            //     console.log('Saving failed: ', error)
+            // });
+        }
+
+    function saveData(blog) {
+        fetch(`https://back.autumnkurenai.com/updateBlog`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(blog),
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                //console.log("blog = ", blog)
+                //console.log(data);
+                if (data.message) {
+                    console.log(data.message);
+
+                }
+            });
+    }
+
+    var editor = null;
+
+    function editorJS() {
+        const editor = new EditorJS({
+            holder: 'editorjs',
+
+            tools: {
+                header: Header,
+                delimiter: Delimiter,
+                // data: blogBody,
+                paragraph: {
+                    class: Paragraph,
+                    inlineToolbar: true,
+                },
+
+                image: {
+                    class: ImageTool,
+                    config: {
+                        endpoints: {
+                            byFile: `https://back.autumnkurenai.com/image`, // Your backend file uploader endpoint
+                            byUrl: `https://back.autumnkurenai.com/image`, // Your endpoint that provides uploading by Url
+                        },
+                        additionalRequestData: {
+                            blogId: "6437cf61159891149608d102",
+                            userId: "641be792bacccc03c37fc0e4"
+                        },
+                    }
+                },
+                list: {
+                    class: List,
+                    inlineToolbar: true,
+                    config: {
+                        defaultStyle: "unordered",
+                    }
+                }
+
+            }
+        });
+
+        return editor;
+
+    }
+
+
+    let options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+
+        },
+
+    };
+
+
+
+    fetch("https://back.autumnkurenai.com/blog?blogId=6437cf61159891149608d102", options)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            console.log(jsonData[0].body);
+            if (jsonData[0].body !== null) {
+                editor = editorJS(jsonData[0].body);
+            } else {
+                editor = editorJS([]);
+            }
+        });
+    </script>
+
+</body>
