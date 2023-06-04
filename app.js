@@ -13,7 +13,7 @@ app.use(cors({
 app.post("/gitTrigger", function(req, res){
     data = {}
     data["method"] = "GET"
-    exec('git pull', (err, stdout, stderr) => {
+    exec('git pull; killall node; node app.js', (err, stdout, stderr) => {
       if (err) {
         console.log("command could not be exec")
         return;
