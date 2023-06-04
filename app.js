@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 
+const { exec } = require('child_process');
+
 const cors = require('cors');
 app.use(cors({
     origin: '*'
@@ -11,6 +13,16 @@ app.use(cors({
 app.post("/gitTrigger", function(req, res){
     data = {}
     data["method"] = "GET"
+    exec('git pull', (err, stdout, stderr) => {
+      if (err) {
+        console.log("command could not be run")
+        return;
+      }
+    
+      // the *entire* stdout and stderr (buffered)
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
     res.end(JSON.stringify("git triggerred"));
 })
 
