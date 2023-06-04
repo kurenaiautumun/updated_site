@@ -32,6 +32,12 @@ app.get("/", function(req, res){
    res.end(JSON.stringify("Hello"));
 })
 
+app.get("/extra", function(req, res){
+   data = {}
+   data["method"] = "GET"
+   res.end(JSON.stringify("Extra"));
+})
+
 var server = app.listen(3000, function () {
    var host = server.address().address
    var port = server.address().port
