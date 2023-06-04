@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ====== TITLE ====== -->
+    <title>Devender - Test Page</title>
+
+    <!-- ====== CSS LINKS ===== -->
+    <link rel="stylesheet" href="style2.css">
+
+    <style>
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+
+        .close_nav_berger {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+
+        .open_nav_burger {
+            display: none;
+        }
+
+        @media (max-width: 920px) {
+
+            .close_nav_berger,
+            .open_nav_burger {
+                display: block;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ======= header ====== -->
+    <header class="top_header">
+        <div class="container">
+            <nav class="navigation_bar r-flex ali-c jut-sb  ">
+
+                <!-- ==== left nav === -->
+                <div class="left_side_nav_bar">
+                    <a href="/" class="nav_logo_box">
+                        <img src="images/logo.png" alt="nav-logo">
+                    </a>
+                </div>
+                <!-- ==== left nav close=== -->
+
+                <!-- ==== right nav === -->
+                <div class="right_side_bar">
+                    <div class="nav_manu_bar">
+                        <ul class="manu_box r-flex ali-c " id="myNAV">
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Home</a></li>
+                            <li class="nav_manu_points">
+                                <a class="nav_manu_link" href="#">
+                                    <span class=" nav_drop_menu r-flex ali-c">
+                                        <span>Categories</span>
+                                        <svg width="15" height="9" viewBox="0 0 10 6" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z"
+                                                fill="#000000" />
+                                        </svg>
+                                    </span>
+
+                                    <ul class="nav_megha_manu">
+                                        <li class="nav_megha_manu_points">
+                                            <a href="#" class="nav_megha_menu_point">Beauty</a>
+                                        </li>
+                                        <li class="nav_megha_manu_points">
+                                            <a href="#" class="nav_megha_menu_point">Fation</a>
+                                        </li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Travel</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Avchitecture</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Recies</a></li>
+                                    </ul>
+
+                                </a>
+                            </li>
+                            <li class="nav_manu_points">
+                                <a class="nav_manu_link" href="#">
+                                    <span class=" nav_drop_menur-flex ali-c">
+                                        <span>Features </span>
+                                        <svg width="15" height="9" viewBox="0 0 10 6" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z"
+                                                fill="#000000" />
+                                        </svg>
+                                    </span>
+
+                                    <ul class="nav_megha_manu">
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Beauty</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Fation</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Travel</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Avchitecture</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Recies</a></li>
+                                    </ul>
+
+                                </a>
+                            </li>
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Food</a></li>
+
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Lifestyle</a></li>
+
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Travle</a></li>
+
+                            <li class="nav_manu_points">
+                                <% if (dashboard==true) { %>
+                                    <a class="nav_manu_link write_nav_btn r-flex ali-c" href="/dashboard">
+                                        <span>Dashboard</span>
+                                        <% }else{%>
+                                            <a class="nav_manu_link write_nav_btn r-flex ali-c" href="/login">
+                                                <span>Sign up / Sign In</span>
+                                                <% }%>
+                                            </a>
+                            </li>
+                            <div class="close_nav_berger" onclick="burgerFuncation()">
+                                <svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="1.46967" y1="18.4402" x2="18.4402" y2="1.46967"
+                                        stroke="url(#paint0_linear_412_2)" stroke-width="1.5" />
+                                    <line y1="-0.75" x2="24.0208" y2="-0.75"
+                                        transform="matrix(-0.706494 -0.707719 0.706494 -0.707719 18.9707 18)"
+                                        stroke="url(#paint1_linear_412_2)" stroke-width="1.5" />
+                                    <defs>
+                                        <linearGradient id="paint0_linear_412_2" x1="3.17851" y1="19.2063" x2="25.3345"
+                                            y2="-2.94974" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#000000" />
+                                            <stop offset="0.449933" stop-color="#989898" />
+                                            <stop offset="1" stop-color="#000000" />
+                                        </linearGradient>
+                                        <linearGradient id="paint1_linear_412_2" x1="0.667245" y1="1" x2="32.0278"
+                                            y2="0.999999" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#000000" />
+                                            <stop offset="0.449933" stop-color="#989898" />
+                                            <stop offset="1" stop-color="#000000" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                        </ul>
+                        <div class="open_nav_burger" onclick="burgerFuncation()">
+                            <svg width="24" height="16" viewBox="0 0 24 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <line y1="8.25" x2="18" y2="8.25" stroke="url(#paint0_linear_115_6)"
+                                    stroke-width="1.5" />
+                                <line y1="1.25" x2="21" y2="1.25" stroke="url(#paint1_linear_115_6)"
+                                    stroke-width="1.5" />
+                                <line y1="15.25" x2="24" y2="15.25" stroke="url(#paint2_linear_115_6)"
+                                    stroke-width="1.5" />
+                                <defs>
+                                    <linearGradient id="paint0_linear_115_6" x1="0.5" y1="10" x2="24" y2="10"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#000000" />
+                                        <stop offset="0.449933" stop-color="#989898" />
+                                        <stop offset="1" stop-color="#000000" />
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_115_6" x1="0.583333" y1="3" x2="28" y2="3"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#000000" />
+                                        <stop offset="0.449933" stop-color="#989898" />
+                                        <stop offset="1" stop-color="#000000" />
+                                    </linearGradient>
+                                    <linearGradient id="paint2_linear_115_6" x1="0.666667" y1="17" x2="32" y2="17"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#000000" />
+                                        <stop offset="0.449933" stop-color="#989898" />
+                                        <stop offset="1" stop-color="#000000" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </nav>
+        </div>
+    </header>
+    <!-- ======= header close ====== -->
+
+
+    <!-- ======= main ===== -->
+    <main class="home_main">
+        <!-- ====== hero section ===== -->
+        <section class="home_hero_section">
+            <div class="container">
+
+                <!-- ==== hero search box ===== -->
+                <div class="hero_search_box">
+                    <form action="#" class="hero_search r-flex ali-c">
+                        <input type="search" name="search" class="search_input" id="hero_search"
+                            placeholder="Search Blogs ">
+                        <button type="submit" class="hero_search_btn">
+                            <svg width="24" height="24" viewBox="0 0 14 14" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.5 9.5L12.5 12.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M5.75 10.5C8.37335 10.5 10.5 8.37335 10.5 5.75C10.5 3.12665 8.37335 1 5.75 1C3.12665 1 1 3.12665 1 5.75C1 8.37335 3.12665 10.5 5.75 10.5Z"
+                                    stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                <!-- ==== hero search box close===== -->
+
+
+                <!-- ==== blog show box ===== -->
+                <div class="hero_blog_show_box r-flex ali-c jut-sb">
+
+                    <div class="left_side_blog_box">
+                        <img src="<%=top5ByLikes[0].titleImage%>" alt="">
+                        <div class="left_blog_box_content c-flex">
+                            <div class="blog_box_content_type">
+                                <%=top5ByLikes[0].category%>
+                            </div>
+                            <a href="blog?blogId=<%=top5ByLikes[0]._id%>" class="blog_show_heading">
+                                <%=top5ByLikes[0].title%>
+                            </a>
+                            <div class="date_and_writer">
+                                <a href="blog?blogId=<%=top5ByLikes[0]._id%>" 1 <%=top5ByLikes[0].date%>
+                                </a>
+                                <span class="date_writer_divider">/</span>
+                                <a href="user?<%=top5ByLikes[0].userId%>">
+                                    <%=top5ByLikes[0].auther%>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mid_side_blog_box c-flex jut-sb">
+                        <div class="mid_top_blog_box">
+                            <img src="<%=top5ByLikes[1].titleImage%>" alt="">
+                            <div class="left_blog_box_content c-flex">
+                                <div class="blog_box_content_type">
+                                    <%=top5ByLikes[1].category%>
+                                </div>
+                                <a href="blog?blogId=<%=top5ByLikes[1]._id%>" class="mid_hero_blog_heading">
+                                    <%=top5ByLikes[1].title%>
+                                </a>
+                                <div class="date_and_writer">
+                                    <a href="blog?blogId=<%=top5ByLikes[1]._id%>">
+                                        <%=top5ByLikes[1].date%>
+                                    </a>
+                                    <span class="date_writer_divider">/</span>
+                                    <a href="user?<%=top5ByLikes[1].userId%>">
+                                        <%=top5ByLikes[1].auther%>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mid_bot_blog_box r-flex ali-c jut-sb">
+                            <div class="left_mid_bot_blog_box">
+                                <img src="<%=top5ByLikes[2].titleImage%>" alt="">
+                                <div class="left_blog_box_content c-flex">
+                                    <div class="blog_box_content_type">
+                                        <%=top5ByLikes[2].category%>
+                                    </div>
+                                    <a href="blog?blogId=<%=top5ByLikes[2]._id%>" class="left_bot_hero_blog_heading">
+                                        <%=top5ByLikes[2].title%>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="right_mid_bot_blog_box">
+                                <img src="<%=top5ByLikes[3].titleImage%>" alt="">
+                                <div class="left_blog_box_content c-flex">
+                                    <div class="blog_box_content_type">
+                                        <%=top5ByLikes[3].category%>
+                                    </div>
+                                    <a href="blog?blogId=<%=top5ByLikes[3]._id%>" class="right_bot_hero_blog_heading">
+                                        <%=top5ByLikes[3].title%>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="left_side_blog_box">
+                        <img src="<%=top5ByLikes[4].titleImage%>" alt="">
+                        <div class="left_blog_box_content c-flex">
+                            <div class="blog_box_content_type">
+                                <%=top5ByLikes[4].category%>
+                            </div>
+                            <a href="blog?blogId=<%=top5ByLikes[4]._id%>" class="blog_show_heading">
+                                <%=top5ByLikes[4].title%>
+                            </a>
+                            <div class="date_and_writer">
+                                <a href="blog?blogId=<%=top5ByLikes[4]._id%>">
+                                    <%=top5ByLikes[4].date%>
+                                </a>
+                                <span class="date_writer_divider">/</span>
+                                <a href="user?<%=top5ByLikes[4].userId%>">
+                                    <%=top5ByLikes[4].auther%>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ==== blog show box close ===== -->
+
+
+
+            </div>
+        </section>
+        <!-- ====== hero section close ===== -->
+        <div class="containers"></div>
+
+
+        <!-- ====== three section close ===== -->
+        <section class="home_popular_blog_section">
+            <div class="container">
+                <div class="home_popular_blog_container">
+                    <div class="home_popular_blog_box r-flex jut-sb">
+
+                        <!-- ===== left side ==== -->
+
+                        <div class="popular_left_container">
+                            <h2 class="home_populer_main_heading">Most Popular Blogs</h2>
+                            <span class="heading_under_lines"></span>
+                            <div class="home_popular_bolg_box">
+
+                                <% top6ByViews.forEach(blog=> { %>
+                                    <div class="popular_left_side_box r-flex ">
+                                        <div class="popular_left_box_img r-flex">
+                                            <a href="blog?blogId=<%=blog._id%>" class="r-flex">
+                                                <img src="<%=blog.titleImage%>" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="popular_left_cont_box">
+                                            <a href="blog?blogId=<%=blog._id%>" class="popular_left_blog_heading">
+                                                <%=blog.title%>
+                                            </a>
+                                            <p class="popular_left_blog_cont">
+                                                <%=blog.body%>
+                                            </p>
+                                            <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                                <div class="popular_left_write_date">
+                                                    <a href="blog?blogId=<%=blog._id%>">
+                                                        <%=blog.date%>
+                                                    </a>
+                                                    <span>/</span>
+                                                    <a href="blog?blogId=<%=blog._id%>">
+                                                        <%=blog.auther%>
+                                                    </a>
+                                                </div>
+                                                <a href="blog?blogId=<%=blog._id%>"
+                                                    class="popular_left_blog_get_read r-flex ali-c">
+                                                    <span>Read more</span>
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <% }); %>
+
+                            </div>
+
+                        </div>
+                        <!-- ===== left side close ==== -->
+
+
+                        <!-- ===== right side ==== -->
+                        <div class="popular_right_container">
+                            <h2 class="home_populer_main_heading">Most Viral Blogs</h2>
+                            <span class="heading_under_lines_min"></span>
+
+                            <div class="home_populare_right_blog_box">
+
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a href="<%=top8ByLikes[0].title%>" class="r-flex">
+                                            <img src="<%=top8ByLikes[0].titleImage%>" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a href="blog?blogId=<%=top8ByLikes[0]._id%>" class="popular_right_blog_hading">
+                                            <%=top8ByLikes[0].title%>
+                                        </a>
+                                        <a href="#" class="popular_right_blog_date">
+                                            <%=top8ByLikes[0].date%>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a href="<%=top8ByLikes[1].title%>" class="r-flex">
+                                            <img src="<%=top8ByLikes[1].titleImage%>" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a href="blog?blogId=<%=top8ByLikes[1]._id%>" class="popular_right_blog_hading">
+                                            <%=top8ByLikes[1].title%>
+                                        </a>
+                                        <a href="#" class="popular_right_blog_date">
+                                            <%=top8ByLikes[1].date%>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a href="<%=top8ByLikes[2].title%>" class="r-flex">
+                                            <img src="<%=top8ByLikes[2].titleImage%>" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a href="blog?blogId=<%=top8ByLikes[2]._id%>" class="popular_right_blog_hading">
+                                            <%=top8ByLikes[2].title%>
+                                        </a>
+                                        <a href="#" class="popular_right_blog_date">
+                                            <%=top8ByLikes[2].date%>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a href="<%=top8ByLikes[3].title%>" class="r-flex">
+                                            <img src="<%=top8ByLikes[3].titleImage%>" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a href="blog?blogId=<%=top8ByLikes[3]._id%>" class="popular_right_blog_hading">
+                                            <%=top8ByLikes[3].title%>
+                                        </a>
+                                        <a href="#" class="popular_right_blog_date">
+                                            <%=top8ByLikes[3].date%>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a href="<%=top8ByLikes[4].title%>" class="r-flex">
+                                            <img src="<%=top8ByLikes[4].titleImage%>" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a href="blog?blogId=<%=top8ByLikes[4]._id%>" class="popular_right_blog_hading">
+                                            <%=top8ByLikes[4].title%>
+                                        </a>
+                                        <a href="#" class="popular_right_blog_date">
+                                            <%=top8ByLikes[4].date%>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a href="<%=top8ByLikes[5].title%>" class="r-flex">
+                                            <img src="<%=top8ByLikes[5].titleImage%>" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a href="blog?blogId=<%=top8ByLikes[5]._id%>" class="popular_right_blog_hading">
+                                            <%=top8ByLikes[5].title%>
+                                        </a>
+                                        <a href="#" class="popular_right_blog_date">
+                                            <%=top8ByLikes[5].date%>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a href="<%=top8ByLikes[6].title%>" class="r-flex">
+                                            <img src="<%=top8ByLikes[6].titleImage%>" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a href="blog?blogId=<%=top8ByLikes[6]._id%>" class="popular_right_blog_hading">
+                                            <%=top8ByLikes[6].title%>
+                                        </a>
+                                        <a href="#" class="popular_right_blog_date">
+                                            <%=top8ByLikes[6].date%>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a href="<%=top8ByLikes[7].title%>" class="r-flex">
+                                            <img src="<%=top8ByLikes[7].titleImage%>" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a href="blog?blogId=<%=top8ByLikes[7]._id%>" class="popular_right_blog_hading">
+                                            <%=top8ByLikes[7].title%>
+                                        </a>
+                                        <a href="#" class="popular_right_blog_date">
+                                            <%=top8ByLikes[7].date%>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ===== right side close ==== -->
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ====== three section close ===== -->
+
+
+        <section class="recent_blog_section">
+            <div class="container">
+                <div class="recent_blog_container">
+                    <h2 class="home_populer_main_heading">Recent Posts</h2>
+                    <span class="heading_under_lines"></span>
+                    <div class="recent_blog_box r-flex jut-sb flex-w">
+
+                        <% restOfBlogs.forEach(blog=> { %>
+
+                            <div class="recent_blog">
+                                <div class="recent_blog_img r-flex">
+                                    <a href="blog?blogId=<%=blog._id%>" class="r-flex">
+                                        <img height="250px" src="<%=blog.titleImage%>" alt="">
+                                    </a>
+                                </div>
+                                <div class="recent_blog_cont_box">
+                                    <a href="blog?blogId=<%=blog._id%>" class="recent_blog_heading">
+                                        <%=blog.title%>
+                                    </a>
+                                    <p class="recent_blog_content">
+                                        <%=blog.title%>
+                                    </p>
+                                    <div class="recent_read_date r-flex ali-c jut-sb">
+                                        <a href="blog?blogId=<%=blog._id%>" class="recent_blog_read_more r-flex ali-c">
+                                            <span>Read More</span>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </a>
+                                        <a href="#" class="recent_blog_date">
+                                            <%=blog.date%>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <% }); %>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======== forth pagenation section ======== -->
+        <!-- <section class="home_pagenation_section">
+            <div class="container">
+                <div class="home_pagenation_container">
+                    <ul class="home_pagenation_box r-flex ali-c jut-c">
+                        <li class="back_page_link pagenation_link r-flex ali-c jut-c"><a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.22 12.7199C8.07931 12.5793 8.00018 12.3887 8 12.1899V11.8099C8.0023 11.6114 8.08112 11.4216 8.22 11.2799L13.36 6.14985C13.4539 6.0552 13.5817 6.00195 13.715 6.00195C13.8483 6.00195 13.9761 6.0552 14.07 6.14985L14.78 6.85985C14.8741 6.95202 14.9271 7.07816 14.9271 7.20985C14.9271 7.34154 14.8741 7.46769 14.78 7.55985L10.33 11.9999L14.78 16.4399C14.8747 16.5337 14.9279 16.6615 14.9279 16.7949C14.9279 16.9282 14.8747 17.056 14.78 17.1499L14.07 17.8499C13.9761 17.9445 13.8483 17.9978 13.715 17.9978C13.5817 17.9978 13.4539 17.9445 13.36 17.8499L8.22 12.7199Z" fill="#000000"/>
+                            </svg>
+                            </a></li>
+                        <li class="pagenation_link r-flex page_active ali-c jut-c"><a href="#">1</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a href="#">2</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a href="#">3</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a href="#">4</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a href="#">5</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a href="#">7</a></li> 
+                        <li class="pagenation_link r-flex ali-c jut-c"><a href="#">108</a></li>
+                        <li class="next_page_link page_active pagenation_link r-flex ali-c jut-c"><a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.78 12.7199C15.9207 12.5793 15.9998 12.3887 16 12.1899V11.8099C15.9977 11.6114 15.9189 11.4216 15.78 11.2799L10.64 6.14985C10.5461 6.0552 10.4183 6.00195 10.285 6.00195C10.1517 6.00195 10.0239 6.0552 9.93 6.14985L9.22 6.85985C9.12594 6.95202 9.07293 7.07816 9.07293 7.20985C9.07293 7.34154 9.12594 7.46769 9.22 7.55985L13.67 11.9999L9.22 16.4399C9.12534 16.5337 9.0721 16.6615 9.0721 16.7949C9.0721 16.9282 9.12534 17.056 9.22 17.1499L9.93 17.8499C10.0239 17.9445 10.1517 17.9978 10.285 17.9978C10.4183 17.9978 10.5461 17.9445 10.64 17.8499L15.78 12.7199Z" fill="#ffffff"/>
+                            </svg>
+                            </a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </section> -->
+
+    </main>
+    <!-- ======= main close ====== -->
+
+
+    <script>
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll");
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ====== TITLE ====== -->
+    <title>Devender - Test Page</title>
+
+    <!-- ====== CSS LINKS ===== -->
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="sinup_in.css">
+
+    <style>
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+
+        .close_nav_berger {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+
+        .open_nav_burger {
+            display: none;
+        }
+
+        @media (max-width: 920px) {
+
+            .close_nav_berger,
+            .open_nav_burger {
+                display: block;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ======= header ====== -->
+    <header class="top_header">
+        <div class="container">
+            <nav class="navigation_bar r-flex ali-c jut-sb  ">
+
+                <!-- ==== left nav === -->
+                <div class="left_side_nav_bar">
+                    <a href="/" class="nav_logo_box">
+                        <img src="images/logo.png" alt="nav-logo">
+                    </a>
+                </div>
+                <!-- ==== left nav close=== -->
+
+                <!-- ==== right nav === -->
+                <!-- <div class="right_side_bar">
+                    <div class="nav_manu_bar">
+                        <ul class="manu_box r-flex ali-c " id="myNAV">
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Home</a></li>
+                            <li class="nav_manu_points">
+                                <a class="nav_manu_link" href="#">
+                                    <span class=" nav_drop_menu r-flex ali-c">
+                                        <span>Categories </span>
+                                        <svg width="15" height="9" viewBox="0 0 10 6" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z"
+                                                fill="#000000" />
+                                        </svg>
+                                    </span>
+
+                                    <ul class="nav_megha_manu">
+                                        <li class="nav_megha_manu_points">
+                                            <a href="#" class="nav_megha_menu_point">Beauty</a>
+                                        </li>
+                                        <li class="nav_megha_manu_points">
+                                            <a href="#" class="nav_megha_menu_point">Fation</a>
+                                        </li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Travel</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Avchitecture</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Recies</a></li>
+                                    </ul>
+
+                                </a>
+                            </li>
+                            <li class="nav_manu_points">
+                                <a class="nav_manu_link" href="#">
+                                    <span class=" nav_drop_menur-flex ali-c">
+                                        <span>Features </span>
+                                        <svg width="15" height="9" viewBox="0 0 10 6" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z"
+                                                fill="#000000" />
+                                        </svg>
+                                    </span>
+
+                                    <ul class="nav_megha_manu">
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Beauty</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Fation</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Travel</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Avchitecture</a></li>
+                                        <li class="nav_megha_manu_points"><a href="#"
+                                                class="nav_megha_menu_point">Recies</a></li>
+                                    </ul>
+
+                                </a>
+                            </li>
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Food</a></li>
+
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Lifestyle</a></li>
+
+                            <li class="nav_manu_points"><a class="nav_manu_link" href="#">Travle</a></li>
+
+                            <li class="nav_manu_points">
+                                <a class="nav_manu_link write_nav_btn r-flex ali-c" href="#">
+                                    <svg width="16" height="16" viewBox="0 0 22 22" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20.847 0.543159L21.4504 1.14002C22.2818 1.9635 22.156 3.42329 21.1671 4.40053L8.72436 16.7091L4.69301 18.1679C4.18679 18.352 3.69387 18.1133 3.59365 17.6368C3.55978 17.464 3.57572 17.2852 3.63967 17.1209L5.14299 13.0986L17.551 0.823382C18.5399 -0.15386 20.0156 -0.280315 20.847 0.543159ZM8.18132 1.76724C8.31562 1.76724 8.44861 1.79341 8.57268 1.84425C8.69676 1.89509 8.80949 1.9696 8.90446 2.06354C8.99942 2.15748 9.07475 2.269 9.12614 2.39174C9.17754 2.51448 9.20399 2.64603 9.20399 2.77888C9.20399 2.91173 9.17754 3.04328 9.12614 3.16602C9.07475 3.28875 8.99942 3.40028 8.90446 3.49421C8.80949 3.58815 8.69676 3.66267 8.57268 3.71351C8.44861 3.76435 8.31562 3.79052 8.18132 3.79052H4.09066C3.54821 3.79052 3.02797 4.00368 2.64439 4.38312C2.26082 4.76256 2.04533 5.27719 2.04533 5.81379V17.9534C2.04533 18.4901 2.26082 19.0047 2.64439 19.3841C3.02797 19.7636 3.54821 19.9767 4.09066 19.9767H16.3626C16.9051 19.9767 17.4253 19.7636 17.8089 19.3841C18.1925 19.0047 18.408 18.4901 18.408 17.9534V13.9069C18.408 13.6386 18.5157 13.3813 18.7075 13.1916C18.8993 13.0018 19.1594 12.8953 19.4306 12.8953C19.7019 12.8953 19.962 13.0018 20.1538 13.1916C20.3456 13.3813 20.4533 13.6386 20.4533 13.9069V17.9534C20.4533 19.0267 20.0223 20.0559 19.2552 20.8148C18.488 21.5737 17.4476 22 16.3626 22H4.09066C3.00575 22 1.96528 21.5737 1.19813 20.8148C0.430979 20.0559 0 19.0267 0 17.9534V5.81379C0 4.74058 0.430979 3.71132 1.19813 2.95245C1.96528 2.19357 3.00575 1.76724 4.09066 1.76724H8.18132Z"
+                                            fill="#ffffff" />
+                                    </svg>
+                                    <span>Write Blog</span>
+                                </a>
+                            </li>
+                            <div class="close_nav_berger" onclick="burgerFuncation()">
+                                <svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="1.46967" y1="18.4402" x2="18.4402" y2="1.46967"
+                                        stroke="url(#paint0_linear_412_2)" stroke-width="1.5" />
+                                    <line y1="-0.75" x2="24.0208" y2="-0.75"
+                                        transform="matrix(-0.706494 -0.707719 0.706494 -0.707719 18.9707 18)"
+                                        stroke="url(#paint1_linear_412_2)" stroke-width="1.5" />
+                                    <defs>
+                                        <linearGradient id="paint0_linear_412_2" x1="3.17851" y1="19.2063" x2="25.3345"
+                                            y2="-2.94974" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#000000" />
+                                            <stop offset="0.449933" stop-color="#989898" />
+                                            <stop offset="1" stop-color="#000000" />
+                                        </linearGradient>
+                                        <linearGradient id="paint1_linear_412_2" x1="0.667245" y1="1" x2="32.0278"
+                                            y2="0.999999" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#000000" />
+                                            <stop offset="0.449933" stop-color="#989898" />
+                                            <stop offset="1" stop-color="#000000" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                        </ul>
+                        <div class="open_nav_burger" onclick="burgerFuncation()">
+                            <svg width="24" height="16" viewBox="0 0 24 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <line y1="8.25" x2="18" y2="8.25" stroke="url(#paint0_linear_115_6)"
+                                    stroke-width="1.5" />
+                                <line y1="1.25" x2="21" y2="1.25" stroke="url(#paint1_linear_115_6)"
+                                    stroke-width="1.5" />
+                                <line y1="15.25" x2="24" y2="15.25" stroke="url(#paint2_linear_115_6)"
+                                    stroke-width="1.5" />
+                                <defs>
+                                    <linearGradient id="paint0_linear_115_6" x1="0.5" y1="10" x2="24" y2="10"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#000000" />
+                                        <stop offset="0.449933" stop-color="#989898" />
+                                        <stop offset="1" stop-color="#000000" />
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_115_6" x1="0.583333" y1="3" x2="28" y2="3"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#000000" />
+                                        <stop offset="0.449933" stop-color="#989898" />
+                                        <stop offset="1" stop-color="#000000" />
+                                    </linearGradient>
+                                    <linearGradient id="paint2_linear_115_6" x1="0.666667" y1="17" x2="32" y2="17"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#000000" />
+                                        <stop offset="0.449933" stop-color="#989898" />
+                                        <stop offset="1" stop-color="#000000" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+
+                    </div>
+                </div> -->
+
+
+            </nav>
+        </div>
+    </header>
+    <!-- ======= header close ====== -->
+
+
+    <!-- ======= main ===== -->
+    <main>
+        <section class="sign_up_hero_section">
+            <div class="sign_up_hero_container">
+                <div class="sign_up_hero_box r-flex ali-c">
+                    <div class="sign_up_left_box r-flex ali-c jut-c">
+                        <form class="sing_up_form_box c-flex ali-c jut-c" method="POST" action="/signup">
+                            <input required="required" type="name" name="username" id="username"
+                                placeholder="Enter Your Name">
+                            <input required="required" type="email" name="email" id="email"
+                                placeholder="Enter Your E-mail">
+                            <input required="required" type="password" name="password" id="password"
+                                placeholder="Enter Your Password">
+                            <div class="show_passwed_box r-flex ali-c ">
+                                <input type="checkbox" id="showPass" onclick="myFunction()">
+                                <label for="showPass">Show Password</label>
+                            </div>
+                            <button type="submit" class="sing_up_data_submit_btn">Sign Up</button>
+                            <!-- <button type="submit" class="google_sign_up_btn r-flex ali-c jut-c">
+                                <svg width="20" height="20" viewBox="0 0 18 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M16.3541 7.53113H15.75V7.5H9V10.5H13.2386C12.6203 12.2464 10.9586 13.5 9 13.5C6.51488 13.5 4.5 11.4851 4.5 9C4.5 6.51488 6.51488 4.5 9 4.5C10.1471 4.5 11.1908 4.93275 11.9854 5.63962L14.1068 3.51825C12.7673 2.26987 10.9755 1.5 9 1.5C4.85812 1.5 1.5 4.85812 1.5 9C1.5 13.1419 4.85812 16.5 9 16.5C13.1419 16.5 16.5 13.1419 16.5 9C16.5 8.49713 16.4483 8.00625 16.3541 7.53113Z"
+                                        fill="#FFC107" />
+                                    <path
+                                        d="M2.36475 5.50912L4.82887 7.31625C5.49562 5.6655 7.11037 4.5 9 4.5C10.1471 4.5 11.1907 4.93275 11.9854 5.63962L14.1067 3.51825C12.7672 2.26987 10.9755 1.5 9 1.5C6.11925 1.5 3.621 3.12637 2.36475 5.50912Z"
+                                        fill="#FF3D00" />
+                                    <path
+                                        d="M9.00012 16.5C10.9374 16.5 12.6976 15.7586 14.0285 14.553L11.7072 12.5887C10.9289 13.1806 9.97791 13.5008 9.00012 13.5C7.04937 13.5 5.39299 12.2561 4.76899 10.5202L2.32324 12.4046C3.56449 14.8335 6.08524 16.5 9.00012 16.5Z"
+                                        fill="#4CAF50" />
+                                    <path
+                                        d="M16.3541 7.53113H15.75V7.5H9V10.5H13.2386C12.9428 11.3312 12.41 12.0574 11.706 12.5891L11.7071 12.5884L14.0284 14.5526C13.8641 14.7019 16.5 12.75 16.5 9C16.5 8.49713 16.4483 8.00625 16.3541 7.53113Z"
+                                        fill="#1976D2" />
+                                </svg>
+
+                                <span>Sign in with Google</span>
+                            </button> -->
+
+                            <div class="have_ac"><span>Do have an account?</span> <a href="#">Sign in</a></div>
+                        </form>
+                    </div>
+                    <div class="sign_up_right_box"></div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    <!-- ======= main close ====== -->
+
+
+    <script>
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll");
+        }
+        function myFunction() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            }
+            else {
+                x.type = "password";
+            }
+        }
+
+    </script>
+
+
+    <script>
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll");
+        }
+
+    </script>
+</body>
+
+</html>
