@@ -8,10 +8,10 @@ app.use(cors({
 }));
 
 
-app.get("/gitTrigger", function(req, res){
+app.post("/gitTrigger", function(req, res){
     data = {}
     data["method"] = "GET"
-    res.end(JSON.stringify("Hello"));
+    res.end(JSON.stringify("git triggerred"));
 })
 
 app.get("/", function(req, res){
