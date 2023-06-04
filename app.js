@@ -20,6 +20,7 @@ const bucketRoute = require("./routes/bucket");
 const recomandationRoute = require("./routes/recomandation");
 const competitionRoute = require("./routes/competition");
 const rankingRoute = require("./routes/ranking");
+const writeRoute = require("./routes/write.js");
 
 app.use(cors(corsOptions));
 app.set("view engine", "ejs");
@@ -52,6 +53,7 @@ app.use("/", likeRoute);
 app.use("/", recomandationRoute);
 app.use("/", competitionRoute);
 app.use("/", rankingRoute);
+app.use("/", writeRoute);
 
 app.listen(process.env.PORT, function () {
   console.log(`Server started on http://localhost:${process.env.PORT}`);

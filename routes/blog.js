@@ -2,10 +2,19 @@ const express = require("express");
 const router = express.Router();
 const { date, User, Blog } = require("../models.js");
 
+router.get("/blogss", (req, res) => {
+  const _id = req.query.blogId;
+  Blog.find({ _id }, (err, blog) => {
+    // res.status(201).send({ blog });
+    res.status(201).render("read", { blog: blog });
+  });
+});
+
 router.get("/blog", (req, res) => {
   const _id = req.query.blogId;
-  Blog.find({ _id }, (err, user) => {
-    res.status(201).json(user);
+  Blog.find({ _id }, (err, blog) => {
+    // res.status(201).send({ blog });
+    res.status(201).send({ blog });
   });
 });
 

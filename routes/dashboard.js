@@ -31,8 +31,11 @@ router.get("/dashboard", async (req, res) => {
       const _id = user._id;
 
       const userData = await User.findOne({ _id });
-      const blogData = await Blog.find({ _id });
-      const commentData = await Comment.find({ _id });
+      const blogData = await Blog.find({ userId: userData._id });
+      console.log(blogData);
+
+      const commentData = await Comment.find({ userId: userData._id });
+      console.log(commentData);
 
       res.status(201).render("dashboard", {
         user: userData,
