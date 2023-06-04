@@ -15,7 +15,7 @@ app.post("/gitTrigger", function(req, res){
     data["method"] = "GET"
     exec('git pull', (err, stdout, stderr) => {
       if (err) {
-        console.log("command could not be run")
+        console.log("command could not be exec")
         return;
       }
     
