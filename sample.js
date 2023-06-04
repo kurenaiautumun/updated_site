@@ -13,7 +13,7 @@ app.use(cors({
 app.post("/gitTrigger", function(req, res){
     data = {}
     data["method"] = "GET"
-    exec('git pull; npm i', (err, stdout, stderr) => {
+    exec('killall node; git pull; npm i', (err, stdout, stderr) => {
       if (err) {
         console.log("command could not be executed")
         return;
@@ -38,7 +38,7 @@ app.get("/extra", function(req, res){
    res.end(JSON.stringify("Extra"));
 })
 
-var server = app.listen(3000, function () {
+var server = app.listen(3001 , function () {
    var host = server.address().address
    var port = server.address().port
    console.log("Example app listening at http://%s:%s", host, port)

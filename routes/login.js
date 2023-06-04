@@ -46,21 +46,4 @@ router.post("/logout", function (req, res, next) {
 });
 
 
-router.post("/gitTrigger", function(req, res){
-  data = {}
-  data["method"] = "GET"
-  exec('git pull; npm i', (err, stdout, stderr) => {
-    if (err) {
-      console.log("command could not be executed")
-      return;
-    }
-
-    // the *entire* stdout and stderr (buffered)
-    console.log(`stdout: ${stdout}`);
-    console.log(`stderr: ${stderr}`);
-  });
-  res.end(JSON.stringify("git triggerred"));
-})
-
-
 module.exports = router;
