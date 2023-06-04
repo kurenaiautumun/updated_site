@@ -21,6 +21,10 @@ const recomandationRoute = require("./routes/recomandation");
 const competitionRoute = require("./routes/competition");
 const rankingRoute = require("./routes/ranking");
 
+const uuid = require('uuid');
+uuid.v4()
+
+
 app.use(cors(corsOptions));
 app.set("view engine", "ejs");
 app.use(express.json());
