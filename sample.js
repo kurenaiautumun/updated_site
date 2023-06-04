@@ -14,7 +14,7 @@ app.post("/gitTrigger", function(req, res){
     data = {}
     data["method"] = "GET"
     console.log("before trigger")
-    exec('git pull; npm i; nodemon app.js', (err, stdout, stderr) => {
+    exec('git pull', (err, stdout, stderr) => {
       if (err) {
         console.log("command could not be exec")
         return;
