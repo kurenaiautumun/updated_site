@@ -8,6 +8,15 @@ const cors = require('cors');
 app.use(cors({
     origin: '*'
 }));
+var user = {
+   "user4" : {
+      "name" : "mohit",
+      "password" : "password4",
+      "profession" : "teacher",
+      "id": 4
+   }
+}
+
 
 var connection = sql.createConnection({
    host:'127.0.0.1',
