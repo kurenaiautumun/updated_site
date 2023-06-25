@@ -1,6 +1,9 @@
 
 
 /* ======= navigation bar ====== */
+.top_header{
+    background-color:#FFB428
+}
 header{
     padding: 14px 0px;
 }
@@ -95,3 +98,24 @@ header{
         border-radius: 0;
     }
 }
+
+.dropdown-content {
+    margin-top:20px;
+      display: none;
+      position: absolute;
+      font-family: "Karla", sans-serif;
+      min-width: 200px;
+      background-color: #FFB428;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+        .profile_points{
+            font-size: 20px;
+            max-height: 25px;
+            font-family: "Karla", sans-serif;
+            background-color: #FFB428;
+        }
+        .dropdown_a{
+            min-height: 20px;
+            padding: 10px;
+        }

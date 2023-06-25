@@ -11,7 +11,7 @@
 
     (function($) {
         "use strict";
-        var locations=[ ['<div class="infobox"><h3 class="title"><a href="#">OUR HOLLAND OFFICE</a></h3><span>NEW YORK CITY 2045 / 65</span><span>+90 555 666 77 88</span></div>',
+        var locations=[ ['<div class="infobox"><h3 class="title"><a  >OUR HOLLAND OFFICE</a></h3><span>NEW YORK CITY 2045 / 65</span><span>+90 555 666 77 88</span></div>',
         52.370216,
         4.895168,
         2]];

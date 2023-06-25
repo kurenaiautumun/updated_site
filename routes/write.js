@@ -14,11 +14,12 @@ const router = express.Router();
 // });
 
 router.get("/write", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.render("writer", { user: req.user });
-  } else {
-    res.redirect("/login");
-  }
+  res.render("writer", { user: req.user });
+  //if (req.isAuthenticated()) {
+  //  res.render("writer", { user: req.user });
+  //} else {
+  //  res.redirect("/login");
+  //}
 });
 
 router.get("/read", (req, res) => {

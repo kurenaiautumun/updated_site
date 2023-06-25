@@ -8,8 +8,13 @@
 .blog_hero_container{
     gap: 30px;
 }
+img{
+    max-width:100%;
+    height: auto;
+}
 .left_hero_blog{
     width: 100%;
+    margin-left:50px;
     max-width: 65%;
 }
 .breadcrumb_box{
@@ -491,6 +496,7 @@
     .left_hero_blog{
         max-width: 100%;
         margin-top: 50px;
+        margin-left: 0px
     }
     .right_hero_blog{
         max-width: 100%;

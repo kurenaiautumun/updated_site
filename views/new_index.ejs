@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ====== TITLE ====== -->
+    <title>Devender - Test Page</title>
+
+    <!-- ====== CSS LINKS ===== -->
+    <link rel="stylesheet" href="style2.css">
+
+    <style>
+
+    .dropdown-content {
+    margin-top:20px;
+      display: none;
+      position: absolute;
+      font-family: "Karla", sans-serif;
+      min-width: 200px;
+      background-color: #FFB428;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+        .profile_points{
+            font-size: 20px;
+            max-height: 25px;
+            font-family: "Karla", sans-serif;
+            background-color: #FFB428;
+        }
+        .dropdown_a{
+            min-height: 20px;
+            padding: 10px;
+        }
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+        .close_nav_berger{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .open_nav_burger{
+            display: none;
+        }
+        @media (max-width: 920px){
+            .close_nav_berger,
+            .open_nav_burger{
+                display: block;
+                cursor: pointer;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <!-- ======= header ====== -->
+    <header class="top_header">
+       <div class="container">
+            <nav class="navigation_bar r-flex ali-c jut-sb  ">
+
+                <!-- ==== left nav === -->
+                <div class="left_side_nav_bar">
+                    <a href="/" class="nav_logo_box">
+                        <img style="max-height:80px;" src="images/logo3.png" alt="nav-logo">
+                    </a>
+                </div>
+                <!-- ==== left nav close=== -->
+
+                <!-- ==== right nav === -->
+                <div class="right_side_bar">
+                    <div class="nav_manu_bar">
+                        <ul class="manu_box r-flex ali-c " id="myNAV">
+                            <li class="nav_manu_points"><a class="nav_manu_link"  >Home</a></li>
+                            <li class="nav_manu_points">
+                                <a class="nav_manu_link"  >
+                                    <span class=" nav_drop_menu r-flex ali-c"> 
+                                        <span>Categories </span> 
+                                        <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                        </svg>                                             
+                                    </span>
+
+                                    <ul class="nav_megha_manu">
+                                        <li class="nav_megha_manu_points">
+                                            <a   class="nav_megha_menu_point">Beauty</a>
+                                        </li>
+                                        <li class="nav_megha_manu_points">
+                                            <a   class="nav_megha_menu_point">Fation</a>
+                                        </li>
+                                        <li class="nav_megha_manu_points"><a   class="nav_megha_menu_point">Travel</a></li>
+                                        <li class="nav_megha_manu_points"><a   class="nav_megha_menu_point">Avchitecture</a></li>
+                                        <li class="nav_megha_manu_points"><a   class="nav_megha_menu_point">Recies</a></li>
+                                    </ul>
+
+                                </a>
+                            </li>
+                            <li class="nav_manu_points"> 
+                                <a class="nav_manu_link"  >
+                                    <span class=" nav_drop_menur-flex ali-c"> 
+                                        <span>Features </span> 
+                                        <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                        </svg>                                             
+                                    </span>
+
+                                    <ul class="nav_megha_manu">
+                                        <li class="nav_megha_manu_points"><a   class="nav_megha_menu_point">Beauty</a></li>
+                                        <li class="nav_megha_manu_points"><a   class="nav_megha_menu_point">Fation</a></li>
+                                        <li class="nav_megha_manu_points"><a   class="nav_megha_menu_point">Travel</a></li>
+                                        <li class="nav_megha_manu_points"><a   class="nav_megha_menu_point">Avchitecture</a></li>
+                                        <li class="nav_megha_manu_points"><a   class="nav_megha_menu_point">Recies</a></li>
+                                    </ul>
+
+                                </a>
+                            </li>
+                            <li class="nav_manu_points"><a class="nav_manu_link"  >Food</a></li>
+
+                            <li class="nav_manu_points"><a class="nav_manu_link"  >Lifestyle</a></li>
+
+                            <li class="nav_manu_points"><a class="nav_manu_link"  >Travel</a></li>
+
+                            <li id="write_blog" class="nav_manu_points"></li>
+
+
+                            <li id="profile_image" class="nav_manu_points">
+                            </li>
+
+                            <div class="close_nav_berger" onclick="burgerFuncation()">
+                                <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="1.46967" y1="18.4402" x2="18.4402" y2="1.46967" stroke="url(#paint0_linear_412_2)" stroke-width="1.5"/>
+                                    <line y1="-0.75" x2="24.0208" y2="-0.75" transform="matrix(-0.706494 -0.707719 0.706494 -0.707719 18.9707 18)" stroke="url(#paint1_linear_412_2)" stroke-width="1.5"/>
+                                    <defs>
+                                    <linearGradient id="paint0_linear_412_2" x1="3.17851" y1="19.2063" x2="25.3345" y2="-2.94974" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#000000"/>
+                                    <stop offset="0.449933" stop-color="#989898"/>
+                                    <stop offset="1" stop-color="#000000"/>
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_412_2" x1="0.667245" y1="1" x2="32.0278" y2="0.999999" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#000000"/>
+                                    <stop offset="0.449933" stop-color="#989898"/>
+                                    <stop offset="1" stop-color="#000000"/>
+                                    </linearGradient>
+                                    </defs>
+                                </svg>                                
+                            </div>
+
+                        </ul>
+                        <div class="open_nav_burger" onclick="burgerFuncation()">
+                            <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line y1="8.25" x2="18" y2="8.25" stroke="url(#paint0_linear_115_6)" stroke-width="1.5"/>
+                            <line y1="1.25" x2="21" y2="1.25" stroke="url(#paint1_linear_115_6)" stroke-width="1.5"/>
+                            <line y1="15.25" x2="24" y2="15.25" stroke="url(#paint2_linear_115_6)" stroke-width="1.5"/>
+                            <defs>
+                            <linearGradient id="paint0_linear_115_6" x1="0.5" y1="10" x2="24" y2="10" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#000000"/>
+                            <stop offset="0.449933" stop-color="#989898"/>
+                            <stop offset="1" stop-color="#000000"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_115_6" x1="0.583333" y1="3" x2="28" y2="3" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#000000"/>
+                            <stop offset="0.449933" stop-color="#989898"/>
+                            <stop offset="1" stop-color="#000000"/>
+                            </linearGradient>
+                            <linearGradient id="paint2_linear_115_6" x1="0.666667" y1="17" x2="32" y2="17" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#000000"/>
+                            <stop offset="0.449933" stop-color="#989898"/>
+                            <stop offset="1" stop-color="#000000"/>
+                            </linearGradient>
+                            </defs>
+                            </svg>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+            </nav>
+       </div>
+    </header>
+    <!-- ======= header close ====== -->
+
+
+    <!-- ======= main ===== -->
+    <main class="home_main">
+        <!-- ====== hero section ===== -->
+        <section class="home_hero_section">
+            <div class="container">
+
+                <!-- ==== hero search box ===== -->
+                <div class="hero_search_box">
+                    <form action="#" class="hero_search r-flex ali-c">
+                        <input type="search" name="search" class="search_input" id="hero_search" placeholder="Search Blogs ">
+                        <button type="submit" class="hero_search_btn">
+                            <svg width="24" height="24" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.5 9.5L12.5 12.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M5.75 10.5C8.37335 10.5 10.5 8.37335 10.5 5.75C10.5 3.12665 8.37335 1 5.75 1C3.12665 1 1 3.12665 1 5.75C1 8.37335 3.12665 10.5 5.75 10.5Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>                                
+                        </button>
+                    </form>
+                </div>
+                <!-- ==== hero search box close===== -->
+
+
+                <!-- ==== blog show box ===== -->
+                <div class="hero_blog_show_box r-flex ali-c jut-sb">
+
+                    <div class="left_side_blog_box main_blog">
+                        <img style="height: 100%;" cla src="https://images.unsplash.com/photo-1623491351896-073b656b4205?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" alt="">
+                        <div class="left_blog_box_content c-flex">
+                            <div class="blog_box_content_type">Lifestyle</div>
+                            <a   class="blog_show_heading">The golden rules you need to know for a positive life</a>
+                            <div class="date_and_writer">
+                                <a  >24 July, 2018</a>
+                                <span class="date_writer_divider">/</span>
+                                <a  >BY AMANDA</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mid_side_blog_box c-flex jut-sb">
+                        <div class="mid_top_blog_box main_blog">
+                            <img style="min-height: 100px;" src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                            <div class="left_blog_box_content c-flex">
+                                <div class="blog_box_content_type">Travel</div>
+                                <a   class="mid_hero_blog_heading">5 places you should see</a>
+                                <div class="date_and_writer">
+                                    <a  >24 July, 2018</a>
+                                    <span class="date_writer_divider">/</span>
+                                    <a  >BY AMANDA</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mid_bot_blog_box r-flex ali-c jut-sb">
+                            <div class="left_mid_bot_blog_box main_blog">
+                                <img style="margin-top: 20px; height: 179px" src="https://images.unsplash.com/photo-1678698611311-535d7d644c1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=838&q=80" alt="">
+                                <div class="left_blog_box_content c-flex">
+                                    <div class="blog_box_content_type">Lifestyle</div>
+                                    <a   class="left_bot_hero_blog_heading">Separate your place with exotic hotels</a>
+                                    
+                                </div>
+                            </div>
+                            <div class="right_mid_bot_blog_box main_blog">
+                                <img style="margin-top: 20px;" src="https://images.unsplash.com/photo-1678698611311-535d7d644c1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=838&q=80" alt="">
+                                <div class="left_blog_box_content c-flex">
+                                    <div class="blog_box_content_type">Lifestyle</div>
+                                    <a   class="right_bot_hero_blog_heading">What you need to know for child health</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="left_side_blog_box main_blog">
+                        <img src="https://images.unsplash.com/photo-1623491351896-073b656b4205?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" alt="">
+                        <div class="left_blog_box_content c-flex">
+                            <div class="blog_box_content_type">Lifestyle</div>
+                            <a   class="blog_show_heading">The golden rules you need to know for a positive life</a>
+                            <div class="date_and_writer">
+                                <a  >24 July, 2018</a>
+                                <span class="date_writer_divider">/</span>
+                                <a  >BY AMANDA</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ==== blog show box close ===== -->
+
+
+
+            </div>
+        </section>
+        <!-- ====== hero section close ===== -->
+
+
+
+        <!-- ====== second section ===== -->
+        <section class="second_blog_section">
+            <div class="container">
+                <div class="home_second_sec_container r-flex jut-sb">
+
+                    <!-- ===== left side ==== -->
+                    <div class="home_second_sec_left_box">
+                        <h2 class="home_populer_main_heading">Top Authors</h2>
+                        <span class="heading_under_lines"></span>
+
+                        <div class="home_second_sec_left_blog_box top_author">
+                            <div class="second_sec_left_img_box r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675510183229-c50371163c19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                </a>
+                            </div>
+
+                            <div class="second_sec_left_cont_box">
+                                <a   class="second_blog_sec_heading">The golden rules you need to know for a positive life</a>
+                                <p class="second_sec_left_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+
+                                <div class="second_sec_type_write_date">
+                                    <a   class="second_sec_blog_box_type">LIFESTYLE</a>
+                                    <span>/</span>
+                                    <a  >24 July, 2018</a>
+                                    <span>/</span>
+                                    <a  >BY AMANDA</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="home_second_sec_left_blog_box top_author">
+                            <div class="second_sec_left_img_box r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675510183229-c50371163c19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                </a>
+                            </div>
+
+                            <div class="second_sec_left_cont_box">
+                                <a   class="second_blog_sec_heading">The golden rules you need to know for a positive life</a>
+                                <p class="second_sec_left_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+
+                                <div class="second_sec_type_write_date">
+                                    <a   class="second_sec_blog_box_type">LIFESTYLE</a>
+                                    <span>/</span>
+                                    <a  >24 July, 2018</a>
+                                    <span>/</span>
+                                    <a  >BY AMANDA</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="home_second_sec_left_blog_box top_author">
+                            <div class="second_sec_left_img_box r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675510183229-c50371163c19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                </a>
+                            </div>
+
+                            <div class="second_sec_left_cont_box">
+                                <a   class="second_blog_sec_heading">The golden rules you need to know for a positive life</a>
+                                <p class="second_sec_left_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+
+                                <div class="second_sec_type_write_date">
+                                    <a   class="second_sec_blog_box_type">LIFESTYLE</a>
+                                    <span>/</span>
+                                    <a  >24 July, 2018</a>
+                                    <span>/</span>
+                                    <a  >BY AMANDA</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ===== left side close==== -->
+
+                    <!-- ===== right side ==== -->
+                    <div class="home_second_sec_right_box">
+                        <div class="home_second_sec_blog_right_box r-flex jut-sb flex-w">
+                            <h2 class="home_populer_main_heading">Editor's Choice</h2>
+                            <span class="heading_under_lines"></span>
+                            <div class="home_second_sec_right_blog editor_choice">
+                                <div class="home_second_sec_right_img_box r-flex">
+                                    <a   class="r-flex">
+                                        <img src="https://plus.unsplash.com/premium_photo-1674049760153-144f4dc9208c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="home_second_sec_right_cont_box">
+                                    <a   class="home_second_sec_heading">What is your favorite leather jacket color</a>
+                                    <div class="home_second_sec_right_type_date">
+                                        <a   class="home_second_sec_right_blog_type">FATION</a>
+                                        <span>/</span>
+                                        <a  >21 June, 2021</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="home_second_sec_right_blog editor_choice">
+                                <div class="home_second_sec_right_img_box r-flex">
+                                    <a   class=" r-flex">
+                                        <img src="https://plus.unsplash.com/premium_photo-1674049760153-144f4dc9208c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="home_second_sec_right_cont_box">
+                                    <a   class="home_second_sec_heading">What is your favorite leather jacket color</a>
+                                    <div class="home_second_sec_right_type_date">
+                                        <a   class="home_second_sec_right_blog_type">FATION</a>
+                                        <span>/</span>
+                                        <a  >21 June, 2021</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="home_second_sec_right_blog  editor_choice">
+                                <div class="home_second_sec_right_img_box r-flex">
+                                    <a   class="r-flex">
+                                        <img src="https://plus.unsplash.com/premium_photo-1674049760153-144f4dc9208c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="home_second_sec_right_cont_box">
+                                    <a   class="home_second_sec_heading">What is your favorite leather jacket color</a>
+                                    <div class="home_second_sec_right_type_date">
+                                        <a   class="home_second_sec_right_blog_type">FATION</a>
+                                        <span>/</span>
+                                        <a  >21 June, 2021</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="home_second_sec_right_blog  editor_choice">
+                                <div class="home_second_sec_right_img_box r-flex">
+                                    <a   class="r-flex">
+                                        <img src="https://plus.unsplash.com/premium_photo-1674049760153-144f4dc9208c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="home_second_sec_right_cont_box">
+                                    <a   class="home_second_sec_heading">What is your favorite leather jacket color</a>
+                                    <div class="home_second_sec_right_type_date">
+                                        <a   class="home_second_sec_right_blog_type">FATION</a>
+                                        <span>/</span>
+                                        <a  >21 June, 2021</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="home_second_sec_right_blog  editor_choice">
+                                <div class="home_second_sec_right_img_box r-flex">
+                                    <a   class="r-flex">
+                                        <img src="https://plus.unsplash.com/premium_photo-1674049760153-144f4dc9208c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="home_second_sec_right_cont_box">
+                                    <a   class="home_second_sec_heading">What is your favorite leather jacket color</a>
+                                    <div class="home_second_sec_right_type_date">
+                                        <a   class="home_second_sec_right_blog_type">FATION</a>
+                                        <span>/</span>
+                                        <a  >21 June, 2021</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="home_second_sec_right_blog  editor_choice">
+                                <div class="home_second_sec_right_img_box r-flex">
+                                    <a   class="r-flex">
+                                        <img src="https://plus.unsplash.com/premium_photo-1674049760153-144f4dc9208c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="home_second_sec_right_cont_box">
+                                    <a   class="home_second_sec_heading">What is your favorite leather jacket color</a>
+                                    <div class="home_second_sec_right_type_date">
+                                        <a   class="home_second_sec_right_blog_type">FATION</a>
+                                        <span>/</span>
+                                        <a  >21 June, 2021</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- ===== right side close ==== -->
+
+                </div>
+            </div>
+        </section>
+        <!-- ====== second section close ===== -->
+
+
+        <!-- ====== three section close ===== -->
+        <section class="home_popular_blog_section">
+            <div class="container">
+                <div class="home_popular_blog_container">
+                    <div class="home_popular_blog_box r-flex jut-sb">
+                        
+                        <!-- ===== left side ==== -->
+                        <div class="popular_left_container">
+                            <h2 class="home_populer_main_heading">Most Popular Blogs</h2>
+                            <span class="heading_under_lines"></span>
+                            <div class="home_popular_bolg_box">
+
+                                <div class="popular_left_side_box r-flex popular_blogs">
+                                    <div class="popular_left_box_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1649343800236-46d2889a0c4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_left_cont_box">
+                                        <a   class="popular_left_blog_heading">5 Beautiful buildings you need to visit without dying</a>
+                                        <p class="popular_left_blog_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                            <a   class="popular_left_blog_get_read r-flex ali-c">
+                                                <span>Read more</span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>                                                    
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="popular_left_side_box r-flex popular_blogs">
+                                    <div class="popular_left_box_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1649343800236-46d2889a0c4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_left_cont_box">
+                                        <a   class="popular_left_blog_heading">5 Beautiful buildings you need to visit without dying</a>
+                                        <p class="popular_left_blog_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                            <a   class="popular_left_blog_get_read r-flex ali-c">
+                                                <span>Read more</span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>                                                    
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="popular_left_side_box r-flex popular_blogs">
+                                    <div class="popular_left_box_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1649343800236-46d2889a0c4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_left_cont_box">
+                                        <a   class="popular_left_blog_heading">5 Beautiful buildings you need to visit without dying</a>
+                                        <p class="popular_left_blog_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                            <a   class="popular_left_blog_get_read r-flex ali-c">
+                                                <span>Read more</span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>                                                    
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="popular_left_side_box r-flex popular_blogs">
+                                    <div class="popular_left_box_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1649343800236-46d2889a0c4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_left_cont_box">
+                                        <a   class="popular_left_blog_heading">5 Beautiful buildings you need to visit without dying</a>
+                                        <p class="popular_left_blog_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                            <a   class="popular_left_blog_get_read r-flex ali-c">
+                                                <span>Read more</span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>                                                    
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="popular_left_side_box r-flex popular_blogs">
+                                    <div class="popular_left_box_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1649343800236-46d2889a0c4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_left_cont_box">
+                                        <a   class="popular_left_blog_heading">5 Beautiful buildings you need to visit without dying</a>
+                                        <p class="popular_left_blog_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                            <a   class="popular_left_blog_get_read r-flex ali-c">
+                                                <span>Read more</span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>                                                    
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="popular_left_side_box r-flex popular_blogs">
+                                    <div class="popular_left_box_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1649343800236-46d2889a0c4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_left_cont_box">
+                                        <a   class="popular_left_blog_heading">5 Beautiful buildings you need to visit without dying</a>
+                                        <p class="popular_left_blog_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                            <a   class="popular_left_blog_get_read r-flex ali-c">
+                                                <span>Read more</span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>                                                    
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="popular_left_side_box r-flex popular_blogs">
+                                    <div class="popular_left_box_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1649343800236-46d2889a0c4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_left_cont_box">
+                                        <a   class="popular_left_blog_heading">5 Beautiful buildings you need to visit without dying</a>
+                                        <p class="popular_left_blog_cont">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                            <a   class="popular_left_blog_get_read r-flex ali-c">
+                                                <span>Read more</span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>                                                    
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        <!-- ===== left side close ==== -->
+
+
+                        <!-- ===== right side ==== -->
+                        <div class="popular_right_container">
+                            <h2 class="home_populer_main_heading">Most Viral Blogs</h2>
+                            <span class="heading_under_lines_min"></span>
+
+                            <div class="home_populare_right_blog_box">
+
+                                <div class="home_popular_right_blog r-flex ali-c jut-sb viral_blogs">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1660578150623-2e3790e214a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a   class="popular_right_blog_hading">We are guests of ABC Design Studio - Vlog</a>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" home_popular_right_blog r-flex ali-c jut-sb viral_blogs">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1660578150623-2e3790e214a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a   class="popular_right_blog_hading">We are guests of ABC Design Studio - Vlog</a>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" home_popular_right_blog r-flex ali-c jut-sb viral_blogs">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1660578150623-2e3790e214a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a   class="popular_right_blog_hading">We are guests of ABC Design Studio - Vlog</a>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" home_popular_right_blog r-flex ali-c jut-sb viral_blogs">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1660578150623-2e3790e214a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a   class="popular_right_blog_hading">We are guests of ABC Design Studio - Vlog</a>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" home_popular_right_blog r-flex ali-c jut-sb viral_blogs">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1660578150623-2e3790e214a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a   class="popular_right_blog_hading">We are guests of ABC Design Studio - Vlog</a>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" home_popular_right_blog r-flex ali-c jut-sb viral_blogs">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1660578150623-2e3790e214a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a   class="popular_right_blog_hading">We are guests of ABC Design Studio - Vlog</a>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" home_popular_right_blog r-flex ali-c jut-sb viral_blogs">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1660578150623-2e3790e214a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a   class="popular_right_blog_hading">We are guests of ABC Design Studio - Vlog</a>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" home_popular_right_blog r-flex ali-c jut-sb viral_blogs">
+                                    <div class="popular_right_blog_img r-flex">
+                                        <a   class="r-flex">
+                                            <img src="https://images.unsplash.com/photo-1660578150623-2e3790e214a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="popular_right_blog_cont_box c-flex ">
+                                        <a   class="popular_right_blog_hading">We are guests of ABC Design Studio - Vlog</a>
+                                        <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                            <div class="popular_left_write_date">
+                                                <a  >23 Sep. 2022</a>
+                                                <span>/</span>
+                                                <a  >BY KARAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- ===== right side close ==== -->
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ====== three section close ===== -->
+
+
+        <section class="recent_blog_section">
+            <div class="container">
+                <div class="recent_blog_container">
+                    <h2 class="home_populer_main_heading">Recent Posts</h2>
+                    <span class="heading_under_lines"></span>
+                    <div class="recent_blog_box r-flex jut-sb flex-w">
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a   class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                    <div class="popular_left_write_date">
+                                        <a  >23 Sep. 2022</a>
+                                        <span>/</span>
+                                        <a  >BY KARAN</a>
+                                    </div>
+                                </div>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a   class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a   class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                    <div class="popular_left_write_date">
+                                        <a  >23 Sep. 2022</a>
+                                        <span>/</span>
+                                        <a  >BY KARAN</a>
+                                    </div>
+                                </div>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a   class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a   class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                    <div class="popular_left_write_date">
+                                        <a  >23 Sep. 2022</a>
+                                        <span>/</span>
+                                        <a  >BY KARAN</a>
+                                    </div>
+                                </div>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a   class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a   class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                    <div class="popular_left_write_date">
+                                        <a  >23 Sep. 2022</a>
+                                        <span>/</span>
+                                        <a  >BY KARAN</a>
+                                    </div>
+                                </div>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a   class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a   class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                    <div class="popular_left_write_date">
+                                        <a  >23 Sep. 2022</a>
+                                        <span>/</span>
+                                        <a  >BY KARAN</a>
+                                    </div>
+                                </div>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a   class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent_blog">
+                            <div class="recent_blog_img r-flex">
+                                <a   class="r-flex">
+                                    <img src="https://images.unsplash.com/photo-1675352162037-792ae4045e3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" alt="">
+                                </a>
+                            </div>
+                            <div class="recent_blog_cont_box">
+                                <a   class="recent_blog_heading">10 practical ways to choose organic vegetables</a>
+                                <div class="popular_left_write_date_read r-flex ali-c jut-sb">
+                                    <div class="popular_left_write_date">
+                                        <a  >23 Sep. 2022</a>
+                                        <span>/</span>
+                                        <a  >BY KARAN</a>
+                                    </div>
+                                </div>
+                                <p class="recent_blog_content">Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. </p>
+                                <div class="recent_read_date r-flex ali-c jut-sb">
+                                    <a   class="recent_blog_read_more r-flex ali-c">
+                                        <span>Read More</span>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 17L18 12L13 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 17L11 12L6 7" stroke="#382E53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======== forth pagenation section ======== -->
+        <!-- <section class="home_pagenation_section">
+            <div class="container">
+                <div class="home_pagenation_container">
+                    <ul class="home_pagenation_box r-flex ali-c jut-c">
+                        <li class="back_page_link pagenation_link r-flex ali-c jut-c"><a  ><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.22 12.7199C8.07931 12.5793 8.00018 12.3887 8 12.1899V11.8099C8.0023 11.6114 8.08112 11.4216 8.22 11.2799L13.36 6.14985C13.4539 6.0552 13.5817 6.00195 13.715 6.00195C13.8483 6.00195 13.9761 6.0552 14.07 6.14985L14.78 6.85985C14.8741 6.95202 14.9271 7.07816 14.9271 7.20985C14.9271 7.34154 14.8741 7.46769 14.78 7.55985L10.33 11.9999L14.78 16.4399C14.8747 16.5337 14.9279 16.6615 14.9279 16.7949C14.9279 16.9282 14.8747 17.056 14.78 17.1499L14.07 17.8499C13.9761 17.9445 13.8483 17.9978 13.715 17.9978C13.5817 17.9978 13.4539 17.9445 13.36 17.8499L8.22 12.7199Z" fill="#000000"/>
+                            </svg>
+                            </a></li>
+                        <li class="pagenation_link r-flex page_active ali-c jut-c"><a  >1</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a  >2</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a  >3</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a  >4</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a  >5</a></li>
+                        <li class="pagenation_link r-flex ali-c jut-c"><a  >7</a></li> 
+                        <li class="pagenation_link r-flex ali-c jut-c"><a  >108</a></li>
+                        <li class="next_page_link page_active pagenation_link r-flex ali-c jut-c"><a  ><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.78 12.7199C15.9207 12.5793 15.9998 12.3887 16 12.1899V11.8099C15.9977 11.6114 15.9189 11.4216 15.78 11.2799L10.64 6.14985C10.5461 6.0552 10.4183 6.00195 10.285 6.00195C10.1517 6.00195 10.0239 6.0552 9.93 6.14985L9.22 6.85985C9.12594 6.95202 9.07293 7.07816 9.07293 7.20985C9.07293 7.34154 9.12594 7.46769 9.22 7.55985L13.67 11.9999L9.22 16.4399C9.12534 16.5337 9.0721 16.6615 9.0721 16.7949C9.0721 16.9282 9.12534 17.056 9.22 17.1499L9.93 17.8499C10.0239 17.9445 10.1517 17.9978 10.285 17.9978C10.4183 17.9978 10.5461 17.9445 10.64 17.8499L15.78 12.7199Z" fill="#ffffff"/>
+                            </svg>
+                            </a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </section> -->
+
+    </main>
+    <!-- ======= main close ====== -->
+
+    <script>
+        let data = {
+            "id": "id",
+            "title": "Title",
+            "titleImage": "images/logo.png",
+            "meta": "Body",
+            "date": "16/07/2023",
+            "author": "Author",
+            "tags": "Lifestyle"
+        }
+
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll"); 
+        }
+
+        async function loadBlogs(){
+            let data = await fetch("http://127.0.0.1:3000/blogList",{
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                }
+            })
+  
+            let blogs = await data.json()
+
+            console.log("data = ", blogs)
+
+            mainBlogs(blogs.top5ByLikes)
+            AuthorBlogs(blogs.restOfBlogs)
+            EditorBlogs(blogs.top6ByViews)
+            PopularBlogs(blogs.restOfBlogs.splice(0,7))
+            RecentBlogs(blogs.top6ByViews)
+            ViralBlogs(blogs.restOfBlogs)
+        }
+        loadBlogs();
+
+        function mainBlogs(data){
+            let blogs = document.getElementsByClassName("main_blog")
+            //console.log(blogs)
+
+            console.log(data)
+
+            for (let i in blogs){
+                //console.log(blogs[i].children)
+                try{
+                    let img = blogs[i].children[0]
+                    img.src =  data[i]["titleImage"]
+                }
+                catch(err){
+                    //console.log("err = ", blogs[i].children)
+                    continue
+                }
+
+                let text = blogs[i].children[1].children
+                text[0].innerHTML = data[i]["tags"][0]
+                text[1].innerHTML = data[i]["title"]
+                text[1].href = `read?blogId=${data[i]["_id"]}`
+                //console.log("text = ", text)
+                try{
+                    let author = text[2].children
+                    //console.log(author)
+                    author[0].innerHTML = data[i]["date"]
+                    author[2].innerHTML = data[i]["author"]
+                    for (let i in text){
+                        //console.log(text[i])
+                    }
+                }
+                catch(err){
+                    //console.log("no element was present")
+                }
+            }
+        }
+
+        //mainBlogs(data);
+
+        function AuthorBlogs(data){
+            let blogs = document.getElementsByClassName("top_author")
+            //console.log(blogs)
+
+            for (let i in blogs){
+                //console.log(i)
+                //console.log(blogs[i])
+                //console.log(blogs[i].children)
+                try{
+                    let img = blogs[i].children[0].children[0].children[0]
+                    img.src = data[i]["titleImage"]
+                }
+                catch(err){
+                    //console.log("error at  = ", blogs[i].children)
+                    continue
+                }
+                let text = blogs[i].children[1].children
+                text[0].innerHTML = data[i]["title"]
+                text[0].href = `read?blogId=${data[i]["_id"]}`
+                text[1].innerHTML = data[i]["meta"]
+                //console.log("text = ", text)
+                try{
+                    let author = text[2].children
+                    //console.log(author)
+                    author[0].innerHTML = data[i]["tags"][0]
+                    author[1].innerHTML = data[i]["date"]
+                    author[2].innerHTML = data[i]["author"]
+                    for (let i in text){
+                        //console.log(text[i])
+                    }
+                }
+                catch(err){
+                    //console.log("no element was present")
+                }
+            }
+        }
+
+        //AuthorBlogs(data);
+
+
+        function EditorBlogs(data){
+            let blogs = document.getElementsByClassName("editor_choice")
+            //console.log(blogs)
+
+            for (let i in blogs){
+                //console.log(i)
+                //console.log(blogs[i])
+                //console.log(blogs[i].children)
+                try{
+                    let img = blogs[i].children[0].children[0].children[0]
+                    img.src = data[i]["titleImage"]
+                }
+                catch(err){
+                    //console.log("error at - ", blogs[i].children)
+                    continue
+                }
+                let text = blogs[i].children[1].children
+                text[0].innerHTML = data[i]["title"]
+                text[0].href = `read?blogId=${data[i]["_id"]}`
+                //console.log("text = ", text)
+                try{
+                    let author = text[1].children
+                    //console.log(author)
+                    author[0].innerHTML = data["author"]
+                    author[2].innerHTML = data[i]["date"]
+                    //author[2].innerHTML = data["author"]
+                    for (let i in text){
+                        //console.log(text[i])
+                    }
+                }
+                catch(err){
+                    //console.log("no element was present")
+                }
+            }
+        }
+
+        //EditorBlogs(data);
+
+        function PopularBlogs(data){
+            let blogs = document.getElementsByClassName("popular_blogs")
+            //console.log(blogs)
+
+            for (let i in blogs){
+                //console.log(i)
+                //console.log(blogs[i])
+                //console.log(blogs[i].children)
+                try{
+                    let img = blogs[i].children[0].children[0].children[0]
+                    img.src = data[i]["titleImage"]
+                }
+                catch(err){
+                    //console.log("error at - ", blogs[i].children)
+                    continue
+                }
+                let text = blogs[i].children[1].children
+                text[0].innerHTML = data[i]["title"]
+                text[0].href = `read?blogId=${data[i]["_id"]}`
+                text[1].innerHTML = data[i]["meta"]
+                //console.log("text = ", text)
+                try{
+                    let author = text[2].children[0].children
+                    //console.log(author)
+                    author[0].innerHTML = data[i]["date"]
+                    author[2].innerHTML = data[i]["author"]
+                    for (let i in text){
+                        //console.log(text[i])
+                    }
+                }
+                catch(err){
+                    //console.log("no element was present")
+                }
+            }
+        }
+
+        //PopularBlogs(data);
+
+        function ViralBlogs(data){
+            let blogs = document.getElementsByClassName("viral_blogs")
+            //console.log(blogs)
+
+            for (let i in blogs){
+                //console.log(i)
+                //console.log(blogs[i])
+                //console.log(blogs[i].children)
+                try{
+                    let img = blogs[i].children[0].children[0].children[0]
+                    img.src = data[i]["titleImage"]
+                }
+                catch(err){
+                    //console.log("error at - ", blogs[i].children)
+                    continue
+                }
+                let text = blogs[i].children[1].children
+                text[0].innerHTML = data[i]["title"]
+                text[0].href = `read?blogId=${data[i]["_id"]}`
+                //console.log("text = ", text)
+                try{
+                    let author = text[1]
+                    //console.log(author)
+                    author[0].innerHTML = data[i]["date"]
+                    author[2].innerHTML = data[i]["author"]
+                    for (let i in text){
+                        //console.log(text[i])
+                    }
+                }
+                catch(err){
+                    //console.log("no element was present")
+                }
+            }
+        }
+
+        //ViralBlogs(data);
+
+        function RecentBlogs(data){
+            let blogs = document.getElementsByClassName("recent_blog")
+            //console.log(blogs)
+
+            for (let i in blogs){
+                //console.log(i)
+                //console.log(blogs[i])
+                //console.log(blogs[i].children)
+                try{
+                    let img = blogs[i].children[0].children[0].children[0]
+                    img.src = data[i]["titleImage"]
+                }
+                catch(err){
+                    //console.log("error at - ", blogs[i].children)
+                    continue
+                }
+                let text = blogs[i].children[1].children
+                text[0].innerHTML = data[i]["title"]
+                text[0].href = `read?blogId=${data[i]["_id"]}`
+                //console.log("text = ", text)
+                text[2].innerHTML = data[i]["meta"]
+                try{
+                    let author = text[1]
+                    //console.log(author)
+                    author[0].innerHTML = data[i]["date"]
+                    author[2].innerHTML = data[i]["author"]
+                    for (let i in text){
+                        //console.log(text[i])
+                    }
+                }
+                catch(err){
+                    //console.log("no element was present")
+                }
+            }
+        }
+
+        //RecentBlogs(data);
+
+        function changeClass(choice){
+            console.log("change class")
+            let elem = document.getElementsByClassName("dropdown-content")[0]
+            console.log(elem.style.display)
+            if (elem.style.display==""){
+                elem.style.display = "block"
+            }
+            else{
+                elem.style.display = ""
+            }
+        }
+
+        async function newBlog(){
+            const blog = {
+                "userId": JSON.parse(localStorage.getItem("user"))._id
+            }
+            let data = await fetch("http://127.0.0.1:3000/newBlog",{
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(blog)
+            })
+  
+            let blogs = await data.json()
+
+            console.log("data = ", blogs)
+
+            window.location.href = `/write?blogId=${blogs.blog._id}`
+        }
+
+        function setWriteBlog(){
+            let doc = document.getElementById("write_blog")
+            console.log(JSON.parse(localStorage.getItem("user")))
+            if (localStorage.getItem("user")){
+                let elem = `
+                <a class="nav_manu_link write_nav_btn r-flex ali-c" onclick="newBlog()">
+                    <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.847 0.543159L21.4504 1.14002C22.2818 1.9635 22.156 3.42329 21.1671 4.40053L8.72436 16.7091L4.69301 18.1679C4.18679 18.352 3.69387 18.1133 3.59365 17.6368C3.55978 17.464 3.57572 17.2852 3.63967 17.1209L5.14299 13.0986L17.551 0.823382C18.5399 -0.15386 20.0156 -0.280315 20.847 0.543159ZM8.18132 1.76724C8.31562 1.76724 8.44861 1.79341 8.57268 1.84425C8.69676 1.89509 8.80949 1.9696 8.90446 2.06354C8.99942 2.15748 9.07475 2.269 9.12614 2.39174C9.17754 2.51448 9.20399 2.64603 9.20399 2.77888C9.20399 2.91173 9.17754 3.04328 9.12614 3.16602C9.07475 3.28875 8.99942 3.40028 8.90446 3.49421C8.80949 3.58815 8.69676 3.66267 8.57268 3.71351C8.44861 3.76435 8.31562 3.79052 8.18132 3.79052H4.09066C3.54821 3.79052 3.02797 4.00368 2.64439 4.38312C2.26082 4.76256 2.04533 5.27719 2.04533 5.81379V17.9534C2.04533 18.4901 2.26082 19.0047 2.64439 19.3841C3.02797 19.7636 3.54821 19.9767 4.09066 19.9767H16.3626C16.9051 19.9767 17.4253 19.7636 17.8089 19.3841C18.1925 19.0047 18.408 18.4901 18.408 17.9534V13.9069C18.408 13.6386 18.5157 13.3813 18.7075 13.1916C18.8993 13.0018 19.1594 12.8953 19.4306 12.8953C19.7019 12.8953 19.962 13.0018 20.1538 13.1916C20.3456 13.3813 20.4533 13.6386 20.4533 13.9069V17.9534C20.4533 19.0267 20.0223 20.0559 19.2552 20.8148C18.488 21.5737 17.4476 22 16.3626 22H4.09066C3.00575 22 1.96528 21.5737 1.19813 20.8148C0.430979 20.0559 0 19.0267 0 17.9534V5.81379C0 4.74058 0.430979 3.71132 1.19813 2.95245C1.96528 2.19357 3.00575 1.76724 4.09066 1.76724H8.18132Z" fill="#ffffff"/>
+                    </svg>
+                    <span onclick=newBlog()>Write Blog</span>
+                </a>
+                `
+                doc.innerHTML = elem
+                }
+            else{
+                let elem = `
+                <a class="nav_manu_link write_nav_btn r-flex ali-c" href="/login">
+                    <span>Sign up / Sign In</span>
+                </a>
+                `
+                doc.innerHTML = elem
+            }
+        }
+
+        function setProfile(){
+            let doc = document.getElementById("profile_image")
+            if (localStorage.getItem("user")){
+                let elem = `
+                <a class="nav_manu_link" onclick="changeClass()">
+                    <img style="max-height: 30px;" src="user-bg.png">
+                    <br>
+                    <div class="dropdown-content">
+                        <div>
+                        <a class="profile_points" href="/dashboard"><div class="dropdown_a">Dashboard</div></a>
+                        </div>
+                        <a class="profile_points"  ><div class="dropdown_a" onclick="logout()">Signout</div></a>
+                    </div>
+                </a>
+                `
+                doc.innerHTML = elem
+                }
+        }
+
+        setProfile();
+        setWriteBlog();
+
+        async function logout(){
+            let data = await fetch("/logout",{
+                "method": "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+            })
+            let res = await data.json();
+
+            console.log("res = ", res)
+
+            localStorage.removeItem("user")
+
+            window.location.href = "/"
+        }
+
+        async function goDash(){
+            let token  = localStorage.getItem("token")
+            console.log("token = ", token)
+            let data = await fetch("/dashboard",{
+                "method": "POST",
+                headers: {
+                    "content-type": "application/json",
+                    'Authorization': "Bearer " + token
+                },
+            })
+            let res = await data.json();
+
+            console.log("res = ", res)
+        }
+
+    </script>
+
+
+</body>
+</html>
