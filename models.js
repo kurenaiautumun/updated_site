@@ -6,7 +6,9 @@ const nodemailer = require("nodemailer");
 const userSchema = new mongoose.Schema({
   username: String,
   role: String,
+  info: String,
   referral: Number,
+  pp: String,
   email: String,
   password: String,
   followers: Array,
@@ -24,9 +26,11 @@ const blogSchema = new mongoose.Schema({
   category: String,
   userId: String,
   author: String,
+  meta: String,
   viewCount: { type: Number, default: 0 },
   status: String,
   date: String,
+  tags: [String],
   likes: Array,
   recommendation: Array,
   titleImage: String,
@@ -38,6 +42,7 @@ const commentSchema = new mongoose.Schema({
   body: String,
   status: String,
   date: String,
+  username: String,
 });
 
 const reviewSchema = new mongoose.Schema({

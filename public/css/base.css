@@ -245,6 +245,10 @@ input::-webkit-inner-spin-button {
     }
 }
 
+.img-fluid{
+    max-width: 100%;
+}
+
 /* =================== fonts sizes =============== */
 h1{
     font-size: 35px;
@@ -280,4 +284,3 @@ a{
 li{
     list-style: none;
 }
-
