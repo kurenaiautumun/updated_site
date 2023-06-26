@@ -283,7 +283,7 @@
             const blog = {
                 "userId": JSON.parse(localStorage.getItem("user"))._id
             }
-            let data = await fetch("http://127.0.0.1:3000/newBlog",{
+            let data = await fetch("/newBlog",{
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
