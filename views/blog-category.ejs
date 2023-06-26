@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>single blog page</title>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="stylesheet" href="../css/author.css">
+    <link rel="stylesheet" href="../css/blog-category-01.css">
+    <link rel="stylesheet" href="../css/blog-category-02.css">
+
+    <style>
+        
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+        .close_nav_berger{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .open_nav_burger{
+            display: none;
+        }
+        @media (max-width: 920px){
+            .close_nav_berger,
+            .open_nav_burger{
+                display: block;
+                cursor: pointer;
+            }
+        }
+        
+
+
+
+    </style>
+</head>
+<body>
+
+        <!-- ======= header ====== -->
+        <header class="top_header">
+            <div class="container">
+                 <nav class="navigation_bar r-flex ali-c jut-sb  ">
+     
+                     <!-- ==== left nav === -->
+                     <div class="left_side_nav_bar">
+                         <a href="/" class="nav_logo_box">
+                             <img style="max-height:80px;" src="../images/logo3.png" alt="nav-logo">
+                         </a>
+                     </div>
+                     <!-- ==== left nav close=== -->
+     
+                     <!-- ==== right nav === -->
+                     <div class="right_side_bar">
+                         <div class="nav_manu_bar">
+                             <ul class="manu_box r-flex ali-c " id="myNAV">
+                                 <li class="nav_manu_points"><a href="/" class="nav_manu_link"  >Home</a></li>
+                                 <li class="nav_manu_points">
+                                     <a class="nav_manu_link"  >
+                                         <span class=" nav_drop_menu r-flex ali-c"> 
+                                             <span>Categories </span> 
+                                             <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                 <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                             </svg>                                             
+                                         </span>
+     
+                                         <ul class="nav_megha_manu">
+                                             <li class="nav_megha_manu_points">
+                                                 <a href="/category/beauty" class="nav_megha_menu_point">Beauty</a>
+                                             </li>
+                                             <li class="nav_megha_manu_points">
+                                                 <a href="/category/fashion" class="nav_megha_menu_point">Fashion</a>
+                                             </li>
+                                             <li class="nav_megha_manu_points"><a  href="/category/travel" class="nav_megha_menu_point">Travel</a></li>
+                                             <li class="nav_megha_manu_points"><a href="/category/architecture" class="nav_megha_menu_point">Architecture</a></li>
+                                             <li class="nav_megha_manu_points"><a href="/category/Recipes" class="nav_megha_menu_point">Recipes</a></li>
+                                         </ul>
+     
+                                     </a>
+                                 </li>
+                                 <li class="nav_manu_points"> 
+                                     <a class="nav_manu_link"  >
+                                         <span class=" nav_drop_menur-flex ali-c"> 
+                                             <span>Features </span> 
+                                             <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                 <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                             </svg>                                             
+                                         </span>
+     
+                                         <ul class="nav_megha_manu">
+                                             <li class="nav_megha_manu_points">
+                                                 <a href="/category/beauty" class="nav_megha_menu_point">Beauty</a>
+                                             </li>
+                                             <li class="nav_megha_manu_points">
+                                                 <a href="/category/fashion" class="nav_megha_menu_point">Fashion</a>
+                                             </li>
+                                             <li class="nav_megha_manu_points"><a  href="/category/travel" class="nav_megha_menu_point">Travel</a></li>
+                                             <li class="nav_megha_manu_points"><a href="/category/architecture" class="nav_megha_menu_point">Architecture</a></li>
+                                             <li class="nav_megha_manu_points"><a href="/category/Recipes" class="nav_megha_menu_point">Recipes</a></li>
+                                         </ul>
+     
+                                     </a>
+                                 </li>
+                                 <li class="nav_manu_points"><a href="/category/food" class="nav_manu_link"  >Food</a></li>
+     
+                                 <li class="nav_manu_points"><a href="/category/lifestyle" class="nav_manu_link"  >Lifestyle</a></li>
+     
+                                 <li class="nav_manu_points"><a href="/category/travel" class="nav_manu_link"  >Travel</a></li>
+     
+                                 <li id="write_blog" class="nav_manu_points"></li>
+     
+     
+                                 <li id="profile_image" class="nav_manu_points">
+                                 </li>
+     
+                                 <div class="close_nav_berger" onclick="burgerFuncation()">
+                                     <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                         <line x1="1.46967" y1="18.4402" x2="18.4402" y2="1.46967" stroke="url(#paint0_linear_412_2)" stroke-width="1.5"/>
+                                         <line y1="-0.75" x2="24.0208" y2="-0.75" transform="matrix(-0.706494 -0.707719 0.706494 -0.707719 18.9707 18)" stroke="url(#paint1_linear_412_2)" stroke-width="1.5"/>
+                                         <defs>
+                                         <linearGradient id="paint0_linear_412_2" x1="3.17851" y1="19.2063" x2="25.3345" y2="-2.94974" gradientUnits="userSpaceOnUse">
+                                         <stop stop-color="#000000"/>
+                                         <stop offset="0.449933" stop-color="#989898"/>
+                                         <stop offset="1" stop-color="#000000"/>
+                                         </linearGradient>
+                                         <linearGradient id="paint1_linear_412_2" x1="0.667245" y1="1" x2="32.0278" y2="0.999999" gradientUnits="userSpaceOnUse">
+                                         <stop stop-color="#000000"/>
+                                         <stop offset="0.449933" stop-color="#989898"/>
+                                         <stop offset="1" stop-color="#000000"/>
+                                         </linearGradient>
+                                         </defs>
+                                     </svg>                                
+                                 </div>
+     
+                             </ul>
+                             <div class="open_nav_burger" onclick="burgerFuncation()">
+                                 <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <line y1="8.25" x2="18" y2="8.25" stroke="url(#paint0_linear_115_6)" stroke-width="1.5"/>
+                                 <line y1="1.25" x2="21" y2="1.25" stroke="url(#paint1_linear_115_6)" stroke-width="1.5"/>
+                                 <line y1="15.25" x2="24" y2="15.25" stroke="url(#paint2_linear_115_6)" stroke-width="1.5"/>
+                                 <defs>
+                                 <linearGradient id="paint0_linear_115_6" x1="0.5" y1="10" x2="24" y2="10" gradientUnits="userSpaceOnUse">
+                                 <stop stop-color="#000000"/>
+                                 <stop offset="0.449933" stop-color="#989898"/>
+                                 <stop offset="1" stop-color="#000000"/>
+                                 </linearGradient>
+                                 <linearGradient id="paint1_linear_115_6" x1="0.583333" y1="3" x2="28" y2="3" gradientUnits="userSpaceOnUse">
+                                 <stop stop-color="#000000"/>
+                                 <stop offset="0.449933" stop-color="#989898"/>
+                                 <stop offset="1" stop-color="#000000"/>
+                                 </linearGradient>
+                                 <linearGradient id="paint2_linear_115_6" x1="0.666667" y1="17" x2="32" y2="17" gradientUnits="userSpaceOnUse">
+                                 <stop stop-color="#000000"/>
+                                 <stop offset="0.449933" stop-color="#989898"/>
+                                 <stop offset="1" stop-color="#000000"/>
+                                 </linearGradient>
+                                 </defs>
+                                 </svg>
+                             </div>
+                             
+                         </div>
+                     </div>
+     
+     
+                 </nav>
+            </div>
+         </header>
+         <!-- ======= header close ====== -->
+
+
+     <main>
+        <!-- ======== hero section ======= -->
+        <section class="bloge_herosection">
+            <div class="container">
+
+                <div class="author_nav_bar r-flex ali-c jut-sb">
+                    <div class="author_nav_left r-flex ali-c">
+                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M31.8603 26.3128L29.9664 10.3753C29.905 9.85604 29.6542 9.37765 29.2622 9.03166C28.8701 8.68567 28.3643 8.49638 27.8414 8.5H23.3749C23.3749 6.80924 22.7032 5.18774 21.5077 3.99219C20.3122 2.79665 18.6906 2.125 16.9999 2.125C15.3091 2.125 13.6876 2.79665 12.4921 3.99219C11.2965 5.18774 10.6249 6.80924 10.6249 8.5H6.1531C5.63022 8.49638 5.12436 8.68567 4.73231 9.03166C4.34025 9.37765 4.08953 9.85604 4.0281 10.3753L2.13419 26.3128C2.09948 26.6103 2.12804 26.9117 2.218 27.1974C2.30795 27.483 2.45726 27.7464 2.65615 27.9703C2.85647 28.1952 3.10194 28.3752 3.37656 28.4988C3.65117 28.6224 3.94876 28.6867 4.2499 28.6875H29.7393C30.0422 28.6882 30.3418 28.6246 30.6184 28.501C30.8949 28.3774 31.1421 28.1965 31.3436 27.9703C31.5416 27.746 31.6899 27.4824 31.779 27.1967C31.868 26.9111 31.8957 26.6099 31.8603 26.3128ZM16.9999 4.25C18.1271 4.25 19.2081 4.69777 20.0051 5.4948C20.8021 6.29183 21.2499 7.37283 21.2499 8.5H12.7499C12.7499 7.37283 13.1977 6.29183 13.9947 5.4948C14.7917 4.69777 15.8727 4.25 16.9999 4.25Z" fill="#1E53DB"/>
+                        </svg>                                 
+                        <div id="title" class="author_nav_user_name">Fashion</div>                      
+                        <span class="author_nav_des">Nulla felis eros, varius sit amet volutpat non.</span>
+                    </div>
+                </div>
+
+                <div class="author_hero_container r-flex jut-sb">
+
+                    <!-- ====== left ===== -->
+                    <div class="left_hero_blog">
+
+                     
+                        <div class="author_bolg_post_container">
+
+                            <div class="blog_category_1_aside_var">
+                                <ul id="blog_container" class="blog_category_blog_container r-flex jut-sb flex-w">
+                                </ul>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+
+                    <!-- ====== right ====== -->
+                    <div class="right_hero_blog">
+                        <div class="right_container">
+
+                            <!-- ====== right search ===== -->
+                            <div class="blog_right_search_box">
+                                <div class="blog_search_head">Search</div>
+                                <form class="blog_search_box r-flex ali-c">
+                                    <input type="search" name="search" id="blog_search" placeholder="Search blog">
+                                    <button type="submit">
+                                        <svg width="16" height="16" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M26.2083 26.2083L32.375 32.375M4.625 16.9583C4.625 20.2293 5.9244 23.3664 8.23735 25.6793C10.5503 27.9923 13.6873 29.2917 16.9583 29.2917C20.2293 29.2917 23.3664 27.9923 25.6793 25.6793C27.9923 23.3664 29.2917 20.2293 29.2917 16.9583C29.2917 13.6873 27.9923 10.5503 25.6793 8.23735C23.3664 5.9244 20.2293 4.625 16.9583 4.625C13.6873 4.625 10.5503 5.9244 8.23735 8.23735C5.9244 10.5503 4.625 13.6873 4.625 16.9583Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>                                            
+                                    </button>
+                                </form>
+
+                            </div>
+
+                            
+
+                            <!-- ====== ads ==== -->
+                            <div class="ads_right_blog_side">
+                                <div class="ads_main_head_blog">Advertising</div>
+                                <div class="ads_img_box_right_blog">
+                                    <img src="https://images.unsplash.com/photo-1681316151065-f75049d1b7ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1641&q=80" alt="">
+                                </div>
+                                <div class="ads_img_box_right_blog">
+                                    <img src="https://images.unsplash.com/photo-1681316152147-e8dffd56404c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1477&q=80" alt="">
+                                </div>
+                            </div>
+
+                            <!-- ===== right populer categories ===== -->
+                            <div class="populer_categ_container">
+                                <div class="main_right_popu_categ_head">Popular Categories</div>
+                                <div class="right_blog_categ_box">
+                                        <a href="/category/fashion" class="r-flex ali-c jut-sb">
+                                            <span>Fashion</span>
+                                            <span>(21)</span>
+                                        </a>
+                                        <a href="/category/lifestyle" class="r-flex ali-c jut-sb">
+                                            <span>Lifestyle</span>
+                                            <span>(26)</span>
+                                        </a>
+                                        <a href="/category/arts" class="r-flex ali-c jut-sb">
+                                            <span>Art & Design</span>
+                                            <span>(51)</span>
+                                        </a>
+                                        <a href="/category/beauty" class="r-flex ali-c jut-sb">
+                                            <span>Beauty</span>
+                                            <span>(26)</span>
+                                        </a>
+                                        <a href="/category/clothing" class="r-flex ali-c jut-sb">
+                                            <span>Clothing</span>
+                                            <span>(31)</span>
+                                        </a>
+                                        <a  href="/category/food" class="r-flex ali-c jut-sb">
+                                            <span>Food & Drink</span>
+                                            <span>(21)</span>
+                                        </a>
+                                        <a href="/category/entertainment" class="r-flex ali-c jut-sb">
+                                            <span>Entertaintment</span>
+                                            <span>(34)</span>
+                                        </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+     </main>
+    
+
+     <script>
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll"); 
+        }
+
+        function attachBlogs(blogs){
+            let elements = document.getElementById("blog_container")
+            blogs.map((data)=> {
+                let content = `
+                    <li class="blog_cat2_box ">
+                        <a class="">
+                            <div class="blog_cat2_item r-flex">
+                                <div class="blog_cat2_img_box">
+                                    <img src="${data["titleImage"]}" alt="">
+                                </div>
+                                <div class="blog_cat2_cont_box">
+                                    <a href="read?blogId=${data._id}" class="blog_cat2_heading">${data.title}</a>
+                                    <p class="blog_cat2_content">${data.meta}</p>
+                                    <div class="blog_cat2_writer_date r-flex ali-c text-t">
+                                        <a>${data.tags[0]}</a>
+                                        <span>/</span>
+                                        <a>${date_string(data.date)}</a>
+                                        <span>/</span>
+                                        <a>by ${data.author}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    `
+                let div = document.createElement("div")
+                div.innerHTML = content
+                elements.append(div)
+            })
+        }
+
+        function date_string(date){
+            parts = date.split("/")
+
+            console.log("parts = ", parts)
+
+            let months = {
+                "1":"Jan",
+                "2":"Feb",
+                "3":"Mar",
+                "4":"April",
+                "5":"May",
+                "6":"June",
+                "7":"July",
+                "8":"Aug",
+                "9":"Sept",
+                "10":"Oct",
+                "11":"Nov",
+                "12":"Dec",
+            }
+            return `${parts[1]} ${months[parts[0]]} ${parts[2]}`
+        }
+
+        async function userBlogs(){
+            let token = localStorage.getItem("token")
+            let cat = window.location.href.split("/").slice(-1)[0]
+            console.log(cat)
+            cat = cat[0].toUpperCase() + cat.slice(1)
+            console.log(cat)
+            document.getElementById("title").innerHTML = cat
+            let data = await fetch(`/category/${window.location.href.split("/").slice(-1)[0]}`, {
+                method: "POST",
+                headers:{
+                    "Content-type": "application/json",
+                    'Authorization': "Bearer " + token
+                }
+            })
+
+            let blogs = await data.json()
+            console.log("blogs = ", blogs)
+
+            attachBlogs(blogs);
+        }
+        userBlogs();
+
+
+    </script>
+</body>
+</html>
