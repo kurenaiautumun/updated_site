@@ -120,4 +120,16 @@ router.post("/authorBlogs", async (req, res) => {
   }
 })
 
+router.post("/category/:tag", async (req, res)=>{
+  const blogData = await Blog.find({
+    tags : req.params.tag
+  });
+  console.log("blogs = ", blogData)
+  res.json(blogData)
+})
+
+router.get("/category/:tag", async (req, res)=>{
+  res.render("blog-category")
+})
+
 module.exports = router;
