@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- ====== TITLE ====== -->
-    <title>Devender - Test Page</title>
+    <title>Signup</title>
 
     <!-- ====== CSS LINKS ===== -->
     <link rel="stylesheet" href="style2.css">
@@ -197,6 +197,8 @@
                         <form class="sing_up_form_box c-flex ali-c jut-c" method="POST" action="/signup">
                             <input required="required" type="name" name="username" id="username"
                                 placeholder="Enter Your Name">
+                            <input type="referral" name="referral" id="referral"
+                                placeholder="Referall Code (if any)">
                             <input required="required" type="email" name="email" id="email"
                                 placeholder="Enter Your E-mail">
                             <input required="required" type="password" name="password" id="password"
@@ -226,7 +228,7 @@
                                 <span>Sign in with Google</span>
                             </button> -->
 
-                            <div class="have_ac"><span>Do have an account?</span> <a  >Sign in</a></div>
+                            <div class="have_ac"><span>Do have an account?</span> <a href="/login" >Sign in</a></div>
                         </form>
                     </div>
                     <div class="sign_up_right_box"></div>
@@ -281,7 +283,12 @@
 
         async function newBlog(){
             const blog = {
-                "userId": JSON.parse(localStorage.getItem("user"))._id
+                "userId": JSON.parse(localStorage.getItem("user"))._id,
+                "title": "Title",
+                "views": 0,
+                "status": "new",
+                "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
+                "userName": JSON.parse(localStorage.getItem("user"))._id,
             }
             let data = await fetch("/newBlog",{
                 method: "POST",
@@ -357,8 +364,27 @@
 
             localStorage.removeItem("user")
 
-            window.location.href = "/"
+            window.location.href = "/login"
         }
+
+        function getParams() {
+            var idx = document.URL.indexOf('?');
+            var params = {};
+            if (idx != -1) {
+                var pairs = document.URL.substring(idx + 1, document.URL.length).split('&');
+                for (var i = 0; i < pairs.length; i++) {
+                    nameVal = pairs[i].split('=');
+                    params[nameVal[0]] = nameVal[1];
+                }
+            }
+            console.log(params["ref"])
+            if (params["ref"]!=null){
+                console.log("not null")
+                document.getElementById("referral").value = params["ref"]
+            }
+            return params["ref"];
+        }
+        getParams()
     </script>
 </body>
 

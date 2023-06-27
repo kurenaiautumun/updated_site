@@ -692,8 +692,17 @@
                     titleImage: document.getElementById("titleImage").src,
                     tags: getTags(),
                     author: JSON.parse(localStorage.getItem("user")).username,
-                    meta: meta
+                    meta: meta,
+                    status: "review"
                 };
+                if (blog.tags.length==0){
+                    alert("please Enter Some Tags")
+                    return false
+                }
+                if (blog.meta=="..."){
+                    alert("Please Enter Some Content")
+                    return false
+                }
                 console.log(blog)
                 saveData(blog);
                 alert("Blog submitted for review")
@@ -1138,8 +1147,13 @@
 
     async function newBlog(){
         const blog = {
-            "userId": JSON.parse(localStorage.getItem("user"))._id
-        }
+                "userId": JSON.parse(localStorage.getItem("user"))._id,
+                "title": "Title",
+                "views": 0,
+                "status": "new",
+                "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
+                "userName": JSON.parse(localStorage.getItem("user"))._id,
+            }
         let data = await fetch("/newBlog",{
             method: "POST",
             headers: {
@@ -1230,25 +1244,6 @@
         else{
             elem.style.display = ""
         }
-    }
-
-    async function newBlog(){
-        const blog = {
-            "userId": JSON.parse(localStorage.getItem("user"))._id
-        }
-        let data = await fetch("/newBlog",{
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(blog)
-        })
-
-        let blogs = await data.json()
-
-        console.log("data = ", blogs)
-
-        window.location.href = `/write?blogId=${blogs.blog._id}`
     }
 
     function setWriteBlog(){
