@@ -414,7 +414,7 @@
         }
 
         async function RecentBlogs(){
-            let req = await fetch(`http://localhost:3000/randomBlogs?size=3`, {
+            let req = await fetch(`/randomBlogs?size=3`, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json",

@@ -598,7 +598,7 @@
             body.append("blogId", "6437cf61159891149608d102")
             body.append("userId", "641be792bacccc03c37fc0e4")
             body.append("image", e.files[0])
-            fetch("http://localhost:3000/image",
+            fetch("/image",
                 {
                     method: "POST",
                     body: body
@@ -675,7 +675,7 @@
         }
 
         function saveData(blog) {
-            fetch(`http://localhost:3000/updateBlog`, {
+            fetch(`/updateBlog`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -803,7 +803,7 @@
                 body.append("userId", "641be792bacccc03c37fc0e4")
                 body.append("image", e.files[0])
 
-                fetch(`http://localhost:3000/titleImage`, {
+                fetch(`/titleImage`, {
                     method: "POST",
                     body: body
                 }).then((res) => res.json())
@@ -833,7 +833,7 @@
         (async function call() {
             blogId = await getParams()
             //console.log(blogId)
-            await fetch(`http://localhost:3000/blog?blogId=${await blogId}`, options)
+            await fetch(`/blog?blogId=${await blogId}`, options)
                 .then(function (response) {
                     // //console.log(response.json())
                     return response.json();
@@ -891,7 +891,7 @@
         }
 
         async function randomBlogs(){
-            let req = await fetch(`http://localhost:3000/randomBlogs?size=2`, {
+            let req = await fetch(`/randomBlogs?size=2`, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json",
@@ -997,7 +997,7 @@
         }
 
         async function suggestionBlogs(){
-            let req = await fetch(`http://localhost:3000/randomBlogs?size=4`, {
+            let req = await fetch(`/randomBlogs?size=4`, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json",
@@ -1018,7 +1018,7 @@
     }
 
     async function RecentBlogs(){
-            let req = await fetch(`http://localhost:3000/randomBlogs?size=3`, {
+            let req = await fetch(`/randomBlogs?size=3`, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json",
