@@ -145,8 +145,8 @@
                                     <a id="referral"   class="no-underline text-white text-2xl">
                                         #1234566899
                                     </a>
-                                    <a   class="no-underline text-white text-lg">
-                                        Your Referal Number
+                                    <a class="no-underline text-white text-lg">
+                                        Your Referal Number <img onClick="copyURL()" src="/images/copy-icon.png" style="width:20px; height: 20px">
                                     </a>
                                 </div>
                             </div>
@@ -272,6 +272,22 @@
             div.innerHTML = post
             elem.append(div)
         })
+        }
+
+        function copyURL(){
+            let copyText = document.getElementById("referral");
+
+            console.log("copy  = ", copyText)
+
+            // Select the text field
+            //copyText.select();
+            //copyText.setSelectionRange(0, 99999); // For mobile devices
+
+             // Copy the text inside the text field
+            navigator.clipboard.writeText("http://127.0.0.1:3000/signup?ref=" + copyText.innerHTML);
+
+            // Alert the copied text
+            alert("referral link copied: " + copyText.innerHTML);
         }
 
     </script>

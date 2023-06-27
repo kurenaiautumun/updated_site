@@ -308,12 +308,12 @@
                 let content = `
                     <li class="blog_cat2_box ">
                         <a class="">
-                            <div class="blog_cat2_item r-flex">
+                            <div style="width: 100%" class="blog_cat2_item r-flex">
                                 <div class="blog_cat2_img_box">
                                     <img src="${data["titleImage"]}" alt="">
                                 </div>
                                 <div class="blog_cat2_cont_box">
-                                    <a href="read?blogId=${data._id}" class="blog_cat2_heading">${data.title}</a>
+                                    <a href="/read?blogId=${data._id}" class="blog_cat2_heading">${data.title}</a>
                                     <p class="blog_cat2_content">${data.meta}</p>
                                     <div class="blog_cat2_writer_date r-flex ali-c text-t">
                                         <a>${data.tags[0]}</a>

@@ -19,7 +19,6 @@
     <!-- Site Metas -->
     <title>Cloapedia - Stylish Magazine Blog Template</title>
     <meta name="keywords" content="">
-    <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- css -->
@@ -847,6 +846,7 @@
                     titleImage.src = jsonData[0]["titleImage"]
                     title = document.getElementById("title")
                     title.innerHTML = jsonData[0]["title"]
+                    console.log("title = ", jsonData[0]["title"])
                     document.title = jsonData[0]["title"]
                     document.getElementById("likes").innerHTML = jsonData[0]["viewCount"]
                     document.getElementById("publish_date").innerHTML = date_string(jsonData[0]["date"])
@@ -1173,9 +1173,30 @@
         }
     }
 
+    async function userData(){
+        let token = localStorage.getItem("token")
+        let data = await fetch("/currentUser", {
+            method: "GET",
+            headers:{
+                "Content-type": "application/json",
+                'Authorization': "Bearer " + token
+            }   
+        })
+
+        let userDetails = await data.json()
+
+        return userDetails
+    }
+
     async function newBlog(){
+        const userDetails = await userData();
         const blog = {
-            "userId": JSON.parse(localStorage.getItem("user"))._id
+            "userId": userDetails.user._id,
+            "title": "Title",
+            "views": 0,
+            "status": "new",
+            "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
+            "userName": userDetails.user._id,
         }
         let data = await fetch("/newBlog",{
             method: "POST",

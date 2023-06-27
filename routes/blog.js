@@ -55,6 +55,7 @@ router.post("/newblog", (req, res) => {
       date,
       titleImage,
       userName,
+      status,
     });
     blog.save((err, blog) => {
       res.status(201).json({ message: "blog saved", user, blog });
@@ -63,7 +64,7 @@ router.post("/newblog", (req, res) => {
 });
 
 router.post("/updateBlog", (req, res) => {
-  let { id, title, body, titleImage, tags, author, meta } = req.body;
+  let { id, title, body, titleImage, tags, author, meta, status } = req.body;
   console.log(req.body)
   console.log("tags = ", tags)
 
@@ -75,7 +76,8 @@ router.post("/updateBlog", (req, res) => {
       "titleImage": titleImage,
       "tags": tags,
       "author": author,
-      "meta": meta
+      "meta": meta,
+      "status": status
     }, function (err, docs) {
       if (!err){
         console.log("done for update")

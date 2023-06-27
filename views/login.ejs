@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- ====== TITLE ====== -->
-  <title>Devender - Test Page</title>
+  <title>Login</title>
 
   <!-- ====== CSS LINKS ===== -->
   <link rel="stylesheet" href="style2.css">
@@ -282,7 +282,7 @@
 
       localStorage.setItem("user", JSON.stringify(user["user"]));
       
-      //window.location.href = "/";
+      window.location.href = "/";
     }
 
     //Calling a function during form submission.
@@ -305,9 +305,14 @@
   }
 
   async function newBlog(){
-      const blog = {
-          "userId": JSON.parse(localStorage.getItem("user"))._id
-      }
+        const blog = {
+                "userId": JSON.parse(localStorage.getItem("user"))._id,
+                "title": "Title",
+                "views": 0,
+                "status": "new",
+                "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
+                "userName": JSON.parse(localStorage.getItem("user"))._id,
+            }
       let data = await fetch("/newBlog",{
           method: "POST",
           headers: {
