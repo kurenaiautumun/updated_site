@@ -78,18 +78,18 @@
 
 
                         <li class="w-full h-full py-3 px-2 border-b border-light-border">
-                            <a
+                            <a onclick="showEarnings()"
                                 class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                                 <i class="fab fa-uikit float-left mx-2"></i>
-                                Competitions
+                                Referrals
                                 <span><i class="fa fa-angle-right float-right"></i></span>
                             </a>
                         </li>
                         <li class="w-full h-full py-3 px-2 border-b border-300-border">
-                            <a
+                            <a onclick="showRefs()"
                                 class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                                 <i class="fas fa-square-full float-left mx-2"></i>
-                                Games
+                                Earning
                                 <span><i class="fa fa-angle-right float-right"></i></span>
                             </a>
                         </li>
@@ -156,13 +156,47 @@
 
                         <!--Grid Form-->
 
-                        <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+                        <div id="posts_div" class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
                             <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
                                 <div class="bg-gray-200 px-2 py-3 border-solid border-gray-300 border-b">
                                     Posts
                                 </div>
                                 <!-- for posts -->
                                 <div id="posts" class="p-1 flex flex-col  md:mx-1 lg:mx-1">
+                                    <!-- horizontal card -->
+                                            <!-- /horizontal card -->
+                                </div>
+                                <!-- /for posts -->
+
+                            </div>
+                        </div>
+                        <!--/Grid Form-->
+                        <!--Grid Form-->
+
+                        <div id="referral_div" class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+                            <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+                                <div class="bg-gray-200 px-2 py-3 border-solid border-gray-300 border-b">
+                                    Referrals
+                                </div>
+                                <!-- for posts -->
+                                <div id="refs" class="p-1 flex flex-col  md:mx-1 lg:mx-1">
+                                    <!-- horizontal card -->
+                                            <!-- /horizontal card -->
+                                </div>
+                                <!-- /for posts -->
+
+                            </div>
+                        </div>
+                        <!--/Grid Form-->
+                        <!--Grid Form-->
+
+                        <div id="earning_div" class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+                            <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+                                <div class="bg-gray-200 px-2 py-3 border-solid border-gray-300 border-b">
+                                    Earnings
+                                </div>
+                                <!-- for posts -->
+                                <div id="earns" class="p-1 flex flex-col  md:mx-1 lg:mx-1">
                                     <!-- horizontal card -->
                                             <!-- /horizontal card -->
                                 </div>
