@@ -10,6 +10,7 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", function (req, res) {
+  console.log("in login")
   const user = new User({
     username: req.body.username,
     password: req.body.password,

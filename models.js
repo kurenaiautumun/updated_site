@@ -83,6 +83,22 @@ const referralSchema = new mongoose.Schema({
   hisReferral: Number,
 });
 
+const Earnings = new mongoose.Schema({
+  userId: String,
+  blogId: String,
+  earned: Number,
+  ViewCount: Number,
+  startDate: String,
+  endDate: String
+})
+
+const TotalEarnings = new mongoose.Schema({
+  userId: String,
+  earns: Number,
+  startDate: String,
+  endDate: String
+})
+
 const corsOptions = {
   origin: "*",
   credentials: true,
@@ -133,4 +149,6 @@ module.exports = {
   Referral,
   toggle,
   transporter,
+  Earnings,
+  TotalEarnings
 };
