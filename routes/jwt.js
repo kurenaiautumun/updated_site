@@ -27,7 +27,7 @@ function verifyToken(req, res, next) {
 
     console.log("jet started")
 
-    let data
+    let data = null
 
     const bearerHeader = req.headers["authorization"];
   

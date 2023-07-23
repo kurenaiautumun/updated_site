@@ -12,6 +12,23 @@
     <link rel="stylesheet" href="/dist/all.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
     <title>Dashboard</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
 </head>
 
 <body>
@@ -242,6 +259,26 @@
         }
         userData();
 
+        function date_string(date){
+            parts = date.split("/")
+
+            let months = {
+                "1":"Jan",
+                "2":"Feb",
+                "3":"Mar",
+                "4":"April",
+                "5":"May",
+                "6":"June",
+                "7":"July",
+                "8":"Aug",
+                "9":"Sept",
+                "10":"Oct",
+                "11":"Nov",
+                "12":"Dec",
+            }
+            return `${parts[1]} ${months[parts[0]]} ${parts[2]}`
+        }
+
         async function userBlogs(){
             let token = localStorage.getItem("token")
             let data = await fetch("/userBlogs", {
@@ -259,15 +296,16 @@
             blogLength.innerHTML = blogs.length
 
             attachBlogs(blogs);
+            //attachRefs(blogs);
         }
         userBlogs();
 
         function attachBlogs(blogs){
 
             let elem = document.getElementById("posts")
-            
+
+            console.log("blogs = ", blogs)
             blogs.map((blog)=> {
-                console.log(blog)
                 let post = `
                 <div style="margin:10px" class=" w-full lg:flex lg:mx-2 md:mx-2">
                     <div class="h-40 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
@@ -275,14 +313,14 @@
                         title="Woman holding a mug">
                     </div>
                     <div
-                    style="min-width: 50%; max-width: 80%"class="border-r border-b border-l border-gray-300 lg:border-l-0 lg:border-t lg:border-gray-300 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                    style="min-width: 60%; max-width: 95%"class="border-r border-b border-l border-gray-300 lg:border-l-0 lg:border-t lg:border-gray-300 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                         <div class="mb-2">
                             <div class="text-black-500 font-bold text-lg mb-2">
                                 <a href='write?blogId=${blog._id}'>
                                     ${blog.title}
                                 </a>
                             </div>
-                            <p class="text-gray-700 text-base">
+                            <p class="text-gray-700 text-base" style="overflow:hidden">
                                 ${blog.meta}
                             </p>
                         </div>
@@ -295,7 +333,10 @@
                                     ${blog.author}
                                 </p>
                                 <p class="text-gray-dark">
-                                    ${blog.date}
+                                    ${date_string(blog.date)}
+                                </p>
+                                <p style="color:green" class="text-gray-dark">
+                                    + Rs. ${(blog.viewCount/1000)*30}
                                 </p>
                             </div>
                         </div>
@@ -305,7 +346,47 @@
             let div = document.createElement("div")
             div.innerHTML = post
             elem.append(div)
+    })
+    }
+
+    function attachRefs(blogs){
+
+        let elem = document.getElementById("refs")
+
+        console.log("blogs = ", blogs)
+
+        let post = 
+        `
+            <tr>
+              <th>Author</th>
+              <th>Amount</th>
+            </tr>
+            `
+
+        blogs.map((blog)=> {
+            console.log(blog)
+            let pay = 0
+            if (blog[1].length>0){
+                for(let i in blog[1]){
+                    pay += (blog[1][i].viewCount/1000)*30
+                }
+            }
+            post += `
+                  <tr>
+                    <td><a href="/author?userId=${blog[0]._id}">${blog[0].username}</a></td>
+                    <td>${pay}</td>
+                  </tr>
+        `
         })
+        post += `
+                  <tr>
+                    <td>Total</td>
+                    <td>${pay}</td>
+                  </tr>
+                  `
+        let div = document.createElement("table")
+        div.innerHTML = post
+        elem.append(div)
         }
 
         function copyURL(){
@@ -323,6 +404,80 @@
             // Alert the copied text
             alert("referral link copied: " + copyText.innerHTML);
         }
+
+        async function getAllReferalls(){
+            let token = localStorage.getItem("token")
+            let res = await fetch ("/all_referrals", {
+                method: "GET",
+                headers:{
+                    "Content-type": "application/json",
+                    'Authorization': "Bearer " + token
+                }
+            })
+
+            let data = await res.json()
+
+            console.log("refs = ", data)
+            let pays = await monthlyEarningRefs(data)
+            attachRefs(pays)
+            //totalMonthlyEarnings(data[0].referralArray)
+        }
+
+        async function monthlyEarningRefs(refs){
+            let token = localStorage.getItem("token")
+            let pays = []
+            let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+            for(let i in refs){
+                console.log(refs[i])
+                let res = await fetch("/totalEarningsRef", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": "Bearer " + token
+                    },
+                    
+                    body: JSON.stringify({
+                        "userId": refs[i],
+                        "month": m,
+                        "year": y
+                    })
+                })
+                let pay = await res.json()
+                console.log("log = ", pay, refs[i])
+                let r_temp = refs[i]
+                pays.push([refs[i], pay])
+            }
+            console.log("refs = ", pays)
+            return pays
+        }
+
+        getAllReferalls()
+
+        //async function totalMonthlyEarnings(refs){
+        //    let token = localStorage.getItem("token")
+        //    let pays = {}
+        //    let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        //    for(let i in refs){
+        //        console.log(refs[i])
+        //        let res = await fetch("/totalEarnings", {
+        //            method: "POST",
+        //            headers: {
+        //                "Content-type": "application/json",
+        //                "Authorization": "Bearer " + token
+        //            },
+//
+        //            body: JSON.stringify({
+        //                "userId": refs[i],
+        //                "month": "yes"
+        //            })
+        //        })
+        //        let pay = await res.json()
+        //        console.log("log = ", pay, refs[i])
+        //        pays[refs[i]] = pay
+        //    }
+        //    console.log("refs = ", pays)
+        //}
+
 
     </script>
 </body>

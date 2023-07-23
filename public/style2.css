@@ -657,11 +657,13 @@ header {
   margin: 8px 0px;
 }
 .second_blog_sec_heading {
+  overflow: hidden;
   font-size: 22px;
   font-weight: 600;
   color: var(--blk);
 }
 .second_sec_left_cont {
+  overflow: hidden;
   margin: 8px 0px;
   font-size: 17px;
   line-height: 26px;

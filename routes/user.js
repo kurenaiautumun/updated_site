@@ -43,7 +43,7 @@ router.post("/signup", async (req, res) => {
     if (req.body.referral !== undefined) {
       await Referral.updateOne(
         { hisReferral: req.body.referral },
-        { $push: { referralArray: registeredUser._id } }
+        { $push: { referralArray: registeredUser } }
       );
     }
 
