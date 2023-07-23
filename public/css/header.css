@@ -119,3 +119,13 @@ header{
             min-height: 20px;
             padding: 10px;
         }
+    
+
+@media (max-width:500px){
+    .dropdown-content{
+        background-color: white;
+    }
+    .profile_points{
+        background-color: white;
+    }
+}

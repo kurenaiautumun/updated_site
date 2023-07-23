@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, Blog, Comment } = require("../models");
+const { User, Blog, Comment, TotalEarnings } = require("../models");
 
 const jwtVerify = require("./jwt")
 
@@ -27,8 +27,16 @@ router.get("/random", (req, res) => {
 });
 
 
-router.get("/dashboard", async (req, res) => {
+router.get("/oldDashboard", async (req, res) => {
   res.status(201).render("Dashboard", {
+    user: [],
+    blogs: [],
+    comments: [],
+  })
+})
+
+router.get("/dashboard", async (req, res) => {
+  res.status(201).render("newDashboard", {
     user: [],
     blogs: [],
     comments: [],
@@ -53,9 +61,14 @@ router.get("/userBlogs", async (req, res) => {
   let user = jwtVerify(req);
   console.log("user = ", user)
   if (user){
-    const blogData = await Blog.find({ userId: user.user._id });
-    console.log("blogs = ", blogData)
-    res.json(blogData)
+    if (user.user){
+      const blogData = await Blog.find({ userId: user.user._id });
+      console.log("blogs = ", blogData)
+      res.json(blogData)
+    }
+    else{
+      res.json("no user found")
+    }
   }
   else{
     res.json(null)

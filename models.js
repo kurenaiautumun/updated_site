@@ -31,6 +31,7 @@ const blogSchema = new mongoose.Schema({
   status: String,
   date: String,
   tags: [String],
+  readTime: Number,
   likes: Array,
   recommendation: Array,
   titleImage: String,
@@ -83,7 +84,7 @@ const referralSchema = new mongoose.Schema({
   hisReferral: Number,
 });
 
-const Earnings = new mongoose.Schema({
+const earningsSchema = new mongoose.Schema({
   userId: String,
   blogId: String,
   earned: Number,
@@ -92,11 +93,22 @@ const Earnings = new mongoose.Schema({
   endDate: String
 })
 
-const TotalEarnings = new mongoose.Schema({
+const viewAnalysisSchema = new mongoose.Schema({
   userId: String,
-  earns: Number,
-  startDate: String,
-  endDate: String
+  blogId: String,
+  time: Number
+})
+
+const totalEarningsSchema = new mongoose.Schema({
+  user: String,
+  remain: Number,
+  withdraw: Number,
+  updated: Date,
+})
+
+const paySlotsSchema = new mongoose.Schema({
+  slot: Number,
+  amount: Number
 })
 
 const corsOptions = {
@@ -104,6 +116,21 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
+
+
+const monthlyViewsSchema = new mongoose.Schema({
+  viewCount: Number,
+  blogId: String,
+  userId: String,
+  startDate: String,
+  endDate: String
+})
+
+const walletSchema = new mongoose.Schema({
+  amount: Number,
+  userId: String,
+})
+
 
 function toggle(arr, elem) {
   const index = arr.indexOf(elem);
@@ -132,6 +159,14 @@ const Competition = new mongoose.model("competition", competitionSchema);
 const Ranking = new mongoose.model("ranking", rankingSchema);
 const Referral = new mongoose.model("raferral", referralSchema);
 
+const TotalEarnings = new mongoose.model("TotalEarnings", totalEarningsSchema)
+const Earnings = new mongoose.model("earnings", earningsSchema)
+const paySlots = new mongoose.model("paySlots", paySlotsSchema)
+
+const monthlyViews = new mongoose.model("monthlyViews", monthlyViewsSchema)
+
+const viewAnalysis = new mongoose.model("viewAnalysis", viewAnalysisSchema)
+
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -150,5 +185,8 @@ module.exports = {
   toggle,
   transporter,
   Earnings,
-  TotalEarnings
+  TotalEarnings,
+  paySlots,
+  monthlyViews,
+  viewAnalysis
 };

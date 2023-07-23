@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { date, User, Blog } = require("../models.js");
+const { date, User, Blog, monthlyViews, viewAnalysis } = require("../models.js");
 const jwtVerify = require("./jwt")
 
 router.get("/blogss", (req, res) => {
@@ -29,23 +29,81 @@ router.get("/blog", (req, res) => {
   });
 });
 
-router.post("/blog/viewcount", (req, res) => {
-  const _id = req.query.blogId;
-  if (req.body.action == "incrementViewCount") {
-    Blog.updateOne({ _id }, { $inc: { viewCount: 1 } }, (err, docs) => {
-      if (err) throw err;
-      res.status(201).json({ message: "view increased" });
-    });
+router.post("/blog/viewcount", async (req, res) => {
+  let user = jwtVerify(req);
+  console.log("user = ", user)
+  const time = req.body.time
+  const _id = req.body.blogId;
+  const totalTime = req.body.totalTime
+  console.log("wordCount = ", totalTime)
+  console.log("time = ", time)
+  let blog = await Blog.findOne({_id: _id})
+  console.log("blog = ", blog)
+  if (time==null){
+    res.json("time is not present").status(404)
   }
+
+  if (totalTime==null){
+    res.json("totalTime is not present").status(404)
+  }
+  if (user!=null){
+    let views = new viewAnalysis({
+      blogId: _id,
+      userId: user.user._id,
+      time: time
+    })
+    views.save()
+  }
+  
+
+  let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+  console.log("date = ", date)
+  let startDate = new Date(y, m, 2);
+  let endDate = new Date(y, m + 1, 0);
+  console.log(startDate)
+  console.log(endDate)
+  let viewsMonth = await monthlyViews.findOne({
+    blogId: _id,
+    startDate: startDate,
+    endDate: endDate
+  })
+  if (viewsMonth==null){
+    viewsMonth = await new monthlyViews({
+      blogId: _id,
+      startDate: startDate,
+      endDate: endDate,
+      viewCount: 0
+    })
+  }
+  console.log("monthly views = ", await viewsMonth)
+  console.log(blog.readTime*60, totalTime)
+  if (blog.readTime!=null){
+    console.log(blog.readTime*60 < totalTime)
+    console.log(blog.readTime*120 > totalTime)
+    if ((blog.readTime*60 < totalTime) & (blog.readTime*60 + 30 > totalTime)){
+      viewsMonth.viewCount += 1
+      blog.viewCount += 1
+      blog.save()
+    }
+  }
+  viewsMonth.save()
+  //monthlyViews.updateOne({ blogId: _id }, { $inc: { viewCount: 1 } }, (err, docs) => {
+  //  if (err){
+  //    console.log("error - ", err)
+  //  };
+  //});
+  //console.log("before error")
+  //res.json({ message: "view increased" });
 });
 
 router.post("/newblog", (req, res) => {
   const { userId, title, body, views, status, titleImage} = req.body;
   let user;
+  console.log("userID = ", userId)
   User.findOne({ _id: userId }, (err, user) => {
     user = user
     console.log("user -= ", user)
-    const userName = user.username
+    const author = user.username
     const blog = new Blog({
       userId,
       title,
@@ -54,7 +112,7 @@ router.post("/newblog", (req, res) => {
       status,
       date,
       titleImage,
-      userName,
+      author,
       status,
     });
     blog.save((err, blog) => {
@@ -64,9 +122,10 @@ router.post("/newblog", (req, res) => {
 });
 
 router.post("/updateBlog", (req, res) => {
-  let { id, title, body, titleImage, tags, author, meta, status } = req.body;
+  let { id, title, body, titleImage, tags, author, meta, status, readTime } = req.body;
   console.log(req.body)
   console.log("tags = ", tags)
+  console.log("id = ", id)
 
   Blog.update(
     { _id: id },
@@ -77,7 +136,8 @@ router.post("/updateBlog", (req, res) => {
       "tags": tags,
       "author": author,
       "meta": meta,
-      "status": status
+      "status": status,
+      "readTime": readTime,
     }, function (err, docs) {
       if (!err){
         console.log("done for update")

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/dist/styles.css">
+    <link rel="stylesheet" href="/dist/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/dashboard/style.css">
+
+    <style>
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+}
+        
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+        .close_nav_berger{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .open_nav_burger{
+            display: none;
+        }
+        @media (max-width: 920px){
+            .close_nav_berger,
+            .open_nav_burger{
+                display: block;
+                cursor: pointer;
+            }
+        }
+        
+        .dropdown-content {
+    margin-top:20px;
+      display: none;
+      position: absolute;
+      font-family: "Karla", sans-serif;
+      min-width: 200px;
+      background-color: #FFB428;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+        .profile_points{
+            font-size: 20px;
+            max-height: 25px;
+            font-family: "Karla", sans-serif;
+            background-color: #FFB428;
+        }
+        .dropdown_a{
+            min-height: 20px;
+            padding: 10px;
+        }
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+        .close_nav_berger{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .open_nav_burger{
+            display: none;
+        }
+        @media (max-width: 920px){
+            .close_nav_berger,
+            .open_nav_burger{
+                display: block;
+                cursor: pointer;
+            }
+        }
+
+        @media (max-width:500px){
+    .dropdown-content{
+        background-color: white;
+    }
+    .profile_points{
+        background-color: white;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- ======= header ====== -->
+    <header class="top_header">
+        <div class="container">
+             <nav class="navigation_bar r-flex ali-c jut-sb  ">
+ 
+                 <!-- ==== left nav === -->
+                 <div class="left_side_nav_bar">
+                     <a href="/" class="nav_logo_box">
+                         <img style="max-height:80px;" src="images/logo3.png" alt="nav-logo">
+                     </a>
+                 </div>
+                 <!-- ==== left nav close=== -->
+ 
+                 <!-- ==== right nav === -->
+                 <div class="right_side_bar">
+                     <div class="nav_manu_bar">
+                         <ul class="manu_box r-flex ali-c " id="myNAV">
+                             <li class="nav_manu_points"><a href="/" class="nav_manu_link"  >Home</a></li>
+                             <li class="nav_manu_points">
+                                 <a class="nav_manu_link"  >
+                                     <span class=" nav_drop_menu r-flex ali-c"> 
+                                         <span>Categories </span> 
+                                         <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                         </svg>                                             
+                                     </span>
+ 
+                                     <ul class="nav_megha_manu">
+                                         <li class="nav_megha_manu_points">
+                                             <a href="/category/beauty" class="nav_megha_menu_point">Beauty</a>
+                                         </li>
+                                         <li class="nav_megha_manu_points">
+                                             <a href="/category/fashion" class="nav_megha_menu_point">Fashion</a>
+                                         </li>
+                                         <li class="nav_megha_manu_points"><a  href="/category/travel" class="nav_megha_menu_point">Travel</a></li>
+                                         <li class="nav_megha_manu_points"><a href="/category/architecture" class="nav_megha_menu_point">Architecture</a></li>
+                                         <li class="nav_megha_manu_points"><a href="/category/Recipes" class="nav_megha_menu_point">Recipes</a></li>
+                                     </ul>
+ 
+                                 </a>
+                             </li>
+                             <li class="nav_manu_points"> 
+                                 <a class="nav_manu_link"  >
+                                     <span class=" nav_drop_menur-flex ali-c"> 
+                                         <span>Features </span> 
+                                         <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                         </svg>                                             
+                                     </span>
+ 
+                                     <ul class="nav_megha_manu">
+                                         <li class="nav_megha_manu_points">
+                                             <a href="/category/beauty" class="nav_megha_menu_point">Beauty</a>
+                                         </li>
+                                         <li class="nav_megha_manu_points">
+                                             <a href="/category/fashion" class="nav_megha_menu_point">Fashion</a>
+                                         </li>
+                                         <li class="nav_megha_manu_points"><a  href="/category/travel" class="nav_megha_menu_point">Travel</a></li>
+                                         <li class="nav_megha_manu_points"><a href="/category/architecture" class="nav_megha_menu_point">Architecture</a></li>
+                                         <li class="nav_megha_manu_points"><a href="/category/Recipes" class="nav_megha_menu_point">Recipes</a></li>
+                                     </ul>
+ 
+                                 </a>
+                             </li>
+                             <li class="nav_manu_points"><a href="/category/food" class="nav_manu_link"  >Food</a></li>
+ 
+                             <li class="nav_manu_points"><a href="/category/lifestyle" class="nav_manu_link"  >Lifestyle</a></li>
+ 
+                             <li class="nav_manu_points"><a href="/category/travel" class="nav_manu_link"  >Travel</a></li>
+ 
+                             <li id="write_blog" class="nav_manu_points"></li>
+ 
+ 
+                             <li id="profile_image" class="nav_manu_points">
+                             </li>
+ 
+                             <div class="close_nav_berger" onclick="burgerFuncation()">
+                                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                     <line x1="1.46967" y1="18.4402" x2="18.4402" y2="1.46967" stroke="url(#paint0_linear_412_2)" stroke-width="1.5"/>
+                                     <line y1="-0.75" x2="24.0208" y2="-0.75" transform="matrix(-0.706494 -0.707719 0.706494 -0.707719 18.9707 18)" stroke="url(#paint1_linear_412_2)" stroke-width="1.5"/>
+                                     <defs>
+                                     <linearGradient id="paint0_linear_412_2" x1="3.17851" y1="19.2063" x2="25.3345" y2="-2.94974" gradientUnits="userSpaceOnUse">
+                                     <stop stop-color="#000000"/>
+                                     <stop offset="0.449933" stop-color="#989898"/>
+                                     <stop offset="1" stop-color="#000000"/>
+                                     </linearGradient>
+                                     <linearGradient id="paint1_linear_412_2" x1="0.667245" y1="1" x2="32.0278" y2="0.999999" gradientUnits="userSpaceOnUse">
+                                     <stop stop-color="#000000"/>
+                                     <stop offset="0.449933" stop-color="#989898"/>
+                                     <stop offset="1" stop-color="#000000"/>
+                                     </linearGradient>
+                                     </defs>
+                                 </svg>                                
+                             </div>
+ 
+                         </ul>
+                         <div class="open_nav_burger" onclick="burgerFuncation()">
+                             <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <line y1="8.25" x2="18" y2="8.25" stroke="url(#paint0_linear_115_6)" stroke-width="1.5"/>
+                             <line y1="1.25" x2="21" y2="1.25" stroke="url(#paint1_linear_115_6)" stroke-width="1.5"/>
+                             <line y1="15.25" x2="24" y2="15.25" stroke="url(#paint2_linear_115_6)" stroke-width="1.5"/>
+                             <defs>
+                             <linearGradient id="paint0_linear_115_6" x1="0.5" y1="10" x2="24" y2="10" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             <linearGradient id="paint1_linear_115_6" x1="0.583333" y1="3" x2="28" y2="3" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             <linearGradient id="paint2_linear_115_6" x1="0.666667" y1="17" x2="32" y2="17" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             </defs>
+                             </svg>
+                         </div>
+                         
+                     </div>
+                 </div>
+ 
+ 
+             </nav>
+        </div>
+     </header>
+     <!-- ======= header close ====== -->
+
+    <main>
+
+        <!-- ======= hero header ======= -->
+        <section class="dash_hero_header">
+            <div class="container">
+               <div class="dash_hero_header_box r-flex ali-c jut-sb">
+                    <div class="left_hero_header r-flex ali-c">
+                        <div class="user_profile_pic">
+                            <img src="../images/logo.png" alt="User pic">
+                        </div>
+                        <div class="user_dash_header_idname">
+                            <div class="user_dash_name_box r-flex ali-c jut-sb">
+                                <span class="user_dash_name" id="username">Devender Singh</span>
+                                <span id="blog_length" class="user_dash_usertype"></span>
+                            </div>
+                           
+                        </div>
+
+                    </div>
+
+                    <div class="right_hero_header">
+                        <div class="dash_hero_header_withdraw r-flex jut-c">Withdraw Money</div>
+                        <div class="dash_hero_header_followers_following r-flex ali-c ">
+                            <div class="dash_hero_head_followers"><span>Followers:</span><p id="followers_count">&nbsp; 45.4 M</p></div>
+                            <div class="dash_hero_head_following"><span>Following:</span><p id="following_count">&nbsp; 455</p></div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </section>
+
+
+        <!-- =========== hero section ========= -->
+        <section class="dash_hero_section">
+            <div class="container">
+                <div class="dash_hero_container r-flex jut-sb">
+                    <div class="dash_hero_left">
+                        <div class="dash_refer_main_head">Refer Your friend</div>
+                        <div class="dash_hero_refer_box r-flex jut-sb">
+                            <div class="dash_refer_left_side">
+                                <div id="referral" class="dash_refer_left_top_head">Referral Card</div>
+                                <div class="dash_refer_left_mid_head">Referral bonus of</div>
+                                <div class="dash_refer_left_bottom_head">UPTO 10% of Total Earnings</div>
+                                <button class="dash_refer_btn" onClick="copyURL()">Refer Now!</button>
+                            </div>
+                            <div class="dash_refer_right_side">
+                                <img src="images/refer.svg" alt="refer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash_hero_right ">
+                        <div class="dash_mony_data_heading">Your Account Status</div>
+                        <div class="dash_hero_right_box r-flex ali-c jut-sb">
+                        
+                            <div class="dash_money_earn_data">
+                                <div class="dash_earn_type_head r-flex jut-sb ">
+                                    <span>This Months</span>
+                                    <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M22.2258 6C20.946 6.02179 20.027 6.23241 19.4172 6.61007L11.0602 10.394L6.41353 15.7386C5.43439 17.0168 6.1301 19.4862 9.18776 17.9029L12.5375 14.1698C16.789 11.0694 25.4638 12.4922 21.3497 18.7163C19.3313 22.3186 20.2761 24.0762 22.8785 24.817L24.0638 21.4471C26.1166 17.5397 29.9472 16.8353 29.7926 13.6832L39 14.2425L38.9141 6.10168L22.2258 6ZM17.5792 13.5089C16.0847 13.4871 14.616 14.0101 13.5509 14.7654L10.1927 18.4984C11.1117 19.1158 12.0393 18.7817 12.9583 18.0336C14.0405 18.4984 14.8822 17.7794 15.5694 16.3414C15.8528 15.3609 16.2736 14.671 17.5792 13.5089ZM10.7424 20.4812C10.708 20.4812 10.6651 20.4812 10.6307 20.4884C10.3473 20.5393 10.0123 20.7935 9.78899 21.3745C9.55709 21.9555 9.50555 22.7834 9.71169 23.6695C9.91782 24.5483 10.3473 25.2963 10.8283 25.7612C11.2921 26.2187 11.7215 26.3494 12.0049 26.2986C12.297 26.255 12.6233 25.9936 12.8467 25.4198C13.0786 24.8388 13.1387 24.0036 12.9325 23.1248C12.7178 22.2387 12.2884 21.4907 11.816 21.0331C11.4037 20.6264 11.0258 20.4812 10.7424 20.4812ZM17.8368 28.2377C17.1583 28.245 16.308 28.4266 15.4749 28.7679C14.5215 29.1674 13.7743 29.7193 13.3706 30.2277C12.9669 30.7289 12.9325 31.1065 13.0614 31.3317C13.1902 31.5496 13.5681 31.7602 14.2896 31.7892C15.0111 31.8255 15.9816 31.6585 16.935 31.259C17.8884 30.8596 18.6356 30.3149 19.0393 29.8065C19.443 29.3054 19.4773 28.9204 19.3485 28.7026C19.2197 28.4774 18.8417 28.2741 18.1203 28.245C18.0258 28.2377 17.9399 28.2377 17.8368 28.2377ZM9.45402 35.1809C9.05034 35.1882 8.68102 35.239 8.35464 35.3189C7.62458 35.5005 7.20372 35.8273 7.06629 36.2122C6.92028 36.6044 7.06629 37.0692 7.55586 37.5704C8.05402 38.0642 8.88715 38.5363 9.91783 38.7978C10.9399 39.0592 11.9362 39.0519 12.6749 38.8631C13.4135 38.6815 13.8344 38.3547 13.9718 37.9698C14.1092 37.5776 13.9718 37.1128 13.4736 36.6117C12.9841 36.1178 12.151 35.6457 11.1203 35.3843C10.5362 35.239 9.96936 35.1737 9.45402 35.1809Z" fill="#2e2e2e"/>
+                                    </svg>                                                                           
+                                </div>
+                                <div class="dash_earn_amount">₹2,643</div>
+                            </div>
+
+                            <div class="dash_money_earn_data">
+                                <div class="dash_earn_type_head r-flex jut-sb">
+                                    <span>Totle Earnings</span>
+                                    <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M28.7426 5.78467L20.1964 11.2703L21.0626 11.7446L28.6661 6.86405L41.5627 14.1692L34.1654 18.9173L34.5257 19.1145V19.7164L40.3197 15.9972L41.5358 16.6861L34.5256 21.1857V22.216L40.2063 18.5697L41.5358 19.3229L34.5256 23.8225V24.8528L40.2063 21.2065L41.5358 21.9597L34.5256 26.4593V27.4896L43.3176 21.8462L41.1354 20.6102L43.3175 19.2095L41.1354 17.9734L43.3174 16.5727L41.2487 15.4009L43.3442 14.0557L28.7425 5.78467H28.7426ZM31.4731 9.71689C29.6241 10.6447 27.1612 10.8016 25.4271 10.1021L22.0372 12.278L33.1908 18.3838L36.406 16.3201C35.1395 15.3203 35.2449 13.8284 36.6645 12.6577L31.473 9.71689H31.4731ZM19.9955 12.9639L13.7827 17.0152L25.7015 23.8764L25.8184 23.8017C26.0381 23.6602 26.3484 23.4598 26.7186 23.2205C27.4586 22.7421 28.438 22.1078 29.4145 21.475C30.821 20.5636 31.5457 20.0933 32.2197 19.6562L19.9955 12.9639ZM30.1439 13.0668C30.144 13.0668 30.1441 13.0668 30.1442 13.0668C30.4253 13.0685 30.683 13.1287 30.8755 13.2377C30.9875 13.3011 31.0743 13.3794 31.1311 13.4679C31.1879 13.5565 31.2135 13.6537 31.2064 13.7539C31.1993 13.8542 31.1596 13.9555 31.0897 14.0522C31.0198 14.1488 30.921 14.2389 30.799 14.3172C30.677 14.3955 30.5341 14.4606 30.3785 14.5086C30.2229 14.5567 30.0577 14.5869 29.8922 14.5974C29.7268 14.608 29.5643 14.5986 29.4142 14.57C29.2641 14.5414 29.1291 14.494 29.0172 14.4306C28.7911 14.3025 28.6721 14.1168 28.6864 13.9144C28.7008 13.712 28.8472 13.5094 29.0936 13.3513C29.2336 13.2614 29.4007 13.1892 29.5826 13.1399C29.7644 13.0906 29.9563 13.0656 30.1439 13.0668ZM10.9466 17.2077L1.68249 23.154L3.75117 24.3258L1.65569 25.671L3.83783 26.907L1.65569 28.3078L3.83783 29.5438L1.65569 30.9446L16.2574 39.2156L25.0732 33.5567V32.5266L16.3339 38.1362L3.4374 30.8309L4.69029 30.0267L16.2574 36.5787L25.0732 30.92V29.8899L16.3339 35.4994L3.4374 28.1942L4.69029 27.39L16.2574 33.942L25.0732 28.2833V27.2532L16.3339 32.8627L3.4374 25.5575L4.60371 24.8087L16.2844 31.4251L25.0732 25.7836V25.3397L24.5915 25.0625L16.3606 30.3456L3.46439 23.0405L11.7929 17.6946L10.9465 17.2075L10.9466 17.2077ZM12.7448 18.2431L8.62102 20.8899C9.88752 21.8896 9.78205 23.3814 8.36244 24.5523L13.554 27.4931C15.4029 26.5653 17.8656 26.4084 19.5997 27.1078L23.6396 24.5147L12.7447 18.243L12.7448 18.2431ZM32.9436 21.0723C32.2366 21.5308 31.6131 21.9355 30.275 22.8027C29.3762 23.3853 28.477 23.9676 27.5776 24.5493C27.207 24.7888 26.896 24.9896 26.6743 25.1322C26.6664 25.1375 26.6631 25.1392 26.6554 25.1442V32.6962L32.9437 28.4697L32.9436 21.0723ZM15.2785 22.6086C15.5596 22.6104 15.8173 22.6707 16.0097 22.7797C16.2358 22.9078 16.3548 23.0935 16.3405 23.2959C16.3261 23.4983 16.1797 23.7009 15.9333 23.859C15.6869 24.0171 15.3607 24.1179 15.0267 24.1392C14.6926 24.1604 14.3778 24.1005 14.1517 23.9724C13.9256 23.8443 13.8066 23.6586 13.8209 23.4562C13.8353 23.2538 13.9818 23.0513 14.2282 22.8931C14.3681 22.8033 14.5353 22.731 14.7171 22.6818C14.899 22.6325 15.0909 22.6076 15.2785 22.6087V22.6086Z" fill="#2e2e2e"/>
+                                    </svg>                                    
+                                </div>
+                                <div class="dash_earn_amount">₹2,643</div>
+                            </div>
+
+                            <div class="dash_money_earn_data">
+                                <div class="dash_earn_type_head r-flex jut-sb">
+                                    <span>Total Withdraw</span>
+                                    <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M41.25 3.75H3.75C3.25272 3.75 2.77581 3.94754 2.42417 4.29917C2.07254 4.65081 1.875 5.12772 1.875 5.625V20.625C1.875 21.1223 2.07254 21.5992 2.42417 21.9508C2.77581 22.3025 3.25272 22.5 3.75 22.5H9.375V39.375C9.375 39.8723 9.57254 40.3492 9.92418 40.7008C10.2758 41.0525 10.7527 41.25 11.25 41.25H33.75C34.2473 41.25 34.7242 41.0525 35.0758 40.7008C35.4275 40.3492 35.625 39.8723 35.625 39.375V22.5H41.25C41.7473 22.5 42.2242 22.3025 42.5758 21.9508C42.9275 21.5992 43.125 21.1223 43.125 20.625V5.625C43.125 5.12772 42.9275 4.65081 42.5758 4.29917C42.2242 3.94754 41.7473 3.75 41.25 3.75ZM13.125 37.5V33.75C14.1196 33.75 15.0734 34.1451 15.7766 34.8484C16.4799 35.5516 16.875 36.5054 16.875 37.5H13.125ZM31.875 37.5H28.125C28.125 36.5054 28.5201 35.5516 29.2234 34.8484C29.9266 34.1451 30.8804 33.75 31.875 33.75V37.5ZM31.875 30C29.8859 30 27.9782 30.7902 26.5717 32.1967C25.1652 33.6032 24.375 35.5109 24.375 37.5H20.625C20.625 35.5109 19.8348 33.6032 18.4283 32.1967C17.0218 30.7902 15.1141 30 13.125 30V15H31.875V30ZM39.375 18.75H35.625V13.125C35.625 12.6277 35.4275 12.1508 35.0758 11.7992C34.7242 11.4475 34.2473 11.25 33.75 11.25H11.25C10.7527 11.25 10.2758 11.4475 9.92418 11.7992C9.57254 12.1508 9.375 12.6277 9.375 13.125V18.75H5.625V7.5H39.375V18.75ZM22.5 28.125C23.6125 28.125 24.7001 27.7951 25.6251 27.177C26.5501 26.5589 27.2711 25.6804 27.6968 24.6526C28.1226 23.6248 28.234 22.4938 28.0169 21.4026C27.7999 20.3115 27.2641 19.3092 26.4775 18.5225C25.6908 17.7359 24.6885 17.2001 23.5974 16.9831C22.5062 16.766 21.3752 16.8774 20.3474 17.3032C19.3196 17.7289 18.4411 18.4499 17.823 19.3749C17.2049 20.2999 16.875 21.3875 16.875 22.5C16.875 23.9918 17.4676 25.4226 18.5225 26.4775C19.5774 27.5324 21.0082 28.125 22.5 28.125ZM22.5 20.625C22.8708 20.625 23.2334 20.735 23.5417 20.941C23.85 21.147 24.0904 21.4399 24.2323 21.7825C24.3742 22.1251 24.4113 22.5021 24.339 22.8658C24.2666 23.2295 24.088 23.5636 23.8258 23.8258C23.5636 24.088 23.2295 24.2666 22.8658 24.339C22.5021 24.4113 22.1251 24.3742 21.7825 24.2323C21.4399 24.0904 21.147 23.85 20.941 23.5417C20.735 23.2334 20.625 22.8708 20.625 22.5C20.625 22.0027 20.8225 21.5258 21.1742 21.1742C21.5258 20.8225 22.0027 20.625 22.5 20.625Z" fill="#2e2e2e"/>
+                                    </svg>                                                                           
+                                </div>
+                                <div class="dash_earn_amount">₹2,643</div>
+                            </div>
+
+                            <div class="dash_money_earn_data">
+                                <div class="dash_earn_type_head r-flex jut-sb">
+                                    <span>Account Balance</span>
+                                    <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.3" d="M24.375 31.875C22.3125 31.875 20.625 30.1875 20.625 28.125V16.875C20.625 14.8125 22.3125 13.125 24.375 13.125H35.625V9.375H9.375V35.625H35.625V31.875H24.375Z" fill="#2e2e2e"/>
+                                        <path d="M39.375 13.65V9.375C39.375 7.3125 37.6875 5.625 35.625 5.625H9.375C8.38044 5.625 7.42661 6.02009 6.72335 6.72335C6.02009 7.42661 5.625 8.38044 5.625 9.375V35.625C5.625 36.6196 6.02009 37.5734 6.72335 38.2766C7.42661 38.9799 8.38044 39.375 9.375 39.375H35.625C37.6875 39.375 39.375 37.6875 39.375 35.625V31.35C39.9418 31.0228 40.413 30.553 40.742 29.9872C41.0709 29.4214 41.246 28.7794 41.25 28.125V16.875C41.25 15.4875 40.4812 14.2875 39.375 13.65ZM37.5 16.875V28.125H24.375V16.875H37.5ZM9.375 35.625V9.375H35.625V13.125H24.375C22.3125 13.125 20.625 14.8125 20.625 16.875V28.125C20.625 30.1875 22.3125 31.875 24.375 31.875H35.625V35.625H9.375Z" fill="#2e2e2e"/>
+                                        <path d="M30 25.3125C31.5533 25.3125 32.8125 24.0533 32.8125 22.5C32.8125 20.9467 31.5533 19.6875 30 19.6875C28.4467 19.6875 27.1875 20.9467 27.1875 22.5C27.1875 24.0533 28.4467 25.3125 30 25.3125Z" fill="#2e2e2e"/>
+                                    </svg>                                                                            
+                                </div>
+                                <div class="dash_earn_amount">₹2,643</div>
+                            </div>
+                        </div>
+                        <button class="right_withdrow_money">Withdraw Amount</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======== transition seet ======== -->
+        <section class="dashbord_transition_history_highblogs">
+            <div class="container">
+                <div class="dash_transition_blog_box jut-sb">
+                    <div style="display: block;" id="posts_div" class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+                        <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+                            <div class="bg-gray-200 px-2 py-3 border-solid border-gray-300 border-b">
+                                Posts
+                            </div>
+                            <!-- for posts -->
+                            <div id="posts" class="p-1 flex flex-col  md:mx-1 lg:mx-1">
+                                <!-- horizontal card -->
+                                        <!-- /horizontal card -->
+                            </div>
+                            <!-- /for posts -->
+
+                        </div>
+                    </div>
+                    <div id="referral_div" class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+                        <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+                            <div class="bg-gray-200 px-2 py-3 border-solid border-gray-300 border-b">
+                                Referrals
+                            </div>
+                            <!-- for posts -->
+                            <div id="refs" class="p-1 flex flex-col  md:mx-1 lg:mx-1">
+                                <!-- horizontal card -->
+                                        <!-- /horizontal card -->
+                            </div>
+                            <!-- /for posts -->
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+       
+    </main>
+
+
+     
+
+
+
+    <script>
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll"); 
+        }
+
+    </script>
+    <script>
+        //nav bar scripts
+        function changeClass(choice){
+            console.log("change class")
+            let elem = document.getElementsByClassName("dropdown-content")[0]
+            console.log(elem.style.display)
+            if (elem.style.display==""){
+                elem.style.display = "block"
+            }
+            else{
+                elem.style.display = ""
+            }
+        }
+
+        async function newBlog(){
+            const blog = {
+                "userId": localStorage.getItem("user"),
+                "title": "Title",
+                "views": 0,
+                "status": "new",
+                "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
+
+            }
+            let data = await fetch("/newBlog",{
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(blog)
+            })
+  
+            let blogs = await data.json()
+
+            console.log("data = ", blogs)
+
+            window.location.href = `/write?blogId=${blogs.blog._id}`
+        }
+
+        function setWriteBlog(){
+            let doc = document.getElementById("write_blog")
+            console.log(localStorage.getItem("user"))
+            if (localStorage.getItem("user")){
+                let elem = `
+                <a class="nav_manu_link write_nav_btn r-flex>
+                    <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.847 0.543159L21.4504 1.14002C22.2818 1.9635 22.156 3.42329 21.1671 4.40053L8.72436 16.7091L4.69301 18.1679C4.18679 18.352 3.69387 18.1133 3.59365 17.6368C3.55978 17.464 3.57572 17.2852 3.63967 17.1209L5.14299 13.0986L17.551 0.823382C18.5399 -0.15386 20.0156 -0.280315 20.847 0.543159ZM8.18132 1.76724C8.31562 1.76724 8.44861 1.79341 8.57268 1.84425C8.69676 1.89509 8.80949 1.9696 8.90446 2.06354C8.99942 2.15748 9.07475 2.269 9.12614 2.39174C9.17754 2.51448 9.20399 2.64603 9.20399 2.77888C9.20399 2.91173 9.17754 3.04328 9.12614 3.16602C9.07475 3.28875 8.99942 3.40028 8.90446 3.49421C8.80949 3.58815 8.69676 3.66267 8.57268 3.71351C8.44861 3.76435 8.31562 3.79052 8.18132 3.79052H4.09066C3.54821 3.79052 3.02797 4.00368 2.64439 4.38312C2.26082 4.76256 2.04533 5.27719 2.04533 5.81379V17.9534C2.04533 18.4901 2.26082 19.0047 2.64439 19.3841C3.02797 19.7636 3.54821 19.9767 4.09066 19.9767H16.3626C16.9051 19.9767 17.4253 19.7636 17.8089 19.3841C18.1925 19.0047 18.408 18.4901 18.408 17.9534V13.9069C18.408 13.6386 18.5157 13.3813 18.7075 13.1916C18.8993 13.0018 19.1594 12.8953 19.4306 12.8953C19.7019 12.8953 19.962 13.0018 20.1538 13.1916C20.3456 13.3813 20.4533 13.6386 20.4533 13.9069V17.9534C20.4533 19.0267 20.0223 20.0559 19.2552 20.8148C18.488 21.5737 17.4476 22 16.3626 22H4.09066C3.00575 22 1.96528 21.5737 1.19813 20.8148C0.430979 20.0559 0 19.0267 0 17.9534V5.81379C0 4.74058 0.430979 3.71132 1.19813 2.95245C1.96528 2.19357 3.00575 1.76724 4.09066 1.76724H8.18132Z" fill="#ffffff"/>
+                    </svg>
+                    <span onclick=newBlog()>Write Blog</span>
+                </a>
+                `
+                doc.innerHTML = elem
+                }
+            else{
+                let elem = `
+                <a class="nav_manu_link write_nav_btn r-flex ali-c" href="/login">
+                    <span>Sign up / Sign In</span>
+                </a>
+                `
+                doc.innerHTML = elem
+            }
+        }
+
+        function setProfile(){
+            let doc = document.getElementById("profile_image")
+            if (localStorage.getItem("user")){
+                let elem = `
+                <a class="nav_manu_link" onclick="changeClass()">
+                    <img style="max-height: 30px;" src="user-bg.png">
+                    <br>
+                    <div class="dropdown-content">
+                        <div>
+                        <a class="profile_points" href="/dashboard"><div class="dropdown_a">Dashboard</div></a>
+                        </div>
+                        <a class="profile_points"  ><div class="dropdown_a" onclick="logout()">Signout</div></a>
+                    </div>
+                </a>
+                `
+                doc.innerHTML = elem
+                }
+        }
+
+        setProfile();
+        setWriteBlog();
+
+        async function logout(){
+            let data = await fetch("/logout",{
+                "method": "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+            })
+            let res = await data.json();
+
+            console.log("res = ", res)
+
+            localStorage.removeItem("user")
+            localStorage.removeItem("token")
+
+            window.location.href = "/login"
+        }
+    </script>
+    <script>
+        async function userData(){
+            let token = localStorage.getItem("token")
+            let data = await fetch("/currentUser", {
+                method: "GET",
+                headers:{
+                    "Content-type": "application/json",
+                    'Authorization': "Bearer " + token
+                }
+            })
+
+            let user = await data.json()
+            console.log("user = ", user)
+            let name = document.getElementById("username")
+            name.innerHTML = user.user.username
+
+            let followers = document.getElementById("followers_count")
+            followers.innerHTML = "&nbsp" + user.user.followers.length
+
+            let following = document.getElementById("following_count")
+            following.innerHTML = "&nbsp" +  user.user.following.length
+
+            let referral = document.getElementById("referral")
+            referral.innerHTML = user.user.referral
+
+            getAllReferalls(user.user._id)
+        }
+        userData();
+
+        function date_string(date){
+            parts = date.split("/")
+
+            let months = {
+                "1":"Jan",
+                "2":"Feb",
+                "3":"Mar",
+                "4":"April",
+                "5":"May",
+                "6":"June",
+                "7":"July",
+                "8":"Aug",
+                "9":"Sept",
+                "10":"Oct",
+                "11":"Nov",
+                "12":"Dec",
+            }
+            return `${parts[0]} ${months[parts[1]]} ${parts[2]}`
+        }
+
+        async function userBlogs(){
+            let token = localStorage.getItem("token")
+            let data = await fetch("/userBlogs", {
+                method: "GET",
+                headers:{
+                    "Content-type": "application/json",
+                    'Authorization': "Bearer " + token
+                }
+            })
+
+            let blogs = await data.json()
+            console.log("blogs = ", blogs)
+
+            let blogLength = document.getElementById("blog_length")
+            blogLength.innerHTML = blogs.length + " blogs"
+
+            attachBlogs(blogs);
+            //attachRefs(blogs);
+        }
+        userBlogs();
+
+        function attachBlogs(blogs){
+
+            let elem = document.getElementById("posts")
+
+            console.log("blogs = ", blogs)
+            blogs.map((blog)=> {
+                let post = `
+                <div style="margin:10px" class=" w-full lg:flex lg:mx-2 md:mx-2">
+                    <div class="h-40 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+                        style="background-image: url('${blog.titleImage}')"
+                        title="Woman holding a mug">
+                    </div>
+                    <div
+                    style="min-width: 60%; max-width: 95%"class="border-r border-b border-l border-gray-300 lg:border-l-0 lg:border-t lg:border-gray-300 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                        <div class="mb-2">
+                            <div class="text-black-500 font-bold text-lg mb-2">
+                                <a href='write?blogId=${blog._id}'>
+                                    ${blog.title}
+                                </a>
+                            </div>
+                            <p class="text-gray-700 text-base" style="overflow:hidden">
+                                ${blog.meta}
+                            </p>
+                        </div>
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4"
+                                src="https://pbs.twimg.com/profile_images/885868801232961537/b1F6H4KC_400x400.jpg"
+                                alt="Avatar of Jonathan Reinink">
+                            <div class="text-sm">
+                                <p class="text-black leading-none">
+                                    ${blog.author}
+                                </p>
+                                <p class="text-gray-dark">
+                                    ${date_string(blog.date)}
+                                </p>
+                                <p style="color:green" class="text-gray-dark">
+                                    + Rs. ${(blog.viewCount/1000)*30}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+            let div = document.createElement("div")
+            div.innerHTML = post
+            elem.append(div)
+    })
+    }
+
+    function attachRefs(blogs){
+
+        let elem = document.getElementById("refs")
+
+        console.log("blogs = ", blogs)
+
+        let post = 
+        `
+            <tr>
+              <th>Author</th>
+              <th style="float:right">Amount</th>
+            </tr>
+            `
+        let total_pay = 0
+        blogs.explanation.map((blog)=> {
+            console.log(blog)
+            post += `
+                  <tr>
+                    <td><a href="/author?userId=${blog.user._id}">${blog.user.username}</a></td>
+                    <td style="float:right; color:green">Rs. ${blog.revenue}</td>
+                  </tr>
+        `
+        })
+        post += `
+                  <tr>
+                    <th>Total</th>
+                    <th style="float:right">Rs. ${blogs.total}</th>
+                  </tr>
+        `
+        let div = document.createElement("table")
+        div.id = "customers"
+        div.innerHTML = post
+        elem.append(div)
+        }
+
+        function copyURL(){
+            let copyText = document.getElementById("referral");
+
+            console.log("copy  = ", copyText)
+
+            // Select the text field
+            //copyText.select();
+            //copyText.setSelectionRange(0, 99999); // For mobile devices
+
+             // Copy the text inside the text field
+            navigator.clipboard.writeText("https://autumnkurenai.com/signup?ref=" + copyText.innerHTML);
+
+            // Alert the copied text
+            alert("referral link copied: " + copyText.innerHTML);
+        }
+
+        async function getAllReferalls(userId){
+            let pays = await monthlyEarningRefs(userId)
+            attachRefs(pays)
+            //totalMonthlyEarnings(data[0].referralArray)
+        }
+
+        async function completeEarnings(){
+            let token = localStorage.getItem("token")
+            let res = await fetch("/complete_earnings", {
+                method: "GET",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": "Bearer " + token
+                }
+            })
+
+            let data = await res.json()
+            console.log("Complete Earnings = ", data)
+        }
+
+        completeEarnings();
+
+        async function monthlyEarningRefs(userId){
+            let token = localStorage.getItem("token")
+            let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+            
+            let res = await fetch("/totalEarningsRef", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                
+                body: JSON.stringify({
+                    "userId": userId,
+                    "month": m,
+                    "year": y
+                })
+            })
+            let pay = await res.json()
+            console.log("log = ", pay)
+            return pay
+        }
+
+
+        async function totalMonthlyEarnings(){
+            let token = localStorage.getItem("token")
+            let pays = {}
+            let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+            let res = await fetch("/totalEarnings", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({
+                    "month": "yes"
+                })
+            })
+            console.log("monthly Earnings = ", await res.json())
+        }
+
+        totalMonthlyEarnings();
+
+
+
+    </script>
+</body>
+</html>
