@@ -19,6 +19,7 @@ router.get("/recommendation/:userId", async (req, res) => {
     recommendation.forEach(async element => {
         let blog = await Blog.find({
             $or: [{ title: { $regex: element, $options: "i" } }],
+            status: "published" 
         }).exec();
         allBlog = { ...allBlog, ...blog };
         console.log(allBlog)

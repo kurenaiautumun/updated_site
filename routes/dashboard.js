@@ -62,7 +62,7 @@ router.get("/userBlogs", async (req, res) => {
   console.log("user = ", user)
   if (user){
     if (user.user){
-      const blogData = await Blog.find({ userId: user.user._id });
+      const blogData = await Blog.find({ userId: user.user._id, status: "published" });
       console.log("blogs = ", blogData)
       res.json(blogData)
     }
@@ -92,7 +92,7 @@ router.post("/dashboard",  passing, async (req, res) => {
       const _id = user.user._id;
 
       const userData = await User.findOne({ _id });
-      const blogData = await Blog.find({ userId: userData._id });
+      const blogData = await Blog.find({ userId: userData._id, status: "published"  });
       console.log(blogData);
 
       const commentData = await Comment.find({ userId: userData._id });
@@ -114,7 +114,7 @@ router.post("/dashboard",  passing, async (req, res) => {
 router.get("/blogList", (req, res) => {
   var user = req.user;
 
-  Blog.find().exec({}, (err, blogs) => {
+  Blog.find({status: "published" }).exec({}, (err, blogs) => {
     // Sort blogs by likes in descending order
     const blogsByLikes = blogs.sort((a, b) => b.likes.length - a.likes.length);
 
@@ -141,7 +141,7 @@ router.get("/blogList", (req, res) => {
 router.get("/", (req, res) => {
   var user = req.user;
 
-  Blog.find().exec({}, (err, blogs) => {
+  Blog.find({status: "published"}).exec({}, (err, blogs) => {
     // Sort blogs by likes in descending order
     const blogsByLikes = blogs.sort((a, b) => b.likes.length - a.likes.length);
 

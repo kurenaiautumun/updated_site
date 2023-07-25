@@ -173,7 +173,7 @@ router.post("/authorBlogs", async (req, res) => {
   }
   let userId = req.body.userId
   if (user){
-    const blogData = await Blog.find({ userId: userId });
+    const blogData = await Blog.find({ userId: userId, status: "published" });
     console.log("blogs = ", blogData)
     res.json(blogData)
   }
@@ -184,7 +184,8 @@ router.post("/authorBlogs", async (req, res) => {
 
 router.post("/category/:tag", async (req, res)=>{
   const blogData = await Blog.find({
-    tags : req.params.tag
+    tags : req.params.tag,
+    status: "published"
   });
   console.log("blogs = ", blogData)
   res.json(blogData)
