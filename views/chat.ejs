@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>single blog page</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/chat_style.css">
+
+    <style>
+        .top_header{
+            padding: 0px 20px;
+            border-bottom: 1px solid #000000;
+            background-color: #fff;
+        }
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+        .close_nav_berger{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .open_nav_burger{
+            display: none;
+        }
+        @media (max-width: 920px){
+            .close_nav_berger,
+            .open_nav_burger{
+                display: block;
+                cursor: pointer;
+            }
+        }
+        
+        
+
+
+    </style>
+</head>
+<body>
+
+    <!-- ======= header ====== -->
+    <header class="top_header">
+            <nav class="navigation_bar r-flex ali-c jut-sb  ">
+ 
+                 <!-- ==== left nav === -->
+                 <div class="left_side_nav_bar">
+                     <a href="/" class="nav_logo_box">
+                         <img src="../images/logo.png" alt="nav-logo">
+                     </a>
+                 </div>
+                 <!-- ==== left nav close=== -->
+ 
+                 <!-- ==== right nav === -->
+                 <div class="right_side_bar">
+                     <div class="nav_manu_bar">
+                         <ul class="manu_box r-flex ali-c " id="myNAV">
+                             <li class="nav_manu_points"><a class="nav_manu_link" href="#">Home</a></li>
+                             <li class="nav_manu_points">
+                                 <a class="nav_manu_link" href="#">
+                                     <span class=" nav_drop_menu r-flex ali-c"> 
+                                         <span>Categories </span> 
+                                         <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                         </svg>                                             
+                                     </span>
+ 
+                                     <ul class="nav_megha_manu">
+                                         <li class="nav_megha_manu_points">
+                                             <a href="#" class="nav_megha_menu_point">Beauty</a>
+                                         </li>
+                                         <li class="nav_megha_manu_points">
+                                             <a href="#" class="nav_megha_menu_point">Fation</a>
+                                         </li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Travel</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Avchitecture</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Recies</a></li>
+                                     </ul>
+ 
+                                 </a>
+                             </li>
+                             <li class="nav_manu_points"> 
+                                 <a class="nav_manu_link" href="#">
+                                     <span class=" nav_drop_menur-flex ali-c"> 
+                                         <span>Features </span> 
+                                         <svg width="15" height="9" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M5 5.47918C4.88889 5.47918 4.78139 5.45834 4.6775 5.41668C4.57306 5.37501 4.48612 5.31945 4.41667 5.25001L0.583338 1.41668C0.43056 1.2639 0.354172 1.06945 0.354172 0.833343C0.354172 0.597232 0.43056 0.402788 0.583338 0.25001C0.736116 0.0972321 0.930561 0.0208435 1.16667 0.0208435C1.40278 0.0208435 1.59723 0.0972321 1.75001 0.25001L5 3.50001L8.25 0.25001C8.40278 0.0972321 8.59723 0.0208435 8.83334 0.0208435C9.06945 0.0208435 9.26389 0.0972321 9.41667 0.25001C9.56945 0.402788 9.64584 0.597232 9.64584 0.833343C9.64584 1.06945 9.56945 1.2639 9.41667 1.41668L5.58334 5.25001C5.5 5.33334 5.40973 5.39223 5.3125 5.42668C5.21528 5.46168 5.11112 5.47918 5 5.47918Z" fill="#000000"/>
+                                         </svg>                                             
+                                     </span>
+ 
+                                     <ul class="nav_megha_manu">
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Beauty</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Fation</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Travel</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Avchitecture</a></li>
+                                         <li class="nav_megha_manu_points"><a href="#" class="nav_megha_menu_point">Recies</a></li>
+                                     </ul>
+ 
+                                 </a>
+                             </li>
+                             <li class="nav_manu_points"><a class="nav_manu_link" href="#">Food</a></li>
+ 
+                             <li class="nav_manu_points"><a class="nav_manu_link" href="#">Lifestyle</a></li>
+ 
+                             <li class="nav_manu_points"><a class="nav_manu_link" href="#">Travle</a></li>
+ 
+                             <li class="nav_manu_points">
+                                 <a class="nav_manu_link write_nav_btn r-flex ali-c" href="#">
+                                     <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                         <path d="M20.847 0.543159L21.4504 1.14002C22.2818 1.9635 22.156 3.42329 21.1671 4.40053L8.72436 16.7091L4.69301 18.1679C4.18679 18.352 3.69387 18.1133 3.59365 17.6368C3.55978 17.464 3.57572 17.2852 3.63967 17.1209L5.14299 13.0986L17.551 0.823382C18.5399 -0.15386 20.0156 -0.280315 20.847 0.543159ZM8.18132 1.76724C8.31562 1.76724 8.44861 1.79341 8.57268 1.84425C8.69676 1.89509 8.80949 1.9696 8.90446 2.06354C8.99942 2.15748 9.07475 2.269 9.12614 2.39174C9.17754 2.51448 9.20399 2.64603 9.20399 2.77888C9.20399 2.91173 9.17754 3.04328 9.12614 3.16602C9.07475 3.28875 8.99942 3.40028 8.90446 3.49421C8.80949 3.58815 8.69676 3.66267 8.57268 3.71351C8.44861 3.76435 8.31562 3.79052 8.18132 3.79052H4.09066C3.54821 3.79052 3.02797 4.00368 2.64439 4.38312C2.26082 4.76256 2.04533 5.27719 2.04533 5.81379V17.9534C2.04533 18.4901 2.26082 19.0047 2.64439 19.3841C3.02797 19.7636 3.54821 19.9767 4.09066 19.9767H16.3626C16.9051 19.9767 17.4253 19.7636 17.8089 19.3841C18.1925 19.0047 18.408 18.4901 18.408 17.9534V13.9069C18.408 13.6386 18.5157 13.3813 18.7075 13.1916C18.8993 13.0018 19.1594 12.8953 19.4306 12.8953C19.7019 12.8953 19.962 13.0018 20.1538 13.1916C20.3456 13.3813 20.4533 13.6386 20.4533 13.9069V17.9534C20.4533 19.0267 20.0223 20.0559 19.2552 20.8148C18.488 21.5737 17.4476 22 16.3626 22H4.09066C3.00575 22 1.96528 21.5737 1.19813 20.8148C0.430979 20.0559 0 19.0267 0 17.9534V5.81379C0 4.74058 0.430979 3.71132 1.19813 2.95245C1.96528 2.19357 3.00575 1.76724 4.09066 1.76724H8.18132Z" fill="#ffffff"/>
+                                     </svg>
+                                     <span>Write Blog</span>
+                                 </a>
+                             </li>
+                             <div class="close_nav_berger" onclick="burgerFuncation()">
+                                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                     <line x1="1.46967" y1="18.4402" x2="18.4402" y2="1.46967" stroke="url(#paint0_linear_412_2)" stroke-width="1.5"/>
+                                     <line y1="-0.75" x2="24.0208" y2="-0.75" transform="matrix(-0.706494 -0.707719 0.706494 -0.707719 18.9707 18)" stroke="url(#paint1_linear_412_2)" stroke-width="1.5"/>
+                                     <defs>
+                                     <linearGradient id="paint0_linear_412_2" x1="3.17851" y1="19.2063" x2="25.3345" y2="-2.94974" gradientUnits="userSpaceOnUse">
+                                     <stop stop-color="#000000"/>
+                                     <stop offset="0.449933" stop-color="#989898"/>
+                                     <stop offset="1" stop-color="#000000"/>
+                                     </linearGradient>
+                                     <linearGradient id="paint1_linear_412_2" x1="0.667245" y1="1" x2="32.0278" y2="0.999999" gradientUnits="userSpaceOnUse">
+                                     <stop stop-color="#000000"/>
+                                     <stop offset="0.449933" stop-color="#989898"/>
+                                     <stop offset="1" stop-color="#000000"/>
+                                     </linearGradient>
+                                     </defs>
+                                 </svg>                                
+                             </div>
+ 
+                         </ul>
+                         <div class="open_nav_burger" onclick="burgerFuncation()">
+                             <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <line y1="8.25" x2="18" y2="8.25" stroke="url(#paint0_linear_115_6)" stroke-width="1.5"/>
+                             <line y1="1.25" x2="21" y2="1.25" stroke="url(#paint1_linear_115_6)" stroke-width="1.5"/>
+                             <line y1="15.25" x2="24" y2="15.25" stroke="url(#paint2_linear_115_6)" stroke-width="1.5"/>
+                             <defs>
+                             <linearGradient id="paint0_linear_115_6" x1="0.5" y1="10" x2="24" y2="10" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             <linearGradient id="paint1_linear_115_6" x1="0.583333" y1="3" x2="28" y2="3" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             <linearGradient id="paint2_linear_115_6" x1="0.666667" y1="17" x2="32" y2="17" gradientUnits="userSpaceOnUse">
+                             <stop stop-color="#000000"/>
+                             <stop offset="0.449933" stop-color="#989898"/>
+                             <stop offset="1" stop-color="#000000"/>
+                             </linearGradient>
+                             </defs>
+                             </svg>
+                         </div>
+                         
+                     </div>
+                 </div>
+ 
+ 
+            </nav>
+    </header>
+    <!-- ======= header close ====== -->
+
+    <main>
+
+      <section class="main_chat_section r-flex ">
+        <!-- ======= aside bar ========= -->
+        <div class="aside_bar">
+            <!-- <div class="aside_menu_btn_box">
+
+            </div> -->
+            <div class="asid_bar_container">
+                <div class="aside_top_container">
+                    <div class="create_comminitys_box c-flex">
+                        <div class="create_comminity_btn">
+                            <button class="create_comm_btn r-flex ali-c">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 21.6C6.708 21.6 2.4 17.292 2.4 12C2.4 6.708 6.708 2.4 12 2.4C17.292 2.4 21.6 6.708 21.6 12C21.6 17.292 17.292 21.6 12 21.6ZM12 0C10.4241 0 8.86371 0.310389 7.4078 0.913446C5.95189 1.5165 4.62902 2.40042 3.51472 3.51472C1.26428 5.76516 0 8.8174 0 12C0 15.1826 1.26428 18.2348 3.51472 20.4853C4.62902 21.5996 5.95189 22.4835 7.4078 23.0866C8.86371 23.6896 10.4241 24 12 24C15.1826 24 18.2348 22.7357 20.4853 20.4853C22.7357 18.2348 24 15.1826 24 12C24 10.4241 23.6896 8.86371 23.0866 7.4078C22.4835 5.95189 21.5996 4.62902 20.4853 3.51472C19.371 2.40042 18.0481 1.5165 16.5922 0.913446C15.1363 0.310389 13.5759 0 12 0ZM13.2 6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2V6Z" fill="#D7D7D7"/>
+                                </svg>                                
+                                <span>Create Communitys</span>
+                            </button>
+                        </div>
+                        <div class="asid_search_box r-flex ali-c">
+                            <label for="asid_search">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.031 16.617L22.314 20.899L20.899 22.314L16.617 18.031C15.0237 19.3082 13.042 20.0029 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20.0029 13.042 19.3082 15.0237 18.031 16.617ZM16.025 15.875C17.2941 14.5699 18.0029 12.8204 18 11C18 7.133 14.867 4 11 4C7.133 4 4 7.133 4 11C4 14.867 7.133 18 11 18C12.8204 18.0029 14.5699 17.2941 15.875 16.025L16.025 15.875Z" fill="#8D8D8D"/>
+                                </svg>                                    
+                            </label>
+                            <input type="search" placeholder="search..." name="search" id="asid_search">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="aside_bot_box">
+                    <!-- <div class="select_community_con">
+                        <div class="custom-select">
+                            <div class="select_f_svg">
+                                <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23.3572 10.1443C25.4707 15.0225 23.2633 20.6958 18.4443 22.8229C13.6253 24.9499 7.99989 22.7339 5.88639 17.8557C3.77289 12.9775 5.98028 7.30416 10.7993 5.1771C15.6183 3.05005 21.2437 5.26605 23.3572 10.1443Z" fill="white" stroke="#484848" stroke-width="2"/>
+                                    <path d="M21.5539 4.72426C22.1945 6.20275 21.5249 7.92013 20.0672 8.56357C18.6094 9.20701 16.9056 8.53721 16.265 7.05873C15.6245 5.58024 16.294 3.86286 17.7518 3.21942C19.2096 2.57598 20.9134 3.24578 21.5539 4.72426Z" fill="#484848" stroke="white"/>
+                                    <path d="M23.4468 20.4647C24.0873 21.9432 23.4178 23.6606 21.96 24.304C20.5022 24.9475 18.7984 24.2777 18.1579 22.7992C17.5173 21.3207 18.1869 19.6033 19.6446 18.9599C21.1024 18.3165 22.8062 18.9863 23.4468 20.4647Z" fill="#484848" stroke="white"/>
+                                    <path d="M7.59496 14.2008C8.23552 15.6793 7.56596 17.3967 6.1082 18.0401C4.65043 18.6835 2.94662 18.0137 2.30606 16.5353C1.66551 15.0568 2.33506 13.3394 3.79283 12.696C5.2506 12.0525 6.95441 12.7223 7.59496 14.2008Z" fill="#484848" stroke="white"/>
+                                </svg>                                    
+                            </div>
+                            <select name="whatmoving" onclick="gtag('event', 'bhk_selection_click');" id="movingitem">
+                              <option value="0">Your Communitys</option>
+                              <option value="full_houshold">Best Bloging</option>
+                              <option value="vehicle">Commptition</option>
+                              <option value="office">Bloge zilla</option>
+                              <option value="some">Blog market</option>
+                              <option value="other">Packers Movers</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="community_mamber_container">
+                        <div class="community_mamber_heading">Communitys</div>
+                        <div class="community_mamber_box c-flex">
+                            <a href="#" onclick="chatbordFuncation()" class="mamber_item_box r-flex ali-c jut-sb">
+                                <div class="mamber_msg_box r-flex ali-c">
+                                    <div class="mamber_profile_pic">
+                                        <img src="../images/logo.png" >
+                                    </div>
+                                    <div class="mamber_name_masses_box c-flex">
+                                        <span class="mamber_name">Transportation</span>
+                                        <span class="mamber_last_msg">I am very Happy I am very Happy</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="time_and_read_msg_pading c-flex">
+                                    <span class="last_msg_time">56 m</span>
+                                    <span class="read_padding_msg">
+                                        <span>9</span>
+                                    </span>
+                                </div>
+                            </a>
+                            
+                            <a href="#" onclick="chatbordFuncation()" class="mamber_item_box r-flex ali-c jut-sb">
+                                <div class="mamber_msg_box r-flex ali-c">
+                                    <div class="mamber_profile_pic">
+                                        <img src="../images/logo.png" >
+                                    </div>
+                                    <div class="mamber_name_masses_box c-flex">
+                                        <span class="mamber_name">Transportation</span>
+                                        <span class="mamber_last_msg">I am very Happy I am very Happy</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="time_and_read_msg_pading c-flex">
+                                    <span class="last_msg_time">56 m</span>
+                                    <span class="read_padding_msg">
+                                        <span>9</span>
+                                    </span>
+                                </div>
+                            </a>
+                            
+                            <a href="#" onclick="chatbordFuncation()" class="mamber_item_box r-flex ali-c jut-sb">
+                                <div class="mamber_msg_box r-flex ali-c">
+                                    <div class="mamber_profile_pic">
+                                        <img src="../images/logo.png" >
+                                    </div>
+                                    <div class="mamber_name_masses_box c-flex">
+                                        <span class="mamber_name">Transportation</span>
+                                        <span class="mamber_last_msg">I am very Happy I am very Happy</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="time_and_read_msg_pading c-flex">
+                                    <span class="last_msg_time">56 m</span>
+                                    <span class="read_padding_msg">
+                                        <span>9</span>
+                                    </span>
+                                </div>
+                            </a>
+                            
+                            <a href="#" onclick="chatbordFuncation()" class="mamber_item_box r-flex ali-c jut-sb">
+                                <div class="mamber_msg_box r-flex ali-c">
+                                    <div class="mamber_profile_pic">
+                                        <img src="../images/logo.png" >
+                                    </div>
+                                    <div class="mamber_name_masses_box c-flex">
+                                        <span class="mamber_name">Transportation</span>
+                                        <span class="mamber_last_msg">I am very Happy I am very Happy</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="time_and_read_msg_pading c-flex">
+                                    <span class="last_msg_time">56 m</span>
+                                    <span class="read_padding_msg">
+                                        <span>9</span>
+                                    </span>
+                                </div>
+                            </a>
+                            
+                            
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========= chat box ====== -->
+        <div class="chat_box_bar" id="chat_box_bar">
+            <div class="back_chat_bord" >
+                <svg onclick="chatbordFuncation()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.75 10.2866H5.925L10.4625 4.99277C10.6747 4.74482 10.7768 4.42515 10.7463 4.10409C10.7158 3.78303 10.5553 3.48687 10.3 3.28078C10.0447 3.07469 9.71563 2.97554 9.3851 3.00514C9.05456 3.03474 8.74967 3.19067 8.5375 3.43862L2.2875 10.7237C2.24545 10.7816 2.20785 10.8425 2.175 10.9058C2.175 10.9665 2.175 11.0029 2.0875 11.0637C2.03084 11.2029 2.00118 11.3511 2 11.5008C2.00118 11.6505 2.03084 11.7986 2.0875 11.9379C2.0875 11.9986 2.0875 12.035 2.175 12.0957C2.20785 12.159 2.24545 12.2199 2.2875 12.2778L8.5375 19.5629C8.65503 19.7 8.8022 19.8102 8.96856 19.8857C9.13491 19.9613 9.31636 20.0003 9.5 20C9.79207 20.0006 10.0751 19.9018 10.3 19.7207C10.4266 19.6188 10.5312 19.4936 10.6079 19.3524C10.6846 19.2111 10.7318 19.0565 10.7469 18.8975C10.762 18.7385 10.7447 18.5781 10.6959 18.4256C10.6471 18.2731 10.5678 18.1314 10.4625 18.0088L5.925 12.7149H20.75C21.0815 12.7149 21.3995 12.587 21.6339 12.3593C21.8683 12.1316 22 11.8228 22 11.5008C22 11.1787 21.8683 10.8699 21.6339 10.6422C21.3995 10.4145 21.0815 10.2866 20.75 10.2866Z" fill="black" stroke="black" stroke-width="2"/>
+                </svg>                    
+            </div>
+            <div class="chat_show_box c-flex ">
+                <div class="user_get_chat_box ">
+                    <div class="chat_deliverd_user_name">Devender Rajput</div>
+                    <div class="chat_dilivry_box r-flex ali-fs">
+                        <div class="user_chet_img_box">
+                            <img src="../images/logo.png">
+                        </div>
+                        <div class="user_writed_chat_box">
+                            <div class="user_write_chat">Hi, :) I am Very Happy, you are happy Devender</div>
+                            <div class="chat_dilever_time">7:09 pm</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user_get_chat_box ">
+                    <div class="chat_deliverd_user_name">Devender Rajput</div>
+                    <div class="chat_dilivry_box r-flex ali-fs">
+                        <div class="user_chet_img_box">
+                            <img src="../images/logo.png">
+                        </div>
+                        <div class="user_writed_chat_box">
+                            <div class="user_write_chat">Hi, :) I am Very Happy, you are happy Devender</div>
+                            <div class="chat_dilever_time">7:09 pm</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user_get_chat_box ">
+                    <div class="chat_deliverd_user_name">Devender Rajput</div>
+                    <div class="chat_dilivry_box r-flex ali-fs">
+                        <div class="user_chet_img_box">
+                            <img src="../images/logo.png">
+                        </div>
+                        <div class="user_writed_chat_box">
+                            <div class="user_write_chat">Hi, :) I am Very Happy, you are happy Devender</div>
+                            <div class="chat_dilever_time">7:09 pm</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user_get_chat_box ">
+                    <div class="chat_deliverd_user_name">Devender Rajput</div>
+                    <div class="chat_dilivry_box r-flex ali-fs">
+                        <div class="user_chet_img_box">
+                            <img src="../images/logo.png">
+                        </div>
+                        <div class="user_writed_chat_box">
+                            <div class="user_write_chat">Hi, :) I am Very Happy, you are happy Devender</div>
+                            <div class="chat_dilever_time">7:09 pm</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user_get_chat_box ">
+                    <div class="chat_deliverd_user_name">Devender Rajput</div>
+                    <div class="chat_dilivry_box r-flex ali-fs">
+                        <div class="user_chet_img_box">
+                            <img src="../images/logo.png">
+                        </div>
+                        <div class="user_writed_chat_box">
+                            <div class="user_write_chat">Hi, :) I am Very Happy, you are happy Devender</div>
+                            <div class="chat_dilever_time">7:09 pm</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user_get_chat_box ">
+                    <div class="chat_deliverd_user_name">Devender Rajput</div>
+                    <div class="chat_dilivry_box r-flex ali-fs">
+                        <div class="user_chet_img_box">
+                            <img src="../images/logo.png">
+                        </div>
+                        <div class="user_writed_chat_box">
+                            <div class="user_write_chat">Hi, :) I am Very Happy, you are happy Devender</div>
+                            <div class="chat_dilever_time">7:09 pm</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user_get_chat_box ">
+                    <div class="chat_deliverd_user_name">Devender Rajput</div>
+                    <div class="chat_dilivry_box r-flex ali-fs">
+                        <div class="user_chet_img_box">
+                            <img src="../images/logo.png">
+                        </div>
+                        <div class="user_writed_chat_box">
+                            <div class="user_write_chat">Hi, :) I am Very Happy, you are happy Devender</div>
+                            <div class="chat_dilever_time">7:09 pm</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="chat_msg_sender_box">
+                <div class="chat_msg_sender_items r-flex ali-c">
+                    <div class="files_sender">
+                        <input type="file" name="file" id="msg_pic_files">
+                        <label for="msg_pic_files">
+                            <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M30.625 5.46875C31.2266 5.46875 31.7188 5.96094 31.7188 6.5625V28.4238L31.377 27.9795L22.0801 15.9482C21.7725 15.5449 21.2871 15.3125 20.7812 15.3125C20.2754 15.3125 19.7969 15.5449 19.4824 15.9482L13.8086 23.29L11.7236 20.3711C11.416 19.9404 10.9238 19.6875 10.3906 19.6875C9.85742 19.6875 9.36523 19.9404 9.05762 20.3779L3.58887 28.0342L3.28125 28.458V6.5625C3.28125 5.96094 3.77344 5.46875 4.375 5.46875H30.625ZM4.375 2.1875C1.96191 2.1875 0 4.14941 0 6.5625V28.4375C0 30.8506 1.96191 32.8125 4.375 32.8125H30.625C33.0381 32.8125 35 30.8506 35 28.4375V6.5625C35 4.14941 33.0381 2.1875 30.625 2.1875H4.375ZM9.84375 15.3125C10.2746 15.3125 10.7013 15.2276 11.0994 15.0627C11.4975 14.8978 11.8593 14.6561 12.1639 14.3514C12.4686 14.0468 12.7103 13.685 12.8752 13.2869C13.0401 12.8888 13.125 12.4621 13.125 12.0312C13.125 11.6004 13.0401 11.1737 12.8752 10.7756C12.7103 10.3775 12.4686 10.0157 12.1639 9.71106C11.8593 9.40636 11.4975 9.16467 11.0994 8.99977C10.7013 8.83487 10.2746 8.75 9.84375 8.75C9.41285 8.75 8.98617 8.83487 8.58807 8.99977C8.18997 9.16467 7.82825 9.40636 7.52356 9.71106C7.21886 10.0157 6.97717 10.3775 6.81227 10.7756C6.64737 11.1737 6.5625 11.6004 6.5625 12.0312C6.5625 12.4621 6.64737 12.8888 6.81227 13.2869C6.97717 13.685 7.21886 14.0468 7.52356 14.3514C7.82825 14.6561 8.18997 14.8978 8.58807 15.0627C8.98617 15.2276 9.41285 15.3125 9.84375 15.3125Z" fill="white"/>
+                            </svg>                                
+                        </label>
+                    </div>
+                    <textarea name="" id="" cols="1" rows="1"type="text" placeholder="Write messages..." name="msg" class="msg_text_area"></textarea>
+                    <button type="submit">
+                        <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_393_2)">
+                            <path d="M46.0869 31.6747C48.0253 30.8218 48.0908 28.0932 46.1943 27.1494L23.0277 15.6028C21.1254 14.6553 18.9849 16.3616 19.4823 18.4271L21.5869 27.1552L31.3963 27.3906C31.833 27.4087 32.245 27.5976 32.5438 27.9165C32.8425 28.2355 33.004 28.659 32.9936 29.0959C32.9831 29.5328 32.8014 29.948 32.4877 30.2523C32.174 30.5565 31.7533 30.7254 31.3163 30.7225L21.5069 30.487L18.9871 39.1053C18.39 41.1433 20.4474 42.9492 22.3918 42.0952L46.0869 31.6747Z" fill="white"/>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_393_2">
+                            <rect width="40" height="40" fill="white" transform="translate(29.6787 0.723877) rotate(46.3751)"/>
+                            </clipPath>
+                            </defs>
+                        </svg>                            
+                    </button>
+                </div>
+            </div>
+        </div>
+      </section>
+       
+    </main>
+
+
+     
+
+
+
+    <script>
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll"); 
+        }
+
+        function chatbordFuncation (){
+            var chatbord = document.getElementById ("chat_box_bar")
+            chatbord.classList.toggle ("chatbord_visible");
+        }
+      
+
+
+
+    </script>
+</body>
+</html>

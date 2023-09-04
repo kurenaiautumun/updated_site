@@ -35,6 +35,14 @@ router.get("/oldDashboard", async (req, res) => {
   })
 })
 
+router.get("/chat", async (req, res) => {
+  res.status(201).render("chat", {
+    user: [],
+    blogs: [],
+    comments: [],
+  })
+})
+
 router.get("/dashboard", async (req, res) => {
   res.status(201).render("newDashboard", {
     user: [],

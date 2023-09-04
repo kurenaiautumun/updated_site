@@ -264,14 +264,14 @@
 
        console.log(event.target)
 
-       var encrypted = CryptoJS.AES.encrypt("Hello", "12345");
+      // var encrypted = CryptoJS.AES.encrypt("Hello", "12345");
       //equivalent to CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(message), key);
-      var decrypted = CryptoJS.AES.decrypt(encrypted, "12345");
+      //var decrypted = CryptoJS.AES.decrypt(encrypted, "12345");
 
-      var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
+      //var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
-      console.log(encrypted)
-      console.log(plaintext)
+      //console.log(encrypted)
+      //console.log(plaintext)
 
        const body = {
         "username": event.target.username.value,
@@ -294,7 +294,7 @@
 
       localStorage.setItem("user", user["user"]._id);
       
-      //window.location.href = "/";
+      window.location.href = "/";
     }
 
     //Calling a function during form submission.
