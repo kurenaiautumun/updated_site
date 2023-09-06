@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const { User, Blog, Comment, TotalEarnings } = require("../models");
 
@@ -35,14 +35,6 @@ router.get("/oldDashboard", async (req, res) => {
   })
 })
 
-router.get("/chat", async (req, res) => {
-  res.status(201).render("chat", {
-    user: [],
-    blogs: [],
-    comments: [],
-  })
-})
-
 router.get("/dashboard", async (req, res) => {
   res.status(201).render("newDashboard", {
     user: [],
@@ -65,23 +57,46 @@ router.get("/currentUser", async (req, res) => {
 })
 
 router.get("/userBlogs", async (req, res) => {
-  console.log("func = ", jwtVerify(req))
-  let user = jwtVerify(req);
-  console.log("user = ", user)
-  if (user){
-    if (user.user){
-      const blogData = await Blog.find({ userId: user.user._id, status: "published" });
-      console.log("blogs = ", blogData)
-      res.json(blogData)
+  console.log("userBlogs route is called");
+  
+  const user = jwtVerify(req);
+  console.log("user = ", user);
+
+  if (user && user.user) {
+    const tabName = req.query.tabName;
+    console.log("tabName = ", tabName);
+
+    const page = parseInt(req.query.page);
+    console.log("page = ", page);
+
+    const pageSize = parseInt(req.query.pageSize);
+    console.log("pageSize = ", pageSize);
+
+    const skip = (page - 1) * pageSize;
+    console.log("skip = ", skip);
+
+    let status;
+    if (tabName === "Draft") {
+      status = "draft";
+    } else if (tabName === "InReview") {
+      status = "review";
+    } else if (tabName === "Published") {
+      status = "published";
     }
-    else{
-      res.json("no user found")
-    }
+
+    const blogData = await Blog.find({ userId: user.user._id, status: "review" })
+      .skip(skip)
+      .limit(pageSize)
+      .exec();
+
+    console.log("blogs = ", blogData);
+    res.json(blogData);
+  } else {
+    res.json(null);
   }
-  else{
-    res.json(null)
-  }
-})
+});
+
+
 
 function passing(req, res, next){
   req.token = "abh"
