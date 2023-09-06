@@ -380,12 +380,22 @@
                     <div style="display: block;" id="posts_div" class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
                         <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
                             <div class="bg-gray-200 px-2 py-3 border-solid border-gray-300 border-b">
-                                Posts
+                                <div class="tab">
+                                    <button class="tablinks" onclick="loadTab('Draft')">Draft</button>
+                                    <button class="tablinks" onclick="loadTab('InReview')">In-Review</button>
+                                    <button class="tablinks" onclick="loadTab('Published')">Published</button>
+                                  </div>
                             </div>
                             <!-- for posts -->
                             <div id="posts" class="p-1 flex flex-col  md:mx-1 lg:mx-1">
                                 <!-- horizontal card -->
                                         <!-- /horizontal card -->
+                            </div>
+
+                            <div id="paginationControls" style="display: none;">
+                                <button onclick="prevPage(currentTab)">Previous</button>
+                                <span id="currentPage">1</span>
+                                <button onclick="nextPage(currentTab)">Next</button>
                             </div>
                             <!-- /for posts -->
 
@@ -412,10 +422,6 @@
 
        
     </main>
-
-
-     
-
 
 
     <script>
@@ -576,27 +582,71 @@
             return `${parts[0]} ${months[parts[1]]} ${parts[2]}`
         }
 
-        async function userBlogs(){
-            let token = localStorage.getItem("token")
-            let data = await fetch("/userBlogs", {
-                method: "GET",
-                headers:{
-                    "Content-type": "application/json",
-                    'Authorization': "Bearer " + token
-                }
-            })
+        let currentPage = {
+  Draft: 1,
+  InReview: 1,
+  Published: 1,
+};
 
-            let blogs = await data.json()
-            console.log("blogs = ", blogs)
+let currentTab = "Draft"; // Initialize with the default tab
+const pageSize = 2;
 
-            let blogLength = document.getElementById("blog_length")
-            blogLength.innerHTML = blogs.length + " blogs"
+function loadTab(tabName) {
+  console.log(tabName);
+  console.log(`/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`);
+  currentTab = tabName;
+  userBlogs(`/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`, tabName);
+}
 
-            attachBlogs(blogs);
-            //attachRefs(blogs);
-        }
-        userBlogs();
+async function userBlogs(fetchapi, tabName) {
+  console.log(fetchapi);
+  let token = localStorage.getItem("token");
+  let data = await fetch(fetchapi, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
 
+  let blogs = await data.json();
+  console.log("blogs = ", blogs);
+
+  let blogLength = document.getElementById("blog_length");
+  blogLength.innerHTML = blogs.length + " blogs";
+
+  let elem = document.getElementById("posts");
+  elem.innerHTML = "";
+
+  if (blogs.length > 0) {
+    document.getElementById("paginationControls").style.display = "block";
+  } else {
+    document.getElementById("paginationControls").style.display = "none";
+  }
+
+  currentPage[tabName] = currentPage[tabName];
+  document.getElementById("currentPage").textContent = currentPage[tabName];
+
+  attachBlogs(blogs);
+
+  // attachRefs(blogs);
+}
+
+function nextPage(currentTab) {
+  currentPage[currentTab]++;
+  console.log(currentPage[currentTab]);
+  loadTab(currentTab);
+}
+
+function prevPage(currentTab) {
+  if (currentPage[currentTab] > 1) {
+    currentPage[currentTab]--;
+    console.log(currentPage[currentTab]);
+    loadTab(currentTab);
+  }
+}
+
+        
         function attachBlogs(blogs){
 
             let elem = document.getElementById("posts")
