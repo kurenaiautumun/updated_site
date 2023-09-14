@@ -455,69 +455,85 @@
         }
 
         let currentPage = {
-  Draft: 1,
-  InReview: 1,
-  Published: 1,
-};
+        Draft: 1,
+        InReview: 1,
+        Published: 1
+        };
 
-let currentTab = "Draft"; // Initialize with the default tab
-const pageSize = 2;
+        let currentTab = "Draft";
+        const pageSize = 2;
 
-function loadTab(tabName) {
-  console.log(tabName);
-  console.log(`/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`);
-  currentTab = tabName;
-  userBlogs(`/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`, tabName);
+        let endpoints = {
+        Draft: `/userBlogsDraft?page=${currentPage.Draft}&pageSize=${pageSize}`,
+        InReview: `/userBlogsInReview?page=${currentPage.InReview}&pageSize=${pageSize}`,
+        Published: `/userBlogsPublish?page=${currentPage.Published}&pageSize=${pageSize}`
+        };
+
+        function loadTab(tabName) {
+        console.log(tabName);
+        console.log(endpoints[tabName]);
+        currentTab = tabName;
+        userBlogs(endpoints[tabName], tabName);
+        };
+
+        async function userBlogs(fetchapi,tabName){
+            console.log(fetchapi);
+            let token = localStorage.getItem("token")
+            let data = await fetch(fetchapi, {
+                method: "GET",
+                headers:{
+                    "Content-type": "application/json",
+                    'Authorization': "Bearer " + token
+                }
+            })
+
+            let blogs = await data.json()
+            console.log("blogs = ", blogs)
+            
+            let blogLength = document.getElementById("blog_length")
+            blogLength.innerHTML = blogs.length + " blogs"
+            
+            let elem = document.getElementById("posts");
+            elem.innerHTML = '';
+            
+            if (blogs.length > 0) {
+              document.getElementById("paginationControls").style.display = "block";
+            } else {
+              document.getElementById("paginationControls").style.display = "none";
+            }
+
+            currentPage[tabName] = currentPage[tabName];
+            document.getElementById("currentPage").textContent = currentPage[tabName];
+
+            attachBlogs(blogs);
+           
+            //attachRefs(blogs);
+        }
+    
+        function updateEndpoint(tabName) {
+        endpoints[tabName] = `/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`;
+        console.log(endpoints[tabName]);    
+    }
+
+        function nextPage(currentTab) {
+         (currentPage[currentTab])++;
+         console.log(currentPage[currentTab]);
+         updateEndpoint(currentTab);
+        //  loadTab(currentTab);
+         userBlogs(endpoints[currentTab], currentTab);
+         }
+
+        function prevPage(currentTab) {
+        if ((currentPage[currentTab]) > 1) {
+        (currentPage[currentTab])--;
+        console.log(currentPage[currentTab]);
+        updateEndpoint(currentTab);
+        loadTab(currentTab);
+        // userBlogs(endpoints[currentTab], currentTab);
+    }
 }
 
-async function userBlogs(fetchapi, tabName) {
-  console.log(fetchapi);
-  let token = localStorage.getItem("token");
-  let data = await fetch(fetchapi, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
-
-  let blogs = await data.json();
-  console.log("blogs = ", blogs);
-
-  let blogLength = document.getElementById("blog_length");
-  blogLength.innerHTML = blogs.length + " blogs";
-
-  let elem = document.getElementById("posts");
-  elem.innerHTML = "";
-
-  if (blogs.length > 0) {
-    document.getElementById("paginationControls").style.display = "block";
-  } else {
-    document.getElementById("paginationControls").style.display = "none";
-  }
-
-  currentPage[tabName] = currentPage[tabName];
-  document.getElementById("currentPage").textContent = currentPage[tabName];
-
-  attachBlogs(blogs);
-
-  // attachRefs(blogs);
-}
-
-function nextPage(currentTab) {
-  currentPage[currentTab]++;
-  console.log(currentPage[currentTab]);
-  loadTab(currentTab);
-}
-
-function prevPage(currentTab) {
-  if (currentPage[currentTab] > 1) {
-    currentPage[currentTab]--;
-    console.log(currentPage[currentTab]);
-    loadTab(currentTab);
-  }
-}
-
+loadTab(currentTab);
         
         function attachBlogs(blogs){
 
