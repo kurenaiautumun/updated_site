@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>single blog page</title>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/comparison.css">
+
+    <style>
+        
+        .mystyle {
+            width: 100%;
+            color: var(--white);
+            font-size: 25px;
+            box-sizing: border-box;
+            display: block;
+            transition: all 0.5s ease-out;
+            top: 0px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(1);
+            z-index: 3;
+            left: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+        }
+        .close_nav_berger{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 10;
+            display: none;
+        }
+        .open_nav_burger{
+            display: none;
+        }
+        @media (max-width: 920px){
+            .close_nav_berger,
+            .open_nav_burger{
+                display: block;
+                cursor: pointer;
+            }
+        }
+        
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- ======= header ====== -->
+    <%- include('./partials/header') %>
+    <!-- ======= header close ====== -->
+
+    
+    <main>
+
+        <!-- ===== search section ======== -->
+        <section class="comp_nav_search_sec">
+            <div class="container">
+                <div class="comp_search_cont r-flex ali-c jut-sb">
+                    <div class="search_form_box">
+                        <form  class="search_form r-flex ali-c">
+                            <input type="search" name="user_search" id="user_search" placeholder="Search :)">
+                            <button type="submit">
+                                <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="45" height="45" rx="3" fill="#8FA0B3"/>
+                                    <path d="M36.9378 33.5247L30.5059 27.0928C32.0544 25.0313 32.8903 22.522 32.8875 19.9438C32.8875 13.358 27.5295 8 20.9438 8C14.358 8 9 13.358 9 19.9438C9 26.5295 14.358 31.8875 20.9438 31.8875C23.522 31.8903 26.0313 31.0544 28.0928 29.5059L34.5247 35.9378C34.8503 36.2288 35.2749 36.3842 35.7115 36.372C36.148 36.3598 36.5633 36.1809 36.8721 35.8721C37.1809 35.5633 37.3598 35.148 37.372 34.7115C37.3842 34.2749 37.2288 33.8503 36.9378 33.5247ZM12.4125 19.9438C12.4125 18.2564 12.9128 16.607 13.8503 15.204C14.7877 13.8011 16.1201 12.7076 17.679 12.0619C19.2379 11.4162 20.9532 11.2472 22.6081 11.5764C24.263 11.9056 25.7831 12.7181 26.9763 13.9112C28.1694 15.1044 28.9819 16.6245 29.3111 18.2794C29.6403 19.9343 29.4713 21.6496 28.8256 23.2085C28.1799 24.7674 27.0864 26.0998 25.6835 27.0372C24.2805 27.9746 22.6311 28.475 20.9438 28.475C18.682 28.4723 16.5136 27.5726 14.9142 25.9733C13.3149 24.3739 12.4152 22.2055 12.4125 19.9438Z" fill="white"/>
+                                </svg>                                    
+                            </button>
+                        </form>
+                    </div>
+                    <div class="search_user_name r-flex ali-c">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6.66666C21.7681 6.66666 23.4638 7.36903 24.714 8.61928C25.9642 9.86952 26.6666 11.5652 26.6666 13.3333C26.6666 15.1014 25.9642 16.7971 24.714 18.0474C23.4638 19.2976 21.7681 20 20 20C18.2318 20 16.5362 19.2976 15.2859 18.0474C14.0357 16.7971 13.3333 15.1014 13.3333 13.3333C13.3333 11.5652 14.0357 9.86952 15.2859 8.61928C16.5362 7.36903 18.2318 6.66666 20 6.66666ZM20 33.3333C20 33.3333 33.3333 33.3333 33.3333 30C33.3333 26 26.8333 21.6667 20 21.6667C13.1666 21.6667 6.66663 26 6.66663 30C6.66663 33.3333 20 33.3333 20 33.3333Z" fill="#7F7EC6"/>
+                        </svg>
+                        <span>Devender Rajput</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======= table section ====== -->
+        <section class="competition_section">
+            <div class="container ">
+                <div class="competition_container">
+                    <div class="competition_box r-flex jut-sb">
+                        <div class="competition_table_box">
+
+                            <div class="comptition_head r-flex ali-c jut-sb">
+                                <h1 class="competition_heading">Spring Weekly Writing Competition</h1>
+                                <div class="competion_date r-flex ali-c">
+                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.25 12.5H8.75V15H11.25V12.5ZM16.25 12.5H13.75V15H16.25V12.5ZM21.25 12.5H18.75V15H21.25V12.5ZM23.75 3.75H22.5V1.25H20V3.75H10V1.25H7.5V3.75H6.25C5.58696 3.75 4.95107 4.01339 4.48223 4.48223C4.01339 4.95107 3.75 5.58696 3.75 6.25V23.75C3.75 24.413 4.01339 25.0489 4.48223 25.5178C4.95107 25.9866 5.58696 26.25 6.25 26.25H23.75C24.413 26.25 25.0489 25.9866 25.5178 25.5178C25.9866 25.0489 26.25 24.413 26.25 23.75V6.25C26.25 5.58696 25.9866 4.95107 25.5178 4.48223C25.0489 4.01339 24.413 3.75 23.75 3.75ZM23.75 23.75H6.25V10H23.75V23.75Z" fill="#7F7EC6"/>
+                                    </svg>                                    
+                                    <span>10 JAN 2023</span>
+                                </div>
+                            </div>
+
+                            <div class="competition_table">
+                                <ul class="t_head r-flex ali-c jut-sb">
+                                    <li class="t_heading">User Name</li>
+                                    <li class="t_heading">User Rank</li>
+                                    <li class="t_heading">User Blog</li>
+                                </ul>
+                                <ul id="listingTable" class="t_body c-flex ali-c pagination">
+                                    
+                                </ul>
+                                <ul class="competition_pageination r-flex ali-c jut-sb">
+                                    <li>
+                                        <a href="javascript:prevPage()" id="btn_prev">
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_319_1287)">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M3.35737 8.09299C3.12856 7.85021 3.00005 7.52112 3.00005 7.178C3.00005 6.83488 3.12856 6.50579 3.35737 6.26301L7.96434 1.37905C8.19355 1.13626 8.50437 0.999915 8.82844 0.999996C9.15251 1.00008 9.46327 1.13658 9.69237 1.37948C9.92146 1.62238 10.0501 1.95178 10.05 2.2952C10.05 2.63863 9.92116 2.96797 9.69196 3.21075L5.94838 7.178L9.69196 11.1452C9.91463 11.3893 10.0379 11.7163 10.0353 12.0558C10.0327 12.3953 9.90431 12.7201 9.67789 12.9603C9.45146 13.2005 9.14508 13.3368 8.82473 13.3399C8.50438 13.3431 8.1957 13.2127 7.96516 12.977L3.35655 8.09385L3.35737 8.09299Z" fill="#5B5B5B"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_319_1287">
+                                                <rect width="14" height="14" fill="white" transform="matrix(-1 0 0 -1 14 14)"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>                                                
+                                        </a>
+                                    </li>
+                                    <!-- <li><a href="#" class="page_active"><span>1</span></a></li>
+                                    <li><a href="#"><span>2</span></a></li>
+                                    <li><a href="#"><span>3</span></a></li>
+                                    <li><a href="#"><span>4</span></a></li>
+                                    <li><a href="#"><span>5</span></a></li> -->
+                                    <li>
+                                        <a href="javascript:nextPage()" id="btn_next" class="page_active">
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_345_149)">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6426 8.09299C10.8714 7.85021 11 7.52112 11 7.178C11 6.83488 10.8714 6.50579 10.6426 6.26301L6.03566 1.37905C5.80645 1.13626 5.49563 0.999915 5.17156 0.999996C4.84749 1.00008 4.53673 1.13658 4.30763 1.37948C4.07854 1.62238 3.94987 1.95178 3.94995 2.2952C3.95003 2.63863 4.07884 2.96797 4.30804 3.21075L8.05162 7.178L4.30804 11.1452C4.08537 11.3893 3.96207 11.7163 3.9647 12.0558C3.96734 12.3953 4.09569 12.7201 4.32211 12.9603C4.54854 13.2005 4.85492 13.3368 5.17527 13.3399C5.49562 13.3431 5.8043 13.2127 6.03484 12.977L10.6434 8.09385L10.6426 8.09299Z" fill="white"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_345_149">
+                                                <rect width="14" height="14" fill="white" transform="matrix(1 0 0 -1 0 14)"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>                                                
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        
+
+                        <div class="competition_rewards">
+                            <div class="competition_win_user r-flex ali-c jut-sb">
+                                <span>🏆 &nbsp; Wining User</span>
+                                <span>🚀 &nbsp; 3/100</span>
+                            </div>
+                            <div class="totle_win"><b>1,560 TOTLE,</b> Wining Users  </div>
+                            <div class="competition_win_img"><img src="images/Frame.png" alt="win"></div>
+                            <ul class="competition_top_user">
+                                <li class="competition_win_pos r-flex ali-c jut-sb">
+                                    <span>🏆 1st Position</span>
+                                    <span>💸 10,000</span>
+                                </li>
+                                <li class="competition_win_pos r-flex ali-c jut-sb">
+                                    <span>🏆 1st Position</span>
+                                    <span>💸 10,000</span>
+                                </li>
+                                <li class="competition_win_pos r-flex ali-c jut-sb">
+                                    <span>🏆 1st Position</span>
+                                    <span>💸 10,000</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+     
+
+
+    <script>
+        var current_page = 1;
+var records_per_page = 10;
+
+var objJson = [
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    1
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    2
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    3
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    4
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    5
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    6
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    7
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    8
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    9
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    10
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    11
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    12
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    13
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    14
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    15
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    16
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    17
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    18
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    19
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    20
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    21
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    22
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    23
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    24
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    25
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    26
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    27
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    28
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    29
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    30
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    31
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    32
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    33
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    34
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    35
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    36
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    37
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    38
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    39
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    40
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    41
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    42
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    43
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    44
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    45
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    46
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    47
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    48
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    49
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    50
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    51
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    52
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    53
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    54
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    55
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    56
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    57
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    58
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    59
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    60
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    61
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    62
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    63
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    64
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    65
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    66
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    67
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    68
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    69
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    70
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    71
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    72
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    73
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    74
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    75
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    76
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    77
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    78
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    79
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    80
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    81
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    82
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">Devender Rajput</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; 89 Overall</li>
+                <li class="t_data">📝 &nbsp; 50/100</li>
+            </div>
+        `
+    },
+    
+    
+]; // Can be obtained from another source, such as your objJson variable
+
+function prevPage()
+{
+    if (current_page > 1) {
+        current_page--;
+        changePage(current_page);
+    }
+}
+
+function nextPage()
+{
+    if (current_page < numPages()) {
+        current_page++;
+        changePage(current_page);
+    }
+}
+
+function changePage(page)
+{
+    var btn_next = document.getElementById("btn_next");
+    var btn_prev = document.getElementById("btn_prev");
+    var listing_table = document.getElementById("listingTable");
+    var page_span = document.getElementById("page");
+
+    // Validate page
+    if (page < 1) page = 1;
+    if (page > numPages()) page = numPages();
+    listing_table.innerHTML = "";
+
+    for (var i = (page-1) * records_per_page; i < (page * records_per_page); i++) {
+        listing_table.innerHTML += objJson[i].adName + " ";
+    }
+    page_span.innerHTML = page;
+
+    if (page == 1) {
+        btn_prev.style.visibility = "hidden";
+    } else {
+        btn_prev.style.visibility = "visible";
+    }
+
+    if (page == numPages()) {
+        btn_next.style.visibility = "hidden";
+    } else {
+        btn_next.style.visibility = "visible";
+    }
+}
+
+function numPages()
+{
+    return Math.ceil(objJson.length / records_per_page);
+}
+window.onload = function() {
+    changePage(1);
+}; 
+    </script>
+    <script>
+        function burgerFuncation() {
+            var element = document.getElementById("myNAV");
+            element.classList.toggle("mystyle");
+            document.body.classList.toggle("noscroll"); 
+        }
+
+    </script>
+
+    <script type="text/javascript" src="js/header.js"></script>
+
+
+</body>
+</html>

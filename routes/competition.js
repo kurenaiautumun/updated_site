@@ -3,10 +3,13 @@ const router = express.Router();
 const { Competition } = require("../models.js");
 
 router.get("/competition", (req, res) => {
-  Competition.find({ _id }, (err, competition) => {
-    res.status(201).json(competition);
-  });
+    res.status(201).render("comparison");
 });
+
+
+router.get("/games", (req, res) => {
+  res.status(200).render("game")
+})
 
 router.post("/competition", (req, res) => {
   const {
