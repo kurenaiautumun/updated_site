@@ -70,13 +70,15 @@ router.get("/userBlogsPublish", async (req, res) => {
       const skip = (page - 1) * pageSize;
       console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "review" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
       console.log("blogs = ", blogData)
-      res.json(blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
+      res.json({blogData,totalDataCount});
     }
     else{
       res.json("no user found")
@@ -101,13 +103,15 @@ router.get("/userBlogsDraft", async (req, res) => {
       const skip = (page - 1) * pageSize;
       console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "review" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
       console.log("blogs = ", blogData)
-      res.json(blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
+      res.json({blogData,totalDataCount});
     }
     else{
       res.json("no user found")
@@ -132,13 +136,15 @@ router.get("/userBlogsInReview", async (req, res) => {
       const skip = (page - 1) * pageSize;
       console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "review" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
       console.log("blogs = ", blogData)
-      res.json(blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
+      res.json({blogData,totalDataCount});
     }
     else{
       res.json("no user found")
