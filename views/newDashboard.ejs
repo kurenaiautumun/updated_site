@@ -679,7 +679,7 @@
         };
 
         async function loadTab(tabName,divid) {
-            console.log(divid);
+         console.log(divid);
         let currentDivId=document.getElementById(currentId);
         currentDivId.classList.remove('changecolor');
         currentId=divid;
@@ -709,7 +709,8 @@
                 headers:{
                     "Content-type": "application/json",
                     'Authorization': "Bearer " + token
-                }
+                },
+                
             })
             let blogs = await data.json()
             console.log("blogs = ", blogs)
@@ -720,8 +721,10 @@
             let elem = document.getElementById("posts");
             elem.innerHTML = '';
             
+            const blogEarning=await blogTotalEarnings();
+            console.log(blogEarning);
 
-            attachBlogs(blogs.blogData);
+            attachBlogs(blogs.blogData,blogEarning);
 
             //attachRefs(blogs);
             return (blogs.totalDataCount);
@@ -759,11 +762,12 @@
 
 loadTab(currentTab,currentId);
         
-        function attachBlogs(blogs){
+        function attachBlogs(blogs,blogEarning){
 
             let elem = document.getElementById("posts")
 
             console.log("blogs = ", blogs)
+
             blogs.map((blog)=> {
                 let post = `
                 <div style="margin:10px" class=" w-full lg:flex lg:mx-1 md:mx-2 ">
@@ -791,7 +795,9 @@ loadTab(currentTab,currentId);
                                 <p class="text-gray-dark">
                                     ${date_string(blog.date)}
                                 </p>
-                             
+                                <p class="text-gray-dark">
+                                    ${blog.slot}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -858,7 +864,7 @@ loadTab(currentTab,currentId);
         async function getAllReferalls(userId){
             let pays = await monthlyEarningRefs(userId)
             attachRefs(pays)
-            //totalMonthlyEarnings(data[0].referralArray)
+            // totalMonthlyEarnings(data[0].referralArray)
         }
 
         async function completeEarnings(){
@@ -881,7 +887,7 @@ loadTab(currentTab,currentId);
 
         }
 
-        async function totalEarnings(){
+        async function blogTotalEarnings(){
             let token = localStorage.getItem("token")
             let res = await fetch("/calculateEarnings", {
                 method: "GET",
@@ -892,12 +898,11 @@ loadTab(currentTab,currentId);
             })
 
             let data = await res.json()
-            console.log("Total Earnings = ", data);
-            const data1=document.getElementById("totalEarning");
-            data1.innerHTML=data[0].revenue;
+            // console.log("Blog wise Earnings = ", data);
+            return data;
 
         }
-        totalEarnings();
+        
         completeEarnings();
 
         async function monthlyEarningRefs(userId){
@@ -922,8 +927,28 @@ loadTab(currentTab,currentId);
             return pay
         }
 
+        async function monthlyEarning(userId){
+            let token = localStorage.getItem("token")
+            let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+            
+            let res = await fetch("/monthly_earnings", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                
+                body: JSON.stringify({userId,m,y})
+            })
+            let monthlyEarn = await res.json()
+            console.log("Monthly Earning = ", monthlyEarn)
+            const data=document.getElementById("monthlyEarnings");
+            data.innerHTML=monthlyEarn;
+        }
 
-        async function totalMonthlyEarnings(){
+        monthlyEarning();
+
+        async function totalEarnings(){
             let token = localStorage.getItem("token")
             let pays = {}
             let date = new Date(), y = date.getFullYear(), m = date.getMonth();
@@ -937,13 +962,13 @@ loadTab(currentTab,currentId);
                     "month": "yes"
                 })
             })
-            let monthlyearn = await res.json();
-            console.log("monthly Earnings = ", monthlyearn)
-            const data=document.getElementById("monthlyEarnings");
-            data.innerHTML=monthlyearn.total;
+            let totalEarn = await res.json();
+            console.log("Total Earnings = ", totalEarn)
+            const data=document.getElementById("totalEarnings");
+            data.innerHTML=totalEarn.total;
         }
 
-        totalMonthlyEarnings();
+        totalEarnings();
 
 
 

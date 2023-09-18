@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User, Blog, Comment, TotalEarnings } = require("../models");
+const { User, Blog, Comment, TotalEarnings,monthlyViews} = require("../models");
 
 const jwtVerify = require("./jwt")
 
@@ -108,9 +108,17 @@ router.get("/userBlogsDraft", async (req, res) => {
             .limit(pageSize)
             .exec();
             
-      console.log("blogs = ", blogData)
+      // console.log("blogs = ", blogData)
       const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
       console.log(totalDataCount);
+
+      for(i in blogData){
+        let views=blogData[i].viewCount;
+        let slot = (views/1000)*30;
+        blogData[i].slot = slot;
+      }
+
+      console.log("blogs = ", blogData)
       res.json({blogData,totalDataCount});
     }
     else{

@@ -35,6 +35,7 @@ const blogSchema = new mongoose.Schema({
   likes: Array,
   recommendation: Array,
   titleImage: String,
+  slot:String
 });
 
 const commentSchema = new mongoose.Schema({
