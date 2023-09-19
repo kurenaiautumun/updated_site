@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User, Blog, Comment, TotalEarnings } = require("../models");
+const { User, Blog, Comment, TotalEarnings,monthlyViews} = require("../models");
 
 const jwtVerify = require("./jwt")
 
@@ -70,13 +70,22 @@ router.get("/userBlogsPublish", async (req, res) => {
       const skip = (page - 1) * pageSize;
       console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "review" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
       console.log("blogs = ", blogData)
-      res.json(blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
+
+      for(i in blogData){
+        let views=blogData[i].viewCount;
+        let slot = (views/1000)*30;
+        blogData[i].slot = slot;
+      }
+      
+      res.json({blogData,totalDataCount});
     }
     else{
       res.json("no user found")
@@ -101,13 +110,16 @@ router.get("/userBlogsDraft", async (req, res) => {
       const skip = (page - 1) * pageSize;
       console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "review" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
+      // console.log("blogs = ", blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
       console.log("blogs = ", blogData)
-      res.json(blogData)
+      res.json({blogData,totalDataCount});
     }
     else{
       res.json("no user found")
@@ -132,13 +144,15 @@ router.get("/userBlogsInReview", async (req, res) => {
       const skip = (page - 1) * pageSize;
       console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "review" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
       console.log("blogs = ", blogData)
-      res.json(blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
+      res.json({blogData,totalDataCount});
     }
     else{
       res.json("no user found")
