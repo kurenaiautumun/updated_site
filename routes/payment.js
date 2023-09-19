@@ -208,6 +208,7 @@ router.post("/monthly_earnings", async function(req,res){
   console.log(lastDay)
 
   let views = await monthlyViews.find({userId: userId, startDate: firstDay, endDate: lastDay});
+  views=(views/1000)*30;
   console.log(views)
   res.json(views).status(200)
 })

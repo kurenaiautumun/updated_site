@@ -195,4 +195,8 @@ router.get("/category/:tag", async (req, res)=>{
   res.render("blog-category")
 })
 
+router.get("/chat", async (req, res)=>{
+  res.render("chat")
+})
+
 module.exports = router;

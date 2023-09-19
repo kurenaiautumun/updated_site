@@ -1,6 +1,6 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { User, Blog, Comment, TotalEarnings } = require("../models");
+const { User, Blog, Comment, TotalEarnings,monthlyViews} = require("../models");
 
 const jwtVerify = require("./jwt")
 
@@ -35,14 +35,6 @@ router.get("/oldDashboard", async (req, res) => {
   })
 })
 
-router.get("/chat", async (req, res) => {
-  res.status(201).render("chat", {
-    user: [],
-    blogs: [],
-    comments: [],
-  })
-})
-
 router.get("/dashboard", async (req, res) => {
   res.status(201).render("newDashboard", {
     user: [],
@@ -64,15 +56,103 @@ router.get("/currentUser", async (req, res) => {
   }
 })
 
-router.get("/userBlogs", async (req, res) => {
+router.get("/userBlogsPublish", async (req, res) => {
+  console.log("userBlogsPublish is called");
   console.log("func = ", jwtVerify(req))
   let user = jwtVerify(req);
   console.log("user = ", user)
   if (user){
     if (user.user){
-      const blogData = await Blog.find({ userId: user.user._id, status: "published" });
+      const page = parseInt(req.query.page);
+      console.log(page);
+      const pageSize = parseInt(req.query.pageSize);
+      console.log(pageSize);
+      const skip = (page - 1) * pageSize;
+      console.log(skip);
+
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
+            .skip(skip)
+            .limit(pageSize)
+            .exec();
+            
       console.log("blogs = ", blogData)
-      res.json(blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
+
+      for(i in blogData){
+        let views=blogData[i].viewCount;
+        let slot = (views/1000)*30;
+        blogData[i].slot = slot;
+      }
+      
+      res.json({blogData,totalDataCount});
+    }
+    else{
+      res.json("no user found")
+    }
+  }
+  else{
+    res.json(null)
+  }
+})
+
+router.get("/userBlogsDraft", async (req, res) => {
+  console.log("userBlogsDraft is called");
+  console.log("func = ", jwtVerify(req))
+  let user = jwtVerify(req);
+  console.log("user = ", user)
+  if (user){
+    if (user.user){
+      const page = parseInt(req.query.page);
+      console.log(page);
+      const pageSize = parseInt(req.query.pageSize);
+      console.log(pageSize);
+      const skip = (page - 1) * pageSize;
+      console.log(skip);
+
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
+            .skip(skip)
+            .limit(pageSize)
+            .exec();
+            
+      // console.log("blogs = ", blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
+      console.log("blogs = ", blogData)
+      res.json({blogData,totalDataCount});
+    }
+    else{
+      res.json("no user found")
+    }
+  }
+  else{
+    res.json(null)
+  }
+})
+
+router.get("/userBlogsInReview", async (req, res) => {
+  console.log("userBlogsInReview is called");
+  console.log("func = ", jwtVerify(req))
+  let user = jwtVerify(req);
+  console.log("user = ", user)
+  if (user){
+    if (user.user){
+      const page = parseInt(req.query.page);
+      console.log(page);
+      const pageSize = parseInt(req.query.pageSize);
+      console.log(pageSize);
+      const skip = (page - 1) * pageSize;
+      console.log(skip);
+
+      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
+            .skip(skip)
+            .limit(pageSize)
+            .exec();
+            
+      console.log("blogs = ", blogData)
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      console.log(totalDataCount);
+      res.json({blogData,totalDataCount});
     }
     else{
       res.json("no user found")

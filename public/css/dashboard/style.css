@@ -253,8 +253,33 @@
 .right_withdrow_money:hover{
     background-color: #eca200;
 }
+.topblogs{
+    background-color: #f8b600;
+}
 
+.buttondiv{
+    padding: 0 182px;
+}
 
+.changecolor{
+    background-color: #FFDF00;
+    /* border: 1px solid black; */
+}
+
+.tablinks{
+    width: 100%;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.tablinks:hover{
+    text-decoration: underline;
+}
+
+#paginationControls{
+   padding-left:40%;
+}
 @media (max-width: 1160px){
     .dash_refer_right_side{
         max-width: 230px;
@@ -384,6 +409,27 @@
         bottom: 3px;
         width: 98%;
     }
+    .tab{
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+    }
+    .tablinks{
+        margin: 0 5px;
+    }
+
+    #paginationControls{
+        padding-left: 15%;
+    }
+
+    .buttondiv{
+        padding: 0 23px;
+    }
+
+    .topblogs{
+        width: fit-content;
+    }
+    
 }
 @media (max-width:430px){
     .dash_refer_left_top_head{
@@ -411,10 +457,11 @@
 
 /* ========= transition ===== */
 .dashbord_transition_history_highblogs{
-    margin: 150px 0px 50px;
+    margin: 80px 0px 50px;
 }
 .dash_transition_history_heading{
     font-size: 25px;
+    margin-top: 20px;
     margin-bottom: 20px;
     font-weight: 700;
 }
@@ -426,8 +473,6 @@
 .dashbord_transition_history::-webkit-scrollbar {
     display: none;
 }
-
-
 
 .transition_history_img_col {
     gap: 8px;

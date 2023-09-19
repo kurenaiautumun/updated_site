@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/dist/styles.css">
     <link rel="stylesheet" href="/dist/all.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>Dashboard</title>
 
     <link rel="stylesheet" href="css/base.css">
@@ -63,6 +64,7 @@
         .open_nav_burger{
             display: none;
         }
+
         @media (max-width: 920px){
             .close_nav_berger,
             .open_nav_burger{
@@ -331,17 +333,21 @@
                                         <path d="M22.2258 6C20.946 6.02179 20.027 6.23241 19.4172 6.61007L11.0602 10.394L6.41353 15.7386C5.43439 17.0168 6.1301 19.4862 9.18776 17.9029L12.5375 14.1698C16.789 11.0694 25.4638 12.4922 21.3497 18.7163C19.3313 22.3186 20.2761 24.0762 22.8785 24.817L24.0638 21.4471C26.1166 17.5397 29.9472 16.8353 29.7926 13.6832L39 14.2425L38.9141 6.10168L22.2258 6ZM17.5792 13.5089C16.0847 13.4871 14.616 14.0101 13.5509 14.7654L10.1927 18.4984C11.1117 19.1158 12.0393 18.7817 12.9583 18.0336C14.0405 18.4984 14.8822 17.7794 15.5694 16.3414C15.8528 15.3609 16.2736 14.671 17.5792 13.5089ZM10.7424 20.4812C10.708 20.4812 10.6651 20.4812 10.6307 20.4884C10.3473 20.5393 10.0123 20.7935 9.78899 21.3745C9.55709 21.9555 9.50555 22.7834 9.71169 23.6695C9.91782 24.5483 10.3473 25.2963 10.8283 25.7612C11.2921 26.2187 11.7215 26.3494 12.0049 26.2986C12.297 26.255 12.6233 25.9936 12.8467 25.4198C13.0786 24.8388 13.1387 24.0036 12.9325 23.1248C12.7178 22.2387 12.2884 21.4907 11.816 21.0331C11.4037 20.6264 11.0258 20.4812 10.7424 20.4812ZM17.8368 28.2377C17.1583 28.245 16.308 28.4266 15.4749 28.7679C14.5215 29.1674 13.7743 29.7193 13.3706 30.2277C12.9669 30.7289 12.9325 31.1065 13.0614 31.3317C13.1902 31.5496 13.5681 31.7602 14.2896 31.7892C15.0111 31.8255 15.9816 31.6585 16.935 31.259C17.8884 30.8596 18.6356 30.3149 19.0393 29.8065C19.443 29.3054 19.4773 28.9204 19.3485 28.7026C19.2197 28.4774 18.8417 28.2741 18.1203 28.245C18.0258 28.2377 17.9399 28.2377 17.8368 28.2377ZM9.45402 35.1809C9.05034 35.1882 8.68102 35.239 8.35464 35.3189C7.62458 35.5005 7.20372 35.8273 7.06629 36.2122C6.92028 36.6044 7.06629 37.0692 7.55586 37.5704C8.05402 38.0642 8.88715 38.5363 9.91783 38.7978C10.9399 39.0592 11.9362 39.0519 12.6749 38.8631C13.4135 38.6815 13.8344 38.3547 13.9718 37.9698C14.1092 37.5776 13.9718 37.1128 13.4736 36.6117C12.9841 36.1178 12.151 35.6457 11.1203 35.3843C10.5362 35.239 9.96936 35.1737 9.45402 35.1809Z" fill="#2e2e2e"/>
                                     </svg>                                                                           
                                 </div>
-                                <div class="dash_earn_amount">₹2,643</div>
+                                <div id="monthlyEarnings">
+
+                                </div>
                             </div>
 
                             <div class="dash_money_earn_data">
                                 <div class="dash_earn_type_head r-flex jut-sb">
-                                    <span>Totle Earnings</span>
+                                    <span>Total Earnings</span>
                                     <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M28.7426 5.78467L20.1964 11.2703L21.0626 11.7446L28.6661 6.86405L41.5627 14.1692L34.1654 18.9173L34.5257 19.1145V19.7164L40.3197 15.9972L41.5358 16.6861L34.5256 21.1857V22.216L40.2063 18.5697L41.5358 19.3229L34.5256 23.8225V24.8528L40.2063 21.2065L41.5358 21.9597L34.5256 26.4593V27.4896L43.3176 21.8462L41.1354 20.6102L43.3175 19.2095L41.1354 17.9734L43.3174 16.5727L41.2487 15.4009L43.3442 14.0557L28.7425 5.78467H28.7426ZM31.4731 9.71689C29.6241 10.6447 27.1612 10.8016 25.4271 10.1021L22.0372 12.278L33.1908 18.3838L36.406 16.3201C35.1395 15.3203 35.2449 13.8284 36.6645 12.6577L31.473 9.71689H31.4731ZM19.9955 12.9639L13.7827 17.0152L25.7015 23.8764L25.8184 23.8017C26.0381 23.6602 26.3484 23.4598 26.7186 23.2205C27.4586 22.7421 28.438 22.1078 29.4145 21.475C30.821 20.5636 31.5457 20.0933 32.2197 19.6562L19.9955 12.9639ZM30.1439 13.0668C30.144 13.0668 30.1441 13.0668 30.1442 13.0668C30.4253 13.0685 30.683 13.1287 30.8755 13.2377C30.9875 13.3011 31.0743 13.3794 31.1311 13.4679C31.1879 13.5565 31.2135 13.6537 31.2064 13.7539C31.1993 13.8542 31.1596 13.9555 31.0897 14.0522C31.0198 14.1488 30.921 14.2389 30.799 14.3172C30.677 14.3955 30.5341 14.4606 30.3785 14.5086C30.2229 14.5567 30.0577 14.5869 29.8922 14.5974C29.7268 14.608 29.5643 14.5986 29.4142 14.57C29.2641 14.5414 29.1291 14.494 29.0172 14.4306C28.7911 14.3025 28.6721 14.1168 28.6864 13.9144C28.7008 13.712 28.8472 13.5094 29.0936 13.3513C29.2336 13.2614 29.4007 13.1892 29.5826 13.1399C29.7644 13.0906 29.9563 13.0656 30.1439 13.0668ZM10.9466 17.2077L1.68249 23.154L3.75117 24.3258L1.65569 25.671L3.83783 26.907L1.65569 28.3078L3.83783 29.5438L1.65569 30.9446L16.2574 39.2156L25.0732 33.5567V32.5266L16.3339 38.1362L3.4374 30.8309L4.69029 30.0267L16.2574 36.5787L25.0732 30.92V29.8899L16.3339 35.4994L3.4374 28.1942L4.69029 27.39L16.2574 33.942L25.0732 28.2833V27.2532L16.3339 32.8627L3.4374 25.5575L4.60371 24.8087L16.2844 31.4251L25.0732 25.7836V25.3397L24.5915 25.0625L16.3606 30.3456L3.46439 23.0405L11.7929 17.6946L10.9465 17.2075L10.9466 17.2077ZM12.7448 18.2431L8.62102 20.8899C9.88752 21.8896 9.78205 23.3814 8.36244 24.5523L13.554 27.4931C15.4029 26.5653 17.8656 26.4084 19.5997 27.1078L23.6396 24.5147L12.7447 18.243L12.7448 18.2431ZM32.9436 21.0723C32.2366 21.5308 31.6131 21.9355 30.275 22.8027C29.3762 23.3853 28.477 23.9676 27.5776 24.5493C27.207 24.7888 26.896 24.9896 26.6743 25.1322C26.6664 25.1375 26.6631 25.1392 26.6554 25.1442V32.6962L32.9437 28.4697L32.9436 21.0723ZM15.2785 22.6086C15.5596 22.6104 15.8173 22.6707 16.0097 22.7797C16.2358 22.9078 16.3548 23.0935 16.3405 23.2959C16.3261 23.4983 16.1797 23.7009 15.9333 23.859C15.6869 24.0171 15.3607 24.1179 15.0267 24.1392C14.6926 24.1604 14.3778 24.1005 14.1517 23.9724C13.9256 23.8443 13.8066 23.6586 13.8209 23.4562C13.8353 23.2538 13.9818 23.0513 14.2282 22.8931C14.3681 22.8033 14.5353 22.731 14.7171 22.6818C14.899 22.6325 15.0909 22.6076 15.2785 22.6087V22.6086Z" fill="#2e2e2e"/>
                                     </svg>                                    
                                 </div>
-                                <div class="dash_earn_amount">₹2,643</div>
+                                <div id="totalEarnings">
+
+                                </div>
                             </div>
 
                             <div class="dash_money_earn_data">
@@ -351,7 +357,9 @@
                                         <path d="M41.25 3.75H3.75C3.25272 3.75 2.77581 3.94754 2.42417 4.29917C2.07254 4.65081 1.875 5.12772 1.875 5.625V20.625C1.875 21.1223 2.07254 21.5992 2.42417 21.9508C2.77581 22.3025 3.25272 22.5 3.75 22.5H9.375V39.375C9.375 39.8723 9.57254 40.3492 9.92418 40.7008C10.2758 41.0525 10.7527 41.25 11.25 41.25H33.75C34.2473 41.25 34.7242 41.0525 35.0758 40.7008C35.4275 40.3492 35.625 39.8723 35.625 39.375V22.5H41.25C41.7473 22.5 42.2242 22.3025 42.5758 21.9508C42.9275 21.5992 43.125 21.1223 43.125 20.625V5.625C43.125 5.12772 42.9275 4.65081 42.5758 4.29917C42.2242 3.94754 41.7473 3.75 41.25 3.75ZM13.125 37.5V33.75C14.1196 33.75 15.0734 34.1451 15.7766 34.8484C16.4799 35.5516 16.875 36.5054 16.875 37.5H13.125ZM31.875 37.5H28.125C28.125 36.5054 28.5201 35.5516 29.2234 34.8484C29.9266 34.1451 30.8804 33.75 31.875 33.75V37.5ZM31.875 30C29.8859 30 27.9782 30.7902 26.5717 32.1967C25.1652 33.6032 24.375 35.5109 24.375 37.5H20.625C20.625 35.5109 19.8348 33.6032 18.4283 32.1967C17.0218 30.7902 15.1141 30 13.125 30V15H31.875V30ZM39.375 18.75H35.625V13.125C35.625 12.6277 35.4275 12.1508 35.0758 11.7992C34.7242 11.4475 34.2473 11.25 33.75 11.25H11.25C10.7527 11.25 10.2758 11.4475 9.92418 11.7992C9.57254 12.1508 9.375 12.6277 9.375 13.125V18.75H5.625V7.5H39.375V18.75ZM22.5 28.125C23.6125 28.125 24.7001 27.7951 25.6251 27.177C26.5501 26.5589 27.2711 25.6804 27.6968 24.6526C28.1226 23.6248 28.234 22.4938 28.0169 21.4026C27.7999 20.3115 27.2641 19.3092 26.4775 18.5225C25.6908 17.7359 24.6885 17.2001 23.5974 16.9831C22.5062 16.766 21.3752 16.8774 20.3474 17.3032C19.3196 17.7289 18.4411 18.4499 17.823 19.3749C17.2049 20.2999 16.875 21.3875 16.875 22.5C16.875 23.9918 17.4676 25.4226 18.5225 26.4775C19.5774 27.5324 21.0082 28.125 22.5 28.125ZM22.5 20.625C22.8708 20.625 23.2334 20.735 23.5417 20.941C23.85 21.147 24.0904 21.4399 24.2323 21.7825C24.3742 22.1251 24.4113 22.5021 24.339 22.8658C24.2666 23.2295 24.088 23.5636 23.8258 23.8258C23.5636 24.088 23.2295 24.2666 22.8658 24.339C22.5021 24.4113 22.1251 24.3742 21.7825 24.2323C21.4399 24.0904 21.147 23.85 20.941 23.5417C20.735 23.2334 20.625 22.8708 20.625 22.5C20.625 22.0027 20.8225 21.5258 21.1742 21.1742C21.5258 20.8225 22.0027 20.625 22.5 20.625Z" fill="#2e2e2e"/>
                                     </svg>                                                                           
                                 </div>
-                                <div class="dash_earn_amount">₹2,643</div>
+                                <div id="withdrawAmount">
+                                    ₹
+                                </div>
                             </div>
 
                             <div class="dash_money_earn_data">
@@ -363,7 +371,9 @@
                                         <path d="M30 25.3125C31.5533 25.3125 32.8125 24.0533 32.8125 22.5C32.8125 20.9467 31.5533 19.6875 30 19.6875C28.4467 19.6875 27.1875 20.9467 27.1875 22.5C27.1875 24.0533 28.4467 25.3125 30 25.3125Z" fill="#2e2e2e"/>
                                     </svg>                                                                            
                                 </div>
-                                <div class="dash_earn_amount">₹2,643</div>
+                                <div id="remainingAmount">
+
+                                </div>
                             </div>
                         </div>
                         <button class="right_withdrow_money">Withdraw Amount</button>
@@ -379,19 +389,34 @@
                 <div class="dash_transition_blog_box jut-sb">
                     <div style="display: block;" id="posts_div" class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
                         <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
-                            <div class="bg-gray-200 px-2 py-3 border-solid border-gray-300 border-b">
-                                Posts
+                            <div class=" topblogs bg-gray-200 flex w-fit border-solid border-gray-300 border-b">
+                                
+                                    <div id="buttonclass" class="buttondiv py-3">
+                                        <button class="tablinks" onclick="loadTab('Draft','buttonclass')">Draft</button>
+                                    </div>
+                                    <div id="buttonclass1" class="buttondiv py-3">
+                                        <button class="tablinks " onclick="loadTab('InReview','buttonclass1')">In-Review</button>
+                                    </div>
+                                   <div id="buttonClass2" class="buttondiv py-3">
+                                    <button class="tablinks" onclick="loadTab('Publish','buttonClass2')">Published</button>
+                                   </div>
+                                   
+                                
                             </div>
                             <!-- for posts -->
-                            <div id="posts" class="p-1 flex flex-col  md:mx-1 lg:mx-1">
+                            <div id="posts" class="p-1 flex flex-col w-full md:mx-1 lg:mx-1">
                                 <!-- horizontal card -->
                                         <!-- /horizontal card -->
+                            </div>
+
+                            <div id="paginationControls">
+                
                             </div>
                             <!-- /for posts -->
 
                         </div>
                     </div>
-                    <div id="referral_div" class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+                    <div id="referral_div" class="flex flex-1 mt-8 flex-col md:flex-row lg:flex-row mx-2">
                         <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
                             <div class="bg-gray-200 px-2 py-3 border-solid border-gray-300 border-b">
                                 Referrals
@@ -412,10 +437,6 @@
 
        
     </main>
-
-
-     
-
 
 
     <script>
@@ -576,41 +597,186 @@
             return `${parts[0]} ${months[parts[1]]} ${parts[2]}`
         }
 
-        async function userBlogs(){
+        let currentPage = {
+        Draft: 1,
+        InReview: 1,
+        Publish: 1
+        };
+
+        // const totalData = 6;
+        let currentTab = "Draft";
+        const pageSize = 2;
+        let currentId='buttonclass';
+
+ function generatePagination(totalPages, pageNumber,currentTab) {
+  const paginationContainer = document.createElement("nav");
+  paginationContainer.setAttribute("aria-label", "Pagination");
+
+  const ul = document.createElement("ul");
+  ul.classList.add("pagination");
+
+  // Create "Previous" button
+  const prevLi = document.createElement("li");
+  prevLi.classList.add("page-item");
+  if (pageNumber === 1) {
+    prevLi.classList.add("disabled");
+  }
+  const prevLink = document.createElement("span");
+  prevLink.classList.add("page-link");
+  prevLink.textContent = "Previous";
+  prevLink.addEventListener("click", () => {
+    prevPage(currentTab);
+  });
+  prevLi.appendChild(prevLink);
+  ul.appendChild(prevLi);
+
+  // Create page number links
+  for (let i = 1; i <= totalPages; i++) {
+    const li = document.createElement("li");
+    li.classList.add("page-item");
+    if (i === pageNumber) {
+      li.classList.add("active");
+      li.setAttribute("aria-current", "page");
+      const span = document.createElement("span");
+      span.classList.add("page-link");
+      span.textContent = i;
+      li.appendChild(span);
+    } else {
+      const a = document.createElement("a");
+      a.classList.add("page-link");
+      a.textContent = i;
+      a.addEventListener("click", () => {goToPage(i,currentTab,totalPages);});
+      li.appendChild(a);
+    }
+    ul.appendChild(li);
+  }
+
+  // Create "Next" button
+  const nextLi = document.createElement("li");
+  nextLi.classList.add("page-item");
+  if (pageNumber === totalPages) {
+    nextLi.classList.add("disabled");
+  }
+  const nextLink = document.createElement("a");
+  nextLink.classList.add("page-link");
+  nextLink.textContent = "Next";
+  nextLink.addEventListener("click", () => {
+    // Call your page change function here for the next page
+    nextPage(currentTab);
+  });
+  nextLi.appendChild(nextLink);
+  ul.appendChild(nextLi);
+
+  paginationContainer.appendChild(ul);
+
+  return paginationContainer;
+}
+
+        let endpoints = {
+        Draft: `/userBlogsDraft?page=${currentPage.Draft}&pageSize=${pageSize}`,
+        InReview: `/userBlogsInReview?page=${currentPage.InReview}&pageSize=${pageSize}`,
+        Publish: `/userBlogsPublish?page=${currentPage.Published}&pageSize=${pageSize}`
+        };
+
+        async function loadTab(tabName,divid) {
+         console.log(divid);
+        let currentDivId=document.getElementById(currentId);
+        currentDivId.classList.remove('changecolor');
+        currentId=divid;
+
+        console.log(tabName);
+        console.log(endpoints[tabName]);
+        currentTab = tabName;
+        let total=await userBlogs(endpoints[tabName], tabName);
+        const totalPages = Math.ceil(total / pageSize);
+
+        const container = document.getElementById("paginationControls");
+        container.innerHTML='';
+        console.log(currentPage[tabName]);
+        const pagination = generatePagination(totalPages, currentPage.tabname,currentTab);
+        container.appendChild(pagination);
+
+        let variable=document.getElementById(divid);
+        variable.classList.add('changecolor');
+
+    };
+
+        async function userBlogs(fetchapi,tabName){
+            console.log(fetchapi);
             let token = localStorage.getItem("token")
-            let data = await fetch("/userBlogs", {
+            let data = await fetch(fetchapi, {
                 method: "GET",
                 headers:{
                     "Content-type": "application/json",
                     'Authorization': "Bearer " + token
-                }
+                },
+                
             })
-
             let blogs = await data.json()
             console.log("blogs = ", blogs)
-
+    
             let blogLength = document.getElementById("blog_length")
-            blogLength.innerHTML = blogs.length + " blogs"
+            blogLength.innerHTML = blogs.totalDataCount + " blogs"
+            
+            let elem = document.getElementById("posts");
+            elem.innerHTML = '';
+            
+            const blogEarning=await blogTotalEarnings();
+            console.log(blogEarning);
 
-            attachBlogs(blogs);
+            attachBlogs(blogs.blogData,blogEarning);
+
             //attachRefs(blogs);
+            return (blogs.totalDataCount);
         }
-        userBlogs();
+    
+        function updateEndpoint(tabName) {
+        endpoints[tabName] = `/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`;
+        console.log(endpoints[tabName]);    
+        }
 
-        function attachBlogs(blogs){
+        function nextPage(currentTab) {
+         (currentPage[currentTab])++;
+         console.log(currentPage[currentTab]);
+         updateEndpoint(currentTab);
+         loadTab(currentTab,currentId);
+        //  userBlogs(endpoints[currentTab], currentTab);
+         }
+
+        function prevPage(currentTab) {
+        if ((currentPage[currentTab]) > 1) {
+        (currentPage[currentTab])--;
+        console.log(currentPage[currentTab]);
+        updateEndpoint(currentTab);
+        loadTab(currentTab,currentId);
+        // userBlogs(endpoints[currentTab], currentTab);
+    }
+}
+
+       function goToPage(page,currentTab,totalPages){
+        if (page >= 1 && page <= totalPages){
+            endpoints[currentTab] = `/userBlogs${currentTab}?page=${page}&pageSize=${pageSize}`;
+             userBlogs(endpoints[currentTab], currentTab);
+        }
+       }
+
+loadTab(currentTab,currentId);
+        
+        function attachBlogs(blogs,blogEarning){
 
             let elem = document.getElementById("posts")
 
             console.log("blogs = ", blogs)
+
             blogs.map((blog)=> {
                 let post = `
-                <div style="margin:10px" class=" w-full lg:flex lg:mx-2 md:mx-2">
-                    <div class="h-40 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+                <div style="margin:10px" class=" w-full lg:flex lg:mx-1 md:mx-2 ">
+                    <div class="h-40 lg:h-auto lg:w-64 flex-none bg-cover  rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
                         style="background-image: url('${blog.titleImage}')"
                         title="Woman holding a mug">
                     </div>
                     <div
-                    style="min-width: 60%; max-width: 95%"class="border-r border-b border-l border-gray-300 lg:border-l-0 lg:border-t lg:border-gray-300 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                    style="min-width: 77%; max-width: 90%"class="lg:border-t lg:border-r lg:border-b  lg:border-gray-300 lg:text-center bg-white lg:rounded-lg  p-4 flex flex-col leading-normal">
                         <div class="mb-2">
                             <div class="text-black-500 font-bold text-lg mb-2">
                                 <a href='write?blogId=${blog._id}'>
@@ -621,19 +787,16 @@
                                 ${blog.meta}
                             </p>
                         </div>
-                        <div class="flex items-center">
-                            <img class="w-10 h-10 rounded-full mr-4"
-                                src="https://pbs.twimg.com/profile_images/885868801232961537/b1F6H4KC_400x400.jpg"
-                                alt="Avatar of Jonathan Reinink">
-                            <div class="text-sm">
-                                <p class="text-black leading-none">
-                                    ${blog.author}
+                        <div class="items-end">
+                            <div class="text-end lg:pr-4">
+                                <p class="text-black mb-1">
+                                    ~ ${blog.author}
                                 </p>
                                 <p class="text-gray-dark">
                                     ${date_string(blog.date)}
                                 </p>
-                                <p style="color:green" class="text-gray-dark">
-                                    + Rs. ${(blog.viewCount/1000)*30}
+                                <p class="text-gray-dark">
+                                    ${blog.slot}
                                 </p>
                             </div>
                         </div>
@@ -646,6 +809,7 @@
     })
     }
 
+    
     function attachRefs(blogs){
 
         let elem = document.getElementById("refs")
@@ -700,7 +864,7 @@
         async function getAllReferalls(userId){
             let pays = await monthlyEarningRefs(userId)
             attachRefs(pays)
-            //totalMonthlyEarnings(data[0].referralArray)
+            // totalMonthlyEarnings(data[0].referralArray)
         }
 
         async function completeEarnings(){
@@ -714,9 +878,31 @@
             })
 
             let data = await res.json()
-            console.log("Complete Earnings = ", data)
+            console.log("Complete Earnings = ", data);
+            const data1=document.getElementById("withdrawAmount");
+            const data2=document.getElementById("remainingAmount");
+            data1.innerHTML=data.withdraw;
+            data2.innerHTML=data.remain;
+
+
         }
 
+        async function blogTotalEarnings(){
+            let token = localStorage.getItem("token")
+            let res = await fetch("/calculateEarnings", {
+                method: "GET",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": "Bearer " + token
+                }
+            })
+
+            let data = await res.json()
+            // console.log("Blog wise Earnings = ", data);
+            return data;
+
+        }
+        
         completeEarnings();
 
         async function monthlyEarningRefs(userId){
@@ -741,8 +927,28 @@
             return pay
         }
 
+        async function monthlyEarning(userId){
+            let token = localStorage.getItem("token")
+            let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+            
+            let res = await fetch("/monthly_earnings", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                
+                body: JSON.stringify({userId,m,y})
+            })
+            let monthlyEarn = await res.json()
+            console.log("Monthly Earning = ", monthlyEarn)
+            const data=document.getElementById("monthlyEarnings");
+            data.innerHTML=monthlyEarn;
+        }
 
-        async function totalMonthlyEarnings(){
+        monthlyEarning();
+
+        async function totalEarnings(){
             let token = localStorage.getItem("token")
             let pays = {}
             let date = new Date(), y = date.getFullYear(), m = date.getMonth();
@@ -756,13 +962,17 @@
                     "month": "yes"
                 })
             })
-            console.log("monthly Earnings = ", await res.json())
+            let totalEarn = await res.json();
+            console.log("Total Earnings = ", totalEarn)
+            const data=document.getElementById("totalEarnings");
+            data.innerHTML=totalEarn.total;
         }
 
-        totalMonthlyEarnings();
+        totalEarnings();
 
 
 
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>
