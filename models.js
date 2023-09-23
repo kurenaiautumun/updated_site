@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
   followers: Array,
   following: Array,
   recommendation: Array,
+  totalEarn:{
+    type:Number,default:0
+  }
 });
 userSchema.plugin(passportLocalMongoose, {
   usernameQueryFields: ["username", "email"],
@@ -191,3 +194,4 @@ module.exports = {
   monthlyViews,
   viewAnalysis
 };
+

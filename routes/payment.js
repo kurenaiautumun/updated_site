@@ -7,23 +7,49 @@ const jwtVerify = require("./jwt")
 
 
 router.get("/all_referrals", async function(req,res){
-    let user = jwtVerify(req);
-  console.log("user = ", user)
-  if (user){
-    let newData = []
-    let refData = await Referral.findOne({ userId: user.user._id });
-    console.log("referrals")
-    for(let i in refData.referralArray){
-      console.log(refData.referralArray[i])
-      let userData = await User.findOne({_id: refData.referralArray[i]})
-      console.log("userData = ", await userData)
-      newData.push(await userData)
+  try {
+    const user = jwtVerify(req); // Verify JWT and extract user data
+    console.log('user =', user);
+
+    if (!user) {
+      console.log('User not authenticated.');
+      return res.json(null);
     }
-    console.log("blogs = ", newData)
-    res.json(newData)
-  }
-  else{
-    res.json(null)
+
+    const refData = await Referral.findOne({ userId: user.user._id });
+    console.log('refData =', refData);
+    let total=0;
+    if (!refData || !refData.referralArray) {
+      console.log('No referral data found.');
+      return res.json({ newData: [], totalDataCount: 0,total});
+    }
+
+    for(let i in refData.referralArray){
+      let userData = await User.findOne({_id: refData.referralArray[i]});
+      total=total+((userData.totalEarn)/20);
+    }
+
+
+    const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+    const pageSize = parseInt(req.query.pageSize) || 10; // Default to 10 items per page
+    const skip = (page - 1) * pageSize;
+
+    const userDataPromises = refData.referralArray.slice(skip, skip + pageSize).map(async (userId) => {
+      const userData = await User.findOne({ _id: userId });
+      console.log("userId=",userId._id.toString());
+      console.log('userData =', userData);
+      return userData;
+    });
+
+    const newData = await Promise.all(userDataPromises);
+
+    const totalDataCount = refData.referralArray.length;
+
+    console.log('referral data =', newData);
+    res.json({ newData, totalDataCount,total});
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 })
 
@@ -45,9 +71,9 @@ router.get("/calculateEarnings", async function(req, res){
       res.status(400).json("no user found")
     }
     const views = await monthlyViews.find({ userId: user._id });
-    console.log("blogs = ", views)
+    // console.log("blogs = ", views)
     for(let i in views){
-      console.log(views[i].viewCount)
+      // console.log(views[i].viewCount)
       let slot = (views[i].viewCount/1000)
       try{
         //pay_slip = paySlots.find({slot: slot}).amount
@@ -204,16 +230,15 @@ router.post("/monthly_earnings", async function(req,res){
   let firstDay = new Date(y, m, 2);
   let lastDay = new Date(y, m + 1, 0);
 
-  console.log(firstDay)
-  console.log(lastDay)
-
   let views = await monthlyViews.find({userId: userId, startDate: firstDay, endDate: lastDay});
+  console.log(views);
   views=(views/1000)*30;
   console.log(views)
   res.json(views).status(200)
 })
 
 router.post("/monthlyViews", async function(req, res){
+  console.log("monthly views called");
   let blogId = req.body.blogId
   let views = req.body.views
   let mViews =  await monthlyViews.findOne({blogId: blogId})
@@ -221,6 +246,8 @@ router.post("/monthlyViews", async function(req, res){
   let date = new Date(), y = date.getFullYear(), m = date.getMonth();
   let startDate = new Date(y, m, 2);
   let endDate = new Date(y, m + 1, 0);
+  console.log("start date=",startDate);
+  console.log(endDate);
   let userId = await Blog.findOne({_id: blogId})
   console.log("user_id = ", await userId)
   console.log("user_id = ", await userId.userId)
