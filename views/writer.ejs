@@ -46,6 +46,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
 
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
@@ -752,14 +759,57 @@
                         inlineToolbar: true,
                     },
 
-                    image: SimpleImage,
+                    table: {
+                      class: Table,
+                      inlineToolbar: true,
+                      config: {
+                        rows: 2,
+                        cols: 3,
+                      },
+                    },
+
                     list: {
-                      class: List,
+                      class: NestedList,
                       inlineToolbar: true,
                       config: {
                         defaultStyle: 'unordered'
-                      }
+                      },
                     },
+
+                    quote: {
+                      class: Quote,
+                      inlineToolbar: true,
+                      shortcut: 'CMD+SHIFT+O',
+                      config: {
+                        quotePlaceholder: 'Enter a quote',
+                        captionPlaceholder: 'Quote\'s author',
+                      },
+                    },
+
+                    underline: Underline,
+                    
+                    inlineCode: {
+                      class: InlineCode,
+                      shortcut: 'CMD+SHIFT+M',
+                    },
+
+                    code: CodeTool,
+
+                    Marker: {
+                      class: Marker,
+                      shortcut: 'CMD+SHIFT+M',
+                    },
+
+
+                
+                    image: SimpleImage,
+                    //list: {
+                    //  class: List,
+                    //  inlineToolbar: true,
+                    //  config: {
+                    //    defaultStyle: 'unordered'
+                    //  }
+                    //},
 
                 }
             });
