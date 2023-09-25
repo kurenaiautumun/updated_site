@@ -44,7 +44,7 @@ router.post("/sendMessages", async (req, res) => {
     let con = mysql.createConnection({
       host: "database-1.cjesuihmj6i2.ap-south-1.rds.amazonaws.com",
       user: "admin",
-      password: "UWc}lj:)p&1Mu:U&CJt]I&#m3x%8",
+      password: '_P?vOb$2H)LE<O>6z#CRsYE6?HZi',
       database: "MESSAGES"
     });
     

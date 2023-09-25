@@ -23,6 +23,7 @@ router.get("/write", (req, res) => {
 });
 
 router.get("/read", (req, res) => {
+  console.log("req = ", req)
   res.render("read");
 });
 

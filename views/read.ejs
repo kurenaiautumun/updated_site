@@ -1237,6 +1237,23 @@
     let totalTime = 0
 
     setTimeout(updateViews, 30000)
+
+    function addingAds(){
+        console.log("height = ", window.innerHeight)
+        let elem = document.createElement("div")
+        let img_elem = `
+        <img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+        `
+        elem.innerHTML = img_elem
+
+        let paras = document.getElementsByClassName("ce-paragraph")
+
+        for (i in paras){
+            console.log(i)
+            console.log(paras[i])
+        }
+    }
+    addingAds();
 </script>
 
 </body>

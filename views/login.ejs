@@ -160,13 +160,18 @@
                 body: JSON.stringify(body),
             })
       
-      let user = await data.json()
-      console.log(user)
-      localStorage.setItem("token", user["token"]);
+      let user_req = await data
+      let user = await user_req.json()
 
-      localStorage.setItem("user", user["user"]._id);
-      
-      window.location.href = "/";
+      console.log(user)
+      console.log("status = ", user_req.status)
+      if (user_req.status==200){
+        localStorage.setItem("token", user["token"]);
+
+        localStorage.setItem("user", user["user"]._id);
+        
+        window.location.href = "/";
+      }
     }
 
     //Calling a function during form submission.
