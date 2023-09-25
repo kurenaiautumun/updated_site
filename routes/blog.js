@@ -96,28 +96,40 @@ router.post("/blog/viewcount", async (req, res) => {
   //res.json({ message: "view increased" });
 });
 
-router.post("/newblog", (req, res) => {
+router.post("/newblog", async (req, res) => {
   const { userId, title, body, views, status, titleImage} = req.body;
   let user;
   console.log("userID = ", userId)
-  User.findOne({ _id: userId }, (err, user) => {
-    user = user
-    console.log("user -= ", user)
-    const author = user.username
-    const blog = new Blog({
-      userId,
-      title,
-      body,
-      views,
-      status,
-      date,
-      titleImage,
-      author,
-      status,
-    });
-    blog.save((err, blog) => {
-      res.status(201).json({ message: "blog saved", user, blog });
-    });
+  user = await User.findOne({_id: userId})
+
+  console.log("user -= ", await user)
+  let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth(), d = blog_date.getDate();
+  let date = `${d}/${m}/${y}`
+  const author = user.username
+  const blog = new Blog({
+    userId,
+    title,
+    body,
+    views,
+    status,
+    date,
+    titleImage,
+    author,
+    status,
+  });
+
+  console.log("date = ", date)
+  console.log("m = ", m)
+  let startDate = new Date(y, m, 2);
+  let endDate = new Date(y, m + 1, 0);
+  blog.save((err, blog) => {
+      viewsMonth = new monthlyViews({
+        blogId: blog._id,
+        startDate: startDate,
+        endDate: endDate,
+        viewCount: 0
+      })
+    res.status(201).json({ message: "blog saved", user, blog });
   });
 });
 

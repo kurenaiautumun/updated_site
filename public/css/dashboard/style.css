@@ -278,8 +278,12 @@
 }
 
 #paginationControls{
-   padding-left:40%;
+   padding-left:45%;
 }
+
+#paginationControlsRef{
+    padding-left:45%;
+ }
 @media (max-width: 1160px){
     .dash_refer_right_side{
         max-width: 230px;

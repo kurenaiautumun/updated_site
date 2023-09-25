@@ -66,7 +66,7 @@
             <div class="sign_up_hero_container">
                 <div class="sign_up_hero_box r-flex ali-c">
                     <div class="sign_up_left_box r-flex ali-c jut-c">
-                        <form class="sing_up_form_box c-flex ali-c jut-c" method="POST" action="/signup">
+                        <form id="signup-form" class="sing_up_form_box c-flex ali-c jut-c">
                             <input required="required" type="name" name="username" id="username"
                                 placeholder="Enter Your Name">
                             <input type="referral" name="referral" id="referral"
@@ -113,6 +113,41 @@
 
 
     <script>
+        var form=document.getElementById("signup-form");
+    
+        async function submitForm(event){
+           event.preventDefault();
+           console.log("form submitted")
+
+           console.log(event.target)
+
+           const body = {
+            "username": event.target.username.value,
+            "referral": event.target.referral.value,
+            "email": event.target.email.value,
+            "password": event.target.password.value,
+           }
+
+           console.log(body)
+
+          let data = await fetch(`/signup`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(body),
+                })
+            
+          let user = await data
+
+          console.log(user.json())
+          console.log(user.status)
+          if (user.status==201){window.location.href = "/login";}
+        }
+
+        //Calling a function during form submission.
+        form.addEventListener('submit', submitForm);
+
         function burgerFuncation() {
             var element = document.getElementById("myNAV");
             element.classList.toggle("mystyle");
