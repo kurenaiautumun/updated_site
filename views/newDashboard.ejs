@@ -1167,7 +1167,7 @@
           post += `
                   <tr>
                     <td><a href="/author?userId=${blog._id}">${blog.username}</a></td>
-                    <td style="float:right; color:green">Rs. ${blog.totalEarn}</td>
+                    <td style="float:right; color:green">Rs. ${(blog.totalEarn)/20}</td>
                   </tr>
         `;
         });

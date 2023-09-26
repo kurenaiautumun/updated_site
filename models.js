@@ -134,6 +134,11 @@ const walletSchema = new mongoose.Schema({
 })
 
 
+const popularBlogsSchema=new mongoose.Schema({
+  tag:String,
+  totalCount:Number
+})
+
 function toggle(arr, elem) {
   const index = arr.indexOf(elem);
   if (index !== -1) {
@@ -160,7 +165,7 @@ const UserInfo = new mongoose.model("userinfo", userInfoSchema);
 const Competition = new mongoose.model("competition", competitionSchema);
 const Ranking = new mongoose.model("ranking", rankingSchema);
 const Referral = new mongoose.model("raferral", referralSchema);
-
+const popularBlogs =new mongoose.model("popularBlogs",popularBlogsSchema);
 const TotalEarnings = new mongoose.model("TotalEarnings", totalEarningsSchema)
 const Earnings = new mongoose.model("earnings", earningsSchema)
 const paySlots = new mongoose.model("paySlots", paySlotsSchema)
@@ -184,6 +189,7 @@ module.exports = {
   Competition,
   Ranking,
   Referral,
+  popularBlogs,
   toggle,
   transporter,
   Earnings,
