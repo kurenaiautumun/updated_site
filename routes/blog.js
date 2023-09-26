@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { date, User, Blog, monthlyViews, viewAnalysis } = require("../models.js");
+const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs} = require("../models.js");
 const jwtVerify = require("./jwt")
 
 router.get("/blogss", (req, res) => {
@@ -121,13 +121,37 @@ router.post("/newblog", (req, res) => {
   });
 });
 
-router.post("/updateBlog", (req, res) => {
+router.post("/updateBlog", async (req, res) => {
   let { id, title, body, titleImage, tags, author, meta, status, readTime } = req.body;
   console.log(req.body)
   console.log("tags = ", tags)
   console.log("id = ", id)
+  for (const tag of tags) {
 
-  Blog.update(
+    console.log(`Processing tag: ${tag}`);
+
+    let popular = await popularBlogs.findOne({ tag: tag });
+    console.log(popular._id.toString());
+    console.log(popular.totalCount);
+    if(popular==null){
+     console.log("it is null");
+     let popularblog=new popularBlogs({
+      tag:tag,
+      totalCount:1
+     })
+     popularblog.save();
+    }
+    else{
+      console.log("else called");
+        popularBlogs.updateOne(
+          { tag: tag},
+          { $set:{totalCount:(popular.totalCount + 1)}}
+        ); 
+    }
+    console.log(`Popular blogs for tag "${tag}":`, popular);
+  }
+
+  Blog.updateOne(
     { _id: id },
     {$set: {
       "body": body, 
