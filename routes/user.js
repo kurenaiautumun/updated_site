@@ -32,7 +32,11 @@ router.post("/signup", async (req, res) => {
       referral: referralId,
     });
 
+
     const registeredUser = await User.register(user, req.body.password);
+
+    console.log("referall")
+    console.log("id = ", registeredUser._id)
 
     const referral = new Referral({
       userId: registeredUser._id,
@@ -60,7 +64,7 @@ router.post("/signup", async (req, res) => {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
-      return res.status(201).redirect("/");
+      return res.status(201).json(user);
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
