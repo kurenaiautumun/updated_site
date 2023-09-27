@@ -100,12 +100,12 @@ router.post("/newblog", async (req, res) => {
   const { userId, title, body, views, status, titleImage} = req.body;
   let user;
   console.log("userID = ", userId)
-  user = await User.findOne({_id: userId})
+  user = await User.findOne({_id: userId});
 
   console.log("user -= ", await user)
   let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth(), d = blog_date.getDate();
   let date = `${d}/${m}/${y}`
-  const author = user.username
+  const author = user.username;
   const blog = new Blog({
     userId,
     title,
@@ -157,7 +157,7 @@ router.post("/updateBlog", async (req, res) => {
       console.log("else called");
         popularBlogs.updateOne(
           { tag: tag},
-          { $set:{totalCount:(popular.totalCount + 1)}}
+          { $set:{totalCount:10}}
         ); 
     }
     console.log(`Popular blogs for tag "${tag}":`, popular);

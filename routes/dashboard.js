@@ -70,13 +70,13 @@ router.get("/userBlogsPublish", async (req, res) => {
       const skip = (page - 1) * pageSize;
       console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "Published" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
       console.log("blogs = ", blogData)
-      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "Published" });
       console.log(totalDataCount);
 
       for(i in blogData){
@@ -110,13 +110,13 @@ router.get("/userBlogsDraft", async (req, res) => {
       const skip = (page - 1) * pageSize;
       console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "draft" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
       // console.log("blogs = ", blogData)
-      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "draft" });
       console.log(totalDataCount);
       console.log("blogs = ", blogData)
       res.json({blogData,totalDataCount});
