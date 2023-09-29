@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs} = require("../models.js");
+const { encrypt } = require("./encrypt.js");
 const jwtVerify = require("./jwt")
 
 router.get("/blogss", (req, res) => {
@@ -13,7 +14,10 @@ router.get("/blogss", (req, res) => {
 
 router.get("/randomBlogs", (req, res) => {
   const size = req.query.size;
-  Blog.aggregate([{ $sample: { size: parseInt(size)} }], (err, blog) => {
+  Blog.aggregate([
+    { $match: { status: "published" } },
+    { $sample: { size: parseInt(size)} }],
+  (err, blog) => {
     // res.status(201).send({ blog });
     if (err) throw err;
     res.status(201).json({blog });
@@ -24,6 +28,7 @@ router.get("/blog", (req, res) => {
   const _id = req.query.blogId;
   Blog.find({ _id }, (err, blog) => {
     // res.status(201).send({ blog });
+    blog[0].userId = encrypt(blog[0].userId)
     console.log(blog);
     res.status(201).send({ blog });
   });
@@ -97,10 +102,12 @@ router.post("/blog/viewcount", async (req, res) => {
 });
 
 router.post("/newblog", async (req, res) => {
-  const { userId, title, body, views, status, titleImage} = req.body;
-  let user;
-  console.log("userID = ", userId)
-  user = await User.findOne({_id: userId});
+  const {title, body, views, status, titleImage} = req.body;
+  let token = jwtVerify(req);
+
+  console.log("user = ", token.user)
+  let userId = token.user._id
+  let user = await User.findOne({_id: userId});
 
   console.log("user -= ", await user)
   let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth(), d = blog_date.getDate();
@@ -211,20 +218,23 @@ router.post("/deleteBlog/:id", (req, res) => {
 });
 
 router.post("/authorBlogs", async (req, res) => {
-  console.log("func = ", jwtVerify(req))
-  let user = jwtVerify(req);
-  console.log("user = ", user)
+  let token = jwtVerify(req);
+
+  console.log("user = ", token.user)
+  let userId = token.user._id
+  let result
   if (req.body.userId==null){
-    res.status(400).json("please provide userId")
+    result = null
+    code = 400
   }
-  let userId = req.body.userId
-  if (user){
+
+  if (token.user){
     const blogData = await Blog.find({ userId: userId, status: "published" });
     console.log("blogs = ", blogData)
     res.json(blogData)
   }
   else{
-    res.json(null)
+    res.status(400).json("please provide userId")
   }
 })
 

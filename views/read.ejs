@@ -224,7 +224,7 @@
                             <div class="blog_author_box r-flex ">
                                 <div class="blog_author_pi"><img src="images/logo.png" alt=""></div>
                                 <div class="blog_about_author_cont">
-                                    <div class="blog_author_name">Devender</div>
+                                    <div class="blog_author_name"></div>
                                     <div class="blog_author_details">
                                         Quisque sed tristique felis. Lorem visit my website amet, consectetur adipiscing elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus congue feugiat. Thanks for stop Cloapedia!
                                     </div>
@@ -329,7 +329,6 @@
                         <div class="reply_container">
                             <div class="blog_reply_border_head">Leave a Reply</div>
                             <form id="add_comment" class="comments_form_box" onsubmit="submitForm(this);return false">
-                                <input type="name" name="naem" id="comment_name" placeholder="Your name">
                                 <textarea name="comment" id="comment_text" cols="30" rows="10" placeholder="Your comment"></textarea>
                                 <button class="blog_comment_btn" type="submit">Submit Comment</button>
                             </form>
@@ -783,6 +782,7 @@
                     document.getElementById("likes").innerHTML = jsonData[0]["viewCount"]
                     document.getElementById("publish_date").innerHTML = date_string(jsonData[0]["date"])
                     setTags(jsonData[0].tags)
+                    console.log("user = ", jsonData[0].userId)
                     authorDetails(jsonData[0].userId)
 
                     //console.log("body=  ", jsonData[0].body);
@@ -1002,7 +1002,7 @@
                 </div>
                 <div style="margin-left:0px" class="comments_right_side_show">
                     <div class="comments_show_name_and_time r-flex ali-c">
-                        <span class="comment_show_name">${data.user[i].userId}</span>
+                        <span class="comment_show_name">${data.user[i].username}</span>
                         <span class="comment_show_time">${date_string(data.user[i].date)}</span>
                     </div>
                     <div class="comment_show_main_cont">${data.user[i].body}</div>
@@ -1086,7 +1086,13 @@
         
         let content = block.children[1].children
 
-        content[0].innerHTML = data["username"]
+        let elem = document.createElement("a")
+        elem.innerHTML = data["username"]
+        elem.href = `/author?userId=${data["_id"]}`
+
+        content[0] = ""
+
+        content[0].append(elem)//data["username"]
         content[1].innerHTML = data["info"]
     }
 
@@ -1127,7 +1133,7 @@
             "userId": userDetails.user._id,
             "title": "Title",
             "views": 0,
-            "status": "new",
+            "status": "draft",
             "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
             "userName": userDetails.user._id,
         }

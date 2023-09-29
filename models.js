@@ -5,6 +5,8 @@ const nodemailer = require("nodemailer");
 
 const userSchema = new mongoose.Schema({
   username: String,
+  firstName: String,
+  lastName: String,
   role: String,
   info: String,
   referral: Number,
@@ -16,9 +18,7 @@ const userSchema = new mongoose.Schema({
   recommendation: Array,
   totalEarn:{type:Number,default:0}
 });
-userSchema.plugin(passportLocalMongoose, {
-  usernameQueryFields: ["username", "email"],
-});
+
 
 const blogSchema = new mongoose.Schema({
   title: String,
@@ -174,9 +174,9 @@ const monthlyViews = new mongoose.model("monthlyViews", monthlyViewsSchema)
 
 const viewAnalysis = new mongoose.model("viewAnalysis", viewAnalysisSchema)
 
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+//passport.use(User.createStrategy());
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
 
 module.exports = {
   date,

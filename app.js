@@ -60,7 +60,6 @@ app.use("/", rankingRoute);
 app.use("/", writeRoute);
 app.use("/", payment);
 app.use("/", chats);
-
 app.listen(process.env.PORT, function () {
   console.log(`Server started on http://localhost:${process.env.PORT}`);
 });

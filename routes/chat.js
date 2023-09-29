@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const jwtVerify = require("./jwt")
 
+const {encrypt, decrypt} = require("./encrypt")
+
 var mysql = require('mysql');
 
 
 router.post("/sendMessages", async (req, res) => {
     let user = jwtVerify(req);
-    let second_user = req.body.second_user
+    let second_user = decrypt(req.body.second_user)
     //let date = new Date();
     //const date=new Date().toLocaleString('en-US', {timeZone: 'Asia/Kolkata'}).replace(/T/, ' ').replace(/\..+/, '')
     //const date = moment.unix(utc).tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
@@ -81,7 +83,7 @@ router.post("/sendMessages", async (req, res) => {
 
 router.post("/getMessages", async(req, res)=>{
   let user = jwtVerify(req);
-  let second_user = req.body.second_user
+  let second_user = decrypt(req.body.second_user)
   let offset = req.body.offset
 
   let user_id = user.user._id + second_user
@@ -132,6 +134,9 @@ router.post("/getMessages", async(req, res)=>{
                 else{
                   //console.log("1 record inserted, ID: " + result.insertId);
                   console.log("result = ", result)
+                  for (let res in result){
+                    result[res].userID = encrypt(result[res].userID)
+                  }
                   con.end()
                   return res.status(200).json(result)
                 }
@@ -148,7 +153,7 @@ router.post("/getMessages", async(req, res)=>{
 
 router.post("/getContacts", async(req, res)=>{
   let user = jwtVerify(req);
-  let second_user = req.body.second_user
+  let second_user = decrypt(req.body.second_user)
   let offset = req.body.offset
 
   let user_id = user.user._id + second_user
@@ -175,44 +180,65 @@ router.post("/getContacts", async(req, res)=>{
 
   try{
       console.log("user = ", user.user._id)
-      con.connect(function(err) {
+      result = con.connect(async function(err) {
           if (err){
               console.log("error = ", err)
               con.end()
           }
           else{
-            //let sql = `SELECT * FROM messages WHERE (userID='${user_id}' OR userID='${reverse_id}') AND dateTime BETWEEN '2023-09-01 00:00:00' AND '2023-09-30 12:00:00' ORDER BY dateTime ${Order} LIMIT 10 OFFSET ${offset};`
-              let sql = `SELECT DISTINCT userID FROM ${table} WHERE (userID LIKE '${user_id}%' OR userID LIKE '%${reverse_id}');`
-              console.log(sql)
-              //let sql = `INSERT INTO messages VALUES('${user_id}','${message_body}','${new_date}');`
-              con.query(sql, function (err, result) {
-                if (err){
-                  console.log("error = ", err)
-                }
-                else{
-                  //console.log("1 record inserted, ID: " + result.insertId);
-                  new_result = []
-                  console.log("result = ", result)
-                  for (let i in result){
-                    console.log("contact", result[i]["userID"])
-                    let new_id = result[i]["userID"].replace(user.user._id, "")
-                    console.log(new_id)
-                    if (new_result.includes(new_id)==false){
-                      new_result.push(new_id)
-                    }
-                    console.log("contacts = ", new_result)
-                  }
-                  return res.status(200).json(new_result)
+                let new_result = []
+                await distinctID(res, new_result, con, user.user._id, "temp_messages", 0)
+                //new_result = await distinctID(new_result, con, user.user._id, "messages")
+                //console.log("before new_result", await distinctID(con, user.user._id, "messages"))
+                //console.log("new result = ", new_result)
+                //return res.status(200).json(await distinctID(user.user._id, "messages"))
                 }
               });
           }
-        });
-  }
   catch(err){
       console.log("error = ", err)
       res.status(404).json(`user id not provided - ${err}`)
   }
 })
+
+
+async function distinctID(res, new_result, con, user_id, table, count){
+  count += 1
+  let sql = `SELECT DISTINCT userID FROM ${table} WHERE (userID LIKE '${user_id}%' OR userID LIKE '%${user_id}');`
+    console.log(sql)
+    //let sql = `INSERT INTO messages VALUES('${user_id}','${message_body}','${new_date}');`
+    con.query(sql, async function (err, result) {
+      if (err){
+        console.log("error = ", err)
+      }
+      else{
+        //console.log("1 record inserted, ID: " + result.insertId);
+        console.log("result = ", result)
+        for (let i in result){
+          console.log("contact", result[i]["userID"])
+          let new_id = result[i]["userID"].replace(user_id, "")
+          console.log(new_id)
+          if (new_result.includes(new_id)==false){
+            if (new_id!="641be792bacccc03c37fc0e4"){
+              new_result.push(encrypt(new_id))
+            }
+          }
+          console.log("contacts = ", new_result)
+          try{
+          if (count==2){
+            console.log("count greater than 1", count)
+            return res.status(200).json(new_result)
+          }
+        }
+        catch(err){
+          console.log("err = ", err)
+          break
+        }
+        await distinctID(res, new_result, con, user_id, table, count)
+        }
+      }
+    })
+  }
 
 
 module.exports = router;

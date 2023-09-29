@@ -30,7 +30,7 @@ async function userData(){
         "userId": userDetails.user._id,
         "title": "Title",
         "views": 0,
-        "status": "new",
+        "status": "draft",
         "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
         "userName": userDetails.user._id,
     }

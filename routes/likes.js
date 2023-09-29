@@ -2,9 +2,12 @@ const express=require('express')
 const router=express.Router()
 const {Blog, toggle} = require('../models.js');
 
+const {encrypt, decrypt} = require("./encrypt")
+
 
 router.get("/like/:blogId/:userId",(req,res)=>{
-    const { blogId, userId } = req.params;
+    let { blogId, userId } = req.params;
+    userId = decrypt(userId)
     Blog.findOne({_id:blogId},(err,blog)=>{
       let like = false;
       blog.likes.forEach(element => {
@@ -15,7 +18,8 @@ router.get("/like/:blogId/:userId",(req,res)=>{
   })
   
   router.post("/like/:blogId/:userId",(req,res)=>{
-    const { blogId, userId } = req.params;
+    let { blogId, userId } = req.params;
+    userId = encrypt(userId)
     Blog.findOne({_id:blogId},(err,blog)=>{
       toggle(blog.likes,userId)
         Blog.updateOne({_id:blogId},{

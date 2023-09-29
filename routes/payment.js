@@ -3,6 +3,8 @@ const router = express.Router();
 const { Blog, User, Referral, transporter,
    UserInfo, Earnings, TotalEarnings, paySlots, monthlyViews } = require("../models.js");
 
+   const {encrypt, decrypt} = require("./encrypt")
+
 const jwtVerify = require("./jwt")
 
 
@@ -26,6 +28,7 @@ router.get("/all_referrals", async function(req,res){
 
     for(let i in refData.referralArray){
       let userData = await User.findOne({_id: refData.referralArray[i]});
+      userData._id = encrypt(userData._id)
       total=total+((userData.totalEarn)/20);
     }
 
@@ -35,7 +38,8 @@ router.get("/all_referrals", async function(req,res){
     const skip = (page - 1) * pageSize;
 
     const userDataPromises = refData.referralArray.slice(skip, skip + pageSize).map(async (userId) => {
-      const userData = await User.findOne({ _id: userId });
+      let userData = await User.findOne({ _id: userId });
+      userData._id = encrypt(userData._id)
       console.log("userId=",userId._id.toString());
       console.log('userData =', userData);
       return userData;
@@ -89,7 +93,7 @@ router.get("/calculateEarnings", async function(req, res){
 })
 
 router.post("/totalEarningsRef", async function(req, res){
-  let user = req.body.userId
+  let user = decrypt(req.body.userId)
   console.log("user = ", user)
   console.log(user==null)
   let amounts = []
@@ -111,6 +115,7 @@ router.post("/totalEarningsRef", async function(req, res){
       let _id = refData.referralArray[i]
 
       let userTable = await User.findOne({_id: user})
+      userTable._id = encrypt(userTable._id)
     
       let date = new Date(year, month, 1), y = date.getFullYear(), m = date.getMonth();
       console.log("date = ", date)
@@ -212,6 +217,7 @@ router.get("/complete_earnings", async function(req, res){
         updated: new Date()
       })
       total.save()
+      total._id = encrypt(total._id)
       console.log("new saved")
     }
     status = 200
@@ -220,7 +226,7 @@ router.get("/complete_earnings", async function(req, res){
 })
 
 router.post("/monthly_earnings", async function(req,res){
-  let userId = req.body.userId
+  let userId = decrypt(req.body.userId)
   let month = req.body.month
   let year = req.body.year
   let date = new Date(year, month, 1), y = date.getFullYear(), m = date.getMonth();

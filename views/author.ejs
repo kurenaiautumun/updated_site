@@ -183,7 +183,7 @@
                                 <div class="blog_search_head">Search</div>
                                 <form class="blog_search_box r-flex ali-c">
                                     <input type="search" name="search" id="blog_search" placeholder="Search blog">
-                                    <button type="submit">
+                                    <button disabled="true" type="submit">
                                         <svg width="16" height="16" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M26.2083 26.2083L32.375 32.375M4.625 16.9583C4.625 20.2293 5.9244 23.3664 8.23735 25.6793C10.5503 27.9923 13.6873 29.2917 16.9583 29.2917C20.2293 29.2917 23.3664 27.9923 25.6793 25.6793C27.9923 23.3664 29.2917 20.2293 29.2917 16.9583C29.2917 13.6873 27.9923 10.5503 25.6793 8.23735C23.3664 5.9244 20.2293 4.625 16.9583 4.625C13.6873 4.625 10.5503 5.9244 8.23735 8.23735C5.9244 10.5503 4.625 13.6873 4.625 16.9583Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>                                            
@@ -200,7 +200,7 @@
 
                             <!-- ====== ads ==== -->
                             <div class="ads_right_blog_side">
-                                <div class="ads_main_head_blog">Advertising</div>
+                                <div class="ads_main_head_blog">Advertisement</div>
                                 <div class="ads_img_box_right_blog">
                                     <img src="https://images.unsplash.com/photo-1681316151065-f75049d1b7ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1641&q=80" alt="">
                                 </div>
@@ -324,7 +324,7 @@
                 "11":"Nov",
                 "12":"Dec",
             }
-            return `${parts[1]} ${months[parts[0]]} ${parts[2]}`
+            return `${parts[0]} ${months[parts[1]]} ${parts[2]}`
         }
 
         async function userBlogs(){
@@ -516,7 +516,7 @@
                 "userId": localStorage.getItem("user"),
                 "title": "Title",
                 "views": 0,
-                "status": "new",
+                "status": "draft",
                 "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
             }
             let data = await fetch("/newBlog",{
