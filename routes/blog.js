@@ -93,7 +93,7 @@ router.post("/blog/viewcount", async (req, res) => {
   //  };
   //});
   //console.log("before error")
-  //res.json({ message: "view increased" });
+  res.json({ message: "view increased" });
 });
 
 router.post("/newblog", async (req, res) => {
@@ -156,7 +156,33 @@ router.post("/updateBlog", async (req, res) => {
       await popularBlogs.updateOne(
         { tag: tag },
         { $inc: { totalCount: 1 } }
-      );
+      )}
+    if (popular!=null){
+    console.log(popular._id.toString());
+    console.log(popular.totalCount);
+    if(popular==null){
+       console.log("it is null");
+       let popularblog=new popularBlogs({
+        tag:tag,
+        totalCount:1
+       })
+       popularblog.save();
+      }
+      else{
+        console.log("else called");
+          popularBlogs.updateOne(
+            { tag: tag},
+            { $set:{totalCount:(popular.totalCount + 1)}}
+          ); 
+      }
+      console.log(`Popular blogs for tag "${tag}":`, popular);
+    }
+    else{
+      console.log("else called");
+        popularBlogs.updateOne(
+          { tag: tag},
+          { $set:{totalCount:10}}
+        ); 
     }
   
     // Refresh the popular variable after the update
