@@ -109,7 +109,7 @@ router.post("/newblog", async (req, res) => {
   let userId = token.user._id
   let user = await User.findOne({_id: userId});
 
-  console.log("user -= ", await user)
+  console.log("user = ", await user)
   let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth(), d = blog_date.getDate();
   let date = `${d}/${m}/${y}`
   const author = user.username;
@@ -145,11 +145,25 @@ router.post("/updateBlog", async (req, res) => {
   console.log(req.body)
   console.log("tags = ", tags)
   console.log("id = ", id)
-  for (const tag of tags) {
-
+  for (let tag of tags) {
     console.log(`Processing tag: ${tag}`);
-
+  
     let popular = await popularBlogs.findOne({ tag: tag });
+  
+    if (popular == null) {
+      console.log("Tag not found, creating a new entry.");
+      let popularblog = new popularBlogs({
+        tag: tag,
+        totalCount: 1,
+      });
+      await popularblog.save(); 
+    } 
+    else {
+      console.log("Tag found, updating totalCount.");
+      await popularBlogs.updateOne(
+        { tag: tag },
+        { $inc: { totalCount: 1 } }
+      )}
     if (popular!=null){
     console.log(popular._id.toString());
     console.log(popular.totalCount);
@@ -177,8 +191,12 @@ router.post("/updateBlog", async (req, res) => {
           { $set:{totalCount:10}}
         ); 
     }
+  
+    // Refresh the popular variable after the update
+    popular = await popularBlogs.findOne({ tag: tag });
     console.log(`Popular blogs for tag "${tag}":`, popular);
   }
+  
 
   Blog.updateOne(
     { _id: id },
@@ -208,6 +226,11 @@ router.post("/updateBlog", async (req, res) => {
 
 router.get("/author", (req,res)=> {
   res.status(200).render("author")
+})
+
+router.get("/popularCount",async(req,res)=>{
+  const allPopularBlogs = await popularBlogs.find({});
+  res.json({data: allPopularBlogs });
 })
 
 router.post("/deleteBlog/:id", (req, res) => {
