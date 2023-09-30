@@ -274,9 +274,4 @@ router.get("/category/:tag", async (req, res)=>{
   res.render("blog-category")
 })
 
-router.get("/chat", async (req, res)=>{
-  let user = User.findOne({email: "autumnkurenai@gmail.com"})
-  res.render("chat", {second_user: encrypt(user._id)})
-})
-
 module.exports = router;

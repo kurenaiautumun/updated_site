@@ -112,25 +112,7 @@
                     <div class="community_mamber_container">
                         <div class="community_mamber_heading">Communites</div>
                         <div class="community_mamber_box c-flex" style="overflow:auto">
-                            <a class="mamber_item_box r-flex ali-c jut-sb">
-                                <div class="mamber_msg_box r-flex ali-c">
-                                    <div class="mamber_profile_pic">
-                                        <img src="../images/logo.png" >
-                                    </div>
-                                    <div class="mamber_name_masses_box c-flex">
-                                        <span class="mamber_name">Admin</span>
-                                        <span class="mamber_last_msg">You can communicate with our staff from here</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="time_and_read_msg_pading c-flex">
-                                    <span class="last_msg_time">56 m</span>
-                                    <span class="read_padding_msg">
-                                        <span>9</span>
-                                    </span>
-                                </div>
-                            </a>
-                            
+                        
                         </div>
                     </div>
                 </div>
@@ -170,7 +152,7 @@
         }
 
         function chatboardFunction (userId, all){
-            console.log("user = ", userId)
+            console.log("user in chatboard = ", userId)
             let div = document.getElementById(`chat_show_${userId}`)//.removeEventListener("scroll", scrollReload(userId) ,false);
             div.removeEventListener("scroll", scrollReload, true)
             if (all_users[userId]!=undefined){
@@ -459,6 +441,8 @@
 
             let results = await data.json()
 
+            console.log("contacts = ", results)
+
             addContactsToSide(results)
 
             hideAll(second_user, "no")
@@ -475,13 +459,13 @@
                     //div.style.padding = "30px"
                     div.style.borderTop = "inset"
                     let elem = `
-                    <a onclick="chatboardFunction('${results[result]}', 'no')" class="mamber_item_box r-flex ali-c jut-sb">
+                    <a onclick="chatboardFunction('${results[result]["_id"]}', 'no')" class="mamber_item_box r-flex ali-c jut-sb">
                         <div class="mamber_msg_box r-flex ali-c">
                             <div class="mamber_profile_pic">
                                 <img src="../images/logo.png" >
                             </div>
                             <div class="mamber_name_masses_box c-flex">
-                                <span class="mamber_name">${results[result]}</span>
+                                <span class="mamber_name">${results[result]["name"]}</span>
                                 <span class="mamber_last_msg">You can communicate with our staff from here</span>
                             </div>
                         </div>
@@ -496,12 +480,12 @@
                     `
                     div.innerHTML = elem
                     contactBox.append(div)
-                    addChatBoard(results[result])
-                    if (all_users[results[result]]!=undefined){
+                    addChatBoard(results[result]["_id"])
+                    if (all_users[results[result]["_id"]]!=undefined){
                         console.log("nothing")
                     }
                     else{
-                        all_users[results[result]] = {
+                        all_users[results[result]["_id"]] = {
                             new_offset: 0,
                             offset: 0
                         }
@@ -632,9 +616,11 @@
 
             function DefaultSearch(){
                 let id = second_user
+                console.log("second user = ", second_user)
                 if (id!=""){
-                    addContactsToSide([id])
+                    addContactsToSide([{"_id": id, "name": "Admin"}])
                     addChatBoard(id)
+                    console.log("after default search")
                     hideAll(id, "no")
                 }
             }
