@@ -26,11 +26,12 @@ async function userData(){
 }
     async function newBlog(){
     const userDetails = await userData();
+    const token = localStorage.getItem("token")
     const blog = {
         "userId": userDetails.user._id,
         "title": "Title",
         "views": 0,
-        "status": "new",
+        "status": "draft",
         "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
         "userName": userDetails.user._id,
     }
@@ -38,6 +39,7 @@ async function userData(){
         method: "POST",
         headers: {
             "content-type": "application/json",
+            Authorization: "Bearer " + token,
         },
         body: JSON.stringify(blog)
     })

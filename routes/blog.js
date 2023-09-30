@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { date, User, Blog, monthlyViews, viewAnalysis } = require("../models.js");
+const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs} = require("../models.js");
+const { encrypt } = require("./encrypt.js");
 const jwtVerify = require("./jwt")
 
 router.get("/blogss", (req, res) => {
@@ -13,7 +14,10 @@ router.get("/blogss", (req, res) => {
 
 router.get("/randomBlogs", (req, res) => {
   const size = req.query.size;
-  Blog.aggregate([{ $sample: { size: parseInt(size)} }], (err, blog) => {
+  Blog.aggregate([
+    { $match: { status: "published" } },
+    { $sample: { size: parseInt(size)} }],
+  (err, blog) => {
     // res.status(201).send({ blog });
     if (err) throw err;
     res.status(201).json({blog });
@@ -24,6 +28,7 @@ router.get("/blog", (req, res) => {
   const _id = req.query.blogId;
   Blog.find({ _id }, (err, blog) => {
     // res.status(201).send({ blog });
+    blog[0].userId = encrypt(blog[0].userId)
     console.log(blog);
     res.status(201).send({ blog });
   });
@@ -93,19 +98,24 @@ router.post("/blog/viewcount", async (req, res) => {
   //  };
   //});
   //console.log("before error")
-  //res.json({ message: "view increased" });
+  res.json({ message: "view increased" });
 });
 
 router.post("/newblog", async (req, res) => {
-  const { userId, title, body, views, status, titleImage} = req.body;
-  let user;
-  console.log("userID = ", userId)
-  user = await User.findOne({_id: userId})
+  const {title, body, views, status, titleImage} = req.body;
+  let token = jwtVerify(req);
 
-  console.log("user -= ", await user)
-  let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth(), d = blog_date.getDate();
+  console.log("user = ", token.user)
+  let userId = token.user._id
+  let user = await User.findOne({_id: userId});
+
+  console.log("user = ", await user)
+  let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth() + 1, d = blog_date.getDate();
   let date = `${d}/${m}/${y}`
-  const author = user.username
+  console.log("blog date = ", blog_date)
+  console.log(d,m,y)
+  console.log("date = ", date)
+  const author = user.username;
   const blog = new Blog({
     userId,
     title,
@@ -133,13 +143,65 @@ router.post("/newblog", async (req, res) => {
   });
 });
 
-router.post("/updateBlog", (req, res) => {
+router.post("/updateBlog", async (req, res) => {
   let { id, title, body, titleImage, tags, author, meta, status, readTime } = req.body;
   console.log(req.body)
   console.log("tags = ", tags)
   console.log("id = ", id)
+  for (let tag of tags) {
+    console.log(`Processing tag: ${tag}`);
+  
+    let popular = await popularBlogs.findOne({ tag: tag });
+  
+    if (popular == null) {
+      console.log("Tag not found, creating a new entry.");
+      let popularblog = new popularBlogs({
+        tag: tag,
+        totalCount: 1,
+      });
+      await popularblog.save(); 
+    } 
+    else {
+      console.log("Tag found, updating totalCount.");
+      await popularBlogs.updateOne(
+        { tag: tag },
+        { $inc: { totalCount: 1 } }
+      )}
+    if (popular!=null){
+    console.log(popular._id.toString());
+    console.log(popular.totalCount);
+    if(popular==null){
+       console.log("it is null");
+       let popularblog=new popularBlogs({
+        tag:tag,
+        totalCount:1
+       })
+       popularblog.save();
+      }
+      else{
+        console.log("else called");
+          popularBlogs.updateOne(
+            { tag: tag},
+            { $set:{totalCount:(popular.totalCount + 1)}}
+          ); 
+      }
+      console.log(`Popular blogs for tag "${tag}":`, popular);
+    }
+    else{
+      console.log("else called");
+        popularBlogs.updateOne(
+          { tag: tag},
+          { $set:{totalCount:10}}
+        ); 
+    }
+  
+    // Refresh the popular variable after the update
+    popular = await popularBlogs.findOne({ tag: tag });
+    console.log(`Popular blogs for tag "${tag}":`, popular);
+  }
+  
 
-  Blog.update(
+  Blog.updateOne(
     { _id: id },
     {$set: {
       "body": body, 
@@ -169,6 +231,11 @@ router.get("/author", (req,res)=> {
   res.status(200).render("author")
 })
 
+router.get("/popularCount",async(req,res)=>{
+  const allPopularBlogs = await popularBlogs.find({});
+  res.json({data: allPopularBlogs });
+})
+
 router.post("/deleteBlog/:id", (req, res) => {
   const _id = req.params.id;
   Blog.deleteOne({ _id }, (err, blog) => {
@@ -177,20 +244,23 @@ router.post("/deleteBlog/:id", (req, res) => {
 });
 
 router.post("/authorBlogs", async (req, res) => {
-  console.log("func = ", jwtVerify(req))
-  let user = jwtVerify(req);
-  console.log("user = ", user)
+  let token = jwtVerify(req);
+
+  console.log("user = ", token.user)
+  let userId = token.user._id
+  let result
   if (req.body.userId==null){
-    res.status(400).json("please provide userId")
+    result = null
+    code = 400
   }
-  let userId = req.body.userId
-  if (user){
+
+  if (token.user){
     const blogData = await Blog.find({ userId: userId, status: "published" });
     console.log("blogs = ", blogData)
     res.json(blogData)
   }
   else{
-    res.json(null)
+    res.status(400).json("please provide userId")
   }
 })
 
@@ -205,10 +275,6 @@ router.post("/category/:tag", async (req, res)=>{
 
 router.get("/category/:tag", async (req, res)=>{
   res.render("blog-category")
-})
-
-router.get("/chat", async (req, res)=>{
-  res.render("chat")
 })
 
 module.exports = router;

@@ -1,9 +1,10 @@
 const express = require("express");
 const { User, Blog } = require("../models");
 const router = express.Router();
+const {encrypt, decrypt} = require("./encrypt")
 
 router.post("/recommendation/:userId", async (req, res) => {
-  const _id = req.params.userId;
+  const _id = decrypt(req.params.userId);
   const { recommendation } = req.body;
   User.updateOne({ _id }, { $push: { recommendation } }, function (err, docs) {
     if (!err) {
@@ -13,7 +14,7 @@ router.post("/recommendation/:userId", async (req, res) => {
 });
 
 router.get("/recommendation/:userId", async (req, res) => {
-    let _id = req.params.userId;
+    let _id = decrypt(req.params.userId);
     let {recommendation} = await User.findOne({_id});
     var allBlog={};
     recommendation.forEach(async element => {
@@ -23,6 +24,9 @@ router.get("/recommendation/:userId", async (req, res) => {
         }).exec();
         allBlog = { ...allBlog, ...blog };
         console.log(allBlog)
+        for (let i in allBlog){
+          allBlog[i]._id = encrypt(allBlog[i]._id)
+        }
     });
     res.status(201).send({allBlog})
 });

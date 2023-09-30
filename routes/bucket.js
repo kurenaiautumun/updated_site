@@ -4,6 +4,8 @@ const router = express.Router();
 const multer = require("multer");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
+const jwtVerify = require("./jwt")
+
 const s3 = new S3Client({
   region: process.env.BUCKET_REGION,
   credentials: {
@@ -16,10 +18,15 @@ const upload = multer(multer.memoryStorage());
 router.post("/image", upload.single("image"), async (req, res) => {
   console.log(req.body);
 
-  if (req.body.userId == undefined || req.body.blogId == undefined) {
+  let token = jwtVerify(req);
+
+  console.log("user = ", token.user)
+  let userId = token.user._id
+
+  if (userId == undefined || req.body.blogId == undefined) {
     res.json({ message: "please provide a valid parameters" });
   } else {
-    const Key = `images/${req.body.userId}/${req.body.blogId}/${req.file.originalname}`;
+    const Key = `images/${req.body.blogId}/${req.file.originalname}`;
 
     const command = new PutObjectCommand({
       Bucket: process.env.BUCKET_NAME,
@@ -39,10 +46,15 @@ router.post("/image", upload.single("image"), async (req, res) => {
 });
 
 router.post("/titleImage", upload.single("image"), async (req, res) => {
-  if (req.body.userId == undefined || req.body.blogId == undefined) {
+  let token = jwtVerify(req);
+
+  console.log("user = ", token.user)
+  let userId = token.user._id
+
+  if (userId == undefined || req.body.blogId == undefined) {
     res.json({ message: "please provide a valid parameters" });
   } else {
-    const Key = `images/${req.body.userId}/${req.body.blogId}/${req.file.originalname}`;
+    const Key = `images/${req.body.blogId}/${req.file.originalname}`;
 
     const command = new PutObjectCommand({
       Bucket: process.env.BUCKET_NAME,

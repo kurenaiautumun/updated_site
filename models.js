@@ -5,6 +5,8 @@ const nodemailer = require("nodemailer");
 
 const userSchema = new mongoose.Schema({
   username: String,
+  firstName: String,
+  lastName: String,
   role: String,
   info: String,
   referral: Number,
@@ -16,9 +18,7 @@ const userSchema = new mongoose.Schema({
   recommendation: Array,
   totalEarn:{type:Number,default:0}
 });
-userSchema.plugin(passportLocalMongoose, {
-  usernameQueryFields: ["username", "email"],
-});
+
 
 const blogSchema = new mongoose.Schema({
   title: String,
@@ -134,6 +134,11 @@ const walletSchema = new mongoose.Schema({
 })
 
 
+const popularBlogsSchema=new mongoose.Schema({
+  tag:String,
+  totalCount:Number
+})
+
 function toggle(arr, elem) {
   const index = arr.indexOf(elem);
   if (index !== -1) {
@@ -160,7 +165,7 @@ const UserInfo = new mongoose.model("userinfo", userInfoSchema);
 const Competition = new mongoose.model("competition", competitionSchema);
 const Ranking = new mongoose.model("ranking", rankingSchema);
 const Referral = new mongoose.model("raferral", referralSchema);
-
+const popularBlogs =new mongoose.model("popularblogs",popularBlogsSchema);
 const TotalEarnings = new mongoose.model("TotalEarnings", totalEarningsSchema)
 const Earnings = new mongoose.model("earnings", earningsSchema)
 const paySlots = new mongoose.model("paySlots", paySlotsSchema)
@@ -169,9 +174,9 @@ const monthlyViews = new mongoose.model("monthlyViews", monthlyViewsSchema)
 
 const viewAnalysis = new mongoose.model("viewAnalysis", viewAnalysisSchema)
 
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+//passport.use(User.createStrategy());
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
 
 module.exports = {
   date,
@@ -184,6 +189,7 @@ module.exports = {
   Competition,
   Ranking,
   Referral,
+  popularBlogs,
   toggle,
   transporter,
   Earnings,
