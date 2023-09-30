@@ -1223,6 +1223,7 @@
         }
 
         async function newBlog(){
+            const token = localStorage.getItem("token")
             const blog = {
                 "userId": localStorage.getItem("user"),
                 "title": "Title",
@@ -1235,6 +1236,7 @@
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
+                    Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify(blog)
             })

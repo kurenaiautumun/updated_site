@@ -281,6 +281,7 @@
         return userDetails
     }
         async function newBlog(){
+        const token = localStorage.getItem("token")
         const userDetails = await userData();
         const blog = {
             "userId": userDetails.user._id,
@@ -294,6 +295,7 @@
             method: "POST",
             headers: {
                 "content-type": "application/json",
+                Authorization: "Bearer " + token,
             },
             body: JSON.stringify(blog)
         })

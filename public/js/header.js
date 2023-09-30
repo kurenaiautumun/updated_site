@@ -26,6 +26,7 @@ async function userData(){
 }
     async function newBlog(){
     const userDetails = await userData();
+    const token = localStorage.getItem("token")
     const blog = {
         "userId": userDetails.user._id,
         "title": "Title",
@@ -38,6 +39,7 @@ async function userData(){
         method: "POST",
         headers: {
             "content-type": "application/json",
+            Authorization: "Bearer " + token,
         },
         body: JSON.stringify(blog)
     })

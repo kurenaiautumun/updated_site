@@ -110,8 +110,11 @@ router.post("/newblog", async (req, res) => {
   let user = await User.findOne({_id: userId});
 
   console.log("user = ", await user)
-  let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth(), d = blog_date.getDate();
+  let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth() + 1, d = blog_date.getDate();
   let date = `${d}/${m}/${y}`
+  console.log("blog date = ", blog_date)
+  console.log(d,m,y)
+  console.log("date = ", date)
   const author = user.username;
   const blog = new Blog({
     userId,
