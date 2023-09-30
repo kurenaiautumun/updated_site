@@ -50,7 +50,8 @@ router.get("/currentUser", async (req, res) => {
   let user = jwtVerify(req);
   console.log("user = ", user)
   if (user){
-    user._id = encrypt(user._id)
+    user.user._id = encrypt(user.user._id)
+    console.log("user in current user = ", user)
     res.json(user)
   }
   else{
@@ -124,7 +125,7 @@ router.get("/userBlogsDraft", async (req, res) => {
       console.log(totalDataCount);
       console.log("blogs = ", blogData)
       for (let blog in blogData){
-        blogData.blog.userId = encrypt(blogData.blog.userId)
+        blogData[blog].userId = encrypt(blogData[blog].userId)
       }
       res.json({blogData,totalDataCount});
     }
@@ -160,7 +161,8 @@ router.get("/userBlogsInReview", async (req, res) => {
       const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
       console.log(totalDataCount);
       for (let blog in blogData){
-        blogData.blog.userId = encrypt(blogData.blog.userId)
+        console.log("blog = ", blogData[blog])
+        blogData[blog].userId = encrypt(blogData[blog].userId)
       }
       res.json({blogData,totalDataCount});
     }

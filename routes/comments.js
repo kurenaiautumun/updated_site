@@ -24,7 +24,7 @@ router.post("/newComment", async (req, res) => {
   username = await username.username
   const comment = new Comment({ userId, blogId, body, status, date, username });
   comment.save(() => {
-    res.status(201).json({ message: "comment is saved", comment });
+    res.status(201).json(comment);
   });
 });
 

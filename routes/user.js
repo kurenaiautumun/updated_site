@@ -129,7 +129,7 @@ router.post("/userinfo", function (req, res) {
 
 
 router.post("/basicUserInfo", function (req, res) {
-  console.log("id = ", req.body.userId)
+  console.log("id in basic user info = ", req.body.userId)
   const userId = decrypt(req.body.userId);
   console.log("after decrypt = ", userId)
   User.find({ _id: userId }, (err, user) => {

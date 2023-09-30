@@ -275,7 +275,8 @@ router.get("/category/:tag", async (req, res)=>{
 })
 
 router.get("/chat", async (req, res)=>{
-  res.render("chat")
+  let user = User.findOne({email: "autumnkurenai@gmail.com"})
+  res.render("chat", {second_user: encrypt(user._id)})
 })
 
 module.exports = router;

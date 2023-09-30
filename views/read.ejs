@@ -318,7 +318,7 @@
                         <!-- ======== comment box ======== -->
 
                         <div class="comments__show_container">
-                            <div class="comment_show_boder_head">3 Comments</div>
+                            <div id="no_comments" class="comment_show_boder_head">3 Comments</div>
                             <div class="comments_show_box ali-c jut-c">
                             </div>
                         </div>
@@ -993,6 +993,7 @@
         //console.log(container)
         let req = await fetch(`/comment/${await getParams()}`)
         let data = await req.json()
+        let count = 0
         console.log("commnets = ", data)
         for (let i in data.user){
             //console.log("comment = ", data.user[i])
@@ -1014,9 +1015,13 @@
             div.style.marginLeft = "0px";
             div.innerHTML = comment
             container.append(div)
+            comment_count += 1
     }
+    document.getElementById("no_comments").innerHTML = `${comment_count} Comments`
     }
     addComments();
+
+    let comment_count = 0
 
     async function submitForm(event){
        //console.log("form submitted")
@@ -1035,6 +1040,8 @@
 
        //console.log(body)
 
+       let container = document.getElementsByClassName("comments_show_box ali-c jut-c")[0]
+
       let data = await fetch(`/newComment`, {
                 method: "POST",
                 headers: {
@@ -1045,6 +1052,32 @@
             })
       
       let user = await data.json()
+
+      console.log("comment = ", user)
+
+      let comment = `
+            <div style="margin-left:0px" class="comment_user_img">
+                <img src="images/logo.png" alt="">
+            </div>
+            <div style="margin-left:0px" class="comments_right_side_show">
+                <div class="comments_show_name_and_time r-flex ali-c">
+                    <span class="comment_show_name">${user.username}</span>
+                    <span class="comment_show_time">${date_string(user.date)}</span>
+                </div>
+                <div class="comment_show_main_cont">${user.body}</div>
+                <button class="comment_cont_reply">Reply</button>
+            </div>
+        `
+        let div = document.createElement("div")
+        div.className = "comments_show_cmt r-flex "
+        div.style.marginLeft = "0px";
+        div.innerHTML = comment
+        container.append(div)
+        comment_count += 1
+        document.getElementById("no_comments").innerHTML = `${comment_count} Comments`
+
+        event.comment.value = ""
+            
       //console.log(user)
     }
 
@@ -1234,11 +1267,36 @@
         console.log("res = ", res)
     }
 
+    let startDate = new Date();
+    let elapsedTime = 0;
+
+    const focus = function() {
+        startDate = new Date();
+    };
+
     function updateViews(){
-        viewCount()
+        const endDate = new Date();
+        const spentTime = endDate.getTime() - startDate.getTime();
+        elapsedTime += (spentTime/1000);
+        startDate = new Date();
+
+        if (elapsedTime>=30){
+            console.log("elapsed time = ", elapsedTime)
+            viewCount()
+            elapsedTime = 0
+        }
         totalTime += 30
         setTimeout(updateViews, 30000)
     }
+
+    const blur = function() {
+        const endDate = new Date();
+        const spentTime = endDate.getTime() - startDate.getTime();
+        elapsedTime += (spentTime/1000);
+        console.log("elapsed time after blur = ", elapsedTime)
+    };
+
+    window.addEventListener('blur', blur);
 
     let totalTime = 0
 
@@ -1259,6 +1317,7 @@
             console.log(paras[i])
         }
     }
+    window.addEventListener('focus', focus);
     addingAds();
 </script>
 

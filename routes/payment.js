@@ -226,7 +226,8 @@ router.get("/complete_earnings", async function(req, res){
 })
 
 router.post("/monthly_earnings", async function(req,res){
-  let userId = decrypt(req.body.userId)
+  let user = jwtVerify(req)
+  let userId = user.user._id
   let month = req.body.month
   let year = req.body.year
   let date = new Date(year, month, 1), y = date.getFullYear(), m = date.getMonth();

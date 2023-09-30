@@ -138,6 +138,7 @@
         </div>
 
         <!-- ========= chat box ====== -->
+        <div id="second_user" style="display:none"><%= second_user %></div>
         <div id="chat_container" style="width:100%">
         
         </div>
@@ -158,14 +159,15 @@
     <script>
         var old_schroll = 0;
         var new_schroll = 0;
-        var all_users = {
-            "641be792bacccc03c37fc0e4" : {
+        var all_users = {}
+
+        let second_user = document.getElementById("second_user").innerHTML
+        console.log("second user = ", second_user)
+
+        all_users[second_user] = {
                 new_offset: 0,
                 offset: 0
-            }
         }
-
-        let second_user = "641be792bacccc03c37fc0e4"
 
         function chatboardFunction (userId, all){
             console.log("user = ", userId)
@@ -629,7 +631,7 @@
             }
 
             function DefaultSearch(){
-                let id = "641be792bacccc03c37fc0e4"
+                let id = second_user
                 if (id!=""){
                     addContactsToSide([id])
                     addChatBoard(id)

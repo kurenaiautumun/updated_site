@@ -271,12 +271,6 @@
                                         <span>Publish</span>
                                     </a>
                                 </li>
-
-                                <li>
-                                    <a onclick="saveEditor('in-competition')" style="float:right; margin-right:10px;" class="hero_sharing_google r-flex ali-c">                                       
-                                        <span>Competitions</span>                                      
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                         
@@ -722,7 +716,7 @@
                     tags: getTags(),
                     meta: meta,
                     status: status,
-                    readTime: word_count/250
+                    readTime: word_count/500
                 };
                 if (blog.tags.length==0){
                     alert("please Enter Some Tags")
@@ -1191,7 +1185,7 @@
         })
         let user = await data.json()
 
-        console.log("user = ", user, user_id)
+        console.log("user ids = ", user.user._id, user_id)
 
         //if (user.user.username="Kurenai"){
         //    console.log("ok")
@@ -1200,7 +1194,7 @@
         if (user.user._id!=user_id){
             alert("You are not the author of the page")
             console.log("not author")
-            window.location.href = `read?blogId=${getParams()}`
+            //window.location.href = `read?blogId=${getParams()}`
         }
         else{
             console.log("writer")
