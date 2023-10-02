@@ -46,30 +46,41 @@ router.post("/signup", async (req, res) => {
         res.status(400).json("not working")
       }
       user.password = hash
-      user.save()
-      console.log("user saved - ", user)
-      const registeredUser = await User.findOne({username:req.body.username})
+      //user.save()
+      user.save((err, user) => {
+        if (err){
+          res.status(400).json("user could not be registered")
+        }
+        console.log("user saved - ", user)
+      console.log(req.body.username)
+
+      const registeredUser = user
 
     console.log("registered user = ", registeredUser)
 
       //console.log("referall")
       //console.log("id = ", registeredUser._id)
+      try{
+        const referral = new Referral({
+          userId: registeredUser._id,
+          hisReferral: referralId,
+        });
+        referral.save();
+        console.log("referral = ", referral)
+    }
+    catch(err){
+      console.log("error = ", err)
+      res.status(404).json("referral table could not be set up")
+      
+    }
 
-      const referral = new Referral({
-        userId: registeredUser._id,
-        hisReferral: referralId,
-      });
-      await referral.save();
 
-      console.log("referral = ", referral)
-
-      if (req.body.referral !== undefined) {
-        await Referral.updateOne(
-          { hisReferral: req.body.referral },
-          { $push: { referralArray: registeredUser } }
-        );
+      if (req.body.referral != undefined) {
+        console.log("in referral")
+        //console.log(Referral.findOne({hisReferral: req.body.referral}))
+        updateReferral(req.body.referral, registeredUser);
       }
-
+    });
   });
     
   
@@ -84,12 +95,21 @@ router.post("/signup", async (req, res) => {
 
     user._id = encrypt(user._id)
 
-    return res.status(201).json(user);
+    res.status(201).json(user);
 
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
+
+async function updateReferral(id, user){
+  await Referral.updateOne(
+    { hisReferral: id },
+    { $push: { referralArray: user } }
+  );
+}
+
 
 //router.post("/changepassword", function (req, res) {
 //  User.findByUsername(req.body.username, (err, user) => {

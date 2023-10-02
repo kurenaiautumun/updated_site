@@ -29,6 +29,7 @@ app.post("/gitTrigger", function(req, res){
 
 app.get("/", function(req, res){
    data = {}
+   console.log("home")
    data["method"] = "GET"
    res.end(JSON.stringify("Hello"));
 })
