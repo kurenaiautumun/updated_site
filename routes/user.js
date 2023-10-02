@@ -10,7 +10,7 @@ const bcrypt = require("bcryptjs");
 const multer = require("multer");
 
 const crypto = require("crypto");
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, RedirectAllRequestsToFilterSensitiveLog } = require("@aws-sdk/client-s3");
 
 const {encrypt, decrypt} = require("./encrypt")
 
@@ -41,32 +41,38 @@ router.post("/signup", async (req, res) => {
       referral: referralId,
     });
 
-    bcrypt.hash(req.body.password, 8, function(err, hash) {
+    bcrypt.hash(req.body.password, 8, async function(err, hash) {
       if(err){
         res.status(400).json("not working")
       }
       user.password = hash
       user.save()
+      console.log("user saved - ", user)
+      const registeredUser = await User.findOne({username:req.body.username})
+
+    console.log("registered user = ", registeredUser)
+
+      //console.log("referall")
+      //console.log("id = ", registeredUser._id)
+
+      const referral = new Referral({
+        userId: registeredUser._id,
+        hisReferral: referralId,
+      });
+      await referral.save();
+
+      console.log("referral = ", referral)
+
+      if (req.body.referral !== undefined) {
+        await Referral.updateOne(
+          { hisReferral: req.body.referral },
+          { $push: { referralArray: registeredUser } }
+        );
+      }
+
   });
     
-  const registeredUser = await User.findOne({username:req.body.username})
-
-    //console.log("referall")
-    //console.log("id = ", registeredUser._id)
-
-    const referral = new Referral({
-      userId: registeredUser._id,
-      hisReferral: referralId,
-    });
-    await referral.save();
-
-    if (req.body.referral !== undefined) {
-      await Referral.updateOne(
-        { hisReferral: req.body.referral },
-        { $push: { referralArray: registeredUser } }
-      );
-    }
-
+  
     const mailData = {
       from: "autumnkurenai@gmail.com",
       to: req.body.email,
