@@ -16,13 +16,13 @@ function encrypt(text) {
 // Decrypting text
 function decrypt(text) {
    text = String(text)
-   console.log("text = ", text)
+   //console.log("text = ", text)
    //let iv_new = Buffer.from(iv.toString('hex'), 'hex');
    let encryptedText = Buffer.from(text, 'hex');
    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), Buffer.from(iv));
    let decrypted = decipher.update(encryptedText);
    decrypted = Buffer.concat([decrypted, decipher.final()]);
-   console.log("decrypted in fn = ", decrypted.toString())
+   //console.log("decrypted in fn = ", decrypted.toString())
    return decrypted.toString();
 }
 
@@ -33,7 +33,7 @@ const client = new SecretsManagerClient({
 async function get_secret(name){
    //const command = new ListSecretsCommand();
    //const res = await client.send(command);
-   //console.log("command = ", res)
+   ////console.log("command = ", res)
    let response;
 
    try {
@@ -45,13 +45,13 @@ async function get_secret(name){
      );
      const secret = JSON.parse(response.SecretString);
 
-      console.log("secret = ", secret["key"])
+      //console.log("secret = ", secret["key"])
 
       return secret
    } catch (error) {
      // For a list of exceptions thrown, see
      // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-     console.log("secret not found", error)
+     //console.log("secret not found", error)
      return get_secret(name)
    }
 }

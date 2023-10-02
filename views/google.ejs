@@ -3,11 +3,11 @@
       <script src="https://accounts.google.com/gsi/client" async defer></script>
       <script>
         async function handleCredentialResponse(response) {
-          console.log("Encoded JWT ID token: " + response.credential);
+          //console.log("Encoded JWT ID token: " + response.credential);
 
           let data = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${response.credential}`)
 
-          console.log(await data.json())
+          //console.log(await data.json())
         }
         window.onload = function () {
           google.accounts.id.initialize({

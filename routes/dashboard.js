@@ -46,12 +46,12 @@ router.get("/dashboard", async (req, res) => {
 
 
 router.get("/currentUser", async (req, res) => {
-  console.log("func = ", jwtVerify(req))
+  //console.log("func = ", jwtVerify(req))
   let user = jwtVerify(req);
-  console.log("user = ", user)
+  //console.log("user = ", user)
   if (user){
     user.user._id = encrypt(user.user._id)
-    console.log("user in current user = ", user)
+    //console.log("user in current user = ", user)
     res.json(user)
   }
   else{
@@ -60,27 +60,27 @@ router.get("/currentUser", async (req, res) => {
 })
 
 router.get("/userBlogsPublish", async (req, res) => {
-  console.log("userBlogsPublish is called");
-  console.log("func = ", jwtVerify(req))
+  //console.log("userBlogsPublish is called");
+  //console.log("func = ", jwtVerify(req))
   let user = jwtVerify(req);
-  console.log("user = ", user)
+  //console.log("user = ", user)
   if (user){
     if (user.user){
       const page = parseInt(req.query.page);
-      console.log(page);
+      //console.log(page);
       const pageSize = parseInt(req.query.pageSize);
-      console.log(pageSize);
+      //console.log(pageSize);
       const skip = (page - 1) * pageSize;
-      console.log(skip);
+      //console.log(skip);
 
       const blogData = await Blog.find({ userId: user.user._id, status: "Published" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
-      console.log("blogs = ", blogData)
+      //console.log("blogs = ", blogData)
       const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "Published" });
-      console.log(totalDataCount);
+      //console.log(totalDataCount);
 
       for(i in blogData){
         let views=blogData[i].viewCount;
@@ -102,28 +102,28 @@ router.get("/userBlogsPublish", async (req, res) => {
 })
 
 router.get("/userBlogsDraft", async (req, res) => {
-  console.log("userBlogsDraft is called");
-  console.log("func = ", jwtVerify(req))
+  //console.log("userBlogsDraft is called");
+  //console.log("func = ", jwtVerify(req))
   let user = jwtVerify(req);
-  console.log("user = ", user)
+  //console.log("user = ", user)
   if (user){
     if (user.user){
       const page = parseInt(req.query.page);
-      console.log(page);
+      //console.log(page);
       const pageSize = parseInt(req.query.pageSize);
-      console.log(pageSize);
+      //console.log(pageSize);
       const skip = (page - 1) * pageSize;
-      console.log(skip);
+      //console.log(skip);
 
       const blogData = await Blog.find({ userId: user.user._id, status: "draft" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
-      // console.log("blogs = ", blogData)
+      // //console.log("blogs = ", blogData)
       const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "draft" });
-      console.log(totalDataCount);
-      console.log("blogs = ", blogData)
+      //console.log(totalDataCount);
+      //console.log("blogs = ", blogData)
       for (let blog in blogData){
         blogData[blog].userId = encrypt(blogData[blog].userId)
       }
@@ -139,29 +139,29 @@ router.get("/userBlogsDraft", async (req, res) => {
 })
 
 router.get("/userBlogsInReview", async (req, res) => {
-  console.log("userBlogsInReview is called");
-  console.log("func = ", jwtVerify(req))
+  //console.log("userBlogsInReview is called");
+  //console.log("func = ", jwtVerify(req))
   let user = jwtVerify(req);
-  console.log("user = ", user)
+  //console.log("user = ", user)
   if (user){
     if (user.user){
       const page = parseInt(req.query.page);
-      console.log(page);
+      //console.log(page);
       const pageSize = parseInt(req.query.pageSize);
-      console.log(pageSize);
+      //console.log(pageSize);
       const skip = (page - 1) * pageSize;
-      console.log(skip);
+      //console.log(skip);
 
       const blogData = await Blog.find({ userId: user.user._id, status: "in-review" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
-      console.log("blogs = ", blogData)
+      //console.log("blogs = ", blogData)
       const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
-      console.log(totalDataCount);
+      //console.log(totalDataCount);
       for (let blog in blogData){
-        console.log("blog = ", blogData[blog])
+        //console.log("blog = ", blogData[blog])
         blogData[blog].userId = encrypt(blogData[blog].userId)
       }
       res.json({blogData,totalDataCount});
@@ -182,22 +182,22 @@ function passing(req, res, next){
 
 
 router.post("/dashboard",  passing, async (req, res) => {
-  console.log("dashboard")
-  console.log("king = ", req.token)
+  //console.log("dashboard")
+  //console.log("king = ", req.token)
   let user = jwtVerify(req);
-  console.log("user = ", user.user)
-  console.log("user = ", user.user._id)
+  //console.log("user = ", user.user)
+  //console.log("user = ", user.user._id)
   try {
-      console.log("verified")
+      //console.log("verified")
       const _id = user.user._id;
 
       let userData = await User.findOne({ _id });
       userData._id = encrypt(userData._id)
       const blogData = await Blog.find({ userId: userData._id, status: "published"  });
-      console.log(blogData);
+      //console.log(blogData);
 
       const commentData = await Comment.find({ userId: userData._id });
-      console.log(commentData);
+      //console.log(commentData);
 
       res.status(201).render("Dashboard", {
         user: userData,
@@ -205,7 +205,7 @@ router.post("/dashboard",  passing, async (req, res) => {
         comments: commentData,
       });
   } catch (err) {
-    console.log("err = ", err)
+    //console.log("err = ", err)
     res.status(500).send("Internal Server Error");
   }
 });
@@ -264,7 +264,7 @@ router.get("/", (req, res) => {
         restOfBlogs.splice(index, 1);
       }
     });
-    console.log("auth = ", req.isAuthenticated())
+    //console.log("auth = ", req.isAuthenticated())
     if (req.isAuthenticated()) {
       var dashboard = true;
       res.render("new_index", {

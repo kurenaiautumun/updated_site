@@ -672,9 +672,9 @@
     <script>
       //nav bar scripts
       function changeClass(choice) {
-        console.log("change class");
+        //console.log("change class");
         let elem = document.getElementsByClassName("dropdown-content")[0];
-        console.log(elem.style.display);
+        //console.log(elem.style.display);
         if (elem.style.display == "") {
           elem.style.display = "block";
         } else {
@@ -704,14 +704,14 @@
 
         let blogs = await data.json();
 
-        console.log("data = ", blogs);
+        //console.log("data = ", blogs);
 
         window.location.href = `/write?blogId=${blogs.blog._id}`;
       }
 
       function setWriteBlog() {
         let doc = document.getElementById("write_blog");
-        console.log(localStorage.getItem("user"));
+        //console.log(localStorage.getItem("user"));
         if (localStorage.getItem("user")) {
           let elem = `
                 <a class="nav_manu_link write_nav_btn r-flex>
@@ -763,7 +763,7 @@
         });
         let res = await data.json();
 
-        console.log("res = ", res);
+        //console.log("res = ", res);
 
         localStorage.removeItem("user");
         localStorage.removeItem("token");
@@ -783,7 +783,7 @@
         });
 
         let user = await data.json();
-        console.log("user = ", user);
+        //console.log("user = ", user);
         let name = document.getElementById("username");
         name.innerHTML = user.user.username;
 
@@ -903,20 +903,20 @@
       };
 
       async function loadTab(tabName, divid) {
-        console.log(divid);
+        //console.log(divid);
         let currentDivId = document.getElementById(currentId);
         currentDivId.classList.remove("changecolor");
         currentId = divid;
 
-        console.log(tabName);
-        console.log(endpoints[tabName]);
+        //console.log(tabName);
+        //console.log(endpoints[tabName]);
         currentTab = tabName;
         let total = await userBlogs(endpoints[tabName], tabName);
         const totalPages = Math.ceil(total / pageSize);
 
         const container = document.getElementById("paginationControls");
         container.innerHTML = "";
-        console.log(currentPage[tabName]);
+        //console.log(currentPage[tabName]);
         const pagination = generatePagination(
           totalPages,
           currentPage.tabname,
@@ -929,7 +929,7 @@
       }
 
       async function userBlogs(fetchapi, tabName) {
-        console.log(fetchapi);
+        //console.log(fetchapi);
         let token = localStorage.getItem("token");
         let data = await fetch(fetchapi, {
           method: "GET",
@@ -939,7 +939,7 @@
           },
         });
         let blogs = await data.json();
-        console.log("blogs = ", blogs);
+        //console.log("blogs = ", blogs);
 
         let blogLength = document.getElementById("blog_length");
         blogLength.innerHTML = blogs.totalDataCount + " blogs";
@@ -956,12 +956,12 @@
         endpoints[
           tabName
         ] = `/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`;
-        console.log(endpoints[tabName]);
+        //console.log(endpoints[tabName]);
       }
 
       function nextPage(currentTab) {
         currentPage[currentTab]++;
-        console.log(currentPage[currentTab]);
+        //console.log(currentPage[currentTab]);
         updateEndpoint(currentTab);
         loadTab(currentTab, currentId);
         //  userBlogs(endpoints[currentTab], currentTab);
@@ -970,7 +970,7 @@
       function prevPage(currentTab) {
         if (currentPage[currentTab] > 1) {
           currentPage[currentTab]--;
-          console.log(currentPage[currentTab]);
+          //console.log(currentPage[currentTab]);
           updateEndpoint(currentTab);
           loadTab(currentTab, currentId);
           // userBlogs(endpoints[currentTab], currentTab);
@@ -991,7 +991,7 @@
       function attachBlogs(blogs, blogEarning) {
         let elem = document.getElementById("posts");
 
-        console.log("blogs = ", blogs);
+        //console.log("blogs = ", blogs);
 
         blogs.map((blog) => {
           let post = `
@@ -1130,7 +1130,7 @@
       }
 
       async function refBlogs(endPointRef) {
-        console.log(endPointRef);
+        //console.log(endPointRef);
         let token = localStorage.getItem("token");
         let data = await fetch(endPointRef, {
           method: "GET",
@@ -1140,7 +1140,7 @@
           },
         });
         let blogs = await data.json();
-        console.log("referral blogs = ", blogs);
+        //console.log("referral blogs = ", blogs);
 
         let elem = document.getElementById("refs");
         elem.innerHTML = "";
@@ -1163,7 +1163,7 @@
       function attachRefs(blogs,total) {
         let elem = document.getElementById("refs");
 
-        console.log("blogs = ", blogs);
+        //console.log("blogs = ", blogs);
 
         let post = `
             <tr>
@@ -1173,7 +1173,7 @@
             `;
         let revenue=0;
         blogs.map((blog) => {
-          console.log(blog);
+          //console.log(blog);
           post += `
                   <tr>
                     <td><a href="/author?userId=${blog._id}">${blog.username}</a></td>
@@ -1196,7 +1196,7 @@
       function copyURL() {
         let copyText = document.getElementById("referral");
 
-        console.log("copy  = ", copyText);
+        //console.log("copy  = ", copyText);
 
         // Select the text field
         //copyText.select();
@@ -1228,7 +1228,7 @@
         });
 
         let data = await res.json();
-        console.log("Complete Earnings = ", data);
+        //console.log("Complete Earnings = ", data);
         const data1 = document.getElementById("withdrawAmount");
         const data2 = document.getElementById("remainingAmount");
         data1.innerHTML = data.withdraw;
@@ -1246,7 +1246,7 @@
         });
 
         let data = await res.json();
-        // console.log("Blog wise Earnings = ", data);
+        // //console.log("Blog wise Earnings = ", data);
         return data;
       }
 
@@ -1272,7 +1272,7 @@
           }),
         });
         let pay = await res.json();
-        console.log("log = ", pay);
+        //console.log("log = ", pay);
         return pay;
       }
 
@@ -1292,7 +1292,7 @@
           body: JSON.stringify({ userId, m, y }),
         });
         let monthlyEarn = await res.json();
-        console.log("Monthly Earning = ", monthlyEarn);
+        //console.log("Monthly Earning = ", monthlyEarn);
         const data = document.getElementById("monthlyEarnings");
         data.innerHTML = monthlyEarn;
       }
@@ -1316,7 +1316,7 @@
           }),
         });
         let totalEarn = await res.json();
-        console.log("Total Earnings = ", totalEarn);
+        //console.log("Total Earnings = ", totalEarn);
         const data = document.getElementById("totalEarnings");
         data.innerHTML = totalEarn.total;
       }
