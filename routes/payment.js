@@ -207,6 +207,7 @@ router.get("/complete_earnings", async function(req, res){
     let views;
     let date = new Date()
     //console.log("date = ", date)
+    console.log("user = ", user)
     total = await TotalEarnings.findOne({user: user._id})
     //console.log("total = ", total)
     if (total==null){
@@ -217,7 +218,7 @@ router.get("/complete_earnings", async function(req, res){
         updated: new Date()
       })
       total.save()
-      total._id = encrypt(total._id)
+      //total._id = encrypt(total._id)
       //console.log("new saved")
     }
     status = 200

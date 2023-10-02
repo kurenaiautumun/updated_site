@@ -240,6 +240,7 @@ router.get("/blogList", (req, res) => {
 });
 
 router.get("/", (req, res) => {
+  console.log("home")
   var user = req.user;
 
   Blog.find({status: "published"}).exec({}, (err, blogs) => {
