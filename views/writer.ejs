@@ -629,8 +629,8 @@
         }
 
         function ImageUploaded(e) {
-            //console.log(e.files)
-            //console.log(e.id)
+            ////console.log(e.files)
+            ////console.log(e.id)
             let body = new FormData();
             body.append("blogId", getParams())
             body.append("userId", localStorage.getItem("user"))
@@ -642,13 +642,13 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    //console.log(data);
+                    ////console.log(data);
                     elem = document.getElementById("image_" + e.id)
-                    //console.log(elem)
+                    ////console.log(elem)
                     elem.src = data.url;
                 })
                 .catch((err) => {
-                    //console.log(err)
+                    ////console.log(err)
                 });
         }
 
@@ -660,7 +660,7 @@
                 };
             }
             constructor({ data }) {
-                //console.log(data.url)
+                ////console.log(data.url)
                 if (data.url) {
                     this.data = data.url;
                 }
@@ -679,7 +679,7 @@
             }
 
             save(blockContent) {
-                //console.log(blockContent.getElementsByTagName('img')[0])
+                ////console.log(blockContent.getElementsByTagName('img')[0])
                 var img = blockContent.getElementsByTagName('img')[0]
                 return {
                     url: img.src
@@ -690,8 +690,8 @@
 
         function saveEditor(status) {
             editor.save().then((output) => {
-                //console.log('Data: ', output);
-                console.log(localStorage.getItem("user"))
+                ////console.log('Data: ', output);
+                //console.log(localStorage.getItem("user"))
                 let meta = ""
                 let words = ""
                 let paras = document.getElementsByClassName("ce-paragraph cdx-block")
@@ -702,11 +702,11 @@
                 }
                 meta = words.slice(0, 200)
                 meta = meta + "..."
-                console.log("meta = ", meta)
+                //console.log("meta = ", meta)
 
                 word_count = words.split(" ").length
 
-                console.log("id = ", getParams())
+                //console.log("id = ", getParams())
                 const blog = {
                     id: getParams(),
                     body: output,
@@ -726,7 +726,7 @@
                     alert("Please Enter Some Content")
                     return false
                 }
-                console.log(blog)
+                //console.log(blog)
                 saveData(blog);
                 if (status=="in-review"){
                     alert("Blog submitted for review")
@@ -740,11 +740,11 @@
             })
 
             // .catch((err) => {
-            //   //console.error(err);
+            //   ////console.error(err);
             //   toast.error("Blog not published.Please login again")
             // });)
             // .catch((error) => {
-            //     //console.log('Saving failed: ', error)
+            //     ////console.log('Saving failed: ', error)
             // });
         }
 
@@ -758,10 +758,10 @@
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    //console.log("blog = ", blog)
-                    //console.log(data);
+                    ////console.log("blog = ", blog)
+                    ////console.log(data);
                     if (data.message) {
-                        //console.log(data.message);
+                        ////console.log(data.message);
 
                     }
                 });
@@ -862,23 +862,23 @@
 
         function getTags() {
             elem = document.getElementsByClassName("tag")
-            console.log(elem[0])
+            //console.log(elem[0])
             var list_tags = []
             for (i in elem) {
-                console.log(i, elem[i])
+                //console.log(i, elem[i])
                 if (elem[i].value) {
                     list_tags.push(elem[i].value.toLowerCase())
                 }
             }
-            console.log(list_tags)
+            //console.log(list_tags)
             return list_tags
         }
 
         function setTags(tags) {
-            console.log("tags = ", tags)
+            //console.log("tags = ", tags)
             div = document.getElementById("add_tags")
             for (i in tags) {
-                console.log(i, tags)
+                //console.log(i, tags)
                 new_tag = '<input value=' + tags[i] + ' class="tag" placeholder="Tag #1" type="text" style="border:none; text-align: center; height:15px; width: 70px; border-radius:3px; background-color:' + generateRandomColor() + '; color: white" onSubmit=newTags(this)><img src="new_cross.png" onClick="removeTag(this)" style="height:5px, width:5px;">'
                 new_div = document.createElement("div")
                 new_div.style.width = "70px"
@@ -892,16 +892,16 @@
 
         function removeTag(e){
             let elem = e
-            //console.log(elem)
-            //console.log(elem.previousSibling)
+            ////console.log(elem)
+            ////console.log(elem.previousSibling)
             elem.previousSibling.remove()
             elem.remove()
         }
 
         function newTags(e) {
-            //console.log(e)
+            ////console.log(e)
             new_tag = '<input class="tag" placeholder="Tag #1" type="text" style="border:none; text-align: center; height: 15px; width: 70px; border-radius:3px; background-color:' + generateRandomColor() + '; color: white" onSubmit=newTags(this)><img src="new_cross.png" onClick="removeTag(this)" style="height:5px, width:5px;">'
-            //console.log(e.parentElement)
+            ////console.log(e.parentElement)
             new_div = document.createElement("div")
             new_div.style.width = "70px"
             new_div.style.display = "inline"
@@ -914,35 +914,40 @@
         }
 
         async function setTitleImage(e) {
-            console.log(e.files)
+            //console.log(e.files)
             if (e.files) {
-                console.log("files = ", e.files[0])
+                //console.log("files = ", e.files[0])
                 let body = new FormData();
-                console.log(getParams())
+                //console.log(getParams())
                 body.append("blogId", getParams())
                 body.append("userId", localStorage.getItem("user"))
                 body.append("image", e.files[0])
 
+                let token = localStorage.getItem("token")
+
                 fetch(`/titleImage`, {
                     method: "POST",
+                    headers: {
+                    'Authorization': "Bearer " + token
+                    },
                     body: body
                 }).then((res) => res.json())
                     .then((data) => {
-                        console.log(data);
+                        //console.log(data);
                         elem = document.getElementById("titleImage")
-                        console.log(elem)
+                        //console.log(elem)
                         elem.src = data.url
-                        //console.log("url image of uploaded = ", data.file);
+                        ////console.log("url image of uploaded = ", data.file);
                     })
                     .catch((err) => {
-                        console.error(err);
+                        //console.error(err);
                     });
             }
         }
 
         $("h3[contenteditable]").keypress(function (evt) {
 
-            //console.log("key pressed")
+            ////console.log("key pressed")
 
             var keycode = evt.charCode || evt.keyCode;
             if (keycode == 13) { //Enter key's keycode
@@ -952,17 +957,17 @@
 
         (async function call() {
             blogId = await getParams()
-            //console.log(blogId)
+            ////console.log(blogId)
             await fetch(`/blog?blogId=${await blogId}`, options)
                 .then(function (response) {
-                    // //console.log(response.json())
+                    // ////console.log(response.json())
                     return response.json();
                 })
                 .then(function (jsonData) {
-                    //console.log(jsonData.blog[0])
+                    ////console.log(jsonData.blog[0])
                     jsonData = jsonData.blog;
 
-                    console.log(jsonData)
+                    //console.log(jsonData)
 
                     titleImage = document.getElementById("titleImage")
                     titleImage.src = jsonData[0]["titleImage"]
@@ -975,7 +980,7 @@
 
                     checkAuthor(jsonData[0].userId)
 
-                    //console.log("body=  ", jsonData[0].body);
+                    ////console.log("body=  ", jsonData[0].body);
                     if (jsonData[0].body !== null) {
                         editor = editorJS(jsonData[0].body);
                     } else {
@@ -996,7 +1001,7 @@
                         params[nameVal[0]] = nameVal[1];
                     }
                 }
-                //console.log(params["blogId"])
+                ////console.log(params["blogId"])
                 return params["blogId"];
             }
 
@@ -1007,7 +1012,7 @@
                 return response.json();
             })
                 .then(function (data) {
-                    //console.log(data.userInfo.body)
+                    ////console.log(data.userInfo.body)
                     elem = document.getElementById("author_name")
                     elem.innerHTML = data.userInfo.body.name
                     authorName = data.userInfo.body.name;
@@ -1023,7 +1028,7 @@
 
         function changeDesc() {
             meta = document.getElementsByClassName("ce-paragraph")[0]
-            //console.log(meta)
+            ////console.log(meta)
             document.querySelector('meta[property="og:description"]').setAttribute("content", meta.innerHTML);
         }
 
@@ -1038,20 +1043,20 @@
 
             data = data.blog
 
-            //console.log("data = ", data)
+            ////console.log("data = ", data)
 
             text = document.getElementsByClassName("left_prev_box")
-            //console.log(text)
+            ////console.log(text)
 
             images = document.getElementsByClassName("right_prev_box")
-            //console.log(images)
+            ////console.log(images)
 
             for (let i in data){
-                //console.log(i)
-                //console.log(text[i].children[0])
+                ////console.log(i)
+                ////console.log(text[i].children[0])
                 text[i].children[0].innerHTML = data[i].title
 
-                //console.log(images[i].children[0])
+                ////console.log(images[i].children[0])
                 images[i].children[0].src = data[i].titleImage
             }
         }
@@ -1082,7 +1087,7 @@
         randomBlogs();
 
         function addRecommendations(data){
-            //console.log(screen.height)
+            ////console.log(screen.height)
             let cont = document.createElement("div")
             cont.className = "blog_also_blog"
             let height
@@ -1101,7 +1106,7 @@
                         <a  >${data["tags"]}</a>
                     </div>`
             cont.innerHTML = blog
-            //console.log(cont)
+            ////console.log(cont)
             let holder = document.getElementsByClassName("blog_also_box r-flex")[0]
             holder.append(cont)
         }
@@ -1117,10 +1122,10 @@
 
             data = data.blog
 
-            //console.log("data = ", data)
+            ////console.log("data = ", data)
 
             cont = document.getElementsByClassName("blog_also_blog")
-            //console.log(cont)
+            ////console.log(cont)
 
             for (let i in data){
                 addRecommendations(data[i])
@@ -1130,7 +1135,7 @@
     suggestionBlogs();
 
     async function authorDetails(){
-        console.log(localStorage.getItem("user"))
+        //console.log(localStorage.getItem("user"))
         const body = {
             "userId": localStorage.getItem("user")
         }
@@ -1144,7 +1149,7 @@
 
         let author = await data.json()
 
-        console.log("author = ", author)
+        //console.log("author = ", author)
 
         setAuthor(author.user[0])
     }
@@ -1152,7 +1157,7 @@
     function setAuthor(data){
         let cont = document.getElementsByClassName("blog_author_container")[0]
         let block = cont.children[1]
-        console.log(block)
+        //console.log(block)
         let img = block.children[0].children[0]
         if (data["pp"]==null){
             img.src = "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png"
@@ -1185,19 +1190,19 @@
         })
         let user = await data.json()
 
-        console.log("user ids = ", user.user._id, user_id)
+        //console.log("user ids = ", user.user._id, user_id)
 
         //if (user.user.username="Kurenai"){
-        //    console.log("ok")
+        //    //console.log("ok")
         //}
 
         if (user.user._id!=user_id){
             alert("You are not the author of the page")
-            console.log("not author")
+            //console.log("not author")
             //window.location.href = `read?blogId=${getParams()}`
         }
         else{
-            console.log("writer")
+            //console.log("writer")
         }
     }
 
@@ -1211,9 +1216,9 @@
 <script>
     //nav bar scripts
     function changeClass(choice){
-        console.log("change class")
+        //console.log("change class")
         let elem = document.getElementsByClassName("dropdown-content")[0]
-        console.log(elem.style.display)
+        //console.log(elem.style.display)
         if (elem.style.display==""){
             elem.style.display = "block"
         }
@@ -1242,14 +1247,14 @@
 
         let blogs = await data.json()
 
-        console.log("data = ", blogs)
+        //console.log("data = ", blogs)
 
         window.location.href = `/write?blogId=${blogs.blog._id}`
     }
 
     function setWriteBlog(){
         let doc = document.getElementById("write_blog")
-        console.log(localStorage.getItem("user"))
+        //console.log(localStorage.getItem("user"))
         if (localStorage.getItem("user")){
             let elem = `
             <a class="nav_manu_link write_nav_btn r-flex ali-c">
@@ -1302,7 +1307,7 @@
         })
         let res = await data.json();
 
-        console.log("res = ", res)
+        //console.log("res = ", res)
 
         localStorage.removeItem("user")
         localStorage.removeItem("token")
@@ -1314,9 +1319,9 @@
 <script>
     //nav bar scripts
     function changeClass(choice){
-        console.log("change class")
+        //console.log("change class")
         let elem = document.getElementsByClassName("dropdown-content")[0]
-        console.log(elem.style.display)
+        //console.log(elem.style.display)
         if (elem.style.display==""){
             elem.style.display = "block"
         }
@@ -1327,7 +1332,7 @@
 
     function setWriteBlog(){
         let doc = document.getElementById("write_blog")
-        console.log(localStorage.getItem("user"))
+        //console.log(localStorage.getItem("user"))
         if (localStorage.getItem("user")){
             let elem = `
             <a class="nav_manu_link write_nav_btn r-flex ali-c">
@@ -1380,7 +1385,7 @@
         })
         let res = await data.json();
 
-        console.log("res = ", res)
+        //console.log("res = ", res)
 
         localStorage.removeItem("user")
         localStorage.removeItem("token")

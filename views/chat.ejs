@@ -144,7 +144,7 @@
         var all_users = {}
 
         let second_user = document.getElementById("second_user").innerHTML
-        console.log("second user = ", second_user)
+        //console.log("second user = ", second_user)
 
         all_users[second_user] = {
                 new_offset: 0,
@@ -152,18 +152,18 @@
         }
 
         function chatboardFunction (userId, all){
-            console.log("user in chatboard = ", userId)
+            //console.log("user in chatboard = ", userId)
             let div = document.getElementById(`chat_show_${userId}`)//.removeEventListener("scroll", scrollReload(userId) ,false);
             div.removeEventListener("scroll", scrollReload, true)
             if (all_users[userId]!=undefined){
-                console.log("nothing")
+                //console.log("nothing")
             }
             else{
                 all_users[userId] = {
                     new_offset: 0,
                     offset: 0
                 }
-                console.log("all users = ", all_users)
+                //console.log("all users = ", all_users)
             }
             second_user = userId
             let chatboard = document.getElementsByName(userId)[0]
@@ -178,7 +178,7 @@
         }
 
         async function sendMessage(id){
-            console.log("in send message", `message_box_${id}`)
+            //console.log("in send message", `message_box_${id}`)
             let msg = document.getElementById(`message_box_${id}`)
             if (msg.value==""){
                 return 0
@@ -248,7 +248,7 @@
         let old_date = ""
         async function addMessageToChat(results, new_or_old){
             space = document.getElementById(`chat_show_${second_user}`)
-            console.log("space = ", space)
+            //console.log("space = ", space)
             const month = ["Jan","Feb","Mar","Apr","May","Jun","July","Aug","Sept","Oct","Nov","Dec"];
 
             options = {
@@ -327,7 +327,7 @@
         async function getMessage(new_or_old){
             let send_offset
             if (all_users[second_user]["full"] == true){
-                console.log("already got all")
+                //console.log("already got all")
                 return 0
             }
             if (new_or_old==1){
@@ -355,14 +355,14 @@
 
             let results = await data.json()
 
-            console.log("results = ", results)
+            //console.log("results = ", results)
 
             addMessageToChat(results, new_or_old)
 
             if (results.length==0){
-                console.log("results in 0 = ", results)
+                //console.log("results in 0 = ", results)
                 if (new_or_old!=1){
-                    console.log("got all")
+                    //console.log("got all")
                     if (all_users[second_user]["offset"] != 0){
                         all_users[second_user]["full"] = true
                     }
@@ -377,7 +377,7 @@
 
 
             function schroll_to_last(){
-                console.log(`${second_user}`)
+                //console.log(`${second_user}`)
                 let chat_elem = document.getElementsByName(`${second_user}`)[0]
                 chat_elem.scrollTo(0, chat_elem.scrollHeight);
             }
@@ -387,14 +387,14 @@
             // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
             //Array.prototype.forEach.call(document.getElementsByClassName("chat_show_box"), function(elem) {
             ////document.getElementsByClassName("chat_show_box").forEach(function(elem) {
-            //    console.log("elem = ", elem)
+            //    //console.log("elem = ", elem)
             //    elem.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....  
             //        var new_schroll = elem.scrollTop
-            //        console.log(new_schroll, old_schroll)
+            //        //console.log(new_schroll, old_schroll)
             //        let chat_elem = elem
             //        if (new_schroll==0){
             //            if (new_schroll==old_schroll){
-            //                console.log("reload")
+            //                //console.log("reload")
             //            }
             //            else{
             //                getMessage();
@@ -441,7 +441,7 @@
 
             let results = await data.json()
 
-            console.log("contacts = ", results)
+            //console.log("contacts = ", results)
 
             addContactsToSide(results)
 
@@ -453,7 +453,7 @@
             function addContactsToSide(results){
                 let contactBox = document.getElementsByClassName("community_mamber_box")[0]
                 for (let result in results){
-                    console.log("result = ", results[result])
+                    //console.log("result = ", results[result])
                     let div = document.createElement("a")
                     div.style.marginTop = "20px"
                     //div.style.padding = "30px"
@@ -482,7 +482,7 @@
                     contactBox.append(div)
                     addChatBoard(results[result]["_id"])
                     if (all_users[results[result]["_id"]]!=undefined){
-                        console.log("nothing")
+                        //console.log("nothing")
                     }
                     else{
                         all_users[results[result]["_id"]] = {
@@ -494,10 +494,10 @@
             }
 
             function addChatBoard(userId){
-                console.log("Adding chatboard for ", userId)
+                //console.log("Adding chatboard for ", userId)
                 let container = document.getElementById("chat_container")
                 let div = document.createElement("div")
-                console.log(`"hideAll('${userId}', 'true')"`)
+                //console.log(`"hideAll('${userId}', 'true')"`)
                 let elem = `
                 <div class="chat_box_bar" id="chat_box_bar" name="${userId}" style="display:none">
                     <div class="back_chat_bord" >
@@ -551,23 +551,23 @@
             function addSchroller(){
                 let userId = second_user
                 let div = document.getElementById(`chat_show_${userId}`)
-                //console.log("div = ", document.getElementsByClassName("chat_show_box"))
+                ////console.log("div = ", document.getElementsByClassName("chat_show_box"))
                 //div = div[div.length-1]
-                console.log("div = ", div)
-                console.log("adding scroller to - ", userId)
-                //console.log("div = ", div[5])
+                //console.log("div = ", div)
+                //console.log("adding scroller to - ", userId)
+                ////console.log("div = ", div[5])
                 div.addEventListener("scroll", scrollReload, true)
                 //div.addEventListener("scroll", function(){
-                //    console.log("in scroll reload")
+                //    //console.log("in scroll reload")
                 //let userId = second_user
                 ////div = document.getElementById(`chat_show_${userId}`)
                 //var new_schroll = div.scrollTop
 //
-                //console.log("scroll", new_schroll, old_schroll, userId, div)
+                ////console.log("scroll", new_schroll, old_schroll, userId, div)
                 //let chat_elem = div
                 //if (new_schroll==0){
                 //    if (new_schroll==old_schroll){
-                //        console.log("reload")
+                //        //console.log("reload")
                 //    }
                 //    else{
                 //        getMessage();
@@ -583,16 +583,16 @@
             }
 
             function scrollReload(){
-                console.log("in scroll reload")
+                //console.log("in scroll reload")
                 let userId = second_user
                 div = document.getElementById(`chat_show_${userId}`)
                 var new_schroll = div.scrollTop
 
-                console.log("scroll", new_schroll, old_schroll, userId, div)
+                //console.log("scroll", new_schroll, old_schroll, userId, div)
                 let chat_elem = div
                 if (new_schroll==0){
                     if (new_schroll==old_schroll){
-                        console.log("reload")
+                        //console.log("reload")
                     }
                     else{
                         getMessage();
@@ -616,11 +616,11 @@
 
             function DefaultSearch(){
                 let id = second_user
-                console.log("second user = ", second_user)
+                //console.log("second user = ", second_user)
                 if (id!=""){
                     addContactsToSide([{"_id": id, "name": "Admin"}])
                     addChatBoard(id)
-                    console.log("after default search")
+                    //console.log("after default search")
                     hideAll(id, "no")
                 }
             }
@@ -628,24 +628,24 @@
             DefaultSearch();
 
             function hideAll(id, all){
-                console.log("in hide all")
-                console.log("all_users = ", all_users)
+                //console.log("in hide all")
+                //console.log("all_users = ", all_users)
                 if (all=="true"){
-                    console.log("all is true")
+                    //console.log("all is true")
                     for (let tab in all_users){
                         let elem = document.getElementsByName(tab)[0]
-                        console.log("tab = ", tab)
-                        console.log("elem = ", elem)
+                        //console.log("tab = ", tab)
+                        //console.log("elem = ", elem)
                         elem.style.display = "None"
                     }
                 }
                 else{
-                    console.log("all is not true")
+                    //console.log("all is not true")
                     for (let tab in all_users){
                         if (id!=tab){
                             let elem = document.getElementsByName(tab)[0]
-                            console.log("tab = ", tab)
-                            console.log("elem = ", elem)
+                            //console.log("tab = ", tab)
+                            //console.log("elem = ", elem)
                             elem.style.display = "None"
                         }
                     }

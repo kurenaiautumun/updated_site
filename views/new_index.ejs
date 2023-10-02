@@ -970,7 +970,7 @@
   
             let blogs = await data.json()
 
-            console.log("data = ", blogs)
+            //console.log("data = ", blogs)
 
             mainBlogs(blogs.top5ByLikes)
             AuthorBlogs(blogs.restOfBlogs)
@@ -983,18 +983,18 @@
 
         function mainBlogs(data){
             let blogs = document.getElementsByClassName("main_blog")
-            //console.log(blogs)
+            ////console.log(blogs)
 
-            console.log(data)
+            //console.log(data)
 
             for (let i in blogs){
-                //console.log(blogs[i].children)
+                ////console.log(blogs[i].children)
                 try{
                     let img = blogs[i].children[0]
                     img.src =  data[i]["titleImage"]
                 }
                 catch(err){
-                    //console.log("err = ", blogs[i].children)
+                    ////console.log("err = ", blogs[i].children)
                     continue
                 }
 
@@ -1002,18 +1002,18 @@
                 text[0].innerHTML = data[i]["tags"][0]
                 text[1].innerHTML = data[i]["title"]
                 text[1].href = `read?blogId=${data[i]["_id"]}`
-                //console.log("text = ", text)
+                ////console.log("text = ", text)
                 try{
                     let author = text[2].children
-                    //console.log(author)
+                    ////console.log(author)
                     author[0].innerHTML = data[i]["date"]
                     author[2].innerHTML = data[i]["author"]
                     for (let i in text){
-                        //console.log(text[i])
+                        ////console.log(text[i])
                     }
                 }
                 catch(err){
-                    //console.log("no element was present")
+                    ////console.log("no element was present")
                 }
             }
         }
@@ -1022,37 +1022,37 @@
 
         function AuthorBlogs(data){
             let blogs = document.getElementsByClassName("top_author")
-            //console.log(blogs)
+            ////console.log(blogs)
 
             for (let i in blogs){
-                //console.log(i)
-                //console.log(blogs[i])
-                //console.log(blogs[i].children)
+                ////console.log(i)
+                ////console.log(blogs[i])
+                ////console.log(blogs[i].children)
                 try{
                     let img = blogs[i].children[0].children[0].children[0]
                     img.src = data[i]["titleImage"]
                 }
                 catch(err){
-                    //console.log("error at  = ", blogs[i].children)
+                    ////console.log("error at  = ", blogs[i].children)
                     continue
                 }
                 let text = blogs[i].children[1].children
                 text[0].innerHTML = data[i]["title"]
                 text[0].href = `read?blogId=${data[i]["_id"]}`
                 text[1].innerHTML = data[i]["meta"]
-                //console.log("text = ", text)
+                ////console.log("text = ", text)
                 try{
                     let author = text[2].children
-                    //console.log(author)
+                    ////console.log(author)
                     author[0].innerHTML = data[i]["tags"][0]
                     author[1].innerHTML = data[i]["date"]
                     author[2].innerHTML = data[i]["author"]
                     for (let i in text){
-                        //console.log(text[i])
+                        ////console.log(text[i])
                     }
                 }
                 catch(err){
-                    //console.log("no element was present")
+                    ////console.log("no element was present")
                 }
             }
         }
@@ -1062,36 +1062,36 @@
 
         function EditorBlogs(data){
             let blogs = document.getElementsByClassName("editor_choice")
-            //console.log(blogs)
+            ////console.log(blogs)
 
             for (let i in blogs){
-                //console.log(i)
-                //console.log(blogs[i])
-                //console.log(blogs[i].children)
+                ////console.log(i)
+                ////console.log(blogs[i])
+                ////console.log(blogs[i].children)
                 try{
                     let img = blogs[i].children[0].children[0].children[0]
                     img.src = data[i]["titleImage"]
                 }
                 catch(err){
-                    //console.log("error at - ", blogs[i].children)
+                    ////console.log("error at - ", blogs[i].children)
                     continue
                 }
                 let text = blogs[i].children[1].children
                 text[0].innerHTML = data[i]["title"]
                 text[0].href = `read?blogId=${data[i]["_id"]}`
-                //console.log("text = ", text)
+                ////console.log("text = ", text)
                 try{
                     let author = text[1].children
-                    //console.log(author)
-                    author[0].innerHTML = data["author"]
+                    ////console.log(author, data)
+                    author[0].innerHTML = data[i]["author"]
                     author[2].innerHTML = data[i]["date"]
                     //author[2].innerHTML = data["author"]
                     for (let i in text){
-                        //console.log(text[i])
+                        ////console.log(text[i])
                     }
                 }
                 catch(err){
-                    //console.log("no element was present")
+                    ////console.log("no element was present")
                 }
             }
         }
@@ -1100,36 +1100,36 @@
 
         function PopularBlogs(data){
             let blogs = document.getElementsByClassName("popular_blogs")
-            //console.log(blogs)
+            ////console.log(blogs)
 
             for (let i in blogs){
-                //console.log(i)
-                //console.log(blogs[i])
-                //console.log(blogs[i].children)
+                ////console.log(i)
+                ////console.log(blogs[i])
+                ////console.log(blogs[i].children)
                 try{
                     let img = blogs[i].children[0].children[0].children[0]
                     img.src = data[i]["titleImage"]
                 }
                 catch(err){
-                    //console.log("error at - ", blogs[i].children)
+                    ////console.log("error at - ", blogs[i].children)
                     continue
                 }
                 let text = blogs[i].children[1].children
                 text[0].innerHTML = data[i]["title"]
                 text[0].href = `read?blogId=${data[i]["_id"]}`
                 text[1].innerHTML = data[i]["meta"]
-                //console.log("text = ", text)
+                ////console.log("text = ", text)
                 try{
                     let author = text[2].children[0].children
-                    //console.log(author)
+                    ////console.log(author)
                     author[0].innerHTML = data[i]["date"]
                     author[2].innerHTML = data[i]["author"]
                     for (let i in text){
-                        //console.log(text[i])
+                        ////console.log(text[i])
                     }
                 }
                 catch(err){
-                    //console.log("no element was present")
+                    ////console.log("no element was present")
                 }
             }
         }
@@ -1138,35 +1138,35 @@
 
         function ViralBlogs(data){
             let blogs = document.getElementsByClassName("viral_blogs")
-            //console.log(blogs)
+            ////console.log(blogs)
 
             for (let i in blogs){
-                //console.log(i)
-                //console.log(blogs[i])
-                //console.log(blogs[i].children)
+                ////console.log(i)
+                ////console.log(blogs[i])
+                ////console.log(blogs[i].children)
                 try{
                     let img = blogs[i].children[0].children[0].children[0]
                     img.src = data[i]["titleImage"]
                 }
                 catch(err){
-                    //console.log("error at - ", blogs[i].children)
+                    ////console.log("error at - ", blogs[i].children)
                     continue
                 }
                 let text = blogs[i].children[1].children
                 text[0].innerHTML = data[i]["title"]
                 text[0].href = `read?blogId=${data[i]["_id"]}`
-                //console.log("text = ", text)
+                ////console.log("text = ", text)
                 try{
                     let author = text[1].children[0].children
-                    //console.log(author)
+                    ////console.log(author)
                     author[0].innerHTML = data[i]["date"]
                     author[2].innerHTML = data[i]["author"]
                     for (let i in text){
-                        //console.log(text[i])
+                        ////console.log(text[i])
                     }
                 }
                 catch(err){
-                    //console.log("no element was present")
+                    ////console.log("no element was present")
                 }
             }
         }
@@ -1175,35 +1175,35 @@
 
         function RecentBlogs(data){
             let blogs = document.getElementsByClassName("recent_blog")
-            console.log("blogs in recent = ", blogs)
+            //console.log("blogs in recent = ", blogs)
 
             for (let i in blogs){
-                //console.log(i)
-                //console.log(blogs[i])
-                //console.log(blogs[i].children)
+                ////console.log(i)
+                ////console.log(blogs[i])
+                ////console.log(blogs[i].children)
                 try{
                     let img = blogs[i].children[0].children[0].children[0]
                     img.src = data[i]["titleImage"]
                 }
                 catch(err){
-                    //console.log("error at - ", blogs[i].children)
+                    ////console.log("error at - ", blogs[i].children)
                     continue
                 }
                 let text = blogs[i].children[1].children
                 text[0].innerHTML = data[i]["title"]
                 text[0].href = `read?blogId=${data[i]["_id"]}`
-                //console.log("text = ", text)
+                ////console.log("text = ", text)
                 text[2].innerHTML = data[i]["meta"]
-                //console.log("text[1] = ", text[1])
-                //console.log("text[1] = ", text[1].children[0].children)
+                ////console.log("text[1] = ", text[1])
+                ////console.log("text[1] = ", text[1].children[0].children)
                 try{
                     let author = text[1].children[0].children
-                    //console.log(author)
+                    ////console.log(author)
                     author[0].innerHTML = data[i]["date"]
                     author[2].innerHTML = data[i]["author"]
                 }
                 catch(err){
-                    console.log("no element was present", err)
+                    //console.log("no element was present", err)
                 }
             }
         }
@@ -1211,9 +1211,9 @@
         //RecentBlogs(data);
 
         function changeClass(choice){
-            console.log("change class")
+            //console.log("change class")
             let elem = document.getElementsByClassName("dropdown-content")[0]
-            console.log(elem.style.display)
+            //console.log(elem.style.display)
             if (elem.style.display==""){
                 elem.style.display = "block"
             }
@@ -1243,14 +1243,14 @@
   
             let blogs = await data.json()
 
-            console.log("data = ", blogs)
+            //console.log("data = ", blogs)
 
             window.location.href = `/write?blogId=${blogs.blog._id}`
         }
 
         function setWriteBlog(){
             let doc = document.getElementById("write_blog")
-            console.log(localStorage.getItem("user"))
+            //console.log(localStorage.getItem("user"))
             if (localStorage.getItem("user")){
                 let elem = `
                 <a class="nav_manu_link write_nav_btn r-flex ali-c">
@@ -1303,7 +1303,7 @@
             })
             let res = await data.json();
 
-            console.log("res = ", res)
+            //console.log("res = ", res)
 
             localStorage.removeItem("user")
             localStorage.removeItem("token")
@@ -1313,7 +1313,7 @@
 
         async function goDash(){
             let token  = localStorage.getItem("token")
-            console.log("token = ", token)
+            //console.log("token = ", token)
             let data = await fetch("/dashboard",{
                 "method": "POST",
                 headers: {
@@ -1323,7 +1323,7 @@
             })
             let res = await data.json();
 
-            console.log("res = ", res)
+            //console.log("res = ", res)
         }
 
     </script>

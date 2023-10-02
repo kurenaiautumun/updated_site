@@ -51,8 +51,8 @@ router.post("/signup", async (req, res) => {
     
   const registeredUser = await User.findOne({username:req.body.username})
 
-    console.log("referall")
-    console.log("id = ", registeredUser._id)
+    //console.log("referall")
+    //console.log("id = ", registeredUser._id)
 
     const referral = new Referral({
       userId: registeredUser._id,
@@ -120,7 +120,7 @@ router.post("/userinfo", function (req, res) {
   const userId = decrypt(req.body.userId);
   User.find({ _id: userId }, (err, user) => {
     UserInfo.findOne({ userId }, (err, userInfo) => {
-      console.log(user)
+      //console.log(user)
       userInfo.userId = encrypt(userInfo.userId)
       res.status(201).json({ user, userInfo });
     });
@@ -129,9 +129,9 @@ router.post("/userinfo", function (req, res) {
 
 
 router.post("/basicUserInfo", function (req, res) {
-  console.log("id in basic user info = ", req.body.userId)
+  //console.log("id in basic user info = ", req.body.userId)
   const userId = decrypt(req.body.userId);
-  console.log("after decrypt = ", userId)
+  //console.log("after decrypt = ", userId)
   User.find({ _id: userId }, (err, user) => {
     try{
       user[0]._id = encrypt(user[0]._id)
@@ -150,7 +150,7 @@ router.post("/basicUserInfo", function (req, res) {
 //    {$set: {"info": info}},
 //    (err, user) => {
 //      if (err){
-//        console.log(err)
+//        //console.log(err)
 //      };
 //      res.status(201).json({ user});
 //  });
@@ -190,7 +190,7 @@ router.post("/userImage", upload.single("image"), async (req, res) => {
           url: `https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/${Key}`,});
       });
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       res
         .status(500)
         .json({ message: "Server error occurred while updating user profile" });
@@ -202,30 +202,31 @@ router.post("/userImage", upload.single("image"), async (req, res) => {
 
 router.post("/userUpdate", async (req, res) => {
   try {
-    const { username, email, firstName, lastName } = req.body; // assuming these are the fields the user can update
+    const { username, email, info, firstName, lastName } = req.body; // assuming these are the fields the user can update
 
     let user = jwtVerify(req);
 
-    console.log("user = ", user.user)
+    //console.log("user = ", user.user)
 
     let id = user.user._id
 
     let details = await User.findOne({_id: id})
 
-    console.log("details = ", details)
+    //console.log("details = ", details)
 
     details.firstName = firstName
     details.lastName = lastName
+    details.info = info
 
     details.save()
 
-    console.log("details = ", details)
+    //console.log("details = ", details)
       res
         .status(201)
         .json({ message: "User profile updated successfully" });
     }
   catch(err){
-    console.log(err);
+    //console.log(err);
   }
 });
 
@@ -260,7 +261,7 @@ router.post("/resetPassword", async(req, res)=>{
       res.status(200).send("registered")
     }
     catch(err){
-      console.log("Err = ", err)
+      //console.log("Err = ", err)
     }
   });
 })
@@ -268,14 +269,14 @@ router.post("/resetPassword", async(req, res)=>{
 router.post("/changePassword", async (req,res)=>{
   let token = jwtVerify(req);
 
-  console.log("user = ", token.user)
+  //console.log("user = ", token.user)
   let id = token.user._id
   
   let user = await User.findOne({_id: id})
-  console.log("pass = ", user.password)
+  //console.log("pass = ", user.password)
   bcrypt.compare(req.body.old_password, user.password).then(function(result) {
     // result == true
-    console.log("result = ", result)
+    //console.log("result = ", result)
     if (result==true){
       bcrypt.hash(req.body.new_password, 8, function(err, hash) {
           if(err){

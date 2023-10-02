@@ -301,9 +301,9 @@
     <script>
         //nav bar scripts
         function changeClass(choice){
-            console.log("change class")
+            //console.log("change class")
             let elem = document.getElementsByClassName("dropdown-content")[0]
-            console.log(elem.style.display)
+            //console.log(elem.style.display)
             if (elem.style.display==""){
                 elem.style.display = "block"
             }
@@ -333,14 +333,14 @@
   
             let blogs = await data.json()
 
-            console.log("data = ", blogs)
+            //console.log("data = ", blogs)
 
             window.location.href = `/write?blogId=${blogs.blog._id}`
         }
 
         function setWriteBlog(){
             let doc = document.getElementById("write_blog")
-            console.log(localStorage.getItem("user"))
+            //console.log(localStorage.getItem("user"))
             if (localStorage.getItem("user")){
                 let elem = `
                 <a class="nav_manu_link write_nav_btn r-flex>
@@ -393,7 +393,7 @@
             })
             let res = await data.json();
 
-            console.log("res = ", res)
+            //console.log("res = ", res)
 
             localStorage.removeItem("user")
             localStorage.removeItem("token")
@@ -413,7 +413,7 @@
             })
 
             let user = await data.json()
-            console.log("user = ", user)
+            //console.log("user = ", user)
             let name = document.getElementById("username")
             name.innerHTML = user.user.username
 
@@ -461,7 +461,7 @@
             })
 
             let blogs = await data.json()
-            console.log("blogs = ", blogs)
+            //console.log("blogs = ", blogs)
 
             let blogLength = document.getElementById("blog_length")
             blogLength.innerHTML = blogs.length + " blogs"
@@ -475,7 +475,7 @@
 
             let elem = document.getElementById("posts")
 
-            console.log("blogs = ", blogs)
+            //console.log("blogs = ", blogs)
             blogs.map((blog)=> {
                 let post = `
                 <div style="margin:10px" class=" w-full lg:flex lg:mx-2 md:mx-2">
@@ -524,7 +524,7 @@
 
         let elem = document.getElementById("refs")
 
-        console.log("blogs = ", blogs)
+        //console.log("blogs = ", blogs)
 
         let post = 
         `
@@ -535,7 +535,7 @@
             `
         let total_pay = 0
         blogs.explanation.map((blog)=> {
-            console.log(blog)
+            //console.log(blog)
             post += `
                   <tr>
                     <td><a href="/author?userId=${blog.user._id}">${blog.user.username}</a></td>
@@ -558,7 +558,7 @@
         function copyURL(){
             let copyText = document.getElementById("referral");
 
-            console.log("copy  = ", copyText)
+            //console.log("copy  = ", copyText)
 
             // Select the text field
             //copyText.select();
@@ -588,7 +588,7 @@
             })
 
             let data = await res.json()
-            console.log("Complete Earnings = ", data)
+            //console.log("Complete Earnings = ", data)
         }
 
         completeEarnings();
@@ -611,7 +611,7 @@
                 })
             })
             let pay = await res.json()
-            console.log("log = ", pay)
+            //console.log("log = ", pay)
             return pay
         }
 
@@ -630,7 +630,7 @@
                     "month": "yes"
                 })
             })
-            console.log("monthly Earnings = ", await res.json())
+            //console.log("monthly Earnings = ", await res.json())
         }
 
         totalMonthlyEarnings();

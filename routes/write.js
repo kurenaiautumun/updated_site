@@ -6,10 +6,10 @@ const router = express.Router();
 //   data: jsonData,
 //   readOnly: true,
 //   onChange: (data) => {
-//     console.log(data);
+//     //console.log(data);
 //   },
 //   onReady: (editor) => {
-//     console.log(editor);
+//     //console.log(editor);
 //   },
 // });
 
@@ -23,12 +23,12 @@ router.get("/write", (req, res) => {
 });
 
 router.get("/read", (req, res) => {
-  console.log("req = ", req)
+  //console.log("req = ", req)
   res.render("read");
 });
 
 router.post("/write", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
 });
 
 module.exports = router;

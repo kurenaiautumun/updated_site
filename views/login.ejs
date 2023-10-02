@@ -132,9 +132,9 @@
     
     async function submitForm(event){
        event.preventDefault();
-       console.log("form submitted")
+       //console.log("form submitted")
 
-       console.log(event.target)
+       //console.log(event.target)
 
       // var encrypted = CryptoJS.AES.encrypt("Hello", "12345");
       //equivalent to CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(message), key);
@@ -142,15 +142,15 @@
 
       //var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
-      //console.log(encrypted)
-      //console.log(plaintext)
+      ////console.log(encrypted)
+      ////console.log(plaintext)
 
        const body = {
         "username": event.target.username.value,
         "password": event.target.password.value,
        }
 
-       console.log(body)
+       //console.log(body)
 
       let data = await fetch(`/login`, {
                 method: "POST",
@@ -163,8 +163,8 @@
       let user_req = await data
       let user = await user_req.json()
 
-      console.log(user)
-      console.log("status = ", user_req.status)
+      //console.log(user)
+      //console.log("status = ", user_req.status)
       if (user_req.status==200){
         localStorage.setItem("token", user["token"]);
 
@@ -181,13 +181,13 @@
 
 <script>
     async function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token: " + response.credential);
+      //console.log("Encoded JWT ID token: " + response.credential);
 
       let data = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${response.credential}`)
 
       userInfo = await data.json()
 
-      console.log(userInfo)
+      //console.log(userInfo)
 
       let res = await fetch("/googleLogin", {
         headers: {
@@ -202,7 +202,7 @@
       })
 
       let result = await res.json()
-      console.log("result = ", result)
+      //console.log("result = ", result)
 
       localStorage.setItem("token", result["token"]);
       localStorage.setItem("user", result._id);
@@ -223,9 +223,9 @@
 <script>
   //nav bar scripts
   function changeClass(choice){
-      console.log("change class")
+      //console.log("change class")
       let elem = document.getElementsByClassName("dropdown-content")[0]
-      console.log(elem.style.display)
+      //console.log(elem.style.display)
       if (elem.style.display==""){
           elem.style.display = "block"
       }
@@ -254,14 +254,14 @@
 
       let blogs = await data.json()
 
-      console.log("data = ", blogs)
+      //console.log("data = ", blogs)
 
       window.location.href = `/write?blogId=${blogs.blog._id}`
   }
 
   function setWriteBlog(){
       let doc = document.getElementById("write_blog")
-      console.log(localStorage.getItem("user"))
+      //console.log(localStorage.getItem("user"))
       if (localStorage.getItem("user")){
           let elem = `
           <a class="nav_manu_link write_nav_btn r-flex ali-c">
@@ -314,7 +314,7 @@
       })
       let res = await data.json();
 
-      console.log("res = ", res)
+      //console.log("res = ", res)
 
       localStorage.removeItem("user")
       localStorage.removeItem("token")
