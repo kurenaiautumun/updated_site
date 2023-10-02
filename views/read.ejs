@@ -224,7 +224,7 @@
                             <div class="blog_author_box r-flex ">
                                 <div class="blog_author_pi"><img src="images/logo.png" alt=""></div>
                                 <div class="blog_about_author_cont">
-                                    <div class="blog_author_name">Devender</div>
+                                    <div class="blog_author_name"></div>
                                     <div class="blog_author_details">
                                         Quisque sed tristique felis. Lorem visit my website amet, consectetur adipiscing elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus congue feugiat. Thanks for stop Cloapedia!
                                     </div>
@@ -318,7 +318,7 @@
                         <!-- ======== comment box ======== -->
 
                         <div class="comments__show_container">
-                            <div class="comment_show_boder_head">3 Comments</div>
+                            <div id="no_comments" class="comment_show_boder_head">3 Comments</div>
                             <div class="comments_show_box ali-c jut-c">
                             </div>
                         </div>
@@ -329,7 +329,6 @@
                         <div class="reply_container">
                             <div class="blog_reply_border_head">Leave a Reply</div>
                             <form id="add_comment" class="comments_form_box" onsubmit="submitForm(this);return false">
-                                <input type="name" name="naem" id="comment_name" placeholder="Your name">
                                 <textarea name="comment" id="comment_text" cols="30" rows="10" placeholder="Your comment"></textarea>
                                 <button class="blog_comment_btn" type="submit">Submit Comment</button>
                             </form>
@@ -783,6 +782,7 @@
                     document.getElementById("likes").innerHTML = jsonData[0]["viewCount"]
                     document.getElementById("publish_date").innerHTML = date_string(jsonData[0]["date"])
                     setTags(jsonData[0].tags)
+                    console.log("user = ", jsonData[0].userId)
                     authorDetails(jsonData[0].userId)
 
                     //console.log("body=  ", jsonData[0].body);
@@ -993,6 +993,7 @@
         //console.log(container)
         let req = await fetch(`/comment/${await getParams()}`)
         let data = await req.json()
+        let count = 0
         console.log("commnets = ", data)
         for (let i in data.user){
             //console.log("comment = ", data.user[i])
@@ -1002,7 +1003,7 @@
                 </div>
                 <div style="margin-left:0px" class="comments_right_side_show">
                     <div class="comments_show_name_and_time r-flex ali-c">
-                        <span class="comment_show_name">${data.user[i].userId}</span>
+                        <span class="comment_show_name">${data.user[i].username}</span>
                         <span class="comment_show_time">${date_string(data.user[i].date)}</span>
                     </div>
                     <div class="comment_show_main_cont">${data.user[i].body}</div>
@@ -1014,9 +1015,13 @@
             div.style.marginLeft = "0px";
             div.innerHTML = comment
             container.append(div)
+            comment_count += 1
     }
+    document.getElementById("no_comments").innerHTML = `${comment_count} Comments`
     }
     addComments();
+
+    let comment_count = 0
 
     async function submitForm(event){
        //console.log("form submitted")
@@ -1035,6 +1040,8 @@
 
        //console.log(body)
 
+       let container = document.getElementsByClassName("comments_show_box ali-c jut-c")[0]
+
       let data = await fetch(`/newComment`, {
                 method: "POST",
                 headers: {
@@ -1045,6 +1052,32 @@
             })
       
       let user = await data.json()
+
+      console.log("comment = ", user)
+
+      let comment = `
+            <div style="margin-left:0px" class="comment_user_img">
+                <img src="images/logo.png" alt="">
+            </div>
+            <div style="margin-left:0px" class="comments_right_side_show">
+                <div class="comments_show_name_and_time r-flex ali-c">
+                    <span class="comment_show_name">${user.username}</span>
+                    <span class="comment_show_time">${date_string(user.date)}</span>
+                </div>
+                <div class="comment_show_main_cont">${user.body}</div>
+                <button class="comment_cont_reply">Reply</button>
+            </div>
+        `
+        let div = document.createElement("div")
+        div.className = "comments_show_cmt r-flex "
+        div.style.marginLeft = "0px";
+        div.innerHTML = comment
+        container.append(div)
+        comment_count += 1
+        document.getElementById("no_comments").innerHTML = `${comment_count} Comments`
+
+        event.comment.value = ""
+            
       //console.log(user)
     }
 
@@ -1086,7 +1119,13 @@
         
         let content = block.children[1].children
 
-        content[0].innerHTML = data["username"]
+        let elem = document.createElement("a")
+        elem.innerHTML = data["username"]
+        elem.href = `/author?userId=${data["_id"]}`
+
+        content[0] = ""
+
+        content[0].append(elem)//data["username"]
         content[1].innerHTML = data["info"]
     }
 
@@ -1122,12 +1161,14 @@
     }
 
     async function newBlog(){
+        const token = localStorage.getItem("token")
         const userDetails = await userData();
+        
         const blog = {
             "userId": userDetails.user._id,
             "title": "Title",
             "views": 0,
-            "status": "new",
+            "status": "draft",
             "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
             "userName": userDetails.user._id,
         }
@@ -1135,6 +1176,7 @@
             method: "POST",
             headers: {
                 "content-type": "application/json",
+                Authorization: "Bearer " + token,
             },
             body: JSON.stringify(blog)
         })
@@ -1228,11 +1270,36 @@
         console.log("res = ", res)
     }
 
+    let startDate = new Date();
+    let elapsedTime = 0;
+
+    const focus = function() {
+        startDate = new Date();
+    };
+
     function updateViews(){
-        viewCount()
+        const endDate = new Date();
+        const spentTime = endDate.getTime() - startDate.getTime();
+        elapsedTime += (spentTime/1000);
+        startDate = new Date();
+
+        if (elapsedTime>=30){
+            console.log("elapsed time = ", elapsedTime)
+            viewCount()
+            elapsedTime = 0
+        }
         totalTime += 30
         setTimeout(updateViews, 30000)
     }
+
+    const blur = function() {
+        const endDate = new Date();
+        const spentTime = endDate.getTime() - startDate.getTime();
+        elapsedTime += (spentTime/1000);
+        console.log("elapsed time after blur = ", elapsedTime)
+    };
+
+    window.addEventListener('blur', blur);
 
     let totalTime = 0
 
@@ -1253,6 +1320,7 @@
             console.log(paras[i])
         }
     }
+    window.addEventListener('focus', focus);
     addingAds();
 </script>
 

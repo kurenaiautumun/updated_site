@@ -233,9 +233,16 @@ input::-webkit-inner-spin-button {
     color: var(--lite-font);
 }
 
+.profileContainer{
+    width: 40%;
+}
+
 @media (max-width:500px){
     .container{
         padding: 0px 10px;
+    }
+    .profileContainer{
+        width: 80%;
     }
     .breadcrumbs > a{
         font-size: 14px;

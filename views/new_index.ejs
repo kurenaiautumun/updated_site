@@ -94,7 +94,7 @@
                 <div class="hero_search_box">
                     <form action="#" class="hero_search r-flex ali-c">
                         <input type="search" name="search" class="search_input" id="hero_search" placeholder="Search Blogs ">
-                        <button type="submit" class="hero_search_btn">
+                        <button disabled="true" type="submit" class="hero_search_btn">
                             <svg width="24" height="24" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.5 9.5L12.5 12.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M5.75 10.5C8.37335 10.5 10.5 8.37335 10.5 5.75C10.5 3.12665 8.37335 1 5.75 1C3.12665 1 1 3.12665 1 5.75C1 8.37335 3.12665 10.5 5.75 10.5Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1223,11 +1223,12 @@
         }
 
         async function newBlog(){
+            const token = localStorage.getItem("token")
             const blog = {
                 "userId": localStorage.getItem("user"),
                 "title": "Title",
                 "views": 0,
-                "status": "new",
+                "status": "draft",
                 "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
 
             }
@@ -1235,6 +1236,7 @@
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
+                    Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify(blog)
             })

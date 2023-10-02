@@ -3,6 +3,7 @@ const router = express.Router();
 const { User, Blog, Comment, TotalEarnings,monthlyViews} = require("../models");
 
 const jwtVerify = require("./jwt")
+const {encrypt, decrypt} = require("./encrypt")
 
 // router.get("/", (req, res) => {
 //   if (req.isAuthenticated()) {
@@ -49,6 +50,8 @@ router.get("/currentUser", async (req, res) => {
   let user = jwtVerify(req);
   console.log("user = ", user)
   if (user){
+    user.user._id = encrypt(user.user._id)
+    console.log("user in current user = ", user)
     res.json(user)
   }
   else{
@@ -83,7 +86,9 @@ router.get("/userBlogsPublish", async (req, res) => {
         let views=blogData[i].viewCount;
         let slot = (views/1000)*30;
         blogData[i].slot = slot;
+        blogData[i].userId = encrypt(blogData[i].userId)
       }
+
       
       res.json({blogData,totalDataCount});
     }
@@ -119,6 +124,9 @@ router.get("/userBlogsDraft", async (req, res) => {
       const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "draft" });
       console.log(totalDataCount);
       console.log("blogs = ", blogData)
+      for (let blog in blogData){
+        blogData[blog].userId = encrypt(blogData[blog].userId)
+      }
       res.json({blogData,totalDataCount});
     }
     else{
@@ -152,6 +160,10 @@ router.get("/userBlogsInReview", async (req, res) => {
       console.log("blogs = ", blogData)
       const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "in-review" });
       console.log(totalDataCount);
+      for (let blog in blogData){
+        console.log("blog = ", blogData[blog])
+        blogData[blog].userId = encrypt(blogData[blog].userId)
+      }
       res.json({blogData,totalDataCount});
     }
     else{
@@ -179,7 +191,8 @@ router.post("/dashboard",  passing, async (req, res) => {
       console.log("verified")
       const _id = user.user._id;
 
-      const userData = await User.findOne({ _id });
+      let userData = await User.findOne({ _id });
+      userData._id = encrypt(userData._id)
       const blogData = await Blog.find({ userId: userData._id, status: "published"  });
       console.log(blogData);
 
