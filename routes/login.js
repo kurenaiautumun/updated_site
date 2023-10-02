@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const [encrypt, decrypt] = require('./encrypt.js');
 
 const { User, Referral} = require("../models.js");
 
@@ -116,7 +117,10 @@ router.post("/login", function (req, res) {
           (err, user) => {
             jwt.sign({ user: user }, "secretkey", (err, token) => {
               console.log("token = ", token)
-            res.status(200).json({"user": user, "token": token});
+              const userId = user._id.toString(); 
+              const encryptedUserData = encrypt(userId);
+              console.log(encryptedUserData);
+            res.status(200).json({"user": user, "token": token,"userId":encryptedUserData.encryptedData});
           });
         }
         );
