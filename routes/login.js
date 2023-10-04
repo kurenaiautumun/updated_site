@@ -129,7 +129,7 @@ router.post("/login", function (req, res) {
               });
               }
               else{
-                res.status(400).json("wrong username/email or password")
+                res.status(400).json("Wrong Username/Email or Password Combination")
               }
             });
         }
