@@ -265,7 +265,7 @@
   function setWriteBlog(){
       let doc = document.getElementById("write_blog")
       console.log(localStorage.getItem("user"))
-      if (localStorage.getItem("user")){
+      if (localStorage.getItem("userId")){
           let elem = `
           <a class="nav_manu_link write_nav_btn r-flex ali-c">
               <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,7 +288,7 @@
 
   function setProfile(){
       let doc = document.getElementById("profile_image")
-      if (localStorage.getItem("user")){
+      if (localStorage.getItem("userId")){
           let elem = `
           <a class="nav_manu_link" onclick="changeClass()">
               <img style="max-height: 30px;" src="user-bg.png">
@@ -319,6 +319,7 @@
 
       console.log("res = ", res)
 
+      // localStorage.clear();
       localStorage.removeItem("user")
       localStorage.removeItem("token")
       localStorage.removeItem("userId");

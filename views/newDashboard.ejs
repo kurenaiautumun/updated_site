@@ -767,6 +767,7 @@
 
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
 
         window.location.href = "/login";
       }
@@ -1034,7 +1035,7 @@
         });
       }
 
-      const pageSizeRef = 5;
+      const pageSizeRef = 2;
       let currentPageRef = 1;
       let endPointRef = `/all_referrals?page=${currentPageRef}&pageSize=${pageSizeRef}`;
 

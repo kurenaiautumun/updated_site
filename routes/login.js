@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const [encrypt, decrypt] = require('./encrypt.js');
+// const [encrypt, decrypt] = require('./encrypt.js');
 
 const { User, Referral} = require("../models.js");
 
@@ -114,15 +114,10 @@ router.post("/login", function (req, res) {
     password: req.body.password,
   });
   console.log("user = ", user)
-        User.findOne(
-          { $or: [{ username: user.username }, { email: user.username }] },
-          (err, user) => {
-            jwt.sign({ user: user }, "secretkey", (err, token) => {
+        User.findOne({ $or: [{ username: user.username }, { email: user.username }] },
+          (err, user) => {jwt.sign({ user: user }, "secretkey", (err, token) => {
               console.log("token = ", token)
-              const userId = user._id.toString(); 
-              const encryptedUserData = encrypt(userId);
-              console.log(encryptedUserData);
-            res.status(200).json({"user": user, "token": token,"userId":encryptedUserData.encryptedData});
+              // res.status(200).json({"user": user, "token": token});
           });
             console.log("user = ", user)
             console.log("password = ", user.password)
@@ -132,8 +127,10 @@ router.post("/login", function (req, res) {
               if (result==true){
                 jwt.sign({ user: user }, "secretkey", (err, token) => {
                   console.log("token = ", token)
-                  user._id = encrypt(user._id)
-                res.status(200).json({"user": user, "token": token});
+                  const userId = user._id.toString(); 
+                 const encryptedUserData = encrypt(userId);
+                 console.log("encrypted data",encryptedUserData);
+                res.status(200).json({"user": user, "token": token,"userId":encryptedUserData});
               });
               }
               else{
