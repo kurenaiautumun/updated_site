@@ -143,6 +143,9 @@
           //console.log(user.json())
           //console.log(user.status)
           if (user.status==201){window.location.href = "/login";}
+        else{
+                alert(await user.json())
+            }
         }
 
         //Calling a function during form submission.

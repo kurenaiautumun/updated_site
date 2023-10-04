@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
   totalEarn:{type:Number,default:0}
 });
 
+const result = userSchema.index({ email: 1 }, { unique: true })
+const username = userSchema.index({ username: 1 }, { unique: true })
+//console.log(`Index created: ${result}`);
+
 
 const blogSchema = new mongoose.Schema({
   title: String,

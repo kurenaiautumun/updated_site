@@ -41,45 +41,56 @@ router.post("/signup", async (req, res) => {
       referral: referralId,
     });
 
+
     bcrypt.hash(req.body.password, 8, async function(err, hash) {
       if(err){
-        res.status(400).json("not working")
+        res.status(400).json("not working").end()
       }
       user.password = hash
       //user.save()
+
       user.save((err, user) => {
         if (err){
-          res.status(400).json("user could not be registered")
+          console.log("err = ", err)
+          if(err.toString().includes("username")){
+            res.status(400).json(`User with this Username already exists`)
+          }
+          else{
+            res.status(400).json(`User with this Email address already exists`)
+          }
         }
-        console.log("user saved - ", user)
-      console.log(req.body.username)
+        else{
+          console.log("user saved - ", user)
+        console.log(req.body.username)
 
-      const registeredUser = user
+        const registeredUser = user
 
-    console.log("registered user = ", registeredUser)
+      console.log("registered user = ", registeredUser)
 
-      //console.log("referall")
-      //console.log("id = ", registeredUser._id)
-      try{
-        const referral = new Referral({
-          userId: registeredUser._id,
-          hisReferral: referralId,
-        });
-        referral.save();
-        console.log("referral = ", referral)
-    }
-    catch(err){
-      console.log("error = ", err)
-      res.status(404).json("referral table could not be set up")
-      
-    }
-
-
-      if (req.body.referral != undefined) {
-        console.log("in referral")
-        //console.log(Referral.findOne({hisReferral: req.body.referral}))
-        updateReferral(req.body.referral, registeredUser);
+        //console.log("referall")
+        //console.log("id = ", registeredUser._id)
+        try{
+          const referral = new Referral({
+            userId: registeredUser._id,
+            hisReferral: referralId,
+          });
+          referral.save();
+          console.log("referral = ", referral)
       }
+      catch(err){
+        console.log("error = ", err)
+        res.status(404).json("referral table could not be set up")
+
+      }
+
+
+        if (req.body.referral != undefined) {
+          console.log("in referral")
+          //console.log(Referral.findOne({hisReferral: req.body.referral}))
+          updateReferral(req.body.referral, registeredUser);
+        }
+        res.status(201).json(user);
+    }
     });
   });
     
@@ -95,9 +106,9 @@ router.post("/signup", async (req, res) => {
 
     user._id = encrypt(user._id)
 
-    res.status(201).json(user);
 
   } catch (err) {
+    console.log("err = ", err)
     res.status(500).json({ error: err.message });
   }
 });
@@ -337,3 +348,34 @@ router.post("/decrypt", async (req,res)=>{
 })
 
 module.exports = router;
+
+router.get("/duplicates", async (req, res)=>{
+  let users = await User.find()
+  let list = []
+  
+  for (let i in await users){
+    //console.log("i = ", i)
+    if (list.includes(users[i].email)){
+      console.log("duplicate", users[i]._id, users[i].email, users[i].username)
+      users[i].delete()
+    }
+    else{
+      list.push(users[i].email)
+    }
+  }
+  let users2 = await User.find()
+  let list2 = []
+  
+  for (let i in await users2){
+    //console.log("i = ", i)
+    if (list.includes(users2[i].username)){
+      console.log("duplicate", users2[i]._id, users2[i].email, users2[i].username)
+      users2[i].delete()
+    }
+    else{
+      list.push(users2[i].username)
+    }
+  }
+  //console.log("users = ", await users)
+  return res.json([list, list2])
+})

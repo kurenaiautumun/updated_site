@@ -1046,7 +1046,8 @@
                     ////console.log(author)
                     author[0].innerHTML = data[i]["tags"][0]
                     author[1].innerHTML = data[i]["date"]
-                    author[2].innerHTML = data[i]["author"]
+                    author[2].innerHTML = ""
+                    author[4].innerHTML = data[i]["author"]
                     for (let i in text){
                         ////console.log(text[i])
                     }
@@ -1158,7 +1159,7 @@
                 ////console.log("text = ", text)
                 try{
                     let author = text[1].children[0].children
-                    ////console.log(author)
+                    //console.log(author)
                     author[0].innerHTML = data[i]["date"]
                     author[2].innerHTML = data[i]["author"]
                     for (let i in text){
