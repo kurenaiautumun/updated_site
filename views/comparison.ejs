@@ -95,12 +95,13 @@
                         <div class="competition_table_box">
 
                             <div class="comptition_head r-flex ali-c jut-sb">
-                                <h1 class="competition_heading">Spring Weekly Writing Competition</h1>
+                                <h1 class="competition_heading"> <%= competition.competitionName %> </h1>
                                 <div class="competion_date r-flex ali-c">
                                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11.25 12.5H8.75V15H11.25V12.5ZM16.25 12.5H13.75V15H16.25V12.5ZM21.25 12.5H18.75V15H21.25V12.5ZM23.75 3.75H22.5V1.25H20V3.75H10V1.25H7.5V3.75H6.25C5.58696 3.75 4.95107 4.01339 4.48223 4.48223C4.01339 4.95107 3.75 5.58696 3.75 6.25V23.75C3.75 24.413 4.01339 25.0489 4.48223 25.5178C4.95107 25.9866 5.58696 26.25 6.25 26.25H23.75C24.413 26.25 25.0489 25.9866 25.5178 25.5178C25.9866 25.0489 26.25 24.413 26.25 23.75V6.25C26.25 5.58696 25.9866 4.95107 25.5178 4.48223C25.0489 4.01339 24.413 3.75 23.75 3.75ZM23.75 23.75H6.25V10H23.75V23.75Z" fill="#7F7EC6"/>
                                     </svg>                                    
-                                    <span>10 JAN 2023</span>
+                                    <!-- <span>10 JAN 2023</span> -->
+                                    <span><%= competition.startDate %> - <%= competition.endDate %></span>
                                 </div>
                             </div>
 
@@ -110,9 +111,40 @@
                                     <li class="t_heading">User Rank</li>
                                     <li class="t_heading">User Blog</li>
                                 </ul>
-                                <ul id="listingTable" class="t_body c-flex ali-c pagination">
-                                    
+
+
+                                <!-- ranking list start  -->
+                                 <ul  class="t_body c-flex ali-c pagination">
+                                    <% user_s.forEach((ranking) => { %>
+                                    <div class="competition_user_row r-flex ali-c jut-sb">
+                                    <li class="t_data competition_user_box r-flex ali-c">
+                                        <!-- <%= ranking.rank %> -->
+                                        <span class="competition_user_img r-flex ali-c jut-c">
+                                            <img src="../images/logo.png">
+                                        </span>
+                                        <span class="competition_user_name"><%= ranking.name %></span>
+                                    </li>
+                                    <li class="t_data">🏆 &nbsp; <%= ranking.rank %></li>
+                                    <!-- <li class="t_data">📝 &nbsp; 50/100</li> -->
+                                    <li class="t_data">📝 &nbsp; <a href="/read?blogId=<%=ranking.blogId%>">Read</a></li>
+                                </div>
+                                <% }); %>
                                 </ul>
+                                
+
+                                <!-- <ul class="t_body c-flex ali-c pagination">
+                                    <% user_s.forEach((ranking) => { %>
+                                        <li>
+                                            <%= ranking.name %> - Rank: <%= ranking.rank %>
+                                        </li>
+                                    <% }); %>
+                                </ul> -->
+
+
+                                <!-- ranking list ends -->
+
+
+
                                 <ul class="competition_pageination r-flex ali-c jut-sb">
                                     <li>
                                         <a href="javascript:prevPage()" id="btn_prev">
@@ -155,24 +187,27 @@
 
                         <div class="competition_rewards">
                             <div class="competition_win_user r-flex ali-c jut-sb">
-                                <span>🏆 &nbsp; Wining User</span>
-                                <span>🚀 &nbsp; 3/100</span>
+                                <span>🏆 &nbsp; Winning User</span>
+                                <span>🚀 &nbsp; 3/<b><%= user_s.length %> </b> </span>
                             </div>
-                            <div class="totle_win"><b>1,560 TOTLE,</b> Wining Users  </div>
+                            <div class="totle_win"><b> <%= user_s.length %> </b>  Users  </div>
                             <div class="competition_win_img"><img src="images/Frame.png" alt="win"></div>
                             <ul class="competition_top_user">
                                 <li class="competition_win_pos r-flex ali-c jut-sb">
                                     <span>🏆 1st Position</span>
-                                    <span>💸 10,000</span>
+                                    <span>💸 <%= competition.prize[0] %></span>
                                 </li>
                                 <li class="competition_win_pos r-flex ali-c jut-sb">
-                                    <span>🏆 1st Position</span>
-                                    <span>💸 10,000</span>
+                                    <span>🏆 2nd Position</span>
+                                    <span>💸 <%= competition.prize[1] %></span>
                                 </li>
                                 <li class="competition_win_pos r-flex ali-c jut-sb">
-                                    <span>🏆 1st Position</span>
-                                    <span>💸 10,000</span>
+                                    <span>🏆 3rd Position</span>
+                                    <span>💸 <%= competition.prize[2] %></span>
                                 </li>
+
+
+                                
                             </ul>
                         </div>
                     </div>
