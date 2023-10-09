@@ -1349,10 +1349,14 @@
         })
 
         let res = await data.json()
-
-        //console.log("res = ", res)
+        console.log(res)
+        console.log(res["message"]=="view increased")
+        if (res["message"]=="view increased"){
+            viewIncreased = 1
+        }
     }
 
+    let viewIncreased = 0
     let startDate = new Date();
     let elapsedTime = 0;
     let blurTime = 0;
@@ -1379,35 +1383,37 @@
 
         //blur();
 
-        const activeTime = endDate - startDate
-        console.log("active time = ", activeTime/1000)
-        elapsedTime += activeTime/1000
-
         console.log("blurred = ", blurred, vuew_count)
         vuew_count += 1 
 
         if (blurred==false){
             elapsedTime += (endDate - startDate)/1000
+            startDate = new Date()
         }
         else{
             console.log("screen is blurred")
+            startDate = new Date()
             setTimeout(updateViews, 30000)
             return 0
         }
 
         console.log("elapsed in view = ", elapsedTime)
 
-        startDate = new Date()
 
         if (elapsedTime>=29){
             console.log("elapsed in loop = ", elapsedTime)
-            viewCount()
+            if (viewIncreased==0){
+                viewCount()
+            }
+
             //startDate = new Date()
             elapsedTime = 0
             blurTime = 0
             totalTime += 30
         }
-        setTimeout(updateViews, 30000)
+        if (viewIncreased==0){
+            setTimeout(updateViews, 30000)
+        }
     }
 
     let blurred = false
