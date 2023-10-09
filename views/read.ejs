@@ -1356,15 +1356,16 @@
     let startDate = new Date();
     let elapsedTime = 0;
     let blurTime = 0;
+    let focusedTime = 0;
 
     const focus = function() {
-        //startDate = new Date();
-        const endDate = new Date();
-        blurTime = (endDate.getTime() - startDate.getTime())/1000
-        console.log("blurred = ", blurTime/1000)
-        blurTime -= (blurTime/1000);
+        startDate = new Date();
+        console.log("now focused")
+        blurred = false
+        //const endDate = new Date();
     };
 
+    let vuew_count = 1
 
     function updateViews(){
         const endDate = new Date();
@@ -1376,18 +1377,32 @@
             socialPoints();
         }
 
-        elapsedTime += (endDate - startDate)/1000
+        //blur();
 
-        console.log("elapsed with blur = ", elapsedTime)
+        const activeTime = endDate - startDate
+        console.log("active time = ", activeTime/1000)
+        elapsedTime += activeTime/1000
 
-        elapsedTime = elapsedTime - blurTime
+        console.log("blurred = ", blurred, vuew_count)
+        vuew_count += 1 
 
-        console.log("elapsed - blur = ", elapsedTime)
+        if (blurred==false){
+            elapsedTime += (endDate - startDate)/1000
+        }
+        else{
+            console.log("screen is blurred")
+            setTimeout(updateViews, 30000)
+            return 0
+        }
+
+        console.log("elapsed in view = ", elapsedTime)
+
+        startDate = new Date()
 
         if (elapsedTime>=29){
-            console.log("elapsed time = ", elapsedTime)
+            console.log("elapsed in loop = ", elapsedTime)
             viewCount()
-            startDate = new Date()
+            //startDate = new Date()
             elapsedTime = 0
             blurTime = 0
             totalTime += 30
@@ -1395,13 +1410,20 @@
         setTimeout(updateViews, 30000)
     }
 
+    let blurred = false
+
     const blur = function() {
         const endDate = new Date()
+        console.log("blurred now")
+        //blurTime = (endDate.getTime() - startDate.getTime())/1000
+        //console.log("blurred = ", blurTime/1000)
+        //blurTime -= (blurTime/1000);
         const activeTime = endDate - startDate
         console.log("active time = ", activeTime/1000)
         elapsedTime += activeTime/1000
         console.log("elapsed + active = ", elapsedTime)
-        startDate = new Date();
+        blurred = true
+        //startDate = new Date();
         //console.log("elapsed time after blur = ", elapsedTime)
     };
 
