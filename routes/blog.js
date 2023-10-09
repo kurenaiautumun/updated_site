@@ -98,7 +98,10 @@ router.post("/blog/viewcount", async (req, res) => {
       endDate: endDate,
       viewCount: 0
     })
+    viewsMonth.save()
   }
+  msg = "keep reading"
+  let http_status = 200
   ////console.log("monthly views = ", await viewsMonth)
   ////console.log(blog.readTime*60, totalTime)
   if (blog.readTime!=null){
@@ -107,17 +110,26 @@ router.post("/blog/viewcount", async (req, res) => {
     if ((blog.readTime*60 < totalTime) & (blog.readTime*60 + 30 > totalTime)){
       viewsMonth.viewCount += 1
       blog.viewCount += 1
+      msg = "view increased"
+      http_status = 201 
       blog.save()
+      viewsMonth.save()
+      res.json({ message: msg }).status(201);
+    }
+    else{
+      res.json({ message: "keep reading" }).status(200);
     }
   }
-  viewsMonth.save()
+  else{
+    res.json({ message: "keep reading" }).status(200);
+  }
   //monthlyViews.updateOne({ blogId: _id }, { $inc: { viewCount: 1 } }, (err, docs) => {
   //  if (err){
   //    //console.log("error - ", err)
   //  };
   //});
   ////console.log("before error")
-  res.json({ message: "view increased" });
+  
 });
 
 router.post("/newblog", async (req, res) => {
