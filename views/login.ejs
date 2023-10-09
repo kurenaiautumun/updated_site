@@ -163,14 +163,16 @@
       let user_req = await data
       let user = await user_req.json()
 
-      //console.log(user)
+      console.log(user)
+      console.log(user["user"])
+      console.log(user["user"])
       //console.log("status = ", user_req.status)
       if (user_req.status==200){
         localStorage.setItem("token", user["token"]);
 
-        localStorage.setItem("user", user["user"]._id);
+        localStorage.setItem("user", user["user"]);
         
-        window.location.href = "/";
+        //window.location.href = "/";
       }
       else{
         alert(user)
