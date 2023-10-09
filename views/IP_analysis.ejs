@@ -1,0 +1,114 @@
+<html>
+    <head>IP Analysis
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+        </script>
+    </head>
+    <body>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+        <script>
+            function displayChart(x, y){
+                const xValues = x//[100,200,300,400,500,600,700,800,900,1000];
+
+                let datasets = []
+                let colors = ["red", "blue", "yellow", "green", "purple", "black"]
+                for (let i in colors){
+                    colors.push(colors[i])
+                }
+                count = 1;
+                for (let i in y){
+                    let val = {
+                      data: y[i],
+                      //label: i,
+                      label: i,
+                      borderColor: colors[count],// `#$31${count}2${count}B`,
+                      fill: false
+                    }
+                    count += 1
+                    datasets.push(val)
+                }
+                
+                console.log("datasets = ", datasets)
+
+                new Chart("myChart", {
+                  type: "line",
+                  data: {
+                    labels: xValues,
+                    datasets: datasets
+                  },
+                  options: {
+                    legend: {display: true}
+                  }
+                });
+            }
+            //displayChart();
+            async function IP_data(user_id){
+                let headersList = {
+                     "Content-Type": "application/json"
+                    }
+
+                    let bodyContent = JSON.stringify({
+                      "pageNumber": 2,
+                      "pageSize": 20,
+                      user_id: user_id
+                    });
+
+                    let response = await fetch("/analyzeIPs", { 
+                      method: "POST",
+                      body: bodyContent,
+                      headers: headersList
+                    });
+
+                    let data = await response.json();
+                    console.log(data);
+                    let x = []
+                    let y = []
+                    let compile = []
+                    data = data["items"]
+                    for(let i in data){
+                        console.log(data[i])
+                        let time = data[i].time
+                        if(time==null){
+                            time = 0
+                        }
+                        if (data[i].ip in compile){
+                            console.log(`${data[i].ip} already in compile - ${data[i].time}, ${data[i].blogId}`)
+                            if (data[i].blogId in compile[data[i].ip]){
+                                compile[data[i].ip][data[i].blogId] += time
+                            }
+                            else{
+                                compile[data[i].ip][data[i].blogId] = time
+                            }
+                        }
+                        else{
+                            compile[data[i].ip] = {}
+                            compile[data[i].ip][data[i].blogId] = time
+                        }
+                        if (x.includes(data[i].blogId)){
+                            continue
+                        }
+                        else{
+                            x.push(data[i].blogId)
+                        }
+
+                    }
+                    console.log("x = ", x)
+                    console.log("compile = ", compile)
+                    for (let i in compile){
+                        y[i] = []
+                        for (let j in x){
+                            if (x[j] in compile[i]){
+                                y[i].push(compile[i][x[j]])
+                            }
+                            else{
+                                y[i].push(0)
+                            }
+                        }
+                    }
+                    console.log("y = ", y)
+                    displayChart(x, y);
+            }
+            IP_data();
+        </script>
+    </body>
+</html>

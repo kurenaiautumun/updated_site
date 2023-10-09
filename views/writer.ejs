@@ -969,6 +969,8 @@
 
                     //console.log(jsonData)
 
+                    checkAuthor(jsonData[0].userId)
+
                     titleImage = document.getElementById("titleImage")
                     titleImage.src = jsonData[0]["titleImage"]
                     title = document.getElementById("title")
@@ -977,8 +979,6 @@
                     document.getElementById("likes").innerHTML = jsonData[0]["viewCount"]
                     document.getElementById("publish_date").innerHTML = date_string(jsonData[0]["date"])
                     setTags(jsonData[0].tags)
-
-                    checkAuthor(jsonData[0].userId)
 
                     ////console.log("body=  ", jsonData[0].body);
                     if (jsonData[0].body !== null) {
@@ -1199,7 +1199,7 @@
         if (user.user._id!=user_id){
             alert("You are not the author of the page")
             //console.log("not author")
-            //window.location.href = `read?blogId=${getParams()}`
+            window.location.href = `read?blogId=${getParams()}`
         }
         else{
             //console.log("writer")

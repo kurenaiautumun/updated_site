@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, Referral, transporter, UserInfo } = require("../models.js");
+const { User, Referral, transporter, UserInfo, socialReg, socialShare} = require("../models.js");
 const template = require("./template");
 var ObjectId = require('mongodb').ObjectID;
 
@@ -49,7 +49,7 @@ router.post("/signup", async (req, res) => {
       user.password = hash
       //user.save()
 
-      user.save((err, user) => {
+      user.save(async (err, user) => {
         if (err){
           console.log("err = ", err)
           if(err.toString().includes("username")){
@@ -89,6 +89,21 @@ router.post("/signup", async (req, res) => {
           //console.log(Referral.findOne({hisReferral: req.body.referral}))
           updateReferral(req.body.referral, registeredUser);
         }
+
+        try{
+          //console.log("ip = ", req.ip)
+          let refferer = await socialShare.findOne({ip: req.ip})
+          //console.log("refferer = ", refferer)
+          reg = socialReg({
+            user: registeredUser._id,
+            referrer: await refferer.user
+          })
+          reg.save()
+        }
+        catch(err){
+          console.log("New visitor", err)
+        }
+
         res.status(201).json(user);
     }
     });
@@ -167,7 +182,20 @@ router.post("/userinfo", function (req, res) {
 
 router.post("/basicUserInfo", function (req, res) {
   //console.log("id in basic user info = ", req.body.userId)
-  const userId = decrypt(req.body.userId);
+  let userId;
+  try{
+    userId = decrypt(req.body.userId);
+  }
+  catch(err){
+    console.log("err = ", err)
+    if (err.toString().includes("Provider routines::bad decrypt")){
+      console.log(true)
+      return res.json("login").status(400)
+    }
+    else{
+      res.status(400).json(err)
+    }
+  }
   //console.log("after decrypt = ", userId)
   User.find({ _id: userId }, (err, user) => {
     try{
@@ -378,4 +406,56 @@ router.get("/duplicates", async (req, res)=>{
   }
   //console.log("users = ", await users)
   return res.json([list, list2])
+})
+
+
+router.get("/analyzeReferrals", async (req,res)=> {
+  const pageSize = 10;
+  const pageNumber = req.query.pageNumber;
+
+  const userid = req.query.user_id
+
+  let searchArray = {referralArray: { $exists: true, $not: {$size: 0} }}
+
+  if (userid){
+    const user_id = decrypt(userid)
+    searchArray["userId"] = user_id
+  }
+
+  Referral.aggregate([
+    { $match: searchArray },
+    { $sort: { createdAt: -1 } },
+    { $skip: pageSize * (pageNumber - 1) },
+    { $limit: pageSize },
+    { $group: { _id: null, count: { $sum: 1 }, items: { $push: "$$ROOT" } } },
+  ]).exec((err, results) => {
+    if (err) {
+      res.status(400).json(err)
+    }
+    try{
+      let { count, items } = results[0];
+      const totalPages = Math.ceil(count / pageSize);
+      for (let i in items){
+        console.log("items at i = ", i, items[i])
+        items[i].userId = encrypt(items[i].userId)
+        for (let j in items[i].referralArray){
+          console.log("items[i].referralArray[j] = ", items[i].referralArray[j])
+          try{
+            items[i].referralArray[j] = items[i].referralArray[j].email
+          }
+          catch(err){
+            continue
+          }
+        }
+      }
+      res.status(200).json({
+        items,
+        totalPages,
+        currentPage: pageNumber,
+      });
+    }
+    catch(err){
+      res.json(err).status(400)
+    }
+  });
 })

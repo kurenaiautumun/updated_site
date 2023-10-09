@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
-const { User, Referral} = require("../models.js");
+const { User, Referral, socialReg, socialShare} = require("../models.js");
 
 const multer = require("multer");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
@@ -51,35 +51,89 @@ router.post("/googleLogin", upload.single("image"), async function(req, res){
     msg = 1
     //console.log("user not found")
     const referralId = Math.floor(Math.random() * 10000000);
+    let name1 = name
+    let names = await User.find({ "username": { "$regex": `${name}`, "$options": "i" }})
+
+    console.log("names = ", await names)
+
+    for (let i in await names){
+      console.log("in count")
+      name1 = `${name}${i}`
+    }
+    console.log("name1 = ", await name1)
     user = new User({
-      username: name,
+      username: await name1,
       role: "writer",
       email: email,
       referral: referralId
     })
 
-    const randomstring = Math.random().toString(36).slice(-8);
+    console.log("user = ", user)
 
-    const registeredUser = await User.register(user, randomstring);
+    let pass = crypto.randomBytes(10).toString('hex');
 
-    const referral = new Referral({
-      userId: registeredUser._id,
-      hisReferral: referralId,
-    });
-    await referral.save();
+    bcrypt.hash(pass, 8, async function(err, hash) {
+      if(err){
+        console.log("err in bcrypt = ", err)
+        res.status(400).json("not working").end()
+      }
+      user.password = hash
+      //user.save()
 
-    if (req.body.referral !== undefined) {
-      await Referral.updateOne(
-        { hisReferral: req.body.referral },
-        { $push: { referralArray: registeredUser } }
-      );
+      user.save(async (err, user) => {
+        if (err){
+          console.log("err = ", err)
+          if(err.toString().includes("username")){
+            res.status(400).json(`User with this Username already exists`)
+          }
+          else{
+            res.status(400).json(`User with this Email address already exists`)
+          }
+        }
+        else{
+          console.log("user saved - ", user)
+        console.log(req.body.username)
+
+        const registeredUser = user
+
+      console.log("registered user = ", registeredUser)
+
+        //console.log("referall")
+        //console.log("id = ", registeredUser._id)
+        const referralId = Math.floor(Math.random() * 10000000);
+        try{
+          const referral = new Referral({
+            userId: registeredUser._id,
+            hisReferral: referralId,
+          });
+          referral.save();
+          console.log("referral = ", referral)
+      }
+      catch(err){
+        console.log("error = ", err)
+        res.status(404).json("referral table could not be set up")
+
+      }
+      try{
+        let refferer = await socialShare.findOne({ip: req.ip})
+        reg = socialReg({
+          user: registeredUser._id,
+          referrer: await refferer.user
+        })
+        reg.save()
+      }
+      catch(err){
+        console.log("New visitor")
+      }
+        res.status(201).json(user);
     }
-
+    });
+  });
 
     const Key = `profile/images/${user.username}/profile.jpeg`;
 
-    const res = await fetch(picture)
-    const blob = await res.arrayBuffer()
+    const res_pic = await fetch(picture)
+    const blob = await res_pic.arrayBuffer()
 
     const command = new PutObjectCommand({
       Bucket: process.env.BUCKET_NAME,
@@ -124,8 +178,11 @@ router.post("/login", function (req, res) {
               if (result==true){
                 jwt.sign({ user: user }, "secretkey", (err, token) => {
                   //console.log("token = ", token)
-                  user._id = encrypt(user._id)
-                res.status(200).json({"user": user, "token": token});
+                  //let n_user = user
+                  //n_user._id = encrypt(n_user._id)
+                  console.log(user)
+                  //console.log(encrypt(n_user._id))
+                res.status(200).json({"user": encrypt(user._id), "token": token});
               });
               }
               else{

@@ -36,7 +36,8 @@ router.get("/blog", (req, res) => {
 
 router.post("/blog/viewcount", async (req, res) => {
   let user = jwtVerify(req);
-  ////console.log("user = ", user)
+  console.log("in viewCount")
+  //console.log("user = ", user)
   const time = req.body.time
   const _id = req.body.blogId;
   const totalTime = req.body.totalTime
@@ -48,16 +49,34 @@ router.post("/blog/viewcount", async (req, res) => {
     res.json("time is not present").status(404)
   }
 
+  let views;
+
   if (totalTime==null){
     res.json("totalTime is not present").status(404)
   }
   if (user!=null){
-    let views = new viewAnalysis({
+    views = new viewAnalysis({
       blogId: _id,
       userId: user.user._id,
       time: time
     })
     views.save()
+  }
+  else{
+    //console.log("ip = ", req.ip)
+    views = new viewAnalysis({
+      blogId: _id,
+      ip: req.ip,
+      time: time,
+    })
+    views.save((err, view) => {
+      if (err){
+        console.log("error = ", err)
+      }
+      //else{
+      //  console.log("views = ", views)
+      //}
+    })
   }
   
 

@@ -102,7 +102,8 @@ const earningsSchema = new mongoose.Schema({
 const viewAnalysisSchema = new mongoose.Schema({
   userId: String,
   blogId: String,
-  time: Number
+  time: Number,
+  ip: String
 })
 
 const totalEarningsSchema = new mongoose.Schema({
@@ -143,6 +144,18 @@ const popularBlogsSchema=new mongoose.Schema({
   totalCount:Number
 })
 
+
+const socialShareSchema = new mongoose.Schema({
+  user: String,
+  ip: String,
+  blogId: String
+})
+
+const socialUserReg = new mongoose.Schema({
+  user: String,
+  referrer: String
+})
+
 function toggle(arr, elem) {
   const index = arr.indexOf(elem);
   if (index !== -1) {
@@ -178,6 +191,10 @@ const monthlyViews = new mongoose.model("monthlyViews", monthlyViewsSchema)
 
 const viewAnalysis = new mongoose.model("viewAnalysis", viewAnalysisSchema)
 
+const socialShare = new mongoose.model("socialShare", socialShareSchema)
+
+const socialReg = new mongoose.model("socialReg", socialUserReg)
+
 //passport.use(User.createStrategy());
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
@@ -200,6 +217,8 @@ module.exports = {
   TotalEarnings,
   paySlots,
   monthlyViews,
-  viewAnalysis
+  viewAnalysis,
+  socialShare,
+  socialReg
 };
 
