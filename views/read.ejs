@@ -1314,6 +1314,7 @@
     async function socialPoints(){
         let blogId = await getParams()
         let referral_code = await getReferral()
+        console.log("referral code = ", referral_code)
         if (referral_code!=undefined){
             let data = await fetch(`socialPublicity?blogId=${await blogId}&referral=${await referral_code}`, {
                 "method": "GET",
@@ -1364,7 +1365,7 @@
 
     const focus = function() {
         startDate = new Date();
-        console.log("now focused")
+        //console.log("now focused")
         blurred = false
         //const endDate = new Date();
     };
@@ -1377,13 +1378,15 @@
         //elapsedTime += (spentTime/1000);
         //startDate = new Date();
 
+        console.log("publicity = ", publicity)
+
         if (publicity==0){
             socialPoints();
         }
 
         //blur();
 
-        console.log("blurred = ", blurred, vuew_count)
+        //console.log("blurred = ", blurred, vuew_count)
         vuew_count += 1 
 
         if (blurred==false){
@@ -1391,17 +1394,17 @@
             startDate = new Date()
         }
         else{
-            console.log("screen is blurred")
+            //console.log("screen is blurred")
             startDate = new Date()
             setTimeout(updateViews, 30000)
             return 0
         }
 
-        console.log("elapsed in view = ", elapsedTime)
+        //console.log("elapsed in view = ", elapsedTime)
 
 
         if (elapsedTime>=29){
-            console.log("elapsed in loop = ", elapsedTime)
+            //console.log("elapsed in loop = ", elapsedTime)
             if (viewIncreased==0){
                 viewCount()
             }
@@ -1420,14 +1423,14 @@
 
     const blur = function() {
         const endDate = new Date()
-        console.log("blurred now")
+        //console.log("blurred now")
         //blurTime = (endDate.getTime() - startDate.getTime())/1000
         //console.log("blurred = ", blurTime/1000)
         //blurTime -= (blurTime/1000);
         const activeTime = endDate - startDate
-        console.log("active time = ", activeTime/1000)
+        //console.log("active time = ", activeTime/1000)
         elapsedTime += activeTime/1000
-        console.log("elapsed + active = ", elapsedTime)
+        //console.log("elapsed + active = ", elapsedTime)
         blurred = true
         //startDate = new Date();
         //console.log("elapsed time after blur = ", elapsedTime)
