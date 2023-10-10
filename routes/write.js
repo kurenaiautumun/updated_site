@@ -35,22 +35,25 @@ router.get("/read", (req, res) => {
 
 // store an IP along with a referral code to know which referrer has got which visiter along with which blog did they reading
 router.get("/socialPublicity", async (req, res)=>{
-  let ref = await Referral.findOne({hisReferral: req.query.referral})
-  let user = await User.findOne({_id: await ref.userId})
+  let userId
+  try{
+    let ref = await Referral.findOne({hisReferral: req.query.referral})
+    let user = await User.findOne({_id: await ref.userId})
+    userId = await user._id
+  }
+  catch(err){
+    userId = req.query.referral
+  }
+
   let blogId = req.query.blogId
 
-  if (await user){
-    social = new socialShare({
-      user: await user._id,
-      blogId: blogId,
-      ip: req.ip.toString()
-    })
-    social.save()
-    res.json("increased").status(200)
-  }
-  else{
-    res.json("not increased").status(404)
-  }
+  social = new socialShare({
+    user: await userId,
+    blogId: blogId,
+    ip: req.ip.toString()
+  })
+  social.save()
+  res.json("increased").status(200)
 })
 
 
