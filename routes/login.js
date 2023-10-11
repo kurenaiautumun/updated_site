@@ -117,7 +117,7 @@ router.post("/login", function (req, res) {
         User.findOne({ $or: [{ username: user.username }, { email: user.username }] },
           (err, user) => {jwt.sign({ user: user }, "secretkey", (err, token) => {
               console.log("token = ", token)
-              // res.status(200).json({"user": user, "token": token});
+              res.status(200).json({"user": user, "token": token});
           });
             console.log("user = ", user)
             console.log("password = ", user.password)
@@ -130,6 +130,8 @@ router.post("/login", function (req, res) {
                   const userId = user._id.toString(); 
                  const encryptedUserData = encrypt(userId);
                  console.log("encrypted data",encryptedUserData);
+                 user._id=encrypt(user._id);
+                 console.log(user._id.toString());
                 res.status(200).json({"user": user, "token": token,"userId":encryptedUserData});
               });
               }
