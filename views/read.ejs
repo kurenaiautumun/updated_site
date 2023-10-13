@@ -1247,46 +1247,8 @@
 
         localStorage.removeItem("user")
         localStorage.removeItem("token")
-        localStorage.removeItem("userId");
 
         window.location.href = "/"
-    }
-
-    const readingSpeed = 200; 
-
-    function countWords(text) {
-    const words = text.trim().split(/\s+/);
-    return words.length;
-    }
-
-    function calculateReadTime(readingSpeed,blogId,blogContent) {
-    const wordCount = countWords(blogContent);
-    let minutes = (wordCount / readingSpeed)*60;
-    minutes= Math.ceil(minutes);
-
-    let start=new Date();
-    start=start.getTime();
-
-    }
-    // when user click on read more button the blogId and blogContent associated with that read more button will be send. 
-    calculateReadTime(readingSpeed,blogId,blogContent);
-    
-    // when user click on read less button 
-    function onReadLess(){
-
-        let end=new Date();
-        end=end.getTime();
-
-        const spentTime = start - end;
-        elapsedTime += (spentTime/1000);
-        end = new Date();
-
-        if (elapsedTime>=30){
-            console.log("elapsed time = ", elapsedTime)
-            viewCount()
-            elapsedTime = 0
-        }
-
     }
 
     async function viewCount(){
