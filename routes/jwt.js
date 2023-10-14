@@ -25,7 +25,7 @@ function verifyToken(req, res, next) {
   
   function jwtVerify(req){
 
-    console.log("jet started")
+    //console.log("jet started")
 
     let data = null
 
@@ -35,17 +35,17 @@ function verifyToken(req, res, next) {
   
       const bearerToken = bearerHeader.split(" ")[1];
 
-      console.log("token = ", bearerHeader)
+      //console.log("token = ", bearerHeader)
 
       jwt.verify(bearerToken, "secretkey", (err, authData) => {
   
         if (err) {
 
-            console.log("err = ", err)
+            //console.log("err = ", err)
             return null
     
         } else {
-            console.log("verified")
+            //console.log("verified")
             data = authData
     
         }

@@ -90,6 +90,10 @@
       <label for="pwd">Last Name:</label>
       <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName">
     </div>
+    <div class="form-group">
+        <label for="pwd">Info:</label>
+        <textarea id="info" name="info" rows="4" cols="50"></textarea>
+      </div>
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
   <div><a href="/changePassword">Change Password</a></div>
@@ -103,7 +107,9 @@
             firstName: event.firstName.value,
             username: event.username.value,
             lastName: event.lastName.value,
+            info: event.info.value
         }
+        console.log("event = ", event)
         console.log("body = ", body)
         let data = await fetch("/userUpdate", {
         method: "POST",
@@ -115,7 +121,7 @@
         })
 
         let results = await data.json()
-        console.log("results = ", results)
+        //console.log("results = ", results)
         
     }
     function burgerFuncation() {
@@ -125,9 +131,9 @@
         }
     
     function changeClass(choice){
-        console.log("change class")
+        //console.log("change class")
         let elem = document.getElementsByClassName("dropdown-content")[0]
-        console.log(elem.style.display)
+        //console.log(elem.style.display)
         if (elem.style.display==""){
             elem.style.display = "block"
         }
@@ -138,7 +144,7 @@
 
     function setWriteBlog(){
         let doc = document.getElementById("write_blog")
-        console.log(localStorage.getItem("user"))
+        //console.log(localStorage.getItem("user"))
         if (localStorage.getItem("user")){
             let elem = `
             <a class="nav_manu_link write_nav_btn r-flex ali-c">
@@ -191,7 +197,7 @@
         })
         let res = await data.json();
 
-        console.log("res = ", res)
+        //console.log("res = ", res)
 
         localStorage.removeItem("user")
         localStorage.removeItem("token")
@@ -214,13 +220,13 @@
         
         author = author.user
 
-        console.log("author = ", author)
+        //console.log("author = ", author)
 
         for (let i in await author){
-            //console.log(`${i} = ${document.getElementsByName(i)[0]}`)
-            console.log(i, author[i])
+            ////console.log(`${i} = ${document.getElementsByName(i)[0]}`)
+            //console.log(i, author[i])
             if (document.getElementsByName(i)[0]!=undefined){
-                console.log(document.getElementsByName(i))
+                //console.log(document.getElementsByName(i))
                 document.getElementsByName(i)[0].value = author[i]
             }
         }
@@ -228,7 +234,7 @@
         let img = document.getElementById("pp")
         img.src = author.pp
 
-        console.log("author = ", author)
+        //console.log("author = ", author)
     }
 
     authorDetails();

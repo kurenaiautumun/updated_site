@@ -117,9 +117,9 @@
     
         async function submitForm(event){
            event.preventDefault();
-           console.log("form submitted")
+           //console.log("form submitted")
 
-           console.log(event.target)
+           //console.log(event.target)
 
            const body = {
             "username": event.target.username.value,
@@ -128,7 +128,7 @@
             "password": event.target.password.value,
            }
 
-           console.log(body)
+           //console.log(body)
 
           let data = await fetch(`/signup`, {
                     method: "POST",
@@ -140,9 +140,12 @@
             
           let user = await data
 
-          console.log(user.json())
-          console.log(user.status)
+          //console.log(user.json())
+          //console.log(user.status)
           if (user.status==201){window.location.href = "/login";}
+        else{
+                alert(await user.json())
+            }
         }
 
         //Calling a function during form submission.
@@ -177,9 +180,9 @@
     <script>
         //nav bar scripts
         function changeClass(choice){
-            console.log("change class")
+            //console.log("change class")
             let elem = document.getElementsByClassName("dropdown-content")[0]
-            console.log(elem.style.display)
+            //console.log(elem.style.display)
             if (elem.style.display==""){
                 elem.style.display = "block"
             }
@@ -210,14 +213,14 @@
   
             let blogs = await data.json()
 
-            console.log("data = ", blogs)
+            //console.log("data = ", blogs)
 
             window.location.href = `/write?blogId=${blogs.blog._id}`
         }
 
         function setWriteBlog(){
             let doc = document.getElementById("write_blog")
-            console.log(localStorage.getItem("user"))
+            //console.log(localStorage.getItem("user"))
             if (localStorage.getItem("user")){
                 let elem = `
                 <a class="nav_manu_link write_nav_btn r-flex ali-c">
@@ -270,7 +273,7 @@
             })
             let res = await data.json();
 
-            console.log("res = ", res)
+            //console.log("res = ", res)
 
             localStorage.removeItem("user")
             localStorage.removeItem("token")
@@ -289,9 +292,9 @@
                     params[nameVal[0]] = nameVal[1];
                 }
             }
-            console.log(params["ref"])
+            //console.log(params["ref"])
             if (params["ref"]!=null){
-                console.log("not null")
+                //console.log("not null")
                 document.getElementById("referral").value = params["ref"]
             }
             return params["ref"];

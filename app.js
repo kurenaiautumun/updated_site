@@ -64,6 +64,11 @@ app.listen(process.env.PORT, function () {
   console.log(`Server started on http://localhost:${process.env.PORT}`);
 });
 
-process.on('uncaughtException', function (exception) {
-  console.log("exception = ", exception)
- });
+//process.on('uncaughtException', function (exception) {
+//  console.log("exception = ", exception)
+// });
+
+
+ process.on('uncaughtException', err => {
+  console.log(`Uncaught Exception - : ${err.message}`)
+})

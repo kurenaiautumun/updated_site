@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, Referral, transporter, UserInfo } = require("../models.js");
+const { User, Referral, transporter, UserInfo, socialReg, socialShare} = require("../models.js");
 const template = require("./template");
 var ObjectId = require('mongodb').ObjectID;
 
@@ -10,7 +10,7 @@ const bcrypt = require("bcryptjs");
 const multer = require("multer");
 
 const crypto = require("crypto");
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, RedirectAllRequestsToFilterSensitiveLog } = require("@aws-sdk/client-s3");
 
 const {encrypt, decrypt} = require("./encrypt")
 
@@ -41,32 +41,75 @@ router.post("/signup", async (req, res) => {
       referral: referralId,
     });
 
-    bcrypt.hash(req.body.password, 8, function(err, hash) {
+
+    bcrypt.hash(req.body.password, 8, async function(err, hash) {
       if(err){
-        res.status(400).json("not working")
+        res.status(400).json("not working").end()
       }
       user.password = hash
-      user.save()
+      //user.save()
+
+      user.save(async (err, user) => {
+        if (err){
+          console.log("err = ", err)
+          if(err.toString().includes("username")){
+            res.status(400).json(`User with this Username already exists`)
+          }
+          else{
+            res.status(400).json(`User with this Email address already exists`)
+          }
+        }
+        else{
+          console.log("user saved - ", user)
+        console.log(req.body.username)
+
+        const registeredUser = user
+
+      console.log("registered user = ", registeredUser)
+
+        //console.log("referall")
+        //console.log("id = ", registeredUser._id)
+        try{
+          const referral = new Referral({
+            userId: registeredUser._id,
+            hisReferral: referralId,
+          });
+          referral.save();
+          console.log("referral = ", referral)
+      }
+      catch(err){
+        console.log("error = ", err)
+        res.status(404).json("referral table could not be set up")
+
+      }
+
+
+        if (req.body.referral != undefined) {
+          console.log("in referral")
+          //console.log(Referral.findOne({hisReferral: req.body.referral}))
+          updateReferral(req.body.referral, registeredUser);
+        }
+
+        try{
+          //console.log("ip = ", req.ip)
+          let refferer = await socialShare.findOne({ip: req.ip})
+          //console.log("refferer = ", refferer)
+          reg = socialReg({
+            user: registeredUser._id,
+            referrer: await refferer.user
+          })
+          reg.save()
+        }
+        catch(err){
+          console.log("New visitor", err)
+        }
+
+        res.status(201).json(user);
+    }
+    });
   });
     
-  const registeredUser = await User.findOne({username:req.body.username})
-
-    console.log("referall")
-    console.log("id = ", registeredUser._id)
-
-    const referral = new Referral({
-      userId: registeredUser._id,
-      hisReferral: referralId,
-    });
-    await referral.save();
-
-    if (req.body.referral !== undefined) {
-      await Referral.updateOne(
-        { hisReferral: req.body.referral },
-        { $push: { referralArray: registeredUser } }
-      );
-    }
-
+  
     const mailData = {
       from: "autumnkurenai@gmail.com",
       to: req.body.email,
@@ -78,12 +121,21 @@ router.post("/signup", async (req, res) => {
 
     user._id = encrypt(user._id)
 
-    return res.status(201).json(user);
 
   } catch (err) {
+    console.log("err = ", err)
     res.status(500).json({ error: err.message });
   }
 });
+
+
+async function updateReferral(id, user){
+  await Referral.updateOne(
+    { hisReferral: id },
+    { $push: { referralArray: user } }
+  );
+}
+
 
 //router.post("/changepassword", function (req, res) {
 //  User.findByUsername(req.body.username, (err, user) => {
@@ -120,7 +172,7 @@ router.post("/userinfo", function (req, res) {
   const userId = decrypt(req.body.userId);
   User.find({ _id: userId }, (err, user) => {
     UserInfo.findOne({ userId }, (err, userInfo) => {
-      console.log(user)
+      //console.log(user)
       userInfo.userId = encrypt(userInfo.userId)
       res.status(201).json({ user, userInfo });
     });
@@ -129,9 +181,22 @@ router.post("/userinfo", function (req, res) {
 
 
 router.post("/basicUserInfo", function (req, res) {
-  console.log("id in basic user info = ", req.body.userId)
-  const userId = decrypt(req.body.userId);
-  console.log("after decrypt = ", userId)
+  //console.log("id in basic user info = ", req.body.userId)
+  let userId;
+  try{
+    userId = decrypt(req.body.userId);
+  }
+  catch(err){
+    console.log("err = ", err)
+    if (err.toString().includes("Provider routines::bad decrypt")){
+      console.log(true)
+      return res.json("login").status(400)
+    }
+    else{
+      res.status(400).json(err)
+    }
+  }
+  //console.log("after decrypt = ", userId)
   User.find({ _id: userId }, (err, user) => {
     try{
       user[0]._id = encrypt(user[0]._id)
@@ -150,7 +215,7 @@ router.post("/basicUserInfo", function (req, res) {
 //    {$set: {"info": info}},
 //    (err, user) => {
 //      if (err){
-//        console.log(err)
+//        //console.log(err)
 //      };
 //      res.status(201).json({ user});
 //  });
@@ -190,7 +255,7 @@ router.post("/userImage", upload.single("image"), async (req, res) => {
           url: `https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/${Key}`,});
       });
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       res
         .status(500)
         .json({ message: "Server error occurred while updating user profile" });
@@ -202,30 +267,31 @@ router.post("/userImage", upload.single("image"), async (req, res) => {
 
 router.post("/userUpdate", async (req, res) => {
   try {
-    const { username, email, firstName, lastName } = req.body; // assuming these are the fields the user can update
+    const { username, email, info, firstName, lastName } = req.body; // assuming these are the fields the user can update
 
     let user = jwtVerify(req);
 
-    console.log("user = ", user.user)
+    //console.log("user = ", user.user)
 
     let id = user.user._id
 
     let details = await User.findOne({_id: id})
 
-    console.log("details = ", details)
+    //console.log("details = ", details)
 
     details.firstName = firstName
     details.lastName = lastName
+    details.info = info
 
     details.save()
 
-    console.log("details = ", details)
+    //console.log("details = ", details)
       res
         .status(201)
         .json({ message: "User profile updated successfully" });
     }
   catch(err){
-    console.log(err);
+    //console.log(err);
   }
 });
 
@@ -260,7 +326,7 @@ router.post("/resetPassword", async(req, res)=>{
       res.status(200).send("registered")
     }
     catch(err){
-      console.log("Err = ", err)
+      //console.log("Err = ", err)
     }
   });
 })
@@ -268,14 +334,14 @@ router.post("/resetPassword", async(req, res)=>{
 router.post("/changePassword", async (req,res)=>{
   let token = jwtVerify(req);
 
-  console.log("user = ", token.user)
+  //console.log("user = ", token.user)
   let id = token.user._id
   
   let user = await User.findOne({_id: id})
-  console.log("pass = ", user.password)
+  //console.log("pass = ", user.password)
   bcrypt.compare(req.body.old_password, user.password).then(function(result) {
     // result == true
-    console.log("result = ", result)
+    //console.log("result = ", result)
     if (result==true){
       bcrypt.hash(req.body.new_password, 8, function(err, hash) {
           if(err){
@@ -310,3 +376,86 @@ router.post("/decrypt", async (req,res)=>{
 })
 
 module.exports = router;
+
+router.get("/duplicates", async (req, res)=>{
+  let users = await User.find()
+  let list = []
+  
+  for (let i in await users){
+    //console.log("i = ", i)
+    if (list.includes(users[i].email)){
+      console.log("duplicate", users[i]._id, users[i].email, users[i].username)
+      users[i].delete()
+    }
+    else{
+      list.push(users[i].email)
+    }
+  }
+  let users2 = await User.find()
+  let list2 = []
+  
+  for (let i in await users2){
+    //console.log("i = ", i)
+    if (list.includes(users2[i].username)){
+      console.log("duplicate", users2[i]._id, users2[i].email, users2[i].username)
+      users2[i].delete()
+    }
+    else{
+      list.push(users2[i].username)
+    }
+  }
+  //console.log("users = ", await users)
+  return res.json([list, list2])
+})
+
+
+router.get("/analyzeReferrals", async (req,res)=> {
+  const pageSize = 10;
+  const pageNumber = req.query.pageNumber;
+
+  const userid = req.query.user_id
+
+  let searchArray = {referralArray: { $exists: true, $not: {$size: 0} }}
+
+  if (userid){
+    const user_id = decrypt(userid)
+    searchArray["userId"] = user_id
+  }
+
+  Referral.aggregate([
+    { $match: searchArray },
+    { $sort: { createdAt: -1 } },
+    { $skip: pageSize * (pageNumber - 1) },
+    { $limit: pageSize },
+    { $group: { _id: null, count: { $sum: 1 }, items: { $push: "$$ROOT" } } },
+  ]).exec((err, results) => {
+    if (err) {
+      res.status(400).json(err)
+    }
+    try{
+      let { count, items } = results[0];
+      const totalPages = Math.ceil(count / pageSize);
+      for (let i in items){
+        console.log("items at i = ", i, items[i])
+        items[i].userId = encrypt(items[i].userId)
+        for (let j in items[i].referralArray){
+          console.log("items[i].referralArray[j] = ", items[i].referralArray[j])
+          try{
+            items[i].referralArray[j] = items[i].referralArray[j].email
+          }
+          catch(err){
+            continue
+          }
+        }
+      }
+      res.status(200).json({
+        items,
+        totalPages,
+        currentPage: pageNumber,
+      });
+    }
+    catch(err){
+      res.json(err).status(400)
+    }
+  });
+})

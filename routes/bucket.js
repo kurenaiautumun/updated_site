@@ -16,11 +16,11 @@ const s3 = new S3Client({
 const upload = multer(multer.memoryStorage());
 
 router.post("/image", upload.single("image"), async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
 
   let token = jwtVerify(req);
 
-  console.log("user = ", token.user)
+  //console.log("user = ", token.user)
   let userId = token.user._id
 
   if (userId == undefined || req.body.blogId == undefined) {
