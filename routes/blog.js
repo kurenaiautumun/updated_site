@@ -136,6 +136,31 @@ router.post("/blog/viewcount", async (req, res) => {
   
 });
 
+router.get('/updateReadingTime', async (req, res) => {
+  try {
+    // Calculate total time spent for each blog
+    const timeSpentByBlog = await viewAnalysis.aggregate([
+      {
+        $group: {
+          _id: '$blogId',
+          totalTimeSpent: { $sum: '$time' },
+        },
+      },
+    ]);
+
+    // Update the Blog model with the total time spent for each blog
+    for (const { _id: blogId, totalTimeSpent } of timeSpentByBlog) {
+      await Blog.findByIdAndUpdate(blogId, { totalTimeSpent });
+    }
+
+    res.json({ message: 'Total time spent updated for blogs' });
+  } catch (error) {
+    console.error('Error updating total time spent:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 router.post("/newblog", async (req, res) => {
   const {title, body, views, status, titleImage} = req.body;
   let token = jwtVerify(req);
