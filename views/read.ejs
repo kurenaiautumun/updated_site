@@ -1332,8 +1332,19 @@
     }
 
     let publicity = 0
+    const dailyViewLimit = 10;
+    let lastViewedDate = null;
 
     async function viewCount(){
+
+        const currentDate = new Date().toDateString();
+        if (lastViewedDate !== currentDate) {
+            lastViewedDate = currentDate;
+            viewCount = 0;
+        }
+
+        if (viewCount < dailyViewLimit) {
+          viewCount++;
         let blogId = await getParams()
         const token = localStorage.getItem("token")
         let data = await fetch(`/blog/viewCount?blogId=${await blogId}`, {
@@ -1348,13 +1359,13 @@
                 "totalTime": totalTime
             })
         })
-
         let res = await data.json()
         console.log(res)
         console.log(res["message"]=="view increased")
         if (res["message"]=="view increased"){
             viewIncreased = 1
         }
+    }
     }
 
     let viewIncreased = 0

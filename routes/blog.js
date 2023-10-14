@@ -34,8 +34,6 @@ router.get("/blog", (req, res) => {
   });
 });
 
-const dailyViewLimit = 5;
-let lastViewedDate = null;
 
 router.post("/blog/viewcount", async (req, res) => {
   let user = jwtVerify(req);
@@ -106,17 +104,9 @@ router.post("/blog/viewcount", async (req, res) => {
   msg = "keep reading"
   let http_status = 200
 
-  const currentDate = new Date().toDateString();
-
-  if (lastViewedDate !== currentDate) {
-
-    lastViewedDate = currentDate;
-    viewCount = 0;
-  }
   ////console.log("monthly views = ", await viewsMonth)
   ////console.log(blog.readTime*60, totalTime)
-  if (viewCount < dailyViewLimit) {
-    viewCount++;
+  
   
     if (blog.readTime!=null){
     //console.log(blog.readTime*60 < totalTime)
@@ -144,7 +134,6 @@ router.post("/blog/viewcount", async (req, res) => {
   //});
   ////console.log("before error")
   
-}
 });
 
 router.post("/newblog", async (req, res) => {
