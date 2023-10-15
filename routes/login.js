@@ -199,6 +199,16 @@ router.post("/login", function (req, res) {
                 res.status(400).json("Wrong Username/Email or Password Combination")
               }
             });
+            try{
+              let ip_analysis = ipSetTable({
+                userId: user._id,
+                ip: req.ip
+              })
+              ip_analysis.save()
+            }
+            catch(err){
+              console.log("IP could not be caught")
+            }
         }
         );
 });
