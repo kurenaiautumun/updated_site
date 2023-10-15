@@ -19,6 +19,8 @@ const s3 = new S3Client({
   },
 });
 
+const crypto = require("crypto");
+
 const upload = multer(multer.memoryStorage());
 
 //Referrer-Policy: no-referrer-when-downgrade. for google login localhost
@@ -45,6 +47,16 @@ router.post("/googleLogin", upload.single("image"), async function(req, res){
 
   if(user){
     //console.log("user found")
+    try{
+      let ip_analysis = await ipSetTable({
+        userId: await user._id,
+        ip: req.ip
+      })
+      ip_analysis.save()
+    }
+    catch(err){
+      console.log("IP could not be caught")
+    }
     msg = 0
   }
   else{
