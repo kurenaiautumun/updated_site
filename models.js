@@ -69,7 +69,7 @@ const competitionSchema = new mongoose.Schema({
   competitionName: String,
   blogId: Array,
   threshold: Number,
-  prize: Number,
+  prize: Array,
   status: String,
   startDate: String,
   endDate: String,
@@ -80,7 +80,7 @@ const rankingSchema = new mongoose.Schema({
   blogId: String,
   viewCount: { type: Number, default: 0 },
   competitionId: String,
-  rank: String,
+  rank: Number,
   qulified: Boolean,
 });
 
