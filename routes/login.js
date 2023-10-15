@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
-const { User, Referral, socialReg, socialShare} = require("../models.js");
+const { User, Referral, socialReg, socialShare, ipSetTable} = require("../models.js");
 
 const multer = require("multer");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
@@ -124,6 +124,16 @@ router.post("/googleLogin", upload.single("image"), async function(req, res){
       }
       catch(err){
         console.log("New visitor")
+      }
+      try{
+        let ip_analysis = ipSetTable({
+          userId: registeredUser._id,
+          ip: req.ip
+        })
+        ip_analysis.save()
+      }
+      catch(err){
+        console.log("IP could not be caught")
       }
         res.status(201).json(user);
     }
