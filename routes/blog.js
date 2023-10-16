@@ -111,7 +111,7 @@ router.post("/blog/viewcount", async (req, res) => {
     if (blog.readTime!=null){
     //console.log(blog.readTime*60 < totalTime)
     //console.log(blog.readTime*120 > totalTime)
-    if ((blog.readTime*60 < totalTime) & (blog.readTime*60 + 30 > totalTime)){
+    if (((blog.readTime)*60 < totalTime) & ((blog.readTime)*60 + 30 > totalTime)){
       viewsMonth.viewCount += 1
       blog.viewCount += 1
       msg = "view increased"
@@ -136,9 +136,8 @@ router.post("/blog/viewcount", async (req, res) => {
   
 });
 
-router.get('/updateReadingTime', async (req, res) => {
+router.post('/updateReadingTime', async (req, res) => {
   try {
-    // Calculate total time spent for each blog
     const timeSpentByBlog = await viewAnalysis.aggregate([
       {
         $group: {
@@ -148,8 +147,8 @@ router.get('/updateReadingTime', async (req, res) => {
       },
     ]);
 
-    // Update the Blog model with the total time spent for each blog
     for (const { _id: blogId, totalTimeSpent } of timeSpentByBlog) {
+      console.log(timeSpentByBlog);
       await Blog.findByIdAndUpdate(blogId, { totalTimeSpent });
     }
 

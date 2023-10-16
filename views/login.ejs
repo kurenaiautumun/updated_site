@@ -163,7 +163,6 @@
       let user_req = await data
       let user = await user_req.json()
 
-<<<<<<< HEAD
       console.log(user.userId)
 
       console.log("status = ", user_req.status)
@@ -173,18 +172,8 @@
         localStorage.setItem("user", user["user"]._id);
 
         localStorage.setItem("userId",user["userId"]);
-=======
-      console.log(user)
-      console.log(user["user"])
-      console.log(user["user"])
-      //console.log("status = ", user_req.status)
-      if (user_req.status==200){
-        localStorage.setItem("token", user["token"]);
-
-        localStorage.setItem("user", user["user"]);
->>>>>>> 477e9dd77c6d24df1eed09c8900e80e4d064eeee
         
-        //window.location.href = "/";
+        window.location.href = "/";
       }
       else{
         alert(user)
@@ -278,13 +267,8 @@
 
   function setWriteBlog(){
       let doc = document.getElementById("write_blog")
-<<<<<<< HEAD
       console.log(localStorage.getItem("user"))
       if (localStorage.getItem("userId")){
-=======
-      //console.log(localStorage.getItem("user"))
-      if (localStorage.getItem("user")){
->>>>>>> 477e9dd77c6d24df1eed09c8900e80e4d064eeee
           let elem = `
           <a class="nav_manu_link write_nav_btn r-flex ali-c">
               <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
