@@ -147,17 +147,20 @@ router.post('/updateReadingTime', async (req, res) => {
       },
     ]);
 
+    const updatedBlogs = [];
+
     for (const { _id: blogId, totalTimeSpent } of timeSpentByBlog) {
-      console.log(timeSpentByBlog);
-      await Blog.findByIdAndUpdate(blogId, { totalTimeSpent });
+      // console.log(timeSpentByBlog);
+      updatedBlogs.push({ blogId, totalTimeSpent });
     }
 
-    res.json({ message: 'Total time spent updated for blogs' });
+    res.json({ message: 'Total time spent for blogs', updatedBlogs });
   } catch (error) {
     console.error('Error updating total time spent:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 
 router.post("/newblog", async (req, res) => {
@@ -335,5 +338,9 @@ router.post("/category/:tag", async (req, res)=>{
 router.get("/category/:tag", async (req, res)=>{
   res.render("blog-category")
 })
+
+router.get("/viewAnalysis", (req, res) => {
+  res.render("viewAnalytics");
+});
 
 module.exports = router;
