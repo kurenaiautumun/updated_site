@@ -218,8 +218,14 @@
                 class="blog-content"
                 style="margin-left: 10px"
               ></div>
+              
               <div
                 id="blog_content_3"
+                class="blog-content"
+                style="margin-left: 10px"
+              ></div>
+              <div
+                id="blog_content_4"
                 class="blog-content"
                 style="margin-left: 10px"
               ></div>
@@ -237,10 +243,49 @@
                 );
               </script>
               <div
-                id="blog_content_4"
+                id="blog_content_5"
                 class="blog-content"
                 style="margin-left: 10px"
-              ></div>
+            ></div>
+            <div
+                id="blog_content_6"
+                class="blog-content"
+                style="margin-left: 10px"
+            ></div>
+            <script type="text/javascript">
+                  atOptions = {
+                    key: "cbc8912d5c986baf72016d8e102b0744",
+                    format: "iframe",
+                    height: 60,
+                    width: 468,
+                    params: {},
+                  };
+                  document.write(
+                    "<scr" +
+                      'ipt type="text/javascript" src="//www.profitablecreativeformat.com/cbc8912d5c986baf72016d8e102b0744/invoke.js"></scr' +
+                      "ipt>"
+                  );
+                </script>
+
+            <div
+                id="blog_content_7"
+                class="blog-content"
+                style="margin-left: 10px"
+            ></div>
+            <script type="text/javascript">
+                atOptions = {
+                  key: "075f68f2098c554a350b17f15257ab84",
+                  format: "iframe",
+                  height: 50,
+                  width: 320,
+                  params: {},
+                };
+                document.write(
+                  "<scr" +
+                    'ipt type="text/javascript" src="//www.profitablecreativeformat.com/075f68f2098c554a350b17f15257ab84/invoke.js"></scr' +
+                    "ipt>"
+                );
+              </script>
 
               <!--sharing buttons-->
               <div class="sharing_btns_box">
@@ -605,9 +650,9 @@
         let cont = document.getElementById("blog_content_1");
         for (let i in data) {
           count += 1;
-          if (count > 2) {
+          if (count > 1) {
             count = 0;
-            if (block < 5) {
+            if (block < 8) {
               block += 1;
             }
             cont = document.getElementById(`blog_content_${block}`);
