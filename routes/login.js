@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+// const [encrypt, decrypt] = require('./encrypt.js');
 
 const { User, Referral, socialReg, socialShare, ipSetTable} = require("../models.js");
 
@@ -188,23 +189,20 @@ router.post("/login", function (req, res) {
     username: req.body.username,
     password: req.body.password,
   });
-  //console.log("user = ", user)
+  console.log("user = ", user)
         User.findOne(
           { $or: [{ username: user.username }, { email: user.username }] },
           (err, user) => {
-            //console.log("user = ", user)
-            //console.log("password = ", user.password)
+            console.log("user = ", user)
+            console.log("password = ", user.password)
             bcrypt.compare(req.body.password, user.password).then(function(result) {
               // result == true
               //console.log("result = ", result)
               if (result==true){
                 jwt.sign({ user: user }, "secretkey", (err, token) => {
-                  //console.log("token = ", token)
-                  //let n_user = user
-                  //n_user._id = encrypt(n_user._id)
-                  console.log(user)
-                  //console.log(encrypt(n_user._id))
-                res.status(200).json({"user": encrypt(user._id), "token": token});
+                  console.log("token = ", token)
+                  user._id = encrypt(user._id)
+                res.status(200).json({"user": user, "token": token});
               });
               }
               else{

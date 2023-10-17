@@ -34,6 +34,7 @@ router.get("/blog", (req, res) => {
   });
 });
 
+
 router.post("/blog/viewcount", async (req, res) => {
   let user = jwtVerify(req);
   console.log("in viewCount")
@@ -102,12 +103,15 @@ router.post("/blog/viewcount", async (req, res) => {
   }
   msg = "keep reading"
   let http_status = 200
+
   ////console.log("monthly views = ", await viewsMonth)
   ////console.log(blog.readTime*60, totalTime)
-  if (blog.readTime!=null){
+  
+  
+    if (blog.readTime!=null){
     //console.log(blog.readTime*60 < totalTime)
     //console.log(blog.readTime*120 > totalTime)
-    if ((blog.readTime*60 < totalTime) & (blog.readTime*60 + 30 > totalTime)){
+    if (((blog.readTime)*60 < totalTime) & ((blog.readTime)*60 + 30 > totalTime)){
       viewsMonth.viewCount += 1
       blog.viewCount += 1
       msg = "view increased"
@@ -131,6 +135,30 @@ router.post("/blog/viewcount", async (req, res) => {
   ////console.log("before error")
   
 });
+
+router.post('/updateReadingTime', async (req, res) => {
+  try {
+    const timeSpentByBlog = await viewAnalysis.aggregate([
+      {
+        $group: {
+          _id: '$blogId',
+          totalTimeSpent: { $sum: '$time' },
+        },
+      },
+    ]);
+
+    for (const { _id: blogId, totalTimeSpent } of timeSpentByBlog) {
+      console.log(timeSpentByBlog);
+      await Blog.findByIdAndUpdate(blogId, { totalTimeSpent });
+    }
+
+    res.json({ message: 'Total time spent updated for blogs' });
+  } catch (error) {
+    console.error('Error updating total time spent:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 router.post("/newblog", async (req, res) => {
   const {title, body, views, status, titleImage} = req.body;

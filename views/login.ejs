@@ -163,14 +163,15 @@
       let user_req = await data
       let user = await user_req.json()
 
-      console.log(user)
-      console.log(user["user"])
-      console.log(user["user"])
-      //console.log("status = ", user_req.status)
+      console.log(user.userId)
+
+      console.log("status = ", user_req.status)
       if (user_req.status==200){
         localStorage.setItem("token", user["token"]);
 
-        localStorage.setItem("user", user["user"]);
+        localStorage.setItem("user", user["user"]._id);
+
+        localStorage.setItem("userId",user["userId"]);
         
         window.location.href = "/";
       }
@@ -266,8 +267,8 @@
 
   function setWriteBlog(){
       let doc = document.getElementById("write_blog")
-      //console.log(localStorage.getItem("user"))
-      if (localStorage.getItem("user")){
+      console.log(localStorage.getItem("user"))
+      if (localStorage.getItem("userId")){
           let elem = `
           <a class="nav_manu_link write_nav_btn r-flex ali-c">
               <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -290,7 +291,7 @@
 
   function setProfile(){
       let doc = document.getElementById("profile_image")
-      if (localStorage.getItem("user")){
+      if (localStorage.getItem("userId")){
           let elem = `
           <a class="nav_manu_link" onclick="changeClass()">
               <img style="max-height: 30px;" src="user-bg.png">
@@ -321,8 +322,10 @@
 
       //console.log("res = ", res)
 
+      // localStorage.clear();
       localStorage.removeItem("user")
       localStorage.removeItem("token")
+      localStorage.removeItem("userId");
 
       window.location.href = "/"
   }

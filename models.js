@@ -40,7 +40,11 @@ const blogSchema = new mongoose.Schema({
   likes: Array,
   recommendation: Array,
   titleImage: String,
-  slot:{type:String,default:0}
+  slot:{type:String,default:0},
+  totalTimeSpent:{
+    type:Number,
+    default:0
+  }
 });
 
 const commentSchema = new mongoose.Schema({
