@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- share Metas -->
+    <meta
+      property="og:url"
+      content="http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="When Great Minds Don’t Think Alike" />
+    <meta
+      property="og:description"
+      content="How much does culture influence creative thinking?"
+    />
+    <meta
+      property="og:image"
+      content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"
+    />
+
+    <!-- Site Metas -->
+    <title>Cloapedia - Stylish Magazine Blog Template</title>
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+
+    <!-- css -->
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/blog.css" />
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+
+    <style>
+      .cdx-list__item {
+        list-style-type: revert;
+      }
+      .ce-block__content,
+      .ce-toolbar__content {
+        max-width: unset;
+        margin-left: 0%;
+      }
+    </style>
+
+    <!--Editor js scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/blog.css" />
+
+    <style>
+      .cdx-list__item {
+        margin-left: 10px;
+        list-style-type: revert;
+      }
+
+      .mystyle {
+        width: 100%;
+        color: var(--white);
+        font-size: 25px;
+        box-sizing: border-box;
+        display: block;
+        transition: all 0.5s ease-out;
+        top: 0px;
+        transition: all 0.5s ease-in-out;
+        transform: scale(1);
+        z-index: 3;
+        left: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #ffffff;
+      }
+      .close_nav_berger {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        z-index: 10;
+        display: none;
+      }
+      .open_nav_burger {
+        display: none;
+      }
+      @media (max-width: 920px) {
+        .close_nav_berger,
+        .open_nav_burger {
+          display: block;
+          cursor: pointer;
+        }
+      }
+
+      @media (max-width: 850px) {
+        .ads_right_blog_side {
+          position: inherit;
+          margin: 20px 0px;
+          background-color: #ffffff;
+        }
+      }
+    </style>
+
+<style>
+    /* Center the table on the page */
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 80%; /* Adjust the width as needed */
+    }
+
+    th {
+        background-color: #007BFF;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #d3d3d3;
+    }
+</style>
+  </head>
+  <body>
+    <%- include('./partials/header') %>
+
+    <main>
+        <table id="blogTable">
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Blog ID</th>
+                    <th>Total Time Spent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be added here -->
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Core JavaScript
+    ================================================== -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+      async function loadData(data) {
+        let block = 1;
+        let count = 0;
+        data = data.blocks;
+        ////console.log(cont)
+        let wordCount = 0;
+        console.log("data =", data);
+        let cont = document.getElementById("blog_content_1");
+        for (let i in data) {
+          count += 1;
+          if (count > 2) {
+            count = 0;
+            if (block < 5) {
+              block += 1;
+            }
+            cont = document.getElementById(`blog_content_${block}`);
+          }
+          let elem;
+          let div = document.createElement("div");
+          ////console.log(i)
+          ////console.log(data[i])
+          if (data[i].type == "header") {
+            elem = `<h${data[i].data.level} id="${data[i].id}">${data[i].data.text}</h${data[i].data.level} style="margin-bottom:10px;">`;
+          } else if (data[i].type == "paragraph") {
+            wordCount = wordCount + data[i].data.text.split(" ").length;
+            elem = `<p class="ce-paragraph" id="${data[i].id}" style="margin-bottom:10px;">${data[i].data.text}</p>`;
+          } else if (data[i].type == "image") {
+            elem = `<img id="${data[i].id}" src="${data[i].data.url}" style="margin-bottom:10px; display:block; background-color:grey; max-width:500px; max-height:400px; display: block;margin-left: auto;margin-right: auto;">`;
+          } else if (data[i].type == "list") {
+            if (data[i].data.style == "unordered") {
+              elem = '<ul style="margin-left: 30px">';
+              let items = "";
+              for (let l in data[i].data.items) {
+                elem =
+                  elem +
+                  `
+                                <li style="margin-left: 10px" class="cdx-list__item">${data[i].data.items[l]}</li>
+                            `;
+              }
+              elem = elem + "</ul>";
+            } else {
+              elem = '<ol style="margin-left: 30px">';
+              let items = "";
+              for (let l in data[i].data.items) {
+                elem =
+                  elem +
+                  `
+                                <li style="margin-left: 10px" class="cdx-list__item">${data[i].data.items[l]}</li>
+                            `;
+              }
+              elem = elem + "</ol>";
+            }
+          }
+          div.innerHTML = elem;
+          ////console.log(div)
+
+          cont.append(div);
+        }
+        ////console.log("word count = ", wordCount)
+        //wordCount = ((wordCount/250)).toString() + "000"
+        //
+        //document.getElementById("wordCount").innerHTML = wordCount.slice(0,3)
+        ////console.log("word count = ", wordCount/250, "mins")
+      }
+
+      function burgerFuncation() {
+        var element = document.getElementById("myNAV");
+        element.classList.toggle("mystyle");
+        document.body.classList.toggle("noscroll");
+      }
+
+      function ImageUploaded(e) {
+        ////console.log(e.files)
+        ////console.log(e.id)
+        let body = new FormData();
+        body.append("blogId", "6437cf61159891149608d102");
+        body.append("userId", "641be792bacccc03c37fc0e4");
+        body.append("image", e.files[0]);
+        fetch("/image", {
+          method: "POST",
+          body: body,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            ////console.log(data);
+            elem = document.getElementById("image_" + e.id);
+            ////console.log(elem)
+            elem.src = data.url;
+          })
+          .catch((err) => {
+            ////console.log(err)
+          });
+      }
+
+      class SimpleImage {
+        static get toolbox() {
+          return {
+            title: "Image",
+            icon: '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z"/></svg>',
+          };
+        }
+        constructor({ data }) {
+          ////console.log(data.url)
+          if (data.url) {
+            this.data = data.url;
+          } else {
+            this.data = "";
+          }
+        }
+
+        render() {
+          var uid =
+            Date.now().toString(36) + Math.random().toString(36).substr(2);
+          var div = document.createElement("div");
+
+          div.innerHTML =
+            '<input type="file" id="' +
+            uid +
+            '" onChange="ImageUploaded(this)" hidden/>' +
+            '<label style="text-align: center;" for="' +
+            uid +
+            '"><img src="' +
+            this.data +
+            '" id=' +
+            "image_" +
+            uid +
+            " ></img></label>";
+          var i = i + 1;
+          return div;
+        }
+
+        save(blockContent) {
+          ////console.log(blockContent.getElementsByTagName('img')[0])
+          var img = blockContent.getElementsByTagName("img")[0];
+          return {
+            url: img.src,
+          };
+        }
+      }
+      function saveEditor() {
+        editor.save().then((output) => {
+          ////console.log('Data: ', output);
+          const blog = {
+            id: "6437cf61159891149608d102",
+            body: output,
+            title: document.getElementById("title").innerHTML,
+            // "cleanHtml(document.getElementById("BlogTitle").innerHTML),"
+            titleImage: document.getElementById("titleImage").src,
+            tags: getTags(),
+          };
+          ////console.log(blog)
+          saveData(blog);
+          alert("Blog submitted for review");
+        });
+
+        // .catch((err) => {
+        //   //////console.error(err);
+        //   toast.error("Blog not published.Please login again")
+        // });)
+        // .catch((error) => {
+        //     ////console.log('Saving failed: ', error)
+        // });
+      }
+
+      function saveData(blog) {
+        fetch(`/updateBlog`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(blog),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            //////console.log("blog = ", blog)
+            //////console.log(data);
+            if (data.message) {
+              ////console.log(data.message);
+            }
+          });
+      }
+
+      var editor = null;
+
+      function editorJS(blogBody, user_id) {
+        const editor = new EditorJS({
+          holder: "editorjs",
+          data: blogBody,
+          readOnly: true,
+          tools: {
+            header: Header,
+            delimiter: Delimiter,
+            paragraph: {
+              class: Paragraph,
+              inlineToolbar: true,
+            },
+
+            table: {
+              class: Table,
+              inlineToolbar: true,
+              config: {
+                rows: 2,
+                cols: 3,
+              },
+            },
+
+            list: {
+              class: NestedList,
+              inlineToolbar: true,
+              config: {
+                defaultStyle: "unordered",
+              },
+            },
+
+            quote: {
+              class: Quote,
+              inlineToolbar: true,
+              shortcut: "CMD+SHIFT+O",
+              config: {
+                quotePlaceholder: "Enter a quote",
+                captionPlaceholder: "Quote's author",
+              },
+            },
+
+            underline: Underline,
+
+            inlineCode: {
+              class: InlineCode,
+              shortcut: "CMD+SHIFT+M",
+            },
+
+            code: CodeTool,
+
+            Marker: {
+              class: Marker,
+              shortcut: "CMD+SHIFT+M",
+            },
+
+            image: SimpleImage,
+            //list: {
+            //  class: List,
+            //  inlineToolbar: true,
+            //  config: {
+            //    defaultStyle: 'unordered'
+            //  }
+            //},
+          },
+        });
+
+        return editor;
+      }
+
+      let options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      };
+
+      function generateRandomColor() {
+        let maxVal = 0xffffff; // 16777215
+        let randomNumber = (Math.random() * 0.5 + 0.5) * maxVal;
+        randomNumber = Math.floor(randomNumber);
+        randomNumber = randomNumber.toString(16);
+        let randColor = randomNumber.padStart(6, 0);
+        return `#${randColor.toUpperCase()}`;
+      }
+
+      function getTags() {
+        elem = document.getElementsByClassName("tag");
+        ////console.log(elem[0])
+        var list_tags = [];
+        for (i in elem) {
+          ////console.log(elem[i])
+          if (elem[i].value) {
+            list_tags.push(elem[i].value);
+          }
+        }
+        ////console.log(list_tags)
+        return list_tags;
+      }
+
+      function setTags(tags) {
+        div = document.getElementById("add_tags");
+        for (i in tags) {
+          new_tag =
+            "<input value=" +
+            tags[i] +
+            ' class="tag" placeholder="Tag #1" type="text" style="border:none; text-align: center; height:15px; width: 70px; border-radius:3px; background-color:' +
+            generateRandomColor() +
+            '; color: white" onSubmit=newTags(this)>';
+          new_div = document.createElement("div");
+          new_div.style.width = "70px";
+          new_div.style.display = "inline";
+          new_div.style.margin = "5px";
+          new_div.innerHTML = new_tag;
+          // convert html string into DOM
+          div.parentElement.insertBefore(new_div, div);
+        }
+      }
+
+      function removeTag(e) {
+        let elem = e;
+        ////console.log(elem)
+        ////console.log(elem.previousSibling)
+        elem.previousSibling.remove();
+        elem.remove();
+      }
+
+      function newTags(e) {
+        ////console.log(e)
+        new_tag =
+          '<input class="tag" placeholder="Tag #1" type="text" style="border:none; text-align: center; height: 15px; width: 70px; border-radius:3px; background-color:' +
+          generateRandomColor() +
+          '; color: white" onSubmit=newTags(this)>';
+        ////console.log(e.parentElement)
+        new_div = document.createElement("div");
+        new_div.style.width = "70px";
+        new_div.style.display = "inline";
+        new_div.style.margin = "5px";
+        new_div.innerHTML = new_tag;
+        const parser = new DOMParser();
+
+        // convert html string into DOM
+        e.parentElement.insertBefore(new_div, e);
+      }
+
+      async function setTitleImage(e) {
+        if (e.files) {
+          //////console.log("files = ", e.target.files[0])
+          let body = new FormData();
+          body.append("blogId", "6437cf61159891149608d102");
+          body.append("userId", "641be792bacccc03c37fc0e4");
+          body.append("image", e.files[0]);
+
+          fetch(`/titleImage`, {
+            method: "POST",
+            body: body,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              ////console.log(data);
+              elem = document.getElementById("titleImage");
+              elem.src = data.file.url;
+              //////console.log("url image of uploaded = ", data.file);
+            })
+            .catch((err) => {
+              ////console.error(err);
+              toast.error("Blog not published.Please login again");
+            });
+        }
+      }
+
+      $("h3[contenteditable]").keypress(function (evt) {
+        ////console.log("key pressed")
+
+        var keycode = evt.charCode || evt.keyCode;
+        if (keycode == 13) {
+          //Enter key's keycode
+          return false;
+        }
+      });
+
+      (async function call() {
+        blogId = await getParams();
+        ////console.log(blogId)
+        await fetch(`/blog?blogId=${await blogId}`, options)
+          .then(function (response) {
+            // ////console.log(response.json())
+            return response.json();
+          })
+          .then(function (jsonData) {
+            //console.log(jsonData.blog)
+            jsonData = jsonData.blog;
+
+            titleImage = document.getElementById("titleImage");
+            titleImage.src = jsonData[0]["titleImage"];
+            title = document.getElementById("title");
+            title.innerHTML = jsonData[0]["title"];
+            //console.log("title = ", jsonData[0]["title"])
+            document.title = jsonData[0]["title"];
+            document.getElementById("likes").innerHTML =
+              jsonData[0]["viewCount"];
+            document.getElementById("publish_date").innerHTML = date_string(
+              jsonData[0]["date"]
+            );
+            setTags(jsonData[0].tags);
+            //console.log("user = ", jsonData[0].userId)
+            authorDetails(jsonData[0].userId);
+
+            ////console.log("body=  ", jsonData[0].body);
+            if (jsonData[0].body !== null) {
+              editor = loadData(jsonData[0].body);
+            } else {
+              editor = loadData([]);
+            }
+            changeMeta(jsonData[0]);
+            document.getElementById("wordCount").innerHTML =
+              jsonData[0].readTime.toString().slice(0, 3);
+          });
+      })();
+
+      var authorName = "";
+      function userData(url) {
+        fetch(url, options)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            ////console.log(data.userInfo.body)
+            elem = document.getElementById("author_name");
+            elem.innerHTML = data.userInfo.body.name;
+            authorName = data.userInfo.body.name;
+          });
+      }
+
+      function changeMeta(data) {
+        document
+          .querySelector('meta[property="og:url"]')
+          .setAttribute("content", window.location.href);
+        document
+          .querySelector('meta[property="og:title"]')
+          .setAttribute("content", data["title"]);
+        document
+          .querySelector('meta[property="og:image"]')
+          .setAttribute("content", data["titleImage"]);
+        setTimeout(changeDesc, 3000);
+      }
+
+      function changeDesc() {
+        meta = document.getElementsByClassName("ce-paragraph")[0];
+        ////console.log(meta)
+        document
+          .querySelector('meta[property="og:description"]')
+          .setAttribute("content", meta.innerHTML);
+      }
+
+      async function randomBlogs() {
+        let req = await fetch(`/randomBlogs?size=2`, {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        });
+        let data = await req.json();
+
+        data = data.blog;
+
+        ////console.log("data = ", data)
+
+        text = document.getElementsByClassName("left_prev_box");
+        ////console.log(text)
+
+        images = document.getElementsByClassName("right_prev_box");
+        ////console.log(images)
+
+        for (let i in data) {
+          ////console.log(i)
+          ////console.log(text[i].children[0])
+          text[
+            i
+          ].children[0].innerHTML = `<a href=read?blogId=${data[i]._id}>${data[i].title}</a>`;
+
+          ////console.log(images[i].children[0])
+          images[i].children[0].src = data[i].titleImage;
+        }
+      }
+
+      //userData("http://localhost:3000/userinfo/63f621a7b474349f41946e78");
+      //editorJS([]);
+
+      function date_string(date) {
+        parts = date.split("/");
+
+        //console.log("parts = ", parts)
+
+        let months = {
+          1: "Jan",
+          2: "Feb",
+          3: "Mar",
+          4: "April",
+          5: "May",
+          6: "June",
+          7: "July",
+          8: "Aug",
+          9: "Sept",
+          10: "Oct",
+          11: "Nov",
+          12: "Dec",
+        };
+        return `${parts[0]} ${months[parts[1]]} ${parts[2]}`;
+      }
+
+      randomBlogs();
+      function addRecent(data) {
+        ////console.log(screen.height)
+        let cont = document.createElement("div");
+        cont.className = "recent_right_blog_box r-flex ali-c";
+        let height;
+        if (screen.height < 800) {
+          height = (screen.height * 4) / 25;
+        } else {
+          height = screen.height / 27;
+        }
+        let blog = `
+            
+                <div class="recent_rght_blog_post_img"><img style="height: ${height}px;" src=${
+          data["titleImage"]
+        } alt=""></div>
+                <div class="recent_blog_cont_box">
+                    <div class="recent_blog_box_heading"><a style="color:black" href=read?blogId=${
+                      data["_id"]
+                    }>${data["title"]}</a></div>
+                    <div class="recent_right_blog_post_time">${date_string(
+                      data["date"]
+                    )}</div>
+                </div>
+            `;
+        cont.innerHTML = blog;
+        cont.style.width = "400px";
+        ////console.log(cont)
+        let holder = document.getElementsByClassName(
+          "main_hading_right_recent_post"
+        )[0];
+        holder.append(cont);
+      }
+
+      function addRecommendations(data) {
+        ////console.log(screen.height)
+        let cont = document.createElement("div");
+        cont.className = "blog_also_blog";
+        let height;
+        if (screen.height < 800) {
+          height = (screen.height / 5) * 2;
+        } else {
+          height = screen.height / 10;
+        }
+        let blog = `
+                    <img style="height: ${height}px;" src=${
+          data["titleImage"]
+        } alt="">
+                    <div class="blog_also_blog_heading"><a style="color:black" href=read?blogId=${
+                      data["_id"]
+                    }>${data["title"]}</a></div>
+                    <div class="alos_publice_blog r-flex ali-c">
+                        <a  >${date_string(data["date"])}</a>
+                        <span>/</span>
+                        <a  >${data["tags"]}</a>
+                    </div>`;
+        cont.innerHTML = blog;
+        ////console.log(cont)
+        let holder = document.getElementsByClassName("blog_also_box r-flex")[0];
+        holder.append(cont);
+        let ad_blog = `<div id="container-b36793dcec3a684658b5bfc833141ce3"></div>`;
+        let ad_cont = document.createElement("div");
+        ad_cont.innerHTML = ad_blog;
+        holder.append(ad_cont);
+      }
+
+      async function suggestionBlogs() {
+        let req = await fetch(`/randomBlogs?size=4`, {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        });
+        let data = await req.json();
+
+        data = data.blog;
+
+        ////console.log("data = ", data)
+
+        cont = document.getElementsByClassName("blog_also_blog");
+        ////console.log(cont)
+
+        for (let i in data) {
+          addRecommendations(data[i]);
+        }
+      }
+
+      async function RecentBlogs() {
+        let req = await fetch(`/randomBlogs?size=3`, {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        });
+        let data = await req.json();
+
+        data = data.blog;
+
+        ////console.log("data = ", data)
+
+        cont = document.getElementsByClassName("main_hading_right_recent_post");
+        ////console.log(cont)
+
+        for (let i in data) {
+          addRecent(data[i]);
+        }
+      }
+
+      RecentBlogs();
+
+      blogId = getParams();
+
+      function getParams() {
+        var idx = document.URL.indexOf("?");
+        var params = {};
+        if (idx != -1) {
+          var pairs = document.URL.substring(
+            idx + 1,
+            document.URL.length
+          ).split("&");
+          for (var i = 0; i < pairs.length; i++) {
+            nameVal = pairs[i].split("=");
+            params[nameVal[0]] = nameVal[1];
+          }
+        }
+        console.log("blogid in params" + params["blogId"]);
+        return params["blogId"];
+      }
+
+      function getReferral() {
+        var idx = document.URL.indexOf("?");
+        var params = {};
+        if (idx != -1) {
+          var pairs = document.URL.substring(
+            idx + 1,
+            document.URL.length
+          ).split("&");
+          for (var i = 0; i < pairs.length; i++) {
+            nameVal = pairs[i].split("=");
+            params[nameVal[0]] = nameVal[1];
+          }
+        }
+        ////console.log(params["blogId"])
+        return params["referral"];
+      }
+
+      suggestionBlogs();
+
+      let comment_count = 0;
+
+      async function submitForm(event) {
+        ////console.log("form submitted")
+
+        ////console.log(event)
+
+        ////console.log(localStorage.getItem("user"))
+
+        let token = localStorage.getItem("token");
+
+        const body = {
+          blogId: blogId,
+          body: event.comment.value,
+          status: "review",
+        };
+
+        ////console.log(body)
+
+        let container = document.getElementsByClassName(
+          "comments_show_box ali-c jut-c"
+        )[0];
+
+        let data = await fetch(`/newComment`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(body),
+        });
+
+        let user = await data.json();
+
+        //console.log("comment = ", user)
+
+        let comment = `
+            <div style="margin-left:0px" class="comment_user_img">
+                <img src="images/logo.png" alt="">
+            </div>
+            <div style="margin-left:0px" class="comments_right_side_show">
+                <div class="comments_show_name_and_time r-flex ali-c">
+                    <span class="comment_show_name">${user.username}</span>
+                    <span class="comment_show_time">${date_string(
+                      user.date
+                    )}</span>
+                </div>
+                <div class="comment_show_main_cont">${user.body}</div>
+                <button class="comment_cont_reply">Reply</button>
+            </div>
+        `;
+        let div = document.createElement("div");
+        div.className = "comments_show_cmt r-flex ";
+        div.style.marginLeft = "0px";
+        div.innerHTML = comment;
+        container.append(div);
+        comment_count += 1;
+        document.getElementById(
+          "no_comments"
+        ).innerHTML = `${comment_count} Comments`;
+
+        event.comment.value = "";
+
+        ////console.log(user)
+      }
+
+      async function authorDetails(user_id) {
+        const body = {
+          userId: user_id,
+        };
+        let data = await fetch("/basicUserInfo", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+
+        let author = await data.json();
+
+        setAuthor(author.user[0]);
+
+        //console.log("author = ", author)
+      }
+
+      function setAuthor(data) {
+        let cont = document.getElementsByClassName("blog_author_container")[0];
+        let block = cont.children[1];
+        //console.log(block)
+        let img = block.children[0].children[0];
+        if (data["pp"] == null) {
+          img.src =
+            "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png";
+        } else if (data["pp"] == "") {
+          img.src =
+            "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png";
+        } else {
+          img.src = data["pp"];
+        }
+        img.style.width = "100%";
+        img.style.height = "100%";
+
+        let content = block.children[1].children;
+
+        let elem = document.createElement("a");
+        elem.innerHTML = data["username"];
+        elem.href = `/author?userId=${data["_id"]}`;
+
+        content[0] = "";
+
+        content[0].append(elem); //data["username"]
+        content[1].innerHTML = data["info"];
+      }
+    </script>
+
+    <script>
+      //nav bar scripts
+      function changeClass(choice) {
+        //console.log("change class")
+        let elem = document.getElementsByClassName("dropdown-content")[0];
+        //console.log(elem.style.display)
+        if (elem.style.display == "") {
+          elem.style.display = "block";
+        } else {
+          elem.style.display = "";
+        }
+      }
+
+      async function userData() {
+        let token = localStorage.getItem("token");
+        let data = await fetch("/currentUser", {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        });
+
+        let userDetails = await data.json();
+
+        return userDetails;
+      }
+
+      async function newBlog() {
+        const token = localStorage.getItem("token");
+        const userDetails = await userData();
+
+        const blog = {
+          userId: userDetails.user._id,
+          title: "Title",
+          views: 0,
+          status: "draft",
+          titleImage:
+            "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
+          userName: userDetails.user._id,
+        };
+        let data = await fetch("/newBlog", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(blog),
+        });
+
+        let blogs = await data.json();
+
+        //console.log("data = ", blogs)
+
+        window.location.href = `/write?blogId=${blogs.blog._id}`;
+      }
+
+      function setWriteBlog() {
+        let doc = document.getElementById("write_blog");
+        //console.log(localStorage.getItem("user"))
+        if (localStorage.getItem("user")) {
+          let elem = `
+            <a class="nav_manu_link write_nav_btn r-flex ali-c">
+                <svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.847 0.543159L21.4504 1.14002C22.2818 1.9635 22.156 3.42329 21.1671 4.40053L8.72436 16.7091L4.69301 18.1679C4.18679 18.352 3.69387 18.1133 3.59365 17.6368C3.55978 17.464 3.57572 17.2852 3.63967 17.1209L5.14299 13.0986L17.551 0.823382C18.5399 -0.15386 20.0156 -0.280315 20.847 0.543159ZM8.18132 1.76724C8.31562 1.76724 8.44861 1.79341 8.57268 1.84425C8.69676 1.89509 8.80949 1.9696 8.90446 2.06354C8.99942 2.15748 9.07475 2.269 9.12614 2.39174C9.17754 2.51448 9.20399 2.64603 9.20399 2.77888C9.20399 2.91173 9.17754 3.04328 9.12614 3.16602C9.07475 3.28875 8.99942 3.40028 8.90446 3.49421C8.80949 3.58815 8.69676 3.66267 8.57268 3.71351C8.44861 3.76435 8.31562 3.79052 8.18132 3.79052H4.09066C3.54821 3.79052 3.02797 4.00368 2.64439 4.38312C2.26082 4.76256 2.04533 5.27719 2.04533 5.81379V17.9534C2.04533 18.4901 2.26082 19.0047 2.64439 19.3841C3.02797 19.7636 3.54821 19.9767 4.09066 19.9767H16.3626C16.9051 19.9767 17.4253 19.7636 17.8089 19.3841C18.1925 19.0047 18.408 18.4901 18.408 17.9534V13.9069C18.408 13.6386 18.5157 13.3813 18.7075 13.1916C18.8993 13.0018 19.1594 12.8953 19.4306 12.8953C19.7019 12.8953 19.962 13.0018 20.1538 13.1916C20.3456 13.3813 20.4533 13.6386 20.4533 13.9069V17.9534C20.4533 19.0267 20.0223 20.0559 19.2552 20.8148C18.488 21.5737 17.4476 22 16.3626 22H4.09066C3.00575 22 1.96528 21.5737 1.19813 20.8148C0.430979 20.0559 0 19.0267 0 17.9534V5.81379C0 4.74058 0.430979 3.71132 1.19813 2.95245C1.96528 2.19357 3.00575 1.76724 4.09066 1.76724H8.18132Z" fill="#ffffff"/>
+                </svg>
+                <span onclick=newBlog()>Write Blog</span>
+            </a>
+            `;
+          doc.innerHTML = elem;
+        } else {
+          let elem = `
+            <a class="nav_manu_link write_nav_btn r-flex ali-c" href="/login">
+                <span>Sign up / Sign In</span>
+            </a>
+            `;
+          doc.innerHTML = elem;
+        }
+      }
+
+      function setProfile() {
+        let doc = document.getElementById("profile_image");
+        if (localStorage.getItem("user")) {
+          let elem = `
+            <a class="nav_manu_link" onclick="changeClass()">
+                <img style="max-height: 30px;" src="user-bg.png">
+                <br>
+                <div class="dropdown-content">
+                    <div>
+                    <a class="profile_points" href="/dashboard"><div class="dropdown_a">Dashboard</div></a>
+                    </div>
+                    <a class="profile_points"  ><div class="dropdown_a" onclick="logout()">Signout</div></a>
+                </div>
+            </a>
+            `;
+          doc.innerHTML = elem;
+        }
+      }
+
+      setProfile();
+      setWriteBlog();
+
+      async function logout() {
+        let data = await fetch("/logout", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+        });
+        let res = await data.json();
+
+        //console.log("res = ", res)
+
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+
+        window.location.href = "/";
+      }
+
+      async function socialPoints() {
+        let blogId = await getParams();
+        let referral_code = await getReferral();
+        console.log("referral code = ", referral_code);
+        if (referral_code != undefined) {
+          let data = await fetch(
+            `socialPublicity?blogId=${await blogId}&referral=${await referral_code}`,
+            {
+              method: "GET",
+              headers: {
+                "content-type": "application/json",
+              },
+            }
+          );
+
+          let res = await data.json();
+        } else {
+          console.log("There was no referral code");
+        }
+        publicity = 1;
+      }
+
+      async function updateTotalTimeSpent() {
+    try {
+        const response = await fetch("/updateReadingTime", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                `Error updating total time spent. Status: ${response.status}`
+            );
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        // Get the table element and its body
+        const blogTable = document.getElementById("blogTable");
+        const tableBody = blogTable.querySelector("tbody");
+
+        // Clear any existing table rows
+        tableBody.innerHTML = '';
+
+        // Populate the table with the received data
+        data.updatedBlogs.forEach((blog, index) => {
+            const row = document.createElement("tr");
+            const serialNumberCell = document.createElement("td");
+            const blogIdCell = document.createElement("td");
+            const totalTimeSpentCell = document.createElement("td");
+
+            serialNumberCell.textContent = index + 1; // Serial number starts from 1
+            blogIdCell.textContent = blog.blogId;
+            totalTimeSpentCell.textContent = blog.totalTimeSpent / 60; // Convert to minutes
+
+            row.appendChild(serialNumberCell);
+            row.appendChild(blogIdCell);
+            row.appendChild(totalTimeSpentCell);
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error updating total time spent:", error);
+    }
+}
+
+// Call the function when the page loads
+window.addEventListener('load', updateTotalTimeSpent);
+
+
+      
+      function addingAds() {
+        //console.log("height = ", window.innerHeight)
+        let elem = document.createElement("div");
+        let img_elem = `
+        <img src="https://images.unsplash.com/photo-1678532685164-e0b1071010dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+        `;
+        elem.innerHTML = img_elem;
+
+        let paras = document.getElementsByClassName("ce-paragraph");
+
+        for (i in paras) {
+          //console.log(i)
+          //console.log(paras[i])
+        }
+      }
+      window.addEventListener("focus", focus);
+      addingAds();
+    </script>
+    <script type="text/javascript">
+      atOptions = {
+        key: "cbc8912d5c986baf72016d8e102b0744",
+        format: "iframe",
+        height: 60,
+        width: 468,
+        params: {},
+      };
+      document.write(
+        "<scr" +
+          'ipt type="text/javascript" src="//www.profitablecreativeformat.com/cbc8912d5c986baf72016d8e102b0744/invoke.js"></scr' +
+          "ipt>"
+      );
+    </script>
+    <script
+      async="async"
+      data-cfasync="false"
+      src="//pl18879575.highcpmrevenuegate.com/92931b38aea4558ec7713f61b3ae097c/invoke.js"
+    ></script>
+    <script
+      async="async"
+      data-cfasync="false"
+      src="//pl18985484.highcpmrevenuegate.com/eaddb06ea99db08bcf14974e496d0f0a/invoke.js"
+    ></script>
+    <script
+      async="async"
+      data-cfasync="false"
+      src="//pl18985483.highcpmrevenuegate.com/b36793dcec3a684658b5bfc833141ce3/invoke.js"
+    ></script>
+
+    <script type="text/javascript">
+      atOptions = {
+        key: "075f68f2098c554a350b17f15257ab84",
+        format: "iframe",
+        height: 50,
+        width: 320,
+        params: {},
+      };
+      document.write(
+        "<scr" +
+          'ipt type="text/javascript" src="//www.profitablecreativeformat.com/075f68f2098c554a350b17f15257ab84/invoke.js"></scr' +
+          "ipt>"
+      );
+    </script>
+  </body>
+</html>
