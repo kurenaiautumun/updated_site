@@ -424,6 +424,7 @@ img{
 /* ========= right recent post ======== */
 .bolg_right_recent_post_container{
     margin-top: 50px;
+    /* justify-content: center; */
 }
 .main_hading_right_recent_post{
     font-size: 18px;
@@ -432,14 +433,20 @@ img{
 .recent_right_blog_box{
     gap: 10px;
     margin-top: 20px;
+    flex-direction: column;
+    width: 377px;
 }
+
 .recent_rght_blog_post_img{
     width: 100%;
-    max-width: 60px;
+    max-width: 370px;
 }
 .recent_rght_blog_post_img img {
-    width: 100%;
+    width: 150%;
 }
+/* .recent_blog_cont_box{
+    padding-left: 18px;
+} */
 .recent_blog_box_heading{
     font-size: 15px;
     font-weight: 600;
@@ -512,7 +519,7 @@ img{
     .bolg_right_recent_post_container,
     .ads_right_blog_side,
     .populer_categ_container{
-        max-width: 300px;
+        max-width: 380px;
         width: 100%;
     }
     .ads_box_space{
@@ -532,11 +539,20 @@ img{
         padding: 30px 0px;
     }
     .blog_right_search_box,
-    .bolg_right_recent_post_container,
     .ads_right_blog_side,
     .populer_categ_container{
         max-width: 100%;
         width: 100%;
+    }
+    .bolg_right_recent_post_container{
+        margin-top: 10px;
+        width: 370px;
+    }
+    .recent_right_blog_box{
+        width: 370px;
+    }
+    .blog_search_head{
+        display: none;
     }
     .blog_sharing_box{
         flex-wrap: wrap;

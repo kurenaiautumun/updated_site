@@ -577,7 +577,7 @@
                   <div class="main_hading_right_recent_post">Recent Post</div>
                   <div
                     id="container-eaddb06ea99db08bcf14974e496d0f0a"
-                    style="width: 80%"
+                    style="width: 100%"
                   ></div>
                 </div>
 
@@ -1093,7 +1093,7 @@
       function addRecent(data) {
         ////console.log(screen.height)
         let cont = document.createElement("div");
-        cont.className = "recent_right_blog_box r-flex ali-c";
+        cont.className = "recent_right_blog_box ali-c";
         let height;
         if (screen.height < 800) {
           height = (screen.height * 4) / 25;
@@ -1102,7 +1102,7 @@
         }
         let blog = `
             
-                <div class="recent_rght_blog_post_img"><img style="height: ${height}px;" src=${
+                <div class="recent_rght_blog_post_img"><img style="height:80px;" src=${
           data["titleImage"]
         } alt=""></div>
                 <div class="recent_blog_cont_box">
@@ -1115,7 +1115,7 @@
                 </div>
             `;
         cont.innerHTML = blog;
-        cont.style.width = "400px";
+        // cont.style.width = "300px";
         ////console.log(cont)
         let holder = document.getElementsByClassName(
           "main_hading_right_recent_post"
