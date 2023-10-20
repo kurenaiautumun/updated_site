@@ -424,17 +424,26 @@ img{
 /* ========= right recent post ======== */
 .bolg_right_recent_post_container{
     margin-top: 50px;
-    /* justify-content: center; */
+    border: 1px dashed #676767;
+    gap: 30px;
 }
-.main_hading_right_recent_post{
+.recent_blog_heading{
+    padding: 5px 20px;
     font-size: 18px;
     font-weight: 600;
+    position: relative;
+    margin-bottom: -15px;
+    margin-left: 50px;
+    background-color: #d3d3d3;
+    width: fit-content;
+    top: -15px;
 }
 .recent_right_blog_box{
     gap: 10px;
     margin-top: 20px;
     flex-direction: column;
-    width: 377px;
+    width: 350px;
+    padding: 0 15px;
 }
 
 .recent_rght_blog_post_img{
@@ -448,14 +457,21 @@ img{
     padding-left: 18px;
 } */
 .recent_blog_box_heading{
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 12px 0px;
 }
 .recent_right_blog_post_time{
+    color: #676767;
+    gap: 12px;
+    text-transform: uppercase;
     font-size: 10px;
-    margin-top: 5px;
 }
 
+#container-eaddb06ea99db08bcf14974e496d0f0a{
+    padding-left: 40px;
+    font-size: 20px;
+}
 
 /* ======== right ========= */
 .ads_right_blog_side{
@@ -493,6 +509,7 @@ img{
     color: #676767;
     border-bottom: 1px dashed #747474;
 }
+
 
 
 @media (max-width:850px){
