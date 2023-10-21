@@ -272,6 +272,16 @@
                 class="blog-content"
                 style="margin-left: 10px"
             ></div>
+            <div
+                id="blog_content_8"
+                class="blog-content"
+                style="margin-left: 10px"
+            ></div>
+            <div
+                id="blog_content_9"
+                class="blog-content"
+                style="margin-left: 10px"
+            ></div>
             <script type="text/javascript">
                 atOptions = {
                   key: "075f68f2098c554a350b17f15257ab84",
@@ -286,6 +296,11 @@
                     "ipt>"
                 );
               </script>
+            <div
+              id="blog_content_10"
+              class="blog-content"
+              style="margin-left: 10px"
+            ></div>
 
               <!--sharing buttons-->
               <div class="sharing_btns_box">
@@ -652,7 +667,7 @@
           count += 1;
           if (count > 1) {
             count = 0;
-            if (block < 8) {
+            if (block < 10) {
               block += 1;
             }
             cont = document.getElementById(`blog_content_${block}`);
@@ -1138,23 +1153,24 @@
       function addRecent(data) {
         ////console.log(screen.height)
         let cont = document.createElement("div");
-        cont.className = "recent_right_blog_box r-flex ali-c";
+        cont.className = "recent_right_blog_box";
         let height;
         if (screen.height < 800) {
-          height = (screen.height * 4) / 25;
+          height = (screen.height * 4) / 10;
         } else {
-          height = screen.height / 27;
+          height = screen.height / 5;
         }
         let blog = `
             
                 <div class="recent_rght_blog_post_img"><img style="height: ${height}px;" src=${
           data["titleImage"]
         } alt=""></div>
-                <div class="recent_blog_cont_box">
-                    <div class="recent_blog_box_heading"><a style="color:black" href=read?blogId=${
+        <br>
+                <div class="recent_blog_cont_box" style="display:flex; flex-direction: column; justify-content: center">
+                    <div class="recent_blog_box_heading" style="text-align: center"><a style="color:black" href=read?blogId=${
                       data["_id"]
                     }>${data["title"]}</a></div>
-                    <div class="recent_right_blog_post_time">${date_string(
+                    <div class="recent_right_blog_post_time" style="text-align: center">${date_string(
                       data["date"]
                     )}</div>
                 </div>
@@ -1174,18 +1190,18 @@
         cont.className = "blog_also_blog";
         let height;
         if (screen.height < 800) {
-          height = (screen.height / 5) * 2;
+          height = (screen.height / 2.5);
         } else {
-          height = screen.height / 10;
+          height = screen.height / 5;
         }
         let blog = `
                     <img style="height: ${height}px;" src=${
           data["titleImage"]
         } alt="">
-                    <div class="blog_also_blog_heading"><a style="color:black" href=read?blogId=${
+                    <div class="blog_also_blog_heading" style="text-align:center"><a style="color:black; text-align:center" href=/read?blogId=${
                       data["_id"]
                     }>${data["title"]}</a></div>
-                    <div class="alos_publice_blog r-flex ali-c">
+                    <div style="justify-content: center" class="alos_publice_blog r-flex ali-c">
                         <a  >${date_string(data["date"])}</a>
                         <span>/</span>
                         <a  >${data["tags"]}</a>

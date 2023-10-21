@@ -435,10 +435,9 @@ img{
 }
 .recent_rght_blog_post_img{
     width: 100%;
-    max-width: 60px;
 }
 .recent_rght_blog_post_img img {
-    width: 100%;
+    width: 80%;
 }
 .recent_blog_box_heading{
     font-size: 15px;
