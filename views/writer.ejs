@@ -836,15 +836,19 @@
         }
 
         function ImageUploaded(e) {
-            ////console.log(e.files)
-            ////console.log(e.id)
+            //console.log(e.files)
+            //console.log(e.id)
             let body = new FormData();
             body.append("blogId", getParams())
             body.append("userId", localStorage.getItem("user"))
             body.append("image", e.files[0])
+            let token = localStorage.getItem("token")
             fetch("/image",
                 {
                     method: "POST",
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    },
                     body: body
                 })
                 .then(res => res.json())
@@ -877,11 +881,16 @@
             }
 
             render() {
+                console.log("in simple image render")
                 var uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
                 var div = document.createElement("div")
 
-                div.innerHTML = '<input type="file" id="' + uid + '" onChange="ImageUploaded(this)" hidden/>' + '<label style="text-align: center;" for="' + uid + '"><img src="' + this.data + '" id=' + "image_" + uid + ' style="margin-bottom:10px; display:block; background-color:grey; max-width:500px; max-height:400px; display: block;margin-left: auto;margin-right: auto;"></img></label>'
+                div.style.height = "400px"
+                div.style.width = "400px"
+
+                div.innerHTML = '<input type="file" id="' + uid + '" onChange="ImageUploaded(this)" hidden/> ' + '<label style="text-align: center; max-width:500px; max-height:400px;" for="' + uid + '"><img src="' + this.data + '" id=' + "image_" + uid + ' style="margin-bottom:10px; background-color:grey; max-width:500px; max-height:400px; min-width:300px; min-height:300px; display: block;margin-left: auto;margin-right: auto;"></img></label>'
                 var i = i + 1
+                console.log(div)
                 return div;
             }
 
