@@ -218,8 +218,14 @@
                 class="blog-content"
                 style="margin-left: 10px"
               ></div>
+              
               <div
                 id="blog_content_3"
+                class="blog-content"
+                style="margin-left: 10px"
+              ></div>
+              <div
+                id="blog_content_4"
                 class="blog-content"
                 style="margin-left: 10px"
               ></div>
@@ -237,10 +243,64 @@
                 );
               </script>
               <div
-                id="blog_content_4"
+                id="blog_content_5"
                 class="blog-content"
                 style="margin-left: 10px"
-              ></div>
+            ></div>
+            <div
+                id="blog_content_6"
+                class="blog-content"
+                style="margin-left: 10px"
+            ></div>
+            <script type="text/javascript">
+                  atOptions = {
+                    key: "cbc8912d5c986baf72016d8e102b0744",
+                    format: "iframe",
+                    height: 60,
+                    width: 468,
+                    params: {},
+                  };
+                  document.write(
+                    "<scr" +
+                      'ipt type="text/javascript" src="//www.profitablecreativeformat.com/cbc8912d5c986baf72016d8e102b0744/invoke.js"></scr' +
+                      "ipt>"
+                  );
+                </script>
+
+            <div
+                id="blog_content_7"
+                class="blog-content"
+                style="margin-left: 10px"
+            ></div>
+            <div
+                id="blog_content_8"
+                class="blog-content"
+                style="margin-left: 10px"
+            ></div>
+            <div
+                id="blog_content_9"
+                class="blog-content"
+                style="margin-left: 10px"
+            ></div>
+            <script type="text/javascript">
+                atOptions = {
+                  key: "075f68f2098c554a350b17f15257ab84",
+                  format: "iframe",
+                  height: 50,
+                  width: 320,
+                  params: {},
+                };
+                document.write(
+                  "<scr" +
+                    'ipt type="text/javascript" src="//www.profitablecreativeformat.com/075f68f2098c554a350b17f15257ab84/invoke.js"></scr' +
+                    "ipt>"
+                );
+              </script>
+            <div
+              id="blog_content_10"
+              class="blog-content"
+              style="margin-left: 10px"
+            ></div>
 
               <!--sharing buttons-->
               <div class="sharing_btns_box">
@@ -504,6 +564,7 @@
               <div class="blog_also_container">
                 <div class="blog_also_head">You may also like</div>
                 <div class="blog_also_box r-flex"></div>
+                <div class="blog_also_box r-flex"></div>
                 <div id="container-92931b38aea4558ec7713f61b3ae097c"></div>
               </div>
 
@@ -607,9 +668,9 @@
         let cont = document.getElementById("blog_content_1");
         for (let i in data) {
           count += 1;
-          if (count > 2) {
+          if (count > 1) {
             count = 0;
-            if (block < 5) {
+            if (block < 10) {
               block += 1;
             }
             cont = document.getElementById(`blog_content_${block}`);
@@ -1096,22 +1157,24 @@
         ////console.log(screen.height)
         let cont = document.createElement("div");
         cont.className = "recent_right_blog_box ali-c";
+        cont.className = "recent_right_blog_box";
         let height;
         if (screen.height < 800) {
-          height = (screen.height * 4) / 25;
+          height = (screen.height * 4) / 10;
         } else {
-          height = screen.height / 27;
+          height = screen.height / 5;
         }
         let blog = `
             
                 <div class="recent_rght_blog_post_img"><img style="height:120px;" src=${
           data["titleImage"]
         } alt=""></div>
-                <div class="recent_blog_cont_box">
-                    <div class="recent_blog_box_heading"><a style="color:black" href=read?blogId=${
+        <br>
+                <div class="recent_blog_cont_box" style="display:flex; flex-direction: column; justify-content: center">
+                    <div class="recent_blog_box_heading" style="text-align: center"><a style="color:black" href=read?blogId=${
                       data["_id"]
                     }>${data["title"]}</a></div>
-                    <div class="recent_right_blog_post_time">${date_string(
+                    <div class="recent_right_blog_post_time" style="text-align: center">${date_string(
                       data["date"]
                     )}</div>
                 </div>
@@ -1125,40 +1188,50 @@
         holder.append(cont);
       }
 
-      function addRecommendations(data) {
+      function addRecommendations(data, count) {
         ////console.log(screen.height)
         let cont = document.createElement("div");
         cont.className = "blog_also_blog";
         let height;
         if (screen.height < 800) {
-          height = (screen.height / 5) * 2;
+          height = (screen.height / 2.5);
         } else {
-          height = screen.height / 10;
+          height = screen.height / 5;
         }
         let blog = `
                     <img style="height: ${height}px;" src=${
           data["titleImage"]
         } alt="">
-                    <div class="blog_also_blog_heading"><a style="color:black" href=read?blogId=${
+                    <div class="blog_also_blog_heading" style="text-align:center"><a style="color:black; text-align:center" href=/read?blogId=${
                       data["_id"]
                     }>${data["title"]}</a></div>
-                    <div class="alos_publice_blog r-flex ali-c">
+                    <div style="justify-content: center" class="alos_publice_blog r-flex ali-c">
                         <a  >${date_string(data["date"])}</a>
                         <span>/</span>
                         <a  >${data["tags"]}</a>
                     </div>`;
         cont.innerHTML = blog;
         ////console.log(cont)
-        let holder = document.getElementsByClassName("blog_also_box r-flex")[0];
+        let holder;
+        if (count<3){
+          holder = document.getElementsByClassName("blog_also_box r-flex")[0];
+        }
+        else{
+          holder = document.getElementsByClassName("blog_also_box r-flex")[1];
+        }
+
+        if (count==2){
+          let ad_blog = `<div style="height: ${height}px;" id="container-b36793dcec3a684658b5bfc833141ce3"></div>`;
+          let ad_cont = document.createElement("div");
+          ad_cont.innerHTML = ad_blog;
+          holder.append(ad_cont);
+        }
+
         holder.append(cont);
-        let ad_blog = `<div id="container-b36793dcec3a684658b5bfc833141ce3"></div>`;
-        let ad_cont = document.createElement("div");
-        ad_cont.innerHTML = ad_blog;
-        holder.append(ad_cont);
       }
 
       async function suggestionBlogs() {
-        let req = await fetch(`/randomBlogs?size=4`, {
+        let req = await fetch(`/randomBlogs?size=7`, {
           method: "GET",
           headers: {
             "content-type": "application/json",
@@ -1174,7 +1247,7 @@
         ////console.log(cont)
 
         for (let i in data) {
-          addRecommendations(data[i]);
+          addRecommendations(data[i], i);
         }
       }
 

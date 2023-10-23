@@ -20,7 +20,9 @@ router.post("/image", upload.single("image"), async (req, res) => {
 
   let token = jwtVerify(req);
 
-  //console.log("user = ", token.user)
+  //console.log("token = ", token)
+
+  //console.log("user in upload = ", token.user)
   let userId = token.user._id
 
   if (userId == undefined || req.body.blogId == undefined) {

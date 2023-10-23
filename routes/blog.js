@@ -199,7 +199,7 @@ router.post("/newblog", async (req, res) => {
   let userId = token.user._id
   let user = await User.findOne({_id: userId});
 
-  ////console.log("user = ", await user)
+  console.log("user = ", await user)
   let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth() + 1, d = blog_date.getDate();
   let date = `${d}/${m}/${y}`
   ////console.log("blog date = ", blog_date)

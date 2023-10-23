@@ -73,7 +73,7 @@ const competitionSchema = new mongoose.Schema({
   competitionName: String,
   blogId: Array,
   threshold: Number,
-  prize: Number,
+  prize: Array,
   status: String,
   startDate: String,
   endDate: String,
@@ -84,7 +84,7 @@ const rankingSchema = new mongoose.Schema({
   blogId: String,
   viewCount: { type: Number, default: 0 },
   competitionId: String,
-  rank: String,
+  rank: Number,
   qulified: Boolean,
 });
 
@@ -160,6 +160,12 @@ const socialUserReg = new mongoose.Schema({
   referrer: String
 })
 
+
+const ipSet = new mongoose.Schema({
+  userId: String,
+  ip: String
+})
+
 function toggle(arr, elem) {
   const index = arr.indexOf(elem);
   if (index !== -1) {
@@ -199,6 +205,8 @@ const socialShare = new mongoose.model("socialShare", socialShareSchema)
 
 const socialReg = new mongoose.model("socialReg", socialUserReg)
 
+const ipSetTable = new mongoose.model("ipSet", ipSet)
+
 //passport.use(User.createStrategy());
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
@@ -223,6 +231,7 @@ module.exports = {
   monthlyViews,
   viewAnalysis,
   socialShare,
-  socialReg
+  socialReg,
+  ipSetTable
 };
 

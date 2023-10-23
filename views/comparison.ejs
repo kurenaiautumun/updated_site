@@ -76,12 +76,12 @@
                             </button>
                         </form>
                     </div>
-                    <div class="search_user_name r-flex ali-c">
+                    <!-- <div class="search_user_name r-flex ali-c">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 6.66666C21.7681 6.66666 23.4638 7.36903 24.714 8.61928C25.9642 9.86952 26.6666 11.5652 26.6666 13.3333C26.6666 15.1014 25.9642 16.7971 24.714 18.0474C23.4638 19.2976 21.7681 20 20 20C18.2318 20 16.5362 19.2976 15.2859 18.0474C14.0357 16.7971 13.3333 15.1014 13.3333 13.3333C13.3333 11.5652 14.0357 9.86952 15.2859 8.61928C16.5362 7.36903 18.2318 6.66666 20 6.66666ZM20 33.3333C20 33.3333 33.3333 33.3333 33.3333 30C33.3333 26 26.8333 21.6667 20 21.6667C13.1666 21.6667 6.66663 26 6.66663 30C6.66663 33.3333 20 33.3333 20 33.3333Z" fill="#7F7EC6"/>
                         </svg>
                         <span>Devender Rajput</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -95,12 +95,13 @@
                         <div class="competition_table_box">
 
                             <div class="comptition_head r-flex ali-c jut-sb">
-                                <h1 class="competition_heading">Spring Weekly Writing Competition</h1>
+                                <h1 class="competition_heading"> <%= competition.competitionName %> </h1>
                                 <div class="competion_date r-flex ali-c">
                                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11.25 12.5H8.75V15H11.25V12.5ZM16.25 12.5H13.75V15H16.25V12.5ZM21.25 12.5H18.75V15H21.25V12.5ZM23.75 3.75H22.5V1.25H20V3.75H10V1.25H7.5V3.75H6.25C5.58696 3.75 4.95107 4.01339 4.48223 4.48223C4.01339 4.95107 3.75 5.58696 3.75 6.25V23.75C3.75 24.413 4.01339 25.0489 4.48223 25.5178C4.95107 25.9866 5.58696 26.25 6.25 26.25H23.75C24.413 26.25 25.0489 25.9866 25.5178 25.5178C25.9866 25.0489 26.25 24.413 26.25 23.75V6.25C26.25 5.58696 25.9866 4.95107 25.5178 4.48223C25.0489 4.01339 24.413 3.75 23.75 3.75ZM23.75 23.75H6.25V10H23.75V23.75Z" fill="#7F7EC6"/>
                                     </svg>                                    
-                                    <span>10 JAN 2023</span>
+                                    <!-- <span>10 JAN 2023</span> -->
+                                    <span><%= competition.startDate %> - <%= competition.endDate %></span>
                                 </div>
                             </div>
 
@@ -110,9 +111,23 @@
                                     <li class="t_heading">User Rank</li>
                                     <li class="t_heading">User Blog</li>
                                 </ul>
+
+
+                                <!-- ranking list start  -->
+                                 
+                                
+
+                               
+
+
+                                <!-- ranking list ends -->
+
                                 <ul id="listingTable" class="t_body c-flex ali-c pagination">
                                     
                                 </ul>
+
+
+
                                 <ul class="competition_pageination r-flex ali-c jut-sb">
                                     <li>
                                         <a href="javascript:prevPage()" id="btn_prev">
@@ -155,24 +170,27 @@
 
                         <div class="competition_rewards">
                             <div class="competition_win_user r-flex ali-c jut-sb">
-                                <span>🏆 &nbsp; Wining User</span>
-                                <span>🚀 &nbsp; 3/100</span>
+                                <span>🏆 &nbsp; Winning User</span>
+                                <span>🚀 &nbsp; 3/<b><%= ranking_users.length %> </b> </span>
                             </div>
-                            <div class="totle_win"><b>1,560 TOTLE,</b> Wining Users  </div>
-                            <div class="competition_win_img"><img src="images/Frame.png" alt="win"></div>
+                            <div class="totle_win"><b> <%= ranking_users.length %> </b>  Users  </div>
+                            <div class="competition_win_img"><img src="../images/Frame.png" alt="win"></div>
                             <ul class="competition_top_user">
                                 <li class="competition_win_pos r-flex ali-c jut-sb">
                                     <span>🏆 1st Position</span>
-                                    <span>💸 10,000</span>
+                                    <span>💸 <%= competition.prize[0] %></span>
                                 </li>
                                 <li class="competition_win_pos r-flex ali-c jut-sb">
-                                    <span>🏆 1st Position</span>
-                                    <span>💸 10,000</span>
+                                    <span>🏆 2nd Position</span>
+                                    <span>💸 <%= competition.prize[1] %></span>
                                 </li>
                                 <li class="competition_win_pos r-flex ali-c jut-sb">
-                                    <span>🏆 1st Position</span>
-                                    <span>💸 10,000</span>
+                                    <span>🏆 3rd Position</span>
+                                    <span>💸 <%= competition.prize[2] %></span>
                                 </li>
+
+
+                                
                             </ul>
                         </div>
                     </div>
@@ -190,6 +208,8 @@
     <script>
         var current_page = 1;
 var records_per_page = 10;
+
+// var objJson = [];
 
 var objJson = [
     { adName: 
@@ -1507,11 +1527,91 @@ var objJson = [
     
 ]; // Can be obtained from another source, such as your objJson variable
 
+// const user_s = fetchUsersFromDatabase();
+// console.log(user_s);
+// console.log('kkkk',user_s);
+
+// function fetchUsersFromDatabase() {
+
+//         const currentURL = window.location.href;
+
+// // Extract the competition name from the URL using regular expressions
+//         const segments = currentURL.split('/');
+//         const competitionName = segments[segments.length - 1];
+//     // const competitionName = currentURL.match(/\/competition\/(.+)/)[1];
+
+//         console.log("Competition Name :", competitionName);
+
+//         const myPromise=fetch(`/competitionUsers/${competitionName}`);
+//         myPromise
+//   .then(response => response.json()) // convert response to JSON
+//   .then(data => {
+//     // work with the data here
+//     console.log(data);
+//     return data;
+//   })
+//   .catch(error => {
+//     // handle errors here
+//     console.error(error);
+//   });
+  
+
+//         // return fetch(`/competitionUsers/${competitionName}`)
+//         //     .then(response => {
+//         //         if (!response.ok) {
+//         //             throw new Error(`HTTP error! Status: ${response.status}`);
+//         //         }
+//         //         // Parse the JSON response
+//         //         return response.json();
+//         //     });
+// }
+
+// var user_s = fetchUsersFromDatabase();
+// console.log(user_s);
+// console.log('kkkk',user_s);
+
+var user_s = [];
+
+async function fetchUsersFromDatabase() {
+    const currentURL = window.location.href;
+    const segments = currentURL.split('/');
+    const competitionName = segments[segments.length - 1];
+
+    try {
+        const response = await fetch(`/competitionUsers/${competitionName}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("Competition Data: ", data);
+        user_s =  data;
+    } catch (error) {
+        
+        console.error(error);
+        throw error;
+    }
+}
+
+
+async function fetchData() {
+    try {
+         await fetchUsersFromDatabase();
+         changePage(1, user_s);
+        console.log(user_s);
+        
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+
+
 function prevPage()
 {
     if (current_page > 1) {
         current_page--;
-        changePage(current_page);
+        changePage(current_page, user_s);
     }
 }
 
@@ -1519,11 +1619,11 @@ function nextPage()
 {
     if (current_page < numPages()) {
         current_page++;
-        changePage(current_page);
+        changePage(current_page, user_s);
     }
 }
 
-function changePage(page)
+function changePage(page, user_s)
 {
     var btn_next = document.getElementById("btn_next");
     var btn_prev = document.getElementById("btn_prev");
@@ -1535,8 +1635,26 @@ function changePage(page)
     if (page > numPages()) page = numPages();
     listing_table.innerHTML = "";
 
+    
+
     for (var i = (page-1) * records_per_page; i < (page * records_per_page); i++) {
-        listing_table.innerHTML += objJson[i].adName + " ";
+        const ad = { adName: 
+        `
+            <div class="competition_user_row r-flex ali-c jut-sb">
+                <li class="t_data competition_user_box r-flex ali-c">
+                    
+                    <span class="competition_user_img r-flex ali-c jut-c">
+                        <img src="../images/logo.png">
+                    </span>
+                    <span class="competition_user_name">${user_s[i].name}</span>
+                </li>
+                <li class="t_data">🏆 &nbsp; ${user_s[i].rank}</li>
+                <li class="t_data">📝 &nbsp; <a href="/read?blogId=${user_s[i].blogId}">Read</a></li>
+            </div>
+        `
+    }
+
+        listing_table.innerHTML += ad.adName + " ";
     }
     page_span.innerHTML = page;
 
@@ -1555,10 +1673,11 @@ function changePage(page)
 
 function numPages()
 {
-    return Math.ceil(objJson.length / records_per_page);
+    return Math.ceil(user_s.length / records_per_page);
 }
 window.onload = function() {
-    changePage(1);
+    fetchData();
+    // changePage(1, user_s);
 }; 
     </script>
     <script>
