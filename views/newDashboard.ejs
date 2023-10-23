@@ -821,7 +821,7 @@
         return `${parts[0]} ${months[parts[1]]} ${parts[2]}`;
       }
 
-      let currentPage = {
+  let currentPage = {
   Draft: 1,
   InReview: 1,
   Publish: 1,
@@ -830,6 +830,71 @@
 let currentTab = "Draft";
 const pageSize = 2;
 let currentId = "buttonclass";
+
+// function generatePagination(totalPages, pageNumber, currentTab) {
+//   const paginationContainer = document.createElement("nav");
+//   paginationContainer.setAttribute("aria-label", "Pagination");
+
+//   const ul = document.createElement("ul");
+//   ul.classList.add("pagination");
+
+//   // Create "Previous" button
+//   const prevLi = document.createElement("li");
+//   prevLi.classList.add("page-item");
+//   if (pageNumber === 1) {
+//     prevLi.classList.add("disabled");
+//   }
+//   const prevLink = document.createElement("span");
+//   prevLink.classList.add("page-link");
+//   prevLink.textContent = "Previous";
+//   prevLink.addEventListener("click", () => {
+//     prevPage(currentTab);
+//   });
+//   prevLi.appendChild(prevLink);
+//   ul.appendChild(prevLi);
+
+//   // Create page number links
+//   for (let i = 1; i <= totalPages; i++) {
+//     const li = document.createElement("li");
+//     li.classList.add("page-item");
+//     if (i === pageNumber) {
+//       li.classList.add("active");
+//       li.setAttribute("aria-current", "page");
+//       const span = document.createElement("span");
+//       span.classList.add("page-link");
+//       span.textContent = i;
+//       li.appendChild(span);
+//     } else {
+//       const a = document.createElement("a");
+//       a.classList.add("page-link");
+//       a.textContent = i;
+//       a.addEventListener("click", () => {
+//         goToPage(i, currentTab, totalPages);
+//       });
+//       li.appendChild(a);
+//     }
+//     ul.appendChild(li);
+//   }
+
+//   // Create "Next" button
+//   const nextLi = document.createElement("li");
+//   nextLi.classList.add("page-item");
+//   if (pageNumber === totalPages) {
+//     nextLi.classList.add("disabled");
+//   }
+//   const nextLink = document.createElement("a");
+//   nextLink.classList.add("page-link");
+//   nextLink.textContent = "Next";
+//   nextLink.addEventListener("click", () => {
+//     nextPage(currentTab);
+//   });
+//   nextLi.appendChild(nextLink);
+//   ul.appendChild(nextLi);
+
+//   paginationContainer.appendChild(ul);
+
+//   return paginationContainer;
+// }
 
 function generatePagination(totalPages, pageNumber, currentTab) {
   const paginationContainer = document.createElement("nav");
@@ -844,7 +909,7 @@ function generatePagination(totalPages, pageNumber, currentTab) {
   if (pageNumber === 1) {
     prevLi.classList.add("disabled");
   }
-  const prevLink = document.createElement("span");
+  const prevLink = document.createElement("a");
   prevLink.classList.add("page-link");
   prevLink.textContent = "Previous";
   prevLink.addEventListener("click", () => {
@@ -857,22 +922,20 @@ function generatePagination(totalPages, pageNumber, currentTab) {
   for (let i = 1; i <= totalPages; i++) {
     const li = document.createElement("li");
     li.classList.add("page-item");
+
+    const a = document.createElement("a");
+    a.classList.add("page-link");
+    a.textContent = i;
+    a.addEventListener("click", () => {
+      goToPage(i, currentTab, totalPages);
+    });
+    li.appendChild(a);
+
     if (i === pageNumber) {
       li.classList.add("active");
       li.setAttribute("aria-current", "page");
-      const span = document.createElement("span");
-      span.classList.add("page-link");
-      span.textContent = i;
-      li.appendChild(span);
-    } else {
-      const a = document.createElement("a");
-      a.classList.add("page-link");
-      a.textContent = i;
-      a.addEventListener("click", () => {
-        goToPage(i, currentTab, totalPages);
-      });
-      li.appendChild(a);
     }
+
     ul.appendChild(li);
   }
 
@@ -913,7 +976,7 @@ async function loadTab(tabName, divid) {
 
   const container = document.getElementById("paginationControls");
   container.innerHTML = "";
-  const pagination = generatePagination(totalPages, currentPage[tabName], currentTab);
+  const pagination = generatePagination(totalPages, currentPage[currentTab], currentTab);
   container.appendChild(pagination);
 
   let variable = document.getElementById(divid);
@@ -947,6 +1010,7 @@ function updateEndpoint(tabName) {
 }
 
 async function nextPage(currentTab) {
+  const paginationContainer = document.getElementById("paginationControls");
   currentPage[currentTab]++;
   updateEndpoint(currentTab);
   await loadTab(currentTab, currentId);
@@ -954,6 +1018,7 @@ async function nextPage(currentTab) {
 
 async function prevPage(currentTab) {
   if (currentPage[currentTab] > 1) {
+    const paginationContainer = document.getElementById("paginationControls");
     currentPage[currentTab]--;
     updateEndpoint(currentTab);
     await loadTab(currentTab, currentId);
@@ -962,10 +1027,13 @@ async function prevPage(currentTab) {
 
 async function goToPage(page, currentTab, totalPages) {
   if (page >= 1 && page <= totalPages) {
+    const paginationContainer = document.getElementById("paginationControls");
     endpoints[currentTab] = `/userBlogs${currentTab}?page=${page}&pageSize=${pageSize}`;
+    currentPage[currentTab]=page;
     await loadTab(currentTab, currentId);
   }
 }
+
 
 loadTab(currentTab, currentId);
 
