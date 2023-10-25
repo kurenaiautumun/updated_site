@@ -424,14 +424,28 @@ img{
 /* ========= right recent post ======== */
 .bolg_right_recent_post_container{
     margin-top: 50px;
+    border: 1px dashed #676767;
+    gap: 30px;
 }
-.main_hading_right_recent_post{
+.recent_blog_heading{
+    padding: 5px 20px;
     font-size: 18px;
     font-weight: 600;
+    position: relative;
+    margin-bottom: -15px;
+    margin-left: 50px;
+    background-color: #d3d3d3;
+    width: fit-content;
+    top: -15px;
 }
 .recent_right_blog_box{
     gap: 10px;
     margin-top: 20px;
+<<<<<<< HEAD
+    flex-direction: column;
+    width: 350px;
+    padding: 0 15px;
+=======
 }
 .recent_rght_blog_post_img{
     width: 100%;
@@ -446,8 +460,36 @@ img{
 .recent_right_blog_post_time{
     font-size: 10px;
     margin-top: 5px;
+>>>>>>> 8daa12f66bb4b6bce6a45f7c420d898fec0e4e18
 }
 
+
+.recent_rght_blog_post_img{
+    width: 100%;
+    max-width: 370px;
+}
+.recent_rght_blog_post_img img {
+    width: 150%;
+}
+/* .recent_blog_cont_box{
+    padding-left: 18px;
+} */
+.recent_blog_box_heading{
+    font-size: 20px;
+    font-weight: 700;
+    padding: 12px 0px;
+}
+.recent_right_blog_post_time{
+    color: #676767;
+    gap: 12px;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+#container-eaddb06ea99db08bcf14974e496d0f0a{
+    padding-left: 40px;
+    font-size: 20px;
+}
 
 /* ======== right ========= */
 .ads_right_blog_side{
@@ -487,6 +529,7 @@ img{
 }
 
 
+
 @media (max-width:850px){
     .blog_hero_container{
         flex-direction: column;
@@ -511,7 +554,7 @@ img{
     .bolg_right_recent_post_container,
     .ads_right_blog_side,
     .populer_categ_container{
-        max-width: 300px;
+        max-width: 380px;
         width: 100%;
     }
     .ads_box_space{
@@ -531,11 +574,20 @@ img{
         padding: 30px 0px;
     }
     .blog_right_search_box,
-    .bolg_right_recent_post_container,
     .ads_right_blog_side,
     .populer_categ_container{
         max-width: 100%;
         width: 100%;
+    }
+    .bolg_right_recent_post_container{
+        margin-top: 10px;
+        width: 370px;
+    }
+    .recent_right_blog_box{
+        width: 370px;
+    }
+    .blog_search_head{
+        display: none;
     }
     .blog_sharing_box{
         flex-wrap: wrap;

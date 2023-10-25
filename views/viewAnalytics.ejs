@@ -123,36 +123,39 @@
 <style>
     /* Center the table on the page */
     main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 70vh;
-    }
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 130vh;
+        }
 
-    table {
-        border-collapse: collapse;
-        width: 80%; /* Adjust the width as needed */
-    }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 50px;
+            text-align: center;
+        }
 
-    th {
-        background-color: #007BFF;
-        color: #fff;
-        font-weight: bold;
-    }
+        th {
+            background-color: #007BFF;
+            color: #fff;
+            font-weight: bold;
+        }
 
-    td, th {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
 
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-    tr:hover {
-        background-color: #d3d3d3;
-    }
+        tr:hover {
+            background-color: #d3d3d3;
+        }
 </style>
   </head>
   <body>
@@ -171,6 +174,19 @@
                 <!-- Table rows will be added here -->
             </tbody>
         </table>
+        
+        <table id="userTable">
+          <thead>
+              <tr>
+                  <th>Serial Number</th>
+                  <th>User ID</th>
+                  <th>Total Time Spent</th>
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Table rows will be added here -->
+          </tbody>
+      </table>
     </main>
 
     <!-- Core JavaScript
@@ -1080,7 +1096,7 @@
 
       async function updateTotalTimeSpent() {
     try {
-        const response = await fetch("/updateReadingTime", {
+        const response = await fetch("/updateReadingTimeBlog", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -1127,6 +1143,55 @@
 // Call the function when the page loads
 window.addEventListener('load', updateTotalTimeSpent);
 
+
+async function updateTotalTimeSpentbyUser() {
+    try {
+        const response = await fetch("/updateReadingTimeUser", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                `Error updating total time spent. Status: ${response.status}`
+            );
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        // Get the table element and its body
+        const blogTable = document.getElementById("userTable");
+        const tableBody = blogTable.querySelector("tbody");
+
+        // Clear any existing table rows
+        tableBody.innerHTML = '';
+
+        // Populate the table with the received data
+        data.updatedBlogs.forEach((blog, index) => {
+            const row = document.createElement("tr");
+            const serialNumberCell = document.createElement("td");
+            const blogIdCell = document.createElement("td");
+            const totalTimeSpentCell = document.createElement("td");
+
+            serialNumberCell.textContent = index + 1; // Serial number starts from 1
+            blogIdCell.textContent = blog.ip;
+            totalTimeSpentCell.textContent = blog.totalTimeSpent / 60; // Convert to minutes
+
+            row.appendChild(serialNumberCell);
+            row.appendChild(blogIdCell);
+            row.appendChild(totalTimeSpentCell);
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error updating total time spent:", error);
+    }
+}
+
+// Call the function when the page loads
+window.addEventListener('load', updateTotalTimeSpentbyUser);
 
       
       function addingAds() {

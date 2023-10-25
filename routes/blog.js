@@ -136,7 +136,7 @@ router.post("/blog/viewcount", async (req, res) => {
   
 });
 
-router.post('/updateReadingTime', async (req, res) => {
+router.post('/updateReadingTimeBlog', async (req, res) => {
   try {
     const timeSpentByBlog = await viewAnalysis.aggregate([
       {
@@ -160,6 +160,34 @@ router.post('/updateReadingTime', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.post('/updateReadingTimeUser', async (req, res) => {
+  try {
+    const timeSpentByBlog = await viewAnalysis.aggregate([
+      {
+        $group: {
+          _id: '$ip',
+          totalTimeSpent: { $sum: '$time' },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          ip: '$_id',
+          totalTimeSpent: 1,
+        },
+      },
+    ]);
+
+    const updatedBlogs = timeSpentByBlog.map(({ ip, totalTimeSpent }) => ({ ip, totalTimeSpent }));
+
+    res.json({ message: 'Total time spent for blogs by user', updatedBlogs });
+  } catch (error) {
+    console.error('Error updating total time spent:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 
 

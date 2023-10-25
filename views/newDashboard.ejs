@@ -821,173 +821,222 @@
         return `${parts[0]} ${months[parts[1]]} ${parts[2]}`;
       }
 
-      let currentPage = {
-        Draft: 1,
-        InReview: 1,
-        Publish: 1,
-      };
+  let currentPage = {
+  Draft: 1,
+  InReview: 1,
+  Publish: 1,
+};
 
-      let currentTab = "Draft";
-      const pageSize = 2;
-      let currentId = "buttonclass";
+let currentTab = "Draft";
+const pageSize = 2;
+let currentId = "buttonclass";
 
-      function generatePagination(totalPages, pageNumber, currentTab) {
-        const paginationContainer = document.createElement("nav");
-        paginationContainer.setAttribute("aria-label", "Pagination");
+// function generatePagination(totalPages, pageNumber, currentTab) {
+//   const paginationContainer = document.createElement("nav");
+//   paginationContainer.setAttribute("aria-label", "Pagination");
 
-        const ul = document.createElement("ul");
-        ul.classList.add("pagination");
+//   const ul = document.createElement("ul");
+//   ul.classList.add("pagination");
 
-        // Create "Previous" button
-        const prevLi = document.createElement("li");
-        prevLi.classList.add("page-item");
-        if (pageNumber === 1) {
-          prevLi.classList.add("disabled");
-        }
-        const prevLink = document.createElement("span");
-        prevLink.classList.add("page-link");
-        prevLink.textContent = "Previous";
-        prevLink.addEventListener("click", () => {
-          prevPage(currentTab);
-        });
-        prevLi.appendChild(prevLink);
-        ul.appendChild(prevLi);
+//   // Create "Previous" button
+//   const prevLi = document.createElement("li");
+//   prevLi.classList.add("page-item");
+//   if (pageNumber === 1) {
+//     prevLi.classList.add("disabled");
+//   }
+//   const prevLink = document.createElement("span");
+//   prevLink.classList.add("page-link");
+//   prevLink.textContent = "Previous";
+//   prevLink.addEventListener("click", () => {
+//     prevPage(currentTab);
+//   });
+//   prevLi.appendChild(prevLink);
+//   ul.appendChild(prevLi);
 
-        // Create page number links
-        for (let i = 1; i <= totalPages; i++) {
-          const li = document.createElement("li");
-          li.classList.add("page-item");
-          if (i === pageNumber) {
-            li.classList.add("active");
-            li.setAttribute("aria-current", "page");
-            const span = document.createElement("span");
-            span.classList.add("page-link");
-            span.textContent = i;
-            li.appendChild(span);
-          } else {
-            const a = document.createElement("a");
-            a.classList.add("page-link");
-            a.textContent = i;
-            a.addEventListener("click", () => {
-              goToPage(i, currentTab, totalPages);
-            });
-            li.appendChild(a);
-          }
-          ul.appendChild(li);
-        }
+//   // Create page number links
+//   for (let i = 1; i <= totalPages; i++) {
+//     const li = document.createElement("li");
+//     li.classList.add("page-item");
+//     if (i === pageNumber) {
+//       li.classList.add("active");
+//       li.setAttribute("aria-current", "page");
+//       const span = document.createElement("span");
+//       span.classList.add("page-link");
+//       span.textContent = i;
+//       li.appendChild(span);
+//     } else {
+//       const a = document.createElement("a");
+//       a.classList.add("page-link");
+//       a.textContent = i;
+//       a.addEventListener("click", () => {
+//         goToPage(i, currentTab, totalPages);
+//       });
+//       li.appendChild(a);
+//     }
+//     ul.appendChild(li);
+//   }
 
-        // Create "Next" button
-        const nextLi = document.createElement("li");
-        nextLi.classList.add("page-item");
-        if (pageNumber === totalPages) {
-          nextLi.classList.add("disabled");
-        }
-        const nextLink = document.createElement("a");
-        nextLink.classList.add("page-link");
-        nextLink.textContent = "Next";
-        nextLink.addEventListener("click", () => {
-          // Call your page change function here for the next page
-          nextPage(currentTab);
-        });
-        nextLi.appendChild(nextLink);
-        ul.appendChild(nextLi);
+//   // Create "Next" button
+//   const nextLi = document.createElement("li");
+//   nextLi.classList.add("page-item");
+//   if (pageNumber === totalPages) {
+//     nextLi.classList.add("disabled");
+//   }
+//   const nextLink = document.createElement("a");
+//   nextLink.classList.add("page-link");
+//   nextLink.textContent = "Next";
+//   nextLink.addEventListener("click", () => {
+//     nextPage(currentTab);
+//   });
+//   nextLi.appendChild(nextLink);
+//   ul.appendChild(nextLi);
 
-        paginationContainer.appendChild(ul);
+//   paginationContainer.appendChild(ul);
 
-        return paginationContainer;
-      }
+//   return paginationContainer;
+// }
 
-      let endpoints = {
-        Draft: `/userBlogsDraft?page=${currentPage.Draft}&pageSize=${pageSize}`,
-        InReview: `/userBlogsInReview?page=${currentPage.InReview}&pageSize=${pageSize}`,
-        Publish: `/userBlogsPublish?page=${currentPage.Published}&pageSize=${pageSize}`,
-      };
+function generatePagination(totalPages, pageNumber, currentTab) {
+  const paginationContainer = document.createElement("nav");
+  paginationContainer.setAttribute("aria-label", "Pagination");
 
-      async function loadTab(tabName, divid) {
-        //console.log(divid);
-        let currentDivId = document.getElementById(currentId);
-        currentDivId.classList.remove("changecolor");
-        currentId = divid;
+  const ul = document.createElement("ul");
+  ul.classList.add("pagination");
 
-        //console.log(tabName);
-        //console.log(endpoints[tabName]);
-        currentTab = tabName;
-        let total = await userBlogs(endpoints[tabName], tabName);
-        const totalPages = Math.ceil(total / pageSize);
+  // Create "Previous" button
+  const prevLi = document.createElement("li");
+  prevLi.classList.add("page-item");
+  if (pageNumber === 1) {
+    prevLi.classList.add("disabled");
+  }
+  const prevLink = document.createElement("a");
+  prevLink.classList.add("page-link");
+  prevLink.textContent = "Previous";
+  prevLink.addEventListener("click", () => {
+    prevPage(currentTab);
+  });
+  prevLi.appendChild(prevLink);
+  ul.appendChild(prevLi);
 
-        const container = document.getElementById("paginationControls");
-        container.innerHTML = "";
-        //console.log(currentPage[tabName]);
-        const pagination = generatePagination(
-          totalPages,
-          currentPage.tabname,
-          currentTab
-        );
-        container.appendChild(pagination);
+  // Create page number links
+  for (let i = 1; i <= totalPages; i++) {
+    const li = document.createElement("li");
+    li.classList.add("page-item");
 
-        let variable = document.getElementById(divid);
-        variable.classList.add("changecolor");
-      }
+    const a = document.createElement("a");
+    a.classList.add("page-link");
+    a.textContent = i;
+    a.addEventListener("click", () => {
+      goToPage(i, currentTab, totalPages);
+    });
+    li.appendChild(a);
 
-      async function userBlogs(fetchapi, tabName) {
-        //console.log(fetchapi);
-        let token = localStorage.getItem("token");
-        let data = await fetch(fetchapi, {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
-        let blogs = await data.json();
-        //console.log("blogs = ", blogs);
+    if (i === pageNumber) {
+      li.classList.add("active");
+      li.setAttribute("aria-current", "page");
+    }
 
-        let blogLength = document.getElementById("blog_length");
-        blogLength.innerHTML = blogs.totalDataCount + " blogs";
+    ul.appendChild(li);
+  }
 
-        let elem = document.getElementById("posts");
-        elem.innerHTML = "";
+  // Create "Next" button
+  const nextLi = document.createElement("li");
+  nextLi.classList.add("page-item");
+  if (pageNumber === totalPages) {
+    nextLi.classList.add("disabled");
+  }
+  const nextLink = document.createElement("a");
+  nextLink.classList.add("page-link");
+  nextLink.textContent = "Next";
+  nextLink.addEventListener("click", () => {
+    nextPage(currentTab);
+  });
+  nextLi.appendChild(nextLink);
+  ul.appendChild(nextLi);
 
-        attachBlogs(blogs.blogData);
+  paginationContainer.appendChild(ul);
 
-        return blogs.totalDataCount;
-      }
+  return paginationContainer;
+}
 
-      function updateEndpoint(tabName) {
-        endpoints[
-          tabName
-        ] = `/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`;
-        //console.log(endpoints[tabName]);
-      }
+let endpoints = {
+  Draft: `/userBlogsDraft?page=${currentPage.Draft}&pageSize=${pageSize}`,
+  InReview: `/userBlogsInReview?page=${currentPage.InReview}&pageSize=${pageSize}`,
+  Publish: `/userBlogsPublish?page=${currentPage.Publish}&pageSize=${pageSize}`,
+};
 
-      function nextPage(currentTab) {
-        currentPage[currentTab]++;
-        //console.log(currentPage[currentTab]);
-        updateEndpoint(currentTab);
-        loadTab(currentTab, currentId);
-        //  userBlogs(endpoints[currentTab], currentTab);
-      }
+async function loadTab(tabName, divid) {
+  let currentDivId = document.getElementById(currentId);
+  currentDivId.classList.remove("changecolor");
+  currentId = divid;
 
-      function prevPage(currentTab) {
-        if (currentPage[currentTab] > 1) {
-          currentPage[currentTab]--;
-          //console.log(currentPage[currentTab]);
-          updateEndpoint(currentTab);
-          loadTab(currentTab, currentId);
-          // userBlogs(endpoints[currentTab], currentTab);
-        }
-      }
+  currentTab = tabName;
+  let total = await userBlogs(endpoints[tabName], tabName);
+  const totalPages = Math.ceil(total / pageSize);
 
-      function goToPage(page, currentTab, totalPages) {
-        if (page >= 1 && page <= totalPages) {
-          endpoints[
-            currentTab
-          ] = `/userBlogs${currentTab}?page=${page}&pageSize=${pageSize}`;
-          userBlogs(endpoints[currentTab], currentTab);
-        }
-      }
+  const container = document.getElementById("paginationControls");
+  container.innerHTML = "";
+  const pagination = generatePagination(totalPages, currentPage[currentTab], currentTab);
+  container.appendChild(pagination);
 
-      loadTab(currentTab, currentId);
+  let variable = document.getElementById(divid);
+  variable.classList.add("changecolor");
+}
+
+async function userBlogs(fetchapi, tabName) {
+  let token = localStorage.getItem("token");
+  let data = await fetch(fetchapi, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+  let blogs = await data.json();
+
+  let blogLength = document.getElementById("blog_length");
+  blogLength.innerHTML = blogs.totalDataCount + " blogs";
+
+  let elem = document.getElementById("posts");
+  elem.innerHTML = "";
+
+  attachBlogs(blogs.blogData);
+
+  return blogs.totalDataCount;
+}
+
+function updateEndpoint(tabName) {
+  endpoints[tabName] = `/userBlogs${tabName}?page=${currentPage[tabName]}&pageSize=${pageSize}`;
+}
+
+async function nextPage(currentTab) {
+  const paginationContainer = document.getElementById("paginationControls");
+  currentPage[currentTab]++;
+  updateEndpoint(currentTab);
+  await loadTab(currentTab, currentId);
+}
+
+async function prevPage(currentTab) {
+  if (currentPage[currentTab] > 1) {
+    const paginationContainer = document.getElementById("paginationControls");
+    currentPage[currentTab]--;
+    updateEndpoint(currentTab);
+    await loadTab(currentTab, currentId);
+  }
+}
+
+async function goToPage(page, currentTab, totalPages) {
+  if (page >= 1 && page <= totalPages) {
+    const paginationContainer = document.getElementById("paginationControls");
+    endpoints[currentTab] = `/userBlogs${currentTab}?page=${page}&pageSize=${pageSize}`;
+    currentPage[currentTab]=page;
+    await loadTab(currentTab, currentId);
+  }
+}
+
+
+loadTab(currentTab, currentId);
+
 
       function attachBlogs(blogs, blogEarning) {
         let elem = document.getElementById("posts");
@@ -1056,7 +1105,7 @@
         prevLink.classList.add("page-link");
         prevLink.textContent = "Previous";
         prevLink.addEventListener("click", () => {
-          prevPage();
+          prevPageRef();
         });
         prevLi.appendChild(prevLink);
         ul.appendChild(prevLi);
@@ -1077,7 +1126,7 @@
             a.classList.add("page-link");
             a.textContent = i;
             a.addEventListener("click", () => {
-              goToPage(i, totalPages);
+              goToPageRef(i, totalPages);
             });
             li.appendChild(a);
           }
@@ -1095,7 +1144,7 @@
         nextLink.textContent = "Next";
         nextLink.addEventListener("click", () => {
           // Call your page change function here for the next page
-          nextPage();
+          nextPageRef();
         });
         nextLi.appendChild(nextLink);
         ul.appendChild(nextLi);
@@ -1105,25 +1154,25 @@
         return paginationContainer;
       }
 
-      function updateEndpoint() {
+      function updateEndpointRef() {
         endpointsRef= `/all_referrals?page=${currentPageRef}&pageSize=${pageSizeRef}`;
       }
 
-      function nextPage() {
+      function nextPageRef() {
         currentPageRef++;
-        updateEndpoint();
+        updateEndpointRef();
         refBlogs(endpointsRef);
       }
 
-      function prevPage() {
+      function prevPageRef() {
         if (currentPageRef > 1) {
           currentPageRef--;
-          updateEndpoint();
+          updateEndpointRef();
           refBlogs(endpointsRef);
         }
       }
 
-      function goToPage(page,totalPages) {
+      function goToPageRef(page,totalPages) {
         if (page >= 1 && page <= totalPages) {
           endpointsRef = `/all_referrals?page=${page}&pageSize=${pageSizeRef}`;
           refBlogs(endpointsRef);
