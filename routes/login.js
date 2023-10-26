@@ -4,7 +4,11 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 // const [encrypt, decrypt] = require('./encrypt.js');
 
-const { User, Referral, socialReg, socialShare, ipSetTable} = require("../models.js");
+const jwtVerify = require("./jwt")
+
+const verification = require("./verification");
+
+const { User, Referral, socialReg, socialShare, ipSetTable, transporter} = require("../models.js");
 
 const multer = require("multer");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
@@ -78,6 +82,7 @@ router.post("/googleLogin", upload.single("image"), async function(req, res){
       username: await name1,
       role: "writer",
       email: email,
+      verified: 0,
       referral: referralId
     })
 
@@ -182,17 +187,22 @@ router.post("/googleLogin", upload.single("image"), async function(req, res){
   })
 })
 
-router.post("/login", function (req, res) {
+router.post("/login", async function (req, res) {
   //console.log("in login")
   //console.log("body = ", req.body)
   const user = new User({
     username: req.body.username,
     password: req.body.password,
+    email: req.body.email
   });
   console.log("user = ", user)
+  console.log("user = ", await User.findOne({ username: user.username }))
+  console.log("user = ", await User.findOne({ email: user.email }))
+  console.log("user = ", await User.findOne({ $or: [{ username: user.username }, { email: user.username }] }))
         User.findOne(
           { $or: [{ username: user.username }, { email: user.username }] },
           (err, user) => {
+            user = user.toObject()
             console.log("user = ", user)
             console.log("password = ", user.password)
             bcrypt.compare(req.body.password, user.password).then(function(result) {
@@ -201,7 +211,9 @@ router.post("/login", function (req, res) {
               if (result==true){
                 jwt.sign({ user: user }, "secretkey", (err, token) => {
                   console.log("token = ", token)
-                  user._id = encrypt(user._id)
+                  user["_id"] = encrypt(user._id)
+                  console.log(user._id)
+                  console.log(encrypt(user._id))
                 res.status(200).json({"user": user, "token": token});
               });
               }
@@ -252,3 +264,55 @@ router.post("/logout", function (req, res, next) {
 });
 
 module.exports = router;
+
+router.post("/email-verification", async function (req, res) {
+  let userid = jwtVerify(req)
+  try{
+    let url = `https://autumnkurenai.com/email-verification?time=${Date.now()}&user=${encrypt(userid.user._id)}`
+    const mailData = {
+      from: "autumnkurenai@gmail.com",
+      //to: user.email,
+      to: "autumnkurenai@gmail.com",
+      subject: "Email Verification",
+      html: verification(url),
+    };
+
+    await transporter.sendMail(mailData);
+    res.status(200).json("email sent")
+  }
+  catch(err){
+    res.status(404).json(`user could not be verified - ${err}`)
+  }
+})
+
+
+router.get("/email-verification", async function (req, res) {
+  let code = req.query.code
+  let user_id = req.query.user
+  let time = req.query.time
+  console.log("timestamp = ", Date.now())
+  let valid = Math.floor((Date.now() - parseInt(time)) / 1000)/60
+
+  try{
+    user_id = decrypt(user_id)
+  }
+  catch(err){
+    console.log("Err = ", err)
+    res.status(200).json("Link is not valid")
+  }
+
+  let user = await User.findOne({_id: user_id});
+
+  user.verified = true
+
+  user.save()
+
+  console.log("valid = ", valid)
+
+  if (valid <15){    
+    res.status(200).json("Successfuly Verified")
+  }
+  else {
+    res.status(400).json("link has already expired")
+  }
+})
