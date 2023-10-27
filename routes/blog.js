@@ -166,27 +166,30 @@ router.post('/updateReadingTimeUser', async (req, res) => {
     const timeSpentByBlog = await viewAnalysis.aggregate([
       {
         $group: {
-          _id: '$ip',
+          _id: {
+            ip: '$ip',
+            blogId: '$blogId',
+          },
           totalTimeSpent: { $sum: '$time' },
         },
       },
       {
         $project: {
           _id: 0,
-          ip: '$_id',
+          userId: '$_id.ip',
+          blogId: '$_id.blogId',
           totalTimeSpent: 1,
         },
       },
     ]);
-
-    const updatedBlogs = timeSpentByBlog.map(({ ip, totalTimeSpent }) => ({ ip, totalTimeSpent }));
-
-    res.json({ message: 'Total time spent for blogs by user', updatedBlogs });
+    console.log(timeSpentByBlog);
+    res.json({ message: 'Total time spent for blogs by user', updatedBlogs: timeSpentByBlog });
   } catch (error) {
     console.error('Error updating total time spent:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 
 

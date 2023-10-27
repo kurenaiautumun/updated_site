@@ -127,14 +127,14 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 130vh;
         }
 
         table {
             border-collapse: collapse;
-            width: 80%;
-            margin-bottom: 50px;
+            width: 90%;
             text-align: center;
+            margin:auto ;
+            white-space: nowrap;
         }
 
         th {
@@ -156,37 +156,110 @@
         tr:hover {
             background-color: #d3d3d3;
         }
+
+    .dashbord_transition_history_highblogs {
+    background-color: #f5f5f5;
+    padding: 60px 20px;
+    width:100%;
+
+  }
+
+  .dash_transition_blog_box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .topblogs {
+    background-color: #ffb428;
+    color: #fff;
+    padding: 10px 200px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    
+  }
+
+  .buttondiv {
+    display: flex;
+  }
+
+  .tablinks {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    background-color: #ffb428;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: black;
+    font-weight: 700;
+  }
+
+  .tablinks:hover {
+    /* background-color: yellow; */
+    text-decoration: underline;
+  }
+
+  #posts {
+    padding: 10px;
+  }
+
+#blogTableContainer{
+  padding: 20px;
+}
+
+  @media (max-width: 670px){
+    .topblogs{
+      padding: 10px 20px;
+    }
+    #blogTableContainer {
+    overflow-x: auto;
+}
+  }
+
 </style>
   </head>
   <body>
     <%- include('./partials/header') %>
 
     <main>
-        <table id="blogTable">
-            <thead>
-                <tr>
-                    <th>Serial Number</th>
-                    <th>Blog ID</th>
-                    <th>Total Time Spent</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Table rows will be added here -->
-            </tbody>
-        </table>
-        
-        <table id="userTable">
-          <thead>
-              <tr>
-                  <th>Serial Number</th>
-                  <th>User ID</th>
-                  <th>Total Time Spent</th>
-              </tr>
-          </thead>
-          <tbody>
-              <!-- Table rows will be added here -->
-          </tbody>
-      </table>
+
+      <section class="dashbord_transition_history_highblogs">
+        <div class="container">
+          <div class="dash_transition_blog_box jut-sb">
+            <div style="display: block" id="posts_div" class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+              <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+                <div class="topblogs bg-gray-200 flex w-fit border-solid border-gray-300 border-b">
+                  <div id="buttonclass" class="buttondiv py-3">
+                    <button class="tablinks" onclick="showBlogTable()">
+                      Blog Analysis
+                    </button>
+                  </div>
+                  <div id="buttonclass1" class="buttondiv py-3">
+                    <button class="tablinks" onclick="showUserTable()">
+                      User Analysis
+                    </button>
+                  </div>
+                  <div id="buttonclass1" class="buttondiv py-3">
+                    <button class="tablinks" onclick="showBlogTable()">
+                      Referral Analysis
+                    </button>
+                  </div>
+                </div>
+                <!-- for posts -->
+                <div id="blogTableContainer" class="p-1 flex flex-col w-full md:mx-1 lg:mx-1">
+                  <!-- horizontal card -->
+                  <!-- /horizontal card -->
+                </div>
+                <!-- /for posts -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Core JavaScript
@@ -1095,103 +1168,145 @@
       }
 
       async function updateTotalTimeSpent() {
-    try {
-        const response = await fetch("/updateReadingTimeBlog", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+            try {
+                const response = await fetch("/updateReadingTimeBlog", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
 
-        if (!response.ok) {
-            throw new Error(
-                `Error updating total time spent. Status: ${response.status}`
-            );
+                if (!response.ok) {
+                    throw new Error(
+                        `Error updating total time spent. Status: ${response.status}`
+                    );
+                }
+
+                const data = await response.json();
+                console.log(data);
+
+                // Create a table element
+                const blogTable = document.createElement("table");
+                blogTable.id = "blogTable";
+
+                // Create table header
+                const thead = document.createElement("thead");
+                const headerRow = document.createElement("tr");
+
+                const headers = ["Serial Number", "Blog ID", "Total Time Spent (minutes)"];
+                headers.forEach((headerText) => {
+                    const th = document.createElement("th");
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+
+                thead.appendChild(headerRow);
+                blogTable.appendChild(thead);
+
+                // Create table body
+                const tbody = document.createElement("tbody");
+                data.updatedBlogs.forEach((blog, index) => {
+                    const row = document.createElement("tr");
+                    const serialNumberCell = document.createElement("td");
+                    const blogIdCell = document.createElement("td");
+                    const totalTimeSpentCell = document.createElement("td");
+
+                    serialNumberCell.textContent = index + 1;
+                    blogIdCell.textContent = blog.blogId;
+                    totalTimeSpentCell.textContent = (blog.totalTimeSpent / 60).toFixed(2); // Convert to minutes and round to 2 decimal places
+
+                    row.appendChild(serialNumberCell);
+                    row.appendChild(blogIdCell);
+                    row.appendChild(totalTimeSpentCell);
+                    tbody.appendChild(row);
+                });
+
+                blogTable.appendChild(tbody);
+
+                const tableContainer = document.getElementById("blogTableContainer");
+                tableContainer.innerHTML = ""; 
+                tableContainer.appendChild(blogTable);
+            } catch (error) {
+                console.error("Error updating total time spent:", error);
+            }
         }
 
-        const data = await response.json();
-        console.log(data);
-
-        // Get the table element and its body
-        const blogTable = document.getElementById("blogTable");
-        const tableBody = blogTable.querySelector("tbody");
-
-        // Clear any existing table rows
-        tableBody.innerHTML = '';
-
-        // Populate the table with the received data
-        data.updatedBlogs.forEach((blog, index) => {
-            const row = document.createElement("tr");
-            const serialNumberCell = document.createElement("td");
-            const blogIdCell = document.createElement("td");
-            const totalTimeSpentCell = document.createElement("td");
-
-            serialNumberCell.textContent = index + 1; // Serial number starts from 1
-            blogIdCell.textContent = blog.blogId;
-            totalTimeSpentCell.textContent = blog.totalTimeSpent / 60; // Convert to minutes
-
-            row.appendChild(serialNumberCell);
-            row.appendChild(blogIdCell);
-            row.appendChild(totalTimeSpentCell);
-            tableBody.appendChild(row);
-        });
-    } catch (error) {
-        console.error("Error updating total time spent:", error);
-    }
-}
-
-// Call the function when the page loads
-window.addEventListener('load', updateTotalTimeSpent);
+        updateTotalTimeSpent();
 
 
-async function updateTotalTimeSpentbyUser() {
-    try {
-        const response = await fetch("/updateReadingTimeUser", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        async function updateUserTable() {
+            try {
+                const response = await fetch("/updateReadingTimeUser", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
 
-        if (!response.ok) {
-            throw new Error(
-                `Error updating total time spent. Status: ${response.status}`
-            );
+                if (!response.ok) {
+                    throw new Error(
+                        `Error updating user data. Status: ${response.status}`
+                    );
+                }
+
+                const data = await response.json();
+                console.log(data);
+
+                const userTable = document.createElement("table");
+                userTable.id = "userTable";
+
+          
+                const thead = document.createElement("thead");
+                const headerRow = document.createElement("tr");
+
+                const headers = ["Serial Number", "User ID", "Blog ID", "Total Time Spent (minutes)"];
+                headers.forEach((headerText) => {
+                    const th = document.createElement("th");
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+
+                thead.appendChild(headerRow);
+                userTable.appendChild(thead);
+
+              
+                const tbody = document.createElement("tbody");
+                data.updatedBlogs.forEach((userBlog, index) => {
+                    const row = document.createElement("tr");
+                    const serialNumberCell = document.createElement("td");
+                    const userIdCell = document.createElement("td");
+                    const blogIdCell = document.createElement("td");
+                    const totalTimeSpentCell = document.createElement("td");
+
+                    serialNumberCell.textContent = index + 1;
+                    userIdCell.textContent = userBlog.userId;
+                    blogIdCell.textContent = userBlog.blogId;
+                    totalTimeSpentCell.textContent = (userBlog.totalTimeSpent / 60).toFixed(2); 
+
+                    row.appendChild(serialNumberCell);
+                    row.appendChild(userIdCell);
+                    row.appendChild(blogIdCell);
+                    row.appendChild(totalTimeSpentCell);
+                    tbody.appendChild(row);
+                });
+
+                userTable.appendChild(tbody);
+
+                const tableContainer = document.getElementById("blogTableContainer");
+                tableContainer.innerHTML = ""; 
+                tableContainer.appendChild(userTable);
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
         }
 
-        const data = await response.json();
-        console.log(data);
-
-        // Get the table element and its body
-        const blogTable = document.getElementById("userTable");
-        const tableBody = blogTable.querySelector("tbody");
-
-        // Clear any existing table rows
-        tableBody.innerHTML = '';
-
-        // Populate the table with the received data
-        data.updatedBlogs.forEach((blog, index) => {
-            const row = document.createElement("tr");
-            const serialNumberCell = document.createElement("td");
-            const blogIdCell = document.createElement("td");
-            const totalTimeSpentCell = document.createElement("td");
-
-            serialNumberCell.textContent = index + 1; // Serial number starts from 1
-            blogIdCell.textContent = blog.ip;
-            totalTimeSpentCell.textContent = blog.totalTimeSpent / 60; // Convert to minutes
-
-            row.appendChild(serialNumberCell);
-            row.appendChild(blogIdCell);
-            row.appendChild(totalTimeSpentCell);
-            tableBody.appendChild(row);
-        });
-    } catch (error) {
-        console.error("Error updating total time spent:", error);
-    }
+        function showUserTable() {
+    updateUserTable(); // Display "User Analysis" table
 }
 
-// Call the function when the page loads
-window.addEventListener('load', updateTotalTimeSpentbyUser);
+function showBlogTable() {
+    updateTotalTimeSpent(); // Display "Blog Analysis" table
+}
 
       
       function addingAds() {

@@ -441,26 +441,9 @@ img{
 .recent_right_blog_box{
     gap: 10px;
     margin-top: 20px;
-<<<<<<< HEAD
     flex-direction: column;
     width: 350px;
     padding: 0 15px;
-=======
-}
-.recent_rght_blog_post_img{
-    width: 100%;
-}
-.recent_rght_blog_post_img img {
-    width: 80%;
-}
-.recent_blog_box_heading{
-    font-size: 15px;
-    font-weight: 600;
-}
-.recent_right_blog_post_time{
-    font-size: 10px;
-    margin-top: 5px;
->>>>>>> 8daa12f66bb4b6bce6a45f7c420d898fec0e4e18
 }
 
 
