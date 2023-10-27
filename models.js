@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   pp: String,
   email: String,
   password: String,
+  verified: Boolean,
   followers: Array,
   following: Array,
   recommendation: Array,

@@ -73,10 +73,12 @@
     <img id="pp" src="" style="height:100px; width:100px; border-radius: 50%;" class="center">
   </div>
 
+  <button onClick="verifyEmail()">Verify Email</button>
+
   <form onsubmit="submitForm(this);return false">
     <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">
+      <label for="email">Email</label>
+      <input type="email" disabled class="form-control" id="email" placeholder="Enter Email" name="email">
     </div>
     <div class="form-group">
         <label for="pwd">Username:</label>
@@ -91,13 +93,29 @@
       <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName">
     </div>
     <div class="form-group">
-        <label for="pwd">Info:</label>
-        <textarea id="info" name="info" rows="4" cols="50"></textarea>
+        <label for="info">Info:</label></br>
+        <textarea id="info" class="form-control" name="info" rows="4" cols="50"></textarea>
       </div>
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
   <div><a href="/changePassword">Change Password</a></div>
 </div>
+
+<script>
+    async function verifyEmail(){
+        let token = localStorage.getItem("token")
+
+        let data = await fetch("/email-verification", {
+        method: "POST",
+        headers:{
+            "Content-type": "application/json",
+            'Authorization': "Bearer " + token
+        },
+        })
+
+        let results = await data.json()
+    }
+</script>
 
 <script>
     //nav bar scripts

@@ -34,6 +34,7 @@ router.post("/signup", async (req, res) => {
     let user = new User({
       username: req.body.username,
       email: req.body.email,
+      verified: 0,
       role: req.body.role,
       firstName: "",
       lastName: "",
@@ -103,6 +104,14 @@ router.post("/signup", async (req, res) => {
         catch(err){
           console.log("New visitor", err)
         }
+
+        console.log("user at end = ", user)
+
+        //convert to object first to be able to overwrite values
+        
+        user = user.toObject()
+
+        user._id = encrypt(user._id)
 
         res.status(201).json(user);
     }
