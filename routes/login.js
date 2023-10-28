@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-// const [encrypt, decrypt] = require('./encrypt.js');
-
 const jwtVerify = require("./jwt")
 
 const verification = require("./verification");
@@ -316,3 +314,23 @@ router.get("/email-verification", async function (req, res) {
     res.status(400).json("link has already expired")
   }
 })
+
+router.post("/checkEmailVerification", async (req, res) => {
+  try {
+    console.log(req.body.userId);
+    const userId = req.body.userId;
+    const decryptedUserId = decrypt(userId);
+    console.log(decryptedUserId);
+
+    const user = await User.findOne({ _id: decryptedUserId });
+
+    if (user && user.verified === true) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});

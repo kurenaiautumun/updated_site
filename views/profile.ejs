@@ -56,7 +56,34 @@
   margin-right: auto;
   width: 50%;
 }
-        
+  
+.verify-email-button{
+    margin-bottom: 10px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+}
+
+.verify-email-button:hover{
+    background-color: #ffb428;
+    color: black;
+}
+
+.verify-email-label{
+    font-size: 15px;
+}
+
+.verify-email-checkbox{
+height: 15px;
+width: 15px;
+}
+
+#form-group-email{
+    padding-top: 10px;
+}
+
 
 
 
@@ -73,11 +100,17 @@
     <img id="pp" src="" style="height:100px; width:100px; border-radius: 50%;" class="center">
   </div>
 
-  <button onClick="verifyEmail()">Verify Email</button>
+  <div id="emailVerifyDiv">
+
+  </div>
+  <!-- <button onClick="verifyEmail()">Verify Email</button> -->
 
   <form onsubmit="submitForm(this);return false">
     <div class="form-group">
-      <label for="email">Email</label>
+        <div id="form-group-email">
+            <label for="email">Email</label>
+        </div>
+      
       <input type="email" disabled class="form-control" id="email" placeholder="Enter Email" name="email">
     </div>
     <div class="form-group">
@@ -219,7 +252,6 @@
 
         localStorage.removeItem("user")
         localStorage.removeItem("token")
-        localStorage.removeItem("userId");
 
         window.location.href = "/"
     }
@@ -256,6 +288,50 @@
     }
 
     authorDetails();
+
+    
+    
+    async function checkemailVerification() {
+    const body = {
+        "userId": localStorage.getItem("user")
+    };
+
+    try {
+        let data = await fetch("/checkEmailVerification", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(body)
+        });
+
+        let res = await data.json();
+        // console.log("checkEmailVerification", res);
+
+        const emailVerifyDiv = document.getElementById('form-group-email');
+
+        if (res === true) {
+            const checkbox = document.createElement('input');
+            checkbox.classList.add('verify-email-checkbox');
+            checkbox.type = 'checkbox';
+            checkbox.checked = true;
+            checkbox.style.marginLeft = '5px';
+            emailVerifyDiv.appendChild(checkbox);
+        } else {
+            const button = document.createElement('button');
+            button.textContent = 'Verify';
+            button.classList.add('verify-email-button');
+            button.setAttribute('onclick', verifyEmail);
+            emailVerifyDiv.appendChild(button);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+checkemailVerification();
+
+
 
 </script>
 
