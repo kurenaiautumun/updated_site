@@ -100,11 +100,6 @@ width: 15px;
     <img id="pp" src="" style="height:100px; width:100px; border-radius: 50%;" class="center">
   </div>
 
-  <div id="emailVerifyDiv">
-
-  </div>
-  <!-- <button onClick="verifyEmail()">Verify Email</button> -->
-
   <form onsubmit="submitForm(this);return false">
     <div class="form-group">
         <div id="form-group-email">
@@ -136,8 +131,9 @@ width: 15px;
 
 <script>
     async function verifyEmail(){
+        console.log("verify email function called");
         let token = localStorage.getItem("token")
-
+        // console.log("token",token);
         let data = await fetch("/email-verification", {
         method: "POST",
         headers:{
@@ -147,6 +143,7 @@ width: 15px;
         })
 
         let results = await data.json()
+        console.log(results);
     }
 </script>
 
@@ -321,7 +318,8 @@ width: 15px;
             const button = document.createElement('button');
             button.textContent = 'Verify';
             button.classList.add('verify-email-button');
-            button.setAttribute('onclick', verifyEmail);
+            // button.setAttribute('onClick', verifyEmail);
+            button.onclick = verifyEmail; 
             emailVerifyDiv.appendChild(button);
         }
     } catch (error) {

@@ -261,12 +261,13 @@ router.post("/logout", function (req, res, next) {
   });
 });
 
-module.exports = router;
+
 
 router.post("/email-verification", async function (req, res) {
   let userid = jwtVerify(req)
   try{
     let url = `https://autumnkurenai.com/email-verification?time=${Date.now()}&user=${encrypt(userid.user._id)}`
+    console.log(url);
     const mailData = {
       from: "autumnkurenai@gmail.com",
       //to: user.email,
@@ -334,3 +335,4 @@ router.post("/checkEmailVerification", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+module.exports = router;
