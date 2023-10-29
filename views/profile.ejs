@@ -320,8 +320,11 @@ width: 15px;
         } else {
             const button = document.createElement('button');
             button.textContent = 'Verify';
+            button.type = "button";
             button.classList.add('verify-email-button');
-            button.setAttribute('onclick', verifyEmail);
+            button.onclick = async function(){
+                verifyEmail()
+            }
             emailVerifyDiv.appendChild(button);
         }
     } catch (error) {
