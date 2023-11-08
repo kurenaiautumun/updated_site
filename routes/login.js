@@ -271,7 +271,7 @@ router.post("/email-verification", async function (req, res) {
     const mailData = {
       from: "autumnkurenai@gmail.com",
       //to: user.email,
-      to: "autumnkurenai@gmail.com",
+      to: await userid.user.email,
       subject: "Email Verification",
       html: verification(url),
     };

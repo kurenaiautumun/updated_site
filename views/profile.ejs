@@ -312,14 +312,15 @@ width: 15px;
             checkbox.classList.add('verify-email-checkbox');
             checkbox.type = 'checkbox';
             checkbox.checked = true;
+            checkbox.disabled = true;
             checkbox.style.marginLeft = '5px';
             emailVerifyDiv.appendChild(checkbox);
         } else {
             const button = document.createElement('button');
             button.textContent = 'Verify';
+            button.type = "button";
             button.classList.add('verify-email-button');
-            // button.setAttribute('onClick', verifyEmail);
-            button.onclick = verifyEmail; 
+            button.setAttribute('onclick', verifyEmail);
             emailVerifyDiv.appendChild(button);
         }
     } catch (error) {
