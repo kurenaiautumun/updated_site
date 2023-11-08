@@ -320,7 +320,7 @@ width: 15px;
             button.textContent = 'Verify';
             button.type = "button";
             button.classList.add('verify-email-button');
-            button.setAttribute('onclick', verifyEmail);
+            button.onclick = verifyEmail;
             emailVerifyDiv.appendChild(button);
         }
     } catch (error) {

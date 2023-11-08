@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Blog, User, Referral, transporter,
-   UserInfo, Earnings, TotalEarnings, paySlots, monthlyViews } = require("../models.js");
+   UserInfo, Earnings, TotalEarnings, paySlots, monthlyViews,MonthlyEarnReferral } = require("../models.js");
 
    const {encrypt, decrypt} = require("./encrypt")
 
@@ -10,7 +10,7 @@ const jwtVerify = require("./jwt")
 
 router.get("/all_referrals", async function(req,res){
   try {
-    const user = jwtVerify(req); // Verify JWT and extract user data
+    const user = jwtVerify(req); 
     //console.log('user =', user);
 
     if (!user) {
@@ -32,9 +32,30 @@ router.get("/all_referrals", async function(req,res){
       total=total+((userData.totalEarn)/20);
     }
 
+      const today = new Date();
+      const currentMonth = today.getMonth();
+      const currentYear = today.getFullYear();
+  
+      const existingMonthlyData = await MonthlyEarnReferral.findOne({
+        userId: user.user._id,
+        month: currentMonth,
+        year: currentYear
+      });
+  
+      if (existingMonthlyData) {
+        existingMonthlyData.monthlyEarnings = total;
+        await existingMonthlyData.save();
+      } else {
+        await MonthlyEarnReferral.create({
+          userId: user.user._id,
+          month: currentMonth,
+          year: currentYear,
+          monthlyEarnings: total
+        });
+      }
 
-    const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
-    const pageSize = parseInt(req.query.pageSize) || 10; // Default to 10 items per page
+    const page = parseInt(req.query.page) || 1; 
+    const pageSize = parseInt(req.query.pageSize) || 10;
     const skip = (page - 1) * pageSize;
 
     const userDataPromises = refData.referralArray.slice(skip, skip + pageSize).map(async (userId) => {

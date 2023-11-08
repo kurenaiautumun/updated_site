@@ -97,7 +97,8 @@ router.post("/blog/viewcount", async (req, res) => {
       blogId: _id,
       startDate: startDate,
       endDate: endDate,
-      viewCount: 0
+      viewCount: 0,
+      monthlyEarn:0
     })
     viewsMonth.save()
   }
@@ -113,6 +114,7 @@ router.post("/blog/viewcount", async (req, res) => {
     //console.log(blog.readTime*120 > totalTime)
     if (((blog.readTime)*60 < totalTime) & ((blog.readTime)*60 + 30 > totalTime)){
       viewsMonth.viewCount += 1
+      viewsMonth.monthlyEarn=viewsMonth.viewCount*0.03;
       blog.viewCount += 1
       msg = "view increased"
       http_status = 201 
@@ -372,6 +374,10 @@ router.get("/category/:tag", async (req, res)=>{
 
 router.get("/viewAnalysis", (req, res) => {
   res.render("viewAnalytics");
+});
+
+router.get("/paymentAnalysis", (req, res) => {
+  res.render("paymentAnalysis");
 });
 
 module.exports = router;

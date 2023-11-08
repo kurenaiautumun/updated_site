@@ -1289,7 +1289,7 @@
             params[nameVal[0]] = nameVal[1];
           }
         }
-        console.log("blogid in params" + params["blogId"]);
+        // console.log("blogid in params" + params["blogId"]);
         return params["blogId"];
       }
 
@@ -1612,36 +1612,39 @@
       }
 
       async function setLimit() {
-        let blogId = await getParams();
-        let storageKey = `today_${blogId}`;
-        let data = JSON.parse(localStorage.getItem(storageKey));
+  let blogId = await getParams();
+  let storageKey = `today_${blogId}`;
+  let storedData = localStorage.getItem(storageKey);
+  let data = storedData ? JSON.parse(storedData) : null;
+  let todayDate = new Date();
+  
+  if (data) {
+    let storedPrevDate = new Date(data.prevDate);
 
-        if (data) {
-          let todayDate = new Date();
-
-          if (data.prevDate.toDateString() === todayDate.toDateString()) {
-            if (data.limit > 0) {
-              data.limit--;
-              localStorage.setItem(storageKey, JSON.stringify(data));
-            }
-          } else {
-            data.prevDate = todayDate;
-            data.limit = 5;
-            localStorage.setItem(storageKey, JSON.stringify(data));
-          }
-        } else {
-          localStorage.setItem(
-            storageKey,
-            JSON.stringify({
-              blogId: blogId,
-              prevDate: new Date(),
-              limit: 5,
-            })
-          );
-        }
+    if (storedPrevDate.toDateString() === todayDate.toDateString()) {
+      if (data.limit > 0) {
+        data.limit--;
+        localStorage.setItem(storageKey, JSON.stringify(data));
       }
+    } else {
+      data.prevDate = todayDate.toISOString();
+      data.limit = 5;
+      localStorage.setItem(storageKey, JSON.stringify(data));
+    }
+  } else {
+    localStorage.setItem(
+      storageKey,
+      JSON.stringify({
+        blogId: blogId,
+        prevDate: todayDate.toISOString(),
+        limit: 5,
+      })
+    );
+  }
+}
 
-      setLimit();
+setLimit();
+
 
       let publicity = 0;
 
@@ -1678,31 +1681,8 @@
         }
       }
 
-      async function updateTotalTimeSpent() {
-        try {
-          const response = await fetch("/updateReadingTime", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-
-          if (!response.ok) {
-            throw new Error(
-              `Error updating total time spent. Status: ${response.status}`
-            );
-          }
-          const data = await response.json();
-          console.log(data);
-        } catch (error) {
-          console.error("Error updating total time spent:", error);
-        }
-      }
-
-      updateTotalTimeSpent();
-
       let viewIncreased = 0;
-      let startDate = new Date();
+      let startDate =0;
       let elapsedTime = 0;
       let blurTime = 0;
       let focusedTime = 0;
@@ -1713,6 +1693,7 @@
         blurred = false;
         //const endDate = new Date();
       };
+      window.addEventListener("focus", focus);
 
       let vuew_count = 1;
 
@@ -1784,6 +1765,7 @@
 
       setTimeout(updateViews, 30000);
 
+
       function addingAds() {
         //console.log("height = ", window.innerHeight)
         let elem = document.createElement("div");
@@ -1799,7 +1781,7 @@
           //console.log(paras[i])
         }
       }
-      window.addEventListener("focus", focus);
+     
       addingAds();
 
 

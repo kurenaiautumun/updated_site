@@ -135,7 +135,8 @@ const monthlyViewsSchema = new mongoose.Schema({
   blogId: String,
   userId: String,
   startDate: String,
-  endDate: String
+  endDate: String,
+  monthlyEarn:Number
 })
 
 const walletSchema = new mongoose.Schema({
@@ -167,6 +168,14 @@ const ipSet = new mongoose.Schema({
   ip: String
 })
 
+const monthlyEarnReferral=new mongoose.Schema({
+    userId:String,
+    month: Number,
+    year:Number,
+    monthlyEarnings:Number
+})
+
+
 function toggle(arr, elem) {
   const index = arr.indexOf(elem);
   if (index !== -1) {
@@ -183,6 +192,8 @@ const transporter = nodemailer.createTransport({
     pass: process.env.PASSWORD,
   },
 });
+
+
 
 const date = new Date().toLocaleDateString();
 const User = new mongoose.model("User", userSchema);
@@ -201,6 +212,8 @@ const paySlots = new mongoose.model("paySlots", paySlotsSchema)
 const monthlyViews = new mongoose.model("monthlyViews", monthlyViewsSchema)
 
 const viewAnalysis = new mongoose.model("viewAnalysis", viewAnalysisSchema)
+
+const MonthlyEarnReferral =new mongoose.model("monthlyEarningReferral",monthlyEarnReferral);
 
 const socialShare = new mongoose.model("socialShare", socialShareSchema)
 
@@ -233,6 +246,7 @@ module.exports = {
   viewAnalysis,
   socialShare,
   socialReg,
-  ipSetTable
+  ipSetTable,
+  MonthlyEarnReferral,
 };
 

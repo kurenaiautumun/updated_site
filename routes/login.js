@@ -267,7 +267,6 @@ router.post("/email-verification", async function (req, res) {
   let userid = jwtVerify(req)
   try{
     let url = `https://autumnkurenai.com/email-verification?time=${Date.now()}&user=${encrypt(userid.user._id)}`
-    console.log(url);
     const mailData = {
       from: "autumnkurenai@gmail.com",
       //to: user.email,
@@ -318,11 +317,8 @@ router.get("/email-verification", async function (req, res) {
 
 router.post("/checkEmailVerification", async (req, res) => {
   try {
-    console.log(req.body.userId);
     const userId = req.body.userId;
     const decryptedUserId = decrypt(userId);
-    console.log(decryptedUserId);
-
     const user = await User.findOne({ _id: decryptedUserId });
 
     if (user && user.verified === true) {
