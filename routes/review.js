@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
-const { Review} = require('../models.js');
-
+const { Review, User, Blog} = require('../models.js');
+const jwtVerify = require("./jwt")
 
 
 router.get("/review/:blogId",(req,res)=>{
@@ -18,6 +18,35 @@ router.get("/review/:blogId",(req,res)=>{
     })
     review.save();
     res.status(201).json({message:"review is saved",review})
+  })
+
+
+  router.post("/allReview", async (req, res)=>{
+    let userId = req.query.userId
+    let token = jwtVerify(req);
+    try{
+      let user = token.user._id
+      //console.log("id = ", user)
+      userObj = await User.findOne({_id:user})
+      console.log("userObj = ", await userObj.role)
+    
+      if ((await userObj.role!="admin")&&(await userObj.role!="reviewer")){
+        res.status(400).json("You are not allowed to access this page")
+      }
+      else{
+        let blogs = await Blog.find({ status:"in-review", reviewer: { $exists: true }, "reviewer.0": {$exists: false} })
+        console.log("blogs = ", await blogs)
+        res.status(200).json(blogs)
+      }
+    }
+    catch(err){
+      res.status(404).json(`Please Log-In first - ${err}`)
+    }
+
+  })
+
+  router.get("/allReview", (req,res)=>{
+    res.render("review")
   })
 
 

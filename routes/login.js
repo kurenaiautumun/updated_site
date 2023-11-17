@@ -176,6 +176,7 @@ router.post("/googleLogin", upload.single("image"), async function(req, res){
   }
   jwt.sign({ user: user }, "secretkey", async(err, token) => 
   {
+    req.session.token = token
     res.status(200).json({
       _id: encrypt(user._id),
       success: msg,
@@ -209,6 +210,7 @@ router.post("/login", async function (req, res) {
               if (result==true){
                 jwt.sign({ user: user }, "secretkey", (err, token) => {
                   console.log("token = ", token)
+                  req.session.token = token
                   user["_id"] = encrypt(user._id)
                   console.log(user._id)
                   console.log(encrypt(user._id))
