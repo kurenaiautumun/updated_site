@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Review</title>
+    </head>
+    <body>
+        <script>
+            async function getBlogs(){
+                let token = localStorage.getItem("token")
+                let data = await fetch("/allReview", {
+                    method: "POST",
+                    headers:{
+                        "Content-type": "application/json",
+                        'Authorization': "Bearer " + token
+                    }
+                })
+
+                let blogs = await data.json()
+                }
+                getBlogs();
+        </script>
+    </body>
+</html>

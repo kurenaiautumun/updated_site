@@ -195,7 +195,8 @@ router.post('/updateReadingTimeUser', async (req, res) => {
 
 
 router.post("/newblog", async (req, res) => {
-  const {title, body, views, status, titleImage} = req.body;
+  const {title, body, views, status, titleImage, group} = req.body;
+  const reviewers = []
   let token = jwtVerify(req);
 
   //////console.log("user = ", token.user)
@@ -215,7 +216,9 @@ router.post("/newblog", async (req, res) => {
     body,
     views,
     status,
+    group,
     date,
+    reviewers,
     titleImage,
     author,
     status,

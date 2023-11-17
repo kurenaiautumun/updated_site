@@ -24,6 +24,18 @@ const writeRoute = require("./routes/write.js");
 const payment = require("./routes/payment")
 const chats = require("./routes/chat")
 
+//const cookieParser = require("cookie-parser");
+
+// Initialization
+//app.use(cookieParser());
+ 
+app.use(session({
+    secret: "amar",
+    saveUninitialized: true,
+    resave: true
+}));
+ 
+
 app.use(cors(corsOptions));
 app.set("view engine", "ejs");
 app.use(express.json());

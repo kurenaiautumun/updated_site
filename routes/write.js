@@ -3,7 +3,29 @@ const { serializeUser } = require("passport");
 const router = express.Router();
 const { encrypt, decrypt } = require("./encrypt.js");
 
-const {Referral, User, socialShare, viewAnalysis} = require("../models.js");
+const {Referral, User, socialShare, viewAnalysis, Blog} = require("../models.js");
+const jwtVerify = require("./jwt")
+
+//const session = require("express-session");
+
+router.get('/session', (req, res) => {
+  if (req.session.view) {
+      // The next time when user visits, 
+      // he is recognized by the cookie 
+      // and variable gets updated.
+      req.session.view++;
+      res.send("You visited this page for "
+          + req.session.view + " times - " + req.session.token);
+  }
+  else {
+
+      // If user visits the site for
+      // first time
+      req.session.view = 1;
+      res.send("You have visited this page"
+         + " for first time ! Welcome....");
+  }
+})
 
 // const editor = new EditorJS({
 //   holder: "editor",
@@ -17,10 +39,26 @@ const {Referral, User, socialShare, viewAnalysis} = require("../models.js");
 //   },
 // });
 
-router.get("/write", (req, res) => {
-  console.log("user = ", req.user)
-  console.log(req.query.blogId)
-  res.render("writer", { user: req.user });
+router.get("/write", async (req, res) => {
+  console.log("user = ", req.session.token)
+  console.log("blogId =", req.query.blogId)
+  let blog
+  try{
+    blog = await Blog.findOne({_id: req.query.blogId})
+    let user = jwtVerify(req);
+    console.log("user in write - ". user)
+    if (await blog.userId==await user.user._id){
+      res.render("writer", { user: req.user });
+    }
+    else{
+      res.render("read", { user: req.user });
+    }
+  }
+  catch(err){
+    console.log("Err = ", err)
+    res.render("read", { user: req.user });
+  }
+
   //if (req.isAuthenticated()) {
   //  res.render("writer", { user: req.user });
   //} else {

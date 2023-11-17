@@ -39,6 +39,8 @@ const blogSchema = new mongoose.Schema({
   tags: [String],
   readTime: Number,
   likes: Array,
+  reviewer: Array,
+  group: String,
   recommendation: Array,
   titleImage: String,
   slot:{type:String,default:0},
@@ -47,6 +49,18 @@ const blogSchema = new mongoose.Schema({
     default:0
   }
 });
+
+const StoriesSchema = new mongoose.Schema({
+  title: String,
+  author: String,
+  user: String,
+  chapters: Object,
+  titleImage: String,
+  finished: Boolean,
+  tags: [String]
+})
+
+const storyName = StoriesSchema.index({ title: 1 }, { unique: true })
 
 const commentSchema = new mongoose.Schema({
   userId: String,
@@ -207,6 +221,8 @@ const socialShare = new mongoose.model("socialShare", socialShareSchema)
 const socialReg = new mongoose.model("socialReg", socialUserReg)
 
 const ipSetTable = new mongoose.model("ipSet", ipSet)
+date, User, Blog, monthlyViews, viewAnalysis,popularBlogs
+const Story = new mongoose.model("stories", StoriesSchema)
 
 //passport.use(User.createStrategy());
 //passport.serializeUser(User.serializeUser());
@@ -233,6 +249,7 @@ module.exports = {
   viewAnalysis,
   socialShare,
   socialReg,
-  ipSetTable
+  ipSetTable,
+  Story
 };
 

@@ -29,11 +29,20 @@ function verifyToken(req, res, next) {
 
     let data = null
 
-    const bearerHeader = req.headers["authorization"];
+    let bearerHeader;
+    let bearerToken;
+
+    try{
+      bearerHeader = req.headers["authorization"];
+      bearerToken = bearerHeader.split(" ")[1];
+    }
+
+    catch(err){
+     bearerToken = req.session.token 
+    }
   
-    if (typeof bearerHeader !== "undefined") {
-  
-      const bearerToken = bearerHeader.split(" ")[1];
+    if (typeof bearerToken !== "undefined") {
+
 
       //console.log("token = ", bearerHeader)
 
