@@ -3,7 +3,36 @@
         <title>Review</title>
     </head>
     <body>
+        <div id="in-review"></div>
         <script>
+            async function publishBlog(id){
+                console.log("id = ", id)
+                publish(id)
+            }
+
+            async function publish(id){
+                let token = localStorage.getItem("token")
+                let data = await fetch("/setReview", {
+                    method: "POST",
+                    headers:{
+                        "Content-type": "application/json",
+                        'Authorization': "Bearer " + token
+                    },
+                    body: JSON.stringify({blogId: id})
+                })
+
+                let done = await data.status
+                console.log("status = ", done)
+
+                if (await done==200){
+                    document.getElementById(id).remove()
+                    console.log("removed")
+                }
+                else{
+                    console.log("not removed")
+                }
+            }
+
             async function getBlogs(){
                 let token = localStorage.getItem("token")
                 let data = await fetch("/allReview", {
@@ -15,6 +44,25 @@
                 })
 
                 let blogs = await data.json()
+                let elem = document.getElementById("in-review")
+                for (i in blogs){
+                    let next = document.createElement("div")
+                    let button = document.createElement("button")
+                    let parent = document.createElement("div")
+
+                    let context = `
+                        <div id="${blogs[i]["_id"]}">
+                            <div>${blogs[i]["title"]} - ${blogs[i]["_id"]}</div>
+                            <div>${blogs[i]["author"]}</div>
+                            <button onClick='publishBlog("${blogs[i]["_id"]}")'>Publish</button>
+                        </div>
+                    `
+
+                    next.innerHTML = context
+
+                    parent.append(next)
+                    elem.append(parent)
+                }
                 }
                 getBlogs();
         </script>

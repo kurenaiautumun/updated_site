@@ -65,6 +65,8 @@ function verifyToken(req, res, next) {
         data = null
     }
 
+    console.log("end of jwt verify")
+
     return data
   
   };
