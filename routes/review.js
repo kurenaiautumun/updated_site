@@ -50,6 +50,32 @@ router.get("/review/:blogId",(req,res)=>{
   })
 
 
+  router.post("/setReview", async (req, res)=>{
+    let token = jwtVerify(req);
+    let blogId = req.body.blogId
+    try{
+      let user = token.user._id
+      //console.log("id = ", user)
+      userObj = await User.findOne({_id:user})
+      console.log("userObj = ", await userObj.role)
+    
+      if ((await userObj.role!="admin")&&(await userObj.role!="reviewer")){
+        res.status(400).json("You are not allowed to access this page")
+      }
+      else{
+        let blog = await Blog.findOne({"_id": blogId})
+        console.log("blogs = ", await blog)
+        blog.status = "published"
+        blog.save()
+        res.status(200).json(blog)
+      }
+    }
+    catch(err){
+      res.status(404).json(`Please Log-In first - ${err}`)
+    }
+  })
+
+
 
   module.exports=router;
   

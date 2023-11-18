@@ -235,8 +235,8 @@ router.post("/newblog", async (req, res) => {
         endDate: endDate,
         viewCount: 0
       })
-    res.status(201).json({ message: "blog saved", user, blog });
   });
+  res.status(201).json({ message: "blog saved", user, blog });
 });
 
 router.post("/updateBlog", async (req, res) => {
@@ -377,4 +377,33 @@ router.get("/viewAnalysis", (req, res) => {
   res.render("viewAnalytics");
 });
 
+
+router.get("/review", (req, res) => {
+  let user = jwtVerify(req);
+  console.log("user in write - ". user)
+  if (user.user.role=="admin"){
+    res.render("review")
+  }
+  else{
+    res.render("new_index")
+  }
+})
+
+
+router.post("/review", (req, res)=>{
+  Blog.aggregate([
+    { $match: { status: "in-review" } }],
+    (err, blog) => {
+      // res.status(201).send({ blog });
+      if (err) {
+        console.log(err)
+      }
+      res.status(201).json({blog });
+    });
+
+})
+
+
 module.exports = router;
+
+

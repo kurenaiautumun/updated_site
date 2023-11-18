@@ -45,7 +45,9 @@ router.get("/write", async (req, res) => {
   let blog
   try{
     blog = await Blog.findOne({_id: req.query.blogId})
+    console.log("after jwt in read")
     let user = jwtVerify(req);
+    console.log("after jwt in write")
     console.log("user in write - ". user)
     if (await blog.userId==await user.user._id){
       res.render("writer", { user: req.user });
