@@ -196,45 +196,50 @@ router.post("/login", async function (req, res) {
   });
   console.log("user = ", user)
   console.log("user = ", await User.findOne({ username: user.username }))
-  console.log("user = ", await User.findOne({ email: user.email }))
+  console.log("user = ", await User.findOne({ email: user.username }))
   console.log("user = ", await User.findOne({ $or: [{ username: user.username }, { email: user.username }] }))
         user = User.findOne(
           { $or: [{ username: user.username }, { email: user.username }] },
           (err, user) => {
-            user = user.toObject()
             console.log("user = ", user)
-            console.log("password = ", user.password)
-            bcrypt.compare(req.body.password, user.password).then(function(result) {
-              // result == true
-              //console.log("result = ", result)
-              if (result==true){
-                jwt.sign({ user: user }, "secretkey", (err, token) => {
-                  console.log("token = ", token)
-                  req.session.token = token
-                  user["_id"] = encrypt(user._id)
-                  console.log(user._id)
-                  console.log(encrypt(user._id))
-                res.status(200).json({"user": user, "token": token});
+            if (user==null){
+              res.status(404).json("No User found with this Email or Username")
+            }
+            else{
+              console.log(user==null)
+              user = user.toObject()
+              console.log("password = ", user.password)
+              bcrypt.compare(req.body.password, user.password).then(function(result) {
+                // result == true
+                //console.log("result = ", result)
+                if (result==true){
+                  jwt.sign({ user: user }, "secretkey", (err, token) => {
+                    console.log("token = ", token)
+                    req.session.token = token
+                    user["_id"] = encrypt(user._id)
+                    console.log(user._id)
+                    console.log(encrypt(user._id))
+                  res.status(200).json({"user": user, "token": token});
+                });
+                }
+                else{
+                  res.status(400).json("Wrong Username/Email or Password Combination")
+                }
               });
+              try{
+                let ip_analysis = ipSetTable({
+                  userId: user._id,
+                  ip: req.ip
+                })
+                ip_analysis.save()
               }
-              else{
-                res.status(400).json("Wrong Username/Email or Password Combination")
+              catch(err){
+                console.log("IP could not be caught")
               }
-            });
-            try{
-              let ip_analysis = ipSetTable({
-                userId: user._id,
-                ip: req.ip
-              })
-              ip_analysis.save()
-            }
-            catch(err){
-              console.log("IP could not be caught")
-            }
+          }
         }
         );
         console.log("user at end of login = ", user)
-        res.status(404).json("No User found with this Email or Password")
 });
 
 router.get("/api", (req, res) => {
