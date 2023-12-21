@@ -1,12 +1,14 @@
 const crypto = require('crypto');
 const algorithm = 'aes-256-cbc'; //Using AES encryption
-const key = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
+
 const { SecretsManagerClient, GetSecretValueCommand, ListSecretsCommand } = require("@aws-sdk/client-secrets-manager");
+
 
 //Encrypting text
 function encrypt(text) {
    text = String(text)
+   key = process.env.encrypt_key
+   iv = process.env.encrypt_iv
    let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
    let encrypted = cipher.update(text);
    encrypted = Buffer.concat([encrypted, cipher.final()]);
@@ -18,6 +20,9 @@ function decrypt(text) {
    text = String(text)
    //console.log("text = ", text)
    //let iv_new = Buffer.from(iv.toString('hex'), 'hex');
+   key = process.env.encrypt_key
+   iv = process.env.encrypt_iv
+
    let encryptedText = Buffer.from(text, 'hex');
    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), Buffer.from(iv));
    let decrypted = decipher.update(encryptedText);
@@ -43,16 +48,20 @@ async function get_secret(name){
          VersionStage: "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified
        })
      );
-     const secret = JSON.parse(response.SecretString);
+     const secret = await JSON.parse(response.SecretString);
 
-      //console.log("secret = ", secret["key"])
+      let key = secret["key"]
+      let iv = secret["iv"]
 
-      return secret
+      process.env['encrypt_key'] = key;
+      process.env['encrypt_iv'] = iv;
+
+      return null
    } catch (error) {
      // For a list of exceptions thrown, see
      // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-     //console.log("secret not found", error)
-     return get_secret(name)
+     console.log("secret not found", error)
+     //return get_secret(name)
    }
 }
 
