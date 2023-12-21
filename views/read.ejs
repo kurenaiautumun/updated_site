@@ -1616,10 +1616,12 @@
         let storageKey = `today_${blogId}`;
         let data = JSON.parse(localStorage.getItem(storageKey));
 
+        console.log("data = ", data.prevDate)
+
         if (data) {
           let todayDate = new Date();
 
-          if (data.prevDate.toDateString() === todayDate.toDateString()) {
+          if (data.prevDate === todayDate.toDateString()) {
             if (data.limit > 0) {
               data.limit--;
               localStorage.setItem(storageKey, JSON.stringify(data));
@@ -1699,7 +1701,7 @@
         }
       }
 
-      updateTotalTimeSpent();
+      //updateTotalTimeSpent();
 
       let viewIncreased = 0;
       let startDate = new Date();
