@@ -9,8 +9,6 @@ function encrypt(text) {
    text = String(text)
    key = process.env.encrypt_key
    iv = process.env.encrypt_iv
-   console.log("key = ", key)
-   console.log("iv = ", iv)
    let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
    let encrypted = cipher.update(text);
    encrypted = Buffer.concat([encrypted, cipher.final()]);
@@ -51,8 +49,6 @@ async function get_secret(name){
        })
      );
      const secret = await JSON.parse(response.SecretString);
-
-      console.log("secret = ", secret)
 
       let key = secret["key"]
       let iv = secret["iv"]
