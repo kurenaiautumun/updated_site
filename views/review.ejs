@@ -116,16 +116,24 @@
                 let bloglist = document.getElementById("bloglist");
                 let blogs = bloglist.getElementsByClassName("blog");
 
-                for(let i=0; i< blogs.length;i++){
-                    let filterValue= blogs[i].getElementsByClassName("blog-"+filterType)[0].innerText.toLowerCase();
+                for (let i = 0; i < blogs.length; i++) {
+        let filterValue;
 
-                    if(filterValue.includes(searchTerm)){
-                        blogs[i].style.display ="block";
-                    }
-                    else{
-                        blogs[i].style.display ="none";
-                    }
-                }
+        
+        if (filterType === "title") {
+            filterValue = blogs[i].getElementsByClassName("blog-title")[0].innerText.toLowerCase();
+        } else if (filterType === "author") {
+            filterValue = blogs[i].getElementsByClassName("author")[0].innerText.toLowerCase();
+        } else {
+            
+        }
+
+        if (filterValue.includes(searchTerm)) {
+            blogs[i].style.display = "block";
+        } else {
+            blogs[i].style.display = "none";
+        }
+    }
                 
             }
             document.getElementById("hero_search").addEventListener("input", filterBlogs);
