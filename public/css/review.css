@@ -1,0 +1,206 @@
+
+    
+        .dropdown-content {
+            margin-top:20px;
+              display: inline;
+              position: absolute;
+              font-family: "Karla", sans-serif;
+              min-width: 400px;
+              background-color: #FFB428;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              z-index: 1;
+            }
+            
+                .profile_points{
+                    font-size: 20px;
+                    max-height: 25px;
+                    font-family: "Karla", sans-serif;
+                    background-color: #FFB428;
+                }
+                .dropdown_a{
+                    min-height: 20px;
+                    padding: 10px;
+                }
+                .mystyle {
+                    width: 100%;
+                    color: var(--white);
+                    font-size: 25px;
+                    box-sizing: border-box;
+                    display: block;
+                    transition: all 0.5s ease-out;
+                    top: 0px;
+                    transition: all 0.5s ease-in-out;
+                    transform: scale(1);
+                    z-index: 3;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background: #ffffff;
+                }
+                .close_nav_berger{
+                    position: absolute;
+                    right: 15px;
+                    top: 15px;
+                    z-index: 10;
+                    display: none;
+                }
+                .open_nav_burger{
+                    display: none;
+    
+                }
+                @media (max-width: 920px) {
+    
+                    .close_nav_berger,
+                    .open_nav_burger {
+                        display: block;
+                        cursor: pointer;
+                    }
+                }
+                @media (max-width:500px){
+            .dropdown-content{
+                background-color: white;
+            }
+            .profile_points{
+                background-color: white;
+            }
+        }
+    
+    .review-main {
+        padding: 20px; 
+    }
+    
+    .home_hero_section {
+        background-color:whitesmoke; 
+        color: #fff; 
+        padding: 15px 0;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto; 
+    }
+    
+    .hero_search_box {
+        text-align: center; 
+    }
+    
+    .hero_search {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 800px; 
+        margin: 0 auto; 
+    }
+    
+    .search_input {
+        width: 600px;
+        
+        padding: 10px;
+        font-size: 16px;
+        border: black 1px solid;
+        border-radius: 5px;
+        color: black;
+    }
+    
+    .hero_search_btn {
+        background-color: #181818; 
+        color: #fff; 
+        padding: 10px 15px;
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+    }
+    
+    .hero_search_btn svg {
+        width: 20px; 
+        height: 20px; 
+        margin-right: 5px; 
+    }
+    
+    .hero_search_btn:hover {
+        background-color:#181818; 
+    }
+    
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    
+    
+    
+    .blog {
+        display: flex;
+        justify-content: space-between;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .blog-content {
+        flex: 1;
+    }
+    
+    .blog-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .blog-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .header-text {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+    
+    .normal-text {
+        font-size: 1em;
+        color: #777;
+    }
+    
+    .author {
+        color: #777;
+        margin-right: 250px;
+    }
+    
+    
+    .button-container {
+        text-align: right;
+    }
+    
+    button {
+        background-color: #FFB428;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+    }
+    
+    button:hover {
+        background-color: #181818;
+    }
+    #filterType {
+        width: 65px; 
+        height: 38px;
+        font-size: 16px;
+        border: black 1px solid;
+        border-radius: 5px;
+        color: black;
+        margin-left: 10px; 
+    }
+    

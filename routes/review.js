@@ -3,13 +3,31 @@ const router=express.Router()
 const { Review, User, Blog} = require('../models.js');
 const jwtVerify = require("./jwt")
 
+//Search Functionality
+router.get('/reviews', async (req, res) => {
+  try {
+      var search = '';
+      if (req.query.search) {
+          search = req.query.search;
+      }
 
-router.get("/review/:blogId",(req,res)=>{
-    const blogId = req.params.blogId;
-    Review.find({blogId},(err,review)=>{
-      res.status(201).json({message:"review details",blogId, review})
-    })
-  })
+      const reviews = await Blog.find({
+    $or: [
+        { body: { $regex: '.*' + search + '.*', $options: 'i' } },
+        { title: { $regex: '.*' + search + '.*', $options: 'i' } },
+        { author: { $regex: '.*' + search + '.*', $options: 'i' } }
+    ]
+    
+});
+
+   
+      res.status(200).json({ message: "review details", search, reviews });
+  } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
   router.post("/newReview",(req,res)=>{
     const {userId, blogId, body, score} = req.body;
@@ -26,11 +44,11 @@ router.get("/review/:blogId",(req,res)=>{
     let token = jwtVerify(req);
     try{
       let user = token.user._id
-      //console.log("id = ", user)
+      console.log("id = ", user)
       userObj = await User.findOne({_id:user})
       console.log("userObj = ", await userObj.role)
     
-      if ((await userObj.role!="admin")&&(await userObj.role!="reviewer")){
+      if ((await userObj.role!=="admin")&&(await userObj.role!=="reviewer")){
         res.status(400).json("You are not allowed to access this page")
       }
       else{
@@ -55,8 +73,8 @@ router.get("/review/:blogId",(req,res)=>{
     let blogId = req.body.blogId
     try{
       let user = token.user._id
-      //console.log("id = ", user)
-      userObj = await User.findOne({_id:user})
+      console.log("id = ", user)
+      userObj = writer;
       console.log("userObj = ", await userObj.role)
     
       if ((await userObj.role!="admin")&&(await userObj.role!="reviewer")){

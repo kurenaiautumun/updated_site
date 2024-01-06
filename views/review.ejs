@@ -1,70 +1,137 @@
 <html>
     <head>
+        <link rel="stylesheet" href="/dist/styles.css">
+        <link rel="stylesheet" href="/dist/all.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Review</title>
+        <link rel="stylesheet" href="../css/base.css">
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/review.css">
+        
+       
     </head>
     <body>
+        
+        <%- include('./partials/header') %>
+        <main class="review-main">
+        
+            <section class="home_hero_section">
+                <div class="container">
+                    <div class="hero_search_box">
+                        <div class="hero_search">
+                        <form action="/reviews" class=" r-flex ali-c">
+                            <input type="search" name="search" class="search_input" id="hero_search"
+                               placeholder="Discover Blogs ">
+                            <button type="submit" class="hero_search_btn">
+                               <svg width="24" height="24" viewBox="0 0 14 14" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M9.5 9.5L12.5 12.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                     stroke-linejoin="round" />
+                                  <path
+                                     d="M5.75 10.5C8.37335 10.5 10.5 8.37335 10.5 5.75C10.5 3.12665 8.37335 1 5.75 1C3.12665 1 1 3.12665 1 5.75C1 8.37335 3.12665 10.5 5.75 10.5Z"
+                                     stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                     stroke-linejoin="round" />
+                               </svg>
+                            </button>
+                         </form>
+                         <select id="filterType">
+                            <option value="title">Title</option>
+                            <option value="author">Author</option>
+                         </select>
+                        </div>
+                         
+                    </div>
+                   
+                </div>
+            </section>
+
+        </main>
+        
         <div id="in-review"></div>
         <script>
-            async function publishBlog(id){
-                console.log("id = ", id)
-                publish(id)
+            async function publishBlog(id) {
+                console.log("id = ", id);
+                publish(id);
             }
-
-            async function publish(id){
-                let token = localStorage.getItem("token")
+        
+            async function publish(id) {
+                let token = localStorage.getItem("token");
                 let data = await fetch("/setReview", {
                     method: "POST",
-                    headers:{
+                    headers: {
                         "Content-type": "application/json",
                         'Authorization': "Bearer " + token
                     },
-                    body: JSON.stringify({blogId: id})
-                })
-
-                let done = await data.status
-                console.log("status = ", done)
-
-                if (await done==200){
-                    document.getElementById(id).remove()
-                    console.log("removed")
-                }
-                else{
-                    console.log("not removed")
+                    body: JSON.stringify({ blogId: id })
+                });
+        
+                let done = await data.status;
+                console.log("status = ", done);
+        
+                if (await done == 200) {
+                    document.getElementById(id).remove();
+                    console.log("removed");
+                } else {
+                    console.log("not removed");
                 }
             }
-
-            async function getBlogs(){
-                let token = localStorage.getItem("token")
+        
+            async function getBlogs() {
+                let token = localStorage.getItem("token");
                 let data = await fetch("/allReview", {
                     method: "POST",
-                    headers:{
+                    headers: {
                         "Content-type": "application/json",
                         'Authorization': "Bearer " + token
                     }
-                })
-
-                let blogs = await data.json()
-                let elem = document.getElementById("in-review")
-                for (i in blogs){
-                    let next = document.createElement("div")
-                    let button = document.createElement("button")
-                    let parent = document.createElement("div")
-
+                });
+        
+                let blogs = await data.json();
+                let elem = document.getElementById("in-review");
+                for (let i in blogs) {
+                    let next = document.createElement("div");
+                    let parent = document.createElement("div");
+        
                     let context = `
-                        <div id="${blogs[i]["_id"]}">
-                            <div>${blogs[i]["title"]} - ${blogs[i]["_id"]}</div>
-                            <div>${blogs[i]["author"]}</div>
-                            <button onClick='publishBlog("${blogs[i]["_id"]}")'>Publish</button>
+                    <div id="${blogs[i]["_id"]}" class="blog">
+                        <div class="blog-content">
+                            <div class="blog-header">
+                                <div class="blog-title header-text">${blogs[i]["title"]}</div>
+                                <div class="author normal-text">${blogs[i]["author"]}</div>
+                            </div>
+                        <div class="blog-id normal-text">${blogs[i]["_id"]}</div>
                         </div>
-                    `
-
-                    next.innerHTML = context
-
-                    parent.append(next)
-                    elem.append(parent)
+                        <button class="publish-btn" onClick='publishBlog("${blogs[i]["_id"]}")'>Publish</button>
+                    </div>
+                    `;
+        
+                    next.innerHTML = context;
+                    parent.append(next);
+                    elem.append(parent);
                 }
+            }
+            function filterBlogs(){
+                let searchTerm = document.getElementById("hero_search").value.toLowerCase();
+                let filterType = document.getElementById("filterType").value.toLowerCase();
+                let bloglist = document.getElementById("bloglist");
+                let blogs = bloglist.getElementsByClassName("blog");
+
+                for(let i=0; i< blogs.length;i++){
+                    let filterValue= blogs[i].getElementsByClassName("blog-"+filterType)[0].innerText.toLowerCase();
+
+                    if(filterValue.includes(searchTerm)){
+                        blogs[i].style.display ="block";
+                    }
+                    else{
+                        blogs[i].style.display ="none";
+                    }
                 }
-                getBlogs();
+                
+            }
+            document.getElementById("hero_search").addEventListener("input", filterBlogs);
+            getBlogs();
+            
         </script>
+        
     </body>
 </html>
