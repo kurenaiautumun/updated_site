@@ -198,7 +198,7 @@ router.post("/login", async function (req, res) {
   console.log("user = ", await User.findOne({ username: user.username }))
   console.log("user = ", await User.findOne({ email: user.username }))
   console.log("user = ", await User.findOne({ $or: [{ username: user.username }, { email: user.username }] }))
-        user = User.findOne(
+        user_obj = User.findOne(
           { $or: [{ username: user.username }, { email: user.username }] },
           (err, user) => {
             console.log("user = ", user)
@@ -239,7 +239,7 @@ router.post("/login", async function (req, res) {
           }
         }
         );
-        console.log("user at end of login = ", user)
+        console.log("user at end of login = ", user_obj)
 });
 
 router.get("/api", (req, res) => {
