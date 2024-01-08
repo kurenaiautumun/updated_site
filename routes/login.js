@@ -115,8 +115,6 @@ router.post("/googleLogin", upload.single("image"), async function(req, res){
       console.log("registered user = ", registeredUser)
 
         //console.log("referall")
-        //console.log("id = ", registeredUser._id)
-        const referralId = Math.floor(Math.random() * 10000000);
         try{
           const referral = new Referral({
             userId: registeredUser._id,
