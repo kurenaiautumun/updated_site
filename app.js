@@ -21,8 +21,8 @@ const recomandationRoute = require("./routes/recomandation");
 const competitionRoute = require("./routes/competition");
 const rankingRoute = require("./routes/ranking");
 const writeRoute = require("./routes/write.js");
-const payment = require("./routes/payment")
-const chats = require("./routes/chat")
+const payment = require("./routes/payment");
+const chats = require("./routes/chat");
 
 //const cookieParser = require("cookie-parser");
 
@@ -72,6 +72,7 @@ app.use("/", rankingRoute);
 app.use("/", writeRoute);
 app.use("/", payment);
 app.use("/", chats);
+
 app.listen(process.env.PORT, function () {
   console.log(`Server started on http://localhost:${process.env.PORT}`);
 });
