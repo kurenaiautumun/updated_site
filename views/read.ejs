@@ -687,14 +687,16 @@
           } else if (data[i].type == "image") {
             elem = `<img id="${data[i].id}" src="${data[i].data.url}" style="margin-bottom:10px; display:block; background-color:grey; max-width:500px; max-height:400px; display: block;margin-left: auto;margin-right: auto;">`;
           } else if (data[i].type == "list") {
+            console.log("list = ", data[i])
             if (data[i].data.style == "unordered") {
               elem = '<ul style="margin-left: 30px">';
               let items = "";
               for (let l in data[i].data.items) {
+                console.log("items = ", data[i].data.items[l].content)
                 elem =
                   elem +
                   `
-                                <li style="margin-left: 10px" class="cdx-list__item">${data[i].data.items[l]}</li>
+                                <li style="margin-left: 10px" class="cdx-list__item">${data[i].data.items[l].content}</li>
                             `;
               }
               elem = elem + "</ul>";
@@ -705,17 +707,43 @@
                 elem =
                   elem +
                   `
-                                <li style="margin-left: 10px" class="cdx-list__item">${data[i].data.items[l]}</li>
+                                <li style="margin-left: 10px" class="cdx-list__item">${data[i].data.items[l].content}</li>
                             `;
               }
               elem = elem + "</ol>";
             }
+          }
+          else if (data[i].type=="table"){
+            first = `<div class="tc-table">`
+              console.log(data[i].data.content)
+            for (let l in data[i].data.content) {
+              console.log("row = ", data[i].data.content[l])
+              row = '<div class="tc-row">'
+              for (let cont in data[i].data.content[l]) {
+                console.log("cell = ", data[i].data.content[l][cont])
+                row = row + `<div class="tc-cell">${data[i].data.content[l][cont]}</div>`
+              }
+              row = row + '</div>'
+              first = first + row
+              console.log("first = ", first)
+            }
+            //first = first + '</div>'
+            //elem = 
+            //`<div class="tc-table">
+            //  <div class="tc-row">
+            //    <div class="tc-cell">dsafdasf</div>
+            //    <div class="tc-cell">2</div>
+            //    <div class="tc-cell">3</div>
+            //  </div>
+            //</div>`
+            elem = first + `</div>`
           }
           div.innerHTML = elem;
           ////console.log(div)
 
           cont.append(div);
         }
+
         ////console.log("word count = ", wordCount)
         //wordCount = ((wordCount/250)).toString() + "000"
         //
