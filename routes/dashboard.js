@@ -212,31 +212,28 @@ router.post("/dashboard",  passing, async (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-router.get("/blogList", (req, res) => {
+router.get("/blogList", async (req, res) => {
   var user = req.user;
-
-  Blog.find({status: "published" }).exec({}, (err, blogs) => {
-    // Sort blogs by likes in descending order
-    const blogsByLikes = blogs.sort((a, b) => b.likes.length - a.likes.length);
-
     // Sort blogs by views in descending order
-    const blogsByViews = blogs.sort((a, b) => b.viewCount - a.viewCount);
+    //const blogsByViews = blogs.sort((a, b) => b.viewCount - a.viewCount);
 
     // Create separate objects for different blog lists
-    const top5ByLikes = blogsByLikes.slice(0, 5);
-    const top8ByLikes = blogsByLikes.slice(0, 8);
-    const top6ByViews = blogsByViews.slice(0, 6);
-    const restOfBlogs = blogs.slice(0); // Copy all blogs
+    const top5ByLikes = await Blog.find({status: "published"}).sort({"likeCount": -1}).limit(5);
+    const top8ByLikes = await Blog.find({status: "published"}).sort({"likeCount": -1}).skip(5).limit(8);
+    const top6ByViews = await Blog.find({status: "published" }).sort({"viewCount": -1}).limit(6)
+    const recent = await Blog.find({status: "published"}).sort("date").limit(20);
+
+    const restOfBlogs = await Blog.find({status: "published" }).limit(20)
 
     const posts = {
-      "top5ByLikes": blogsByLikes.slice(0, 5),
-      "top8ByLikes": blogsByLikes.slice(0, 8),
-      "top6ByViews": blogsByViews.slice(0, 6),
-      "restOfBlogs": blogs.slice(0)
+      "top5ByLikes": top5ByLikes,
+      "top8ByLikes": top8ByLikes,
+      "top6ByViews": top6ByViews,
+      "restOfBlogs": restOfBlogs,
+      "recent": recent
     }
+    console.log("posts = ", posts)
     res.status(200).json(posts);
-
-  })
 });
 
 router.get("/", (req, res) => {

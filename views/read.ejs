@@ -214,6 +214,11 @@
                   ><span id="wordCount"></span>
                   <span>Mins. Read</span>
                 </a>
+                <span>/</span>
+                <a
+                  ><span id="likeCount"></span>
+                  <span>Likes</span>
+                </a>
               </div>
 
               <div class="blog-title-area" style="margin-bottom: 10px">
@@ -399,6 +404,11 @@
                           fill="#ffffff"
                         />
                       </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <img src="images/like2.png" style="height: 50px;" onclick="likeBlog()">
                     </a>
                   </li>
                 </ul>
@@ -1220,6 +1230,9 @@
             document.title = jsonData[0]["title"];
             document.getElementById("likes").innerHTML =
               jsonData[0]["viewCount"];
+            if (jsonData[0]["likeCount"]!=undefined){
+              document.getElementById("likeCount").innerHTML = `${jsonData[0]["likeCount"]}`
+            }
             document.getElementById("publish_date").innerHTML = date_string(
               jsonData[0]["date"]
             );
@@ -2064,6 +2077,27 @@
           'ipt type="text/javascript" src="//www.profitablecreativeformat.com/075f68f2098c554a350b17f15257ab84/invoke.js"></scr' +
           "ipt>"
       );
+
+    // update like count
+    async function likeBlog(){
+      let blogId = await getParams();
+        let token = localStorage.getItem("token");
+        let response = await fetch(`/like`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            blogId: await blogId,
+          }),
+        });
+        let res = await response.json();
+        let status = response.status
+        console.log(res, status);
+        if (status==401){
+          window.location.href = `/login`
+        }
+    }
     </script>
   </body>
 </html>

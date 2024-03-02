@@ -40,6 +40,7 @@ const blogSchema = new mongoose.Schema({
   tags: [String],
   readTime: Number,
   likes: Array,
+  likeCount: Number, //Go simple first
   reviewer: Array,
   group: String,
   recommendation: Array,
@@ -50,6 +51,12 @@ const blogSchema = new mongoose.Schema({
     default:0
   }
 });
+
+const LikedBlogsSchema = new mongoose.Schema({
+  userId: String,
+  blogId: String,
+  tag: Array
+})
 
 const StoriesSchema = new mongoose.Schema({
   title: String,
@@ -253,6 +260,8 @@ const userViewCounts = new mongoose.model("userViewCounts", userViewCount)
 const userMonthlyEarnings = new mongoose.model("userMonthlyEarnings", userEarnings)
 const referralEarnings = new mongoose.model("referallEarnings", referralEarningsSchema)
 
+const LikedBlogs = new mongoose.model("LikedBlogs", LikedBlogsSchema) // To know what blogs are liked by which user
+
 //passport.use(User.createStrategy());
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
@@ -282,6 +291,7 @@ module.exports = {
   Story,
   userViewCounts,
   userMonthlyEarnings,
-  referralEarnings
+  referralEarnings,
+  LikedBlogs
 };
 
