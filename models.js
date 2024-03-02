@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
   followers: Array,
   following: Array,
   recommendation: Array,
-  totalEarn:{type:Number,default:0}
+  totalEarn:{type:Number,default:0},
+  started: Boolean,
 });
 
 const result = userSchema.index({ email: 1 }, { unique: true })
@@ -106,14 +107,22 @@ const rankingSchema = new mongoose.Schema({
 const referralSchema = new mongoose.Schema({
   userId: String,
   referralArray: Array,
-  hisReferral: Number,
+  hisReferral: Number
 });
 
-const earningsSchema = new mongoose.Schema({
+const earningsSchema = new mongoose.Schema({ //How much one blog is earning in a month
   userId: String,
   blogId: String,
   earned: Number,
   ViewCount: Number,
+  startDate: String,
+  endDate: String
+})
+
+const userEarnings = new mongoose.Schema({
+  userId: String,
+  reads: Number,
+  blogs: Number,
   startDate: String,
   endDate: String
 })
@@ -125,11 +134,27 @@ const viewAnalysisSchema = new mongoose.Schema({
   ip: String
 })
 
+const userViewCount = new mongoose.Schema({
+  userId: String,
+  blogId: String,
+  //count: Number,
+  ip: String,
+  date: Date,
+  author: String
+})
+
 const totalEarningsSchema = new mongoose.Schema({
   user: String,
   remain: Number,
   withdraw: Number,
+  total: Number,
   updated: Date,
+})
+
+const referralEarningsSchema = new mongoose.Schema({ // Keeping it separate from wallet and everything
+  user: String,
+  referralArray: Array,
+  hisReferral: Number
 })
 
 const paySlotsSchema = new mongoose.Schema({
@@ -224,6 +249,10 @@ const ipSetTable = new mongoose.model("ipSet", ipSet)
 date, User, Blog, monthlyViews, viewAnalysis,popularBlogs
 const Story = new mongoose.model("stories", StoriesSchema)
 
+const userViewCounts = new mongoose.model("userViewCounts", userViewCount)
+const userMonthlyEarnings = new mongoose.model("userMonthlyEarnings", userEarnings)
+const referralEarnings = new mongoose.model("referallEarnings", referralEarningsSchema)
+
 //passport.use(User.createStrategy());
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
@@ -250,6 +279,9 @@ module.exports = {
   socialShare,
   socialReg,
   ipSetTable,
-  Story
+  Story,
+  userViewCounts,
+  userMonthlyEarnings,
+  referralEarnings
 };
 

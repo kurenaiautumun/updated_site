@@ -42,13 +42,18 @@ router.get('/session', (req, res) => {
 router.get("/write", async (req, res) => {
   console.log("user = ", req.session.token)
   console.log("blogId =", req.query.blogId)
+  if (req.session.token==undefined){
+    res.render("login")
+    return null
+  }
+
   let blog
   try{
     blog = await Blog.findOne({_id: req.query.blogId})
     console.log("after jwt in read")
     let user = jwtVerify(req);
     console.log("after jwt in write")
-    console.log("user in write - ". user)
+    console.log("user in write - ", user)
     if (await blog.userId==await user.user._id){
       res.render("writer", { user: req.user });
     }
@@ -238,4 +243,7 @@ router.post("/write", (req, res) => {
   //console.log(req.body);
 });
 
+router.get("/temp", (req, res)=>{
+  res.render("temp")
+})
 module.exports = router;

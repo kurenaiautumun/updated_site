@@ -7,9 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <!-- ====== TITLE ====== -->
-  <title>Login</title>
+  <title>Refer</title>
 
   <!-- ====== CSS LINKS ===== -->
   <link rel="stylesheet" href="css/base.css">
@@ -17,6 +21,32 @@
     <link rel="stylesheet" href="css/blog.css">
     <link rel="stylesheet" href="css/author.css">
   <link rel="stylesheet" href="sinup_in.css">
+
+  <style>
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+  </style>
 
   <style>
     .mystyle {
@@ -49,6 +79,22 @@
       display: none;
     }
 
+    #refer_block{
+      margin-top: 0px;
+    }
+
+    #refer_block{
+        margin-top: 5%;
+      }
+
+    #refer_column{
+      height: 600px;
+    }
+
+    #image_column{
+      height:620px;
+    }
+
     @media (max-width: 920px) {
 
       .close_nav_berger,
@@ -56,6 +102,15 @@
         display: block;
         cursor: pointer;
       }
+      #refer_block{
+        margin-top: 0px;
+      }
+      #image_column{
+        height:100%;
+      }
+      #refer_column{
+      height: 100%;
+    }
     }
   </style>
 </head>
@@ -66,56 +121,116 @@
 
 
   <!-- ======= main ===== -->
-  <main>
-    <section class="sign_up_hero_section">
-      <div class="sign_up_hero_container">
-        <div class="sign_up_hero_box r-flex ali-c">
-          <div class="sign_up_left_box r-flex ali-c jut-c">
-            <form id="start_process" class="sing_up_form_box c-flex ali-c jut-c">
-              <input required="required" type="text" name="username" id="email"
-                placeholder="Enter Your E-mail or Username">
-              <input required="required" type="password" name="password" id="password"
-                placeholder="Enter Your Password">
-              <div class="show_passwed_box r-flex ali-c ">
-                <input type="checkbox" id="showPass" onclick="myFunction()">
-                <label for="showPass">Show Password</label>
+  <main style="height: 100%;">
+    <div class="row">
+      <div class="col-sm-7" style="text-align: center;" id="image_column"><img style="width:100%" src="images/pexels-lil-artsy-1925536.jpg"><div style="font-size: 11px;"><a href="https://www.pexels.com/photo/person-holding-orange-pen-1925536/">Photo by lil artsy</a></div></div>
+      <div id="refer_column" class="col-sm-5">
+        <div id="writer_block" style="text-align: center; vertical-align:middle; font-size: 30px; font-family: 'Times New Roman', Times, serif;">
+          Join Us as a Writer
+          <div style="text-align: center; font-size: 14px;">
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+                Currently we are paying ₹100 for every 1000 views on a blog
+                In blocks of 100 views so that you don't have to wait long
               </div>
-              <button type="submit" class="sing_up_data_submit_btn">Log In</button>
-              <div id="buttonDiv" style="width: 100%"></div> 
-              <!-- <button type="submit" class="google_sign_up_btn r-flex ali-c jut-c">
-                                          <svg width="20" height="20" viewBox="0 0 18 18" fill="none"
-                                              xmlns="http://www.w3.org/2000/svg">
-                                              <path
-                                                  d="M16.3541 7.53113H15.75V7.5H9V10.5H13.2386C12.6203 12.2464 10.9586 13.5 9 13.5C6.51488 13.5 4.5 11.4851 4.5 9C4.5 6.51488 6.51488 4.5 9 4.5C10.1471 4.5 11.1908 4.93275 11.9854 5.63962L14.1068 3.51825C12.7673 2.26987 10.9755 1.5 9 1.5C4.85812 1.5 1.5 4.85812 1.5 9C1.5 13.1419 4.85812 16.5 9 16.5C13.1419 16.5 16.5 13.1419 16.5 9C16.5 8.49713 16.4483 8.00625 16.3541 7.53113Z"
-                                                  fill="#FFC107" />
-                                              <path
-                                                  d="M2.36475 5.50912L4.82887 7.31625C5.49562 5.6655 7.11037 4.5 9 4.5C10.1471 4.5 11.1907 4.93275 11.9854 5.63962L14.1067 3.51825C12.7672 2.26987 10.9755 1.5 9 1.5C6.11925 1.5 3.621 3.12637 2.36475 5.50912Z"
-                                                  fill="#FF3D00" />
-                                              <path
-                                                  d="M9.00012 16.5C10.9374 16.5 12.6976 15.7586 14.0285 14.553L11.7072 12.5887C10.9289 13.1806 9.97791 13.5008 9.00012 13.5C7.04937 13.5 5.39299 12.2561 4.76899 10.5202L2.32324 12.4046C3.56449 14.8335 6.08524 16.5 9.00012 16.5Z"
-                                                  fill="#4CAF50" />
-                                              <path
-                                                  d="M16.3541 7.53113H15.75V7.5H9V10.5H13.2386C12.9428 11.3312 12.41 12.0574 11.706 12.5891L11.7071 12.5884L14.0284 14.5526C13.8641 14.7019 16.5 12.75 16.5 9C16.5 8.49713 16.4483 8.00625 16.3541 7.53113Z"
-                                                  fill="#1976D2" />
-                                          </svg>
-                        
-                                          <span>Sign in with Google</span>
-                                      </button> -->
-
-              <div class="have_ac"><span>Don't have an account?</span> <a href="/signup">Sign up</a>
-              </div>
-            </form>
+              <div class="col-sm-2"></div>
+            </div>
+            <button style="margin-top:10px; border-radius: 5px;" type="button" class="btn btn-lg btn-danger" onclick="getModal()">Get Started</button>
           </div>
-          <div class="sign_up_right_box"></div>
         </div>
+        <div id="reader_block" style="text-align: center; vertical-align:middle; font-size: 30px; font-family: 'Times New Roman', Times, serif;">
+          Help Us out as a Reader
+          <div style="text-align: center; font-size: 14px;">
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+                To increase user participation, we are incentivizing users to read blogs
+                and there are prizes for that as well
+              </div>
+              <div class="col-sm-2"></div>
+            </div>
+            <button style="margin-top:10px; border-radius: 5px;" type="button" class="btn btn-lg btn-info" onclick="getModal()">Get Started</button>
+          </div>
+        </div>
+        <div id="refer_block" style="text-align: center; vertical-align:middle; font-size: 30px; font-family: 'Times New Roman', Times, serif;">
+          Refer A Friend
+          <div style="text-align: center; font-size: 14px;">
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+                We are inviting new writers to join our platform and grow together with us.
+                For each Successful Referral you will receive ₹10
+                Along with the following milestone rewards given below
+                Sign Up below or Sign in if you already have an account to get started with it
+                <div style="color: green">+50 Users<img style="height: 70px;" src="images/path.png">+₹1000</div>
+                <div style="color: green">100 Users<img style="height: 70px;" src="images/path.png">+₹2000</div>
+                <div style="color: green">150 Users<img style="height: 70px;" src="images/path.png">+₹3000</div>
+              </div>
+              <div class="col-sm-2"></div>
+            </div>
+            <div id="myModal" class="modal">
 
+              <!-- Modal content -->
+              <div class="modal-content" style="background: transparent; text-align: center;">
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-10">
+                    <span class="close">&times;</span>
+                    <form id="signup-form" class="sing_up_form_box c-flex ali-c jut-c">
+                  <input required="required" type="name" name="username" id="username" placeholder="Enter Your Name">
+                  <input type="referral" name="referral" id="referral" placeholder="Referall Code (if any)">
+                  <input required="required" type="email" name="email" id="email" placeholder="Enter Your E-mail">
+                  <input required="required" type="password" name="password" id="password" placeholder="Enter Your Password">
+                  <div class="show_passwed_box r-flex ali-c ">
+                      <input type="checkbox" id="showPass" onclick="myFunction()">
+                      <label for="showPass">Show Password</label>
+                  </div>
+                  <button type="submit" class="sing_up_data_submit_btn">Sign Up</button>
+                  <div class="have_ac"><span>Do have an account? or Sign In directly using an Google Account - </span> <a href="/login">Sign in</a></div>
+                    </form>
+                  </div>
+                  <div class="col-sm-0"></div>
+                </div>
+              </div>
+            
+            </div>
+            <button style="margin-top:10px; border-radius: 5px;" type="button" class="btn btn-lg btn-success" onclick="getModal()">Get Started</button>
+          </div>
+        </div>
       </div>
-    </section>
+      <div class="col-sm-1"></div>
+    </div>
   </main>
   <!-- ======= main close ====== -->
 
 
   <script>
+    //  Modal Script
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+
+  <script>
+    function getModal(){
+      let modal = document.getElementById("myModal");
+      modal.style.display = "block";
+    }
     function burgerFuncation() {
       var element = document.getElementById("myNAV");
       element.classList.toggle("mystyle");
@@ -131,60 +246,43 @@
       }
     }
 
-    var form=document.getElementById("start_process");
+    var form=document.getElementById("signup-form");
     
-    async function submitForm(event){
-       event.preventDefault();
-       //console.log("form submitted")
+        async function submitForm(event){
+           event.preventDefault();
+           //console.log("form submitted")
 
-       //console.log(event.target)
+           //console.log(event.target)
 
-      // var encrypted = CryptoJS.AES.encrypt("Hello", "12345");
-      //equivalent to CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(message), key);
-      //var decrypted = CryptoJS.AES.decrypt(encrypted, "12345");
+           const body = {
+            "username": event.target.username.value,
+            "referral": event.target.referral.value,
+            "email": event.target.email.value,
+            "password": event.target.password.value,
+           }
 
-      //var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
+           //console.log(body)
 
-      ////console.log(encrypted)
-      ////console.log(plaintext)
+          let data = await fetch(`/signup`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(body),
+                })
+            
+          let user = await data
 
-       const body = {
-        "username": event.target.username.value,
-        "password": event.target.password.value,
-       }
+          //console.log(user.json())
+          //console.log(user.status)
+          if (user.status==201){window.location.href = "/login";}
+        else{
+                alert(await user.json())
+            }
+        }
 
-       //console.log(body)
-
-      let data = await fetch(`/login`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify(body),
-            })
-      
-      let user_req = await data
-      let user = await user_req.json()
-
-      console.log(user.userId)
-
-      console.log("status = ", user_req.status)
-      if (user_req.status==200){
-        localStorage.setItem("token", user["token"]);
-
-        localStorage.setItem("user", user["user"]._id);
-
-        localStorage.setItem("userId",user["userId"]);
-        
-        window.location.href = "/";
-      }
-      else{
-        alert(user)
-      }
-    }
-
-    //Calling a function during form submission.
-    form.addEventListener('submit', submitForm);
+        //Calling a function during form submission.
+        form.addEventListener('submit', submitForm);
 
   </script>
 

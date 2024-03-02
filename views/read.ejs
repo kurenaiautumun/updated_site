@@ -40,6 +40,32 @@
     <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
 
     <style>
+      /* The Modal (background) */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      /* Modal Content */
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+    </style>
+
+    <style>
       .cdx-list__item {
         list-style-type: revert;
       }
@@ -121,6 +147,16 @@
     </style>
   </head>
   <body>
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content" style="background: transparent; text-align: center;">
+        <img src="images/thumbs.png" style="background: transparent">
+        <p style="color: white; font-size: large;">Thanks For Reading</p>
+      </div>
+    
+    </div>
+    
     <%- include('./partials/header') %>
 
     <main>
@@ -130,6 +166,10 @@
           <div class="blog_hero_container r-flex jut-sb">
             <!-- ====== left ===== -->
             <div class="left_hero_blog">
+              <div
+                  id="blog_content_start"
+                  class="blog-content"
+                ></div>
               <script type="text/javascript">
                 atOptions = {
                   key: "0e030fc5d70c7f3fd38a62c79d79c705",
@@ -298,6 +338,11 @@
               </script>
             <div
               id="blog_content_10"
+              class="blog-content"
+              style="margin-left: 10px"
+            ></div>
+            <div
+              id="blog_content_end"
               class="blog-content"
               style="margin-left: 10px"
             ></div>
@@ -658,6 +703,111 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
     <script>
+      function isInViewport(element) {
+        // This is for Full Visibility only
+        //var rect = element.getBoundingClientRect();
+        //var html = document.documentElement;
+        //return (
+        //  rect.top >= 0 &&
+        //  rect.left >= 0 &&
+        //  rect.bottom <= (window.innerHeight || html.clientHeight) &&
+        //  rect.right <= (window.innerWidth || html.clientWidth)
+        //);
+        // Partial Visibility
+        const { top, bottom } = element.getBoundingClientRect();
+        const vHeight = (window.innerHeight || document.documentElement.clientHeight);
+
+        return (
+          (top > 0 || bottom > 0) &&
+          top < vHeight
+        );
+      }
+
+      let visibles = {
+        "start": false,
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+        6: false,
+        7: false,
+        8: false,
+        9: false,
+        "end": false,
+      }
+
+      let readDone = 0
+
+      async function ReadFinish(){
+        let modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        let blogId = await getParams();
+        let token = localStorage.getItem("token");
+        let response = await fetch(`/blog/increaseViewCount?blogId=${await blogId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            blogId: await blogId,
+          }),
+        });
+        let res = await response.json();
+        console.log(res);
+        let response1 = await fetch(`/updateReadingCountUser`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            blogId: await blogId,
+          }),
+        });
+        let res1 = await response1.json();
+        console.log(res);
+      }
+
+      async function Visibility(){
+        if (readDone==1){
+          return null
+        }
+        setTimeout(Visibility, 100)
+        let keys = ["start", 1,2,3,4,5,6,7,8,9,"end"]
+        for (let i in keys){
+          //console.log("i = ", keys[i])
+          let elem = document.getElementById(`blog_content_${keys[i]}`)
+          //console.log("elem = ", keys[i], elem)
+          //console.log("visible = ", elem.style.visibility)
+          //console.log((!!elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length ))
+          //console.log("viewPort = ",keys[i], isInViewport(elem))
+          if (isInViewport(elem)==true){
+            visibles[keys[i]]=true
+          }
+          //console.log("visibles = ", visibles)
+        }
+        for (let j in visibles){
+            if (visibles[j]==false){//even if 1 element has not been visited, loop again
+              return null
+            }
+          }
+        let modal = document.getElementById("myModal"); //Display the Modal if all elements have been read
+          modal.style.display = "block";
+          readDone = 1
+        if (readDone==1){
+          setTimeout(ReadFinish, 2000) // Use this to send the API call and finish up stuff and also not to loop again
+        }
+      }
+      setTimeout(Visibility, 3000)
+      
+      //window.onscroll = function() {
+      //    if (document.body.scrollTop > 30) {
+      //        Visibility();
+      //    }
+      //};
+
       async function loadData(data) {
         let block = 1;
         let count = 0;
