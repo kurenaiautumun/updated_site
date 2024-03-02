@@ -979,8 +979,8 @@
             mainBlogs(blogs.top5ByLikes)
             AuthorBlogs(blogs.restOfBlogs)
             EditorBlogs(blogs.top6ByViews)
-            PopularBlogs(blogs.restOfBlogs.splice(0,7))
-            RecentBlogs(blogs.top6ByViews)
+            PopularBlogs(blogs.top8ByLikes.splice(0,7))
+            RecentBlogs(blogs.recent)
             ViralBlogs(blogs.restOfBlogs)
         }
         loadBlogs();
