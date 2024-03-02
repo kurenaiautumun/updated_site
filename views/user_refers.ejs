@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- ====== TITLE ====== -->
+  <title>Refer</title>
+
+  <!-- ====== CSS LINKS ===== -->
+  <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/author.css">
+  <link rel="stylesheet" href="sinup_in.css">
+  <link rel="stylesheet" href="css/compact.css">
+</head>
+
+<body>
+    <%- include('./partials/header') %>
+
+
+  <!-- ======= main ===== -->
+  <main style="height: 100%;">
+    <div class="row">
+    </div>
+  </main>
+  <!-- ======= main close ====== -->
+<script type="text/javascript" src="js/base_func.js"></script>
+
+<script>
+  userId = getParams();
+
+  function getParams() {
+    var idx = document.URL.indexOf("?");
+    var params = {};
+    if (idx != -1) {
+      var pairs = document.URL.substring(
+        idx + 1,
+        document.URL.length
+      ).split("&");
+      for (var i = 0; i < pairs.length; i++) {
+        nameVal = pairs[i].split("=");
+        params[nameVal[0]] = nameVal[1];
+      }
+    }
+    console.log("userid in params" + params["userId"]);
+    return params["userId"];
+  }
+  async function referralEarnings() {
+      let token = localStorage.getItem("token");
+      let res = await fetch("/all_referrals", {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      let data = await res.json();
+      console.log("Referral Earnings = ", data);
+    }
+
+    referralEarnings();
+</script>
+</body>
+
+</html>

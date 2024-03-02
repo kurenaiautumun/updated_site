@@ -76,6 +76,10 @@ router.get("/review/:blogId",(req,res)=>{
   })
 
 
+    router.get("/refer", (req,res)=>{
+      res.render("refer")
+    })
+
 
   module.exports=router;
   

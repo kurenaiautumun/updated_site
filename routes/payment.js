@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Blog, User, Referral, transporter,
-   UserInfo, Earnings, TotalEarnings, paySlots, monthlyViews } = require("../models.js");
+   UserInfo, Earnings, TotalEarnings, paySlots, monthlyViews, userMonthlyEarnings, userViewCounts } = require("../models.js");
 
    const {encrypt, decrypt} = require("./encrypt")
 
@@ -19,7 +19,7 @@ router.get("/all_referrals", async function(req,res){
     }
 
     const refData = await Referral.findOne({ userId: user.user._id });
-    //console.log('refData =', refData);
+    console.log('refData =', refData);
     let total=0;
     if (!refData || !refData.referralArray) {
       //console.log('No referral data found.');
@@ -29,7 +29,7 @@ router.get("/all_referrals", async function(req,res){
     for(let i in refData.referralArray){
       let userData = await User.findOne({_id: refData.referralArray[i]});
       userData._id = encrypt(userData._id)
-      total=total+((userData.totalEarn)/20);
+      total=total+10;
     }
 
 
@@ -285,6 +285,146 @@ router.post("/monthlyViews", async function(req, res){
   //  }}
   //)}
   res.status(200).json({ message: "update succesfully"})
+})
+
+
+router.get("/monthly_earnings", async function(req, res){
+  res.render("monthlyEarnings")
+})
+
+router.post("/calculate_monthly_earnings", async function(req,res){ //calculate the monthly earnings of an user or get it
+  let user = jwtVerify(req);
+
+  let date = new Date() //current date
+
+  let userId = req.body.userId
+
+  let m = req.body.month
+  let y = req.body.year
+
+  if ((m==undefined) | (m==null)){
+    m = date.getMonth()
+  }
+
+  else{
+    m = m - 1
+  }
+
+  if ((y==undefined) | (y==null)){
+    y = date.getFullYear();
+  }
+
+  console.log("m = ", m, "y = ", y)
+
+  date = date
+
+  if ((m==date.getMonth()) && (y==date.getFullYear())){
+    res.json("Currently Going On").status(200)
+    return null
+  }
+
+  console.log((m>date.getMonth()), (y>=date.getFullYear()))
+
+  if ((m>date.getMonth()) && (y>=date.getFullYear())){
+    res.json("Date is in Future").status(200)
+    return null
+  }
+
+  ////console.log("date = ", date)
+  let startDate = new Date(y, m, 2);
+  let endDate = new Date(y, m + 1, 0);
+
+  console.log(await userMonthlyEarnings.find())
+
+  userId = decrypt(userId)
+  let pays = await userMonthlyEarnings.findOne({userId: userId})
+
+  console.log("pays = ", pays)
+
+  if (await pays!=null){  // If we have already calculated it, just send it, otherwise 
+    res.json(pays).status(200)
+    return null
+  }
+
+  else{
+    console.log("date = ", date, startDate, endDate, userId) // calculate it first
+    let reads = await userViewCounts.find({  // Get all reads made by user
+      userId: userId,
+      date: {
+        $gte: startDate, $lte: endDate
+        }
+      })
+    let read_count = 0
+    for (let read in reads){
+      read_count += 1
+    }
+    let blog_views = {}
+    let writes = await userViewCounts.find({  // get the viewCount of blogs written by that user
+      author: userId,
+      date: {
+        $gte: startDate, $lte: endDate
+        }
+      })
+    let write_count = 0
+    for (let write in writes){  // Aggregrate them according to blogId as we are paying only for 100 blogs at a time
+      if (blog_views[write.blogId]==undefined){
+        blog_views[write.blogId] = 1
+      }
+      else{
+        blog_views[write.blogId] += 1
+      }
+    }
+
+    console.log("blogs_views = ", blog_views)
+
+    for (let blogs in blog_views){
+      write_count = (blog_views[blogs]/100)
+    }
+
+    console.log("counts = ", read_count, write_count)
+
+    let pays = new userMonthlyEarnings({
+      userId: userId,
+      reads: read_count,
+      blogs: write_count,
+      startDate: startDate,
+      endDate: endDate
+    })
+
+    pays.save() // Save the new object so we don't need to calculate it again
+
+    let total = TotalEarnings.findOne({user:userId}) // Find the total object for wallet
+
+    console.log("read count = ", read_count, read_count*0.1)
+    console.log("write count = ", write_count, write_count*10)
+
+    if (total==null){
+      total = TotalEarnings({
+        user: userId,
+        remain: (read_count*0.1 + write_count*10),
+        withdraw: 0,
+        total: (read_count*0.1 + write_count*10),
+        updated: date,
+      })
+    }
+  }
+
+  res.json(pays).status(200)
+})
+
+router.post("/totalUserPayments", async function(req, res){
+  let user = jwtVerify(req);
+
+  let date = new Date() //current date
+
+  let userId = req.body.userId
+  userId = decrypt(userId)
+
+  let total = await TotalEarnings.findOne({user:userId})
+
+  console.log("total = ", total)
+
+  res.json(total).status(200)
 })
 
 module.exports = router

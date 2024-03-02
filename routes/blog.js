@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs} = require("../models.js");
-const { encrypt } = require("./encrypt.js");
+const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs, userViewCounts} = require("../models.js");
+const { encrypt, decrypt } = require("./encrypt.js");
 const jwtVerify = require("./jwt")
 
 router.get("/blogss", (req, res) => {
@@ -28,11 +28,38 @@ router.get("/blog", (req, res) => {
   const _id = req.query.blogId;
   Blog.find({ _id }, (err, blog) => {
     // res.status(201).send({ blog });
+    //let n_blog = [0, 1]
+    blog[0] = blog[0].toObject()
     blog[0].userId = encrypt(blog[0].userId)
-    ////console.log(blog);
+    console.log("blog = ", blog);
     res.status(201).send({ blog });
   });
 });
+
+
+router.post("/blog/increaseViewCount", async (req,res)=>{
+  let user = jwtVerify(req);
+  console.log("in viewCount")
+  //console.log("user = ", user)
+  const time = req.body.time
+  const _id = req.body.blogId;
+  const totalTime = req.body.totalTime
+  ////console.log("wordCount = ", totalTime)
+  ////console.log("time = ", time)
+  let msg = "View Count for Blog Increased by 1"
+  let blog = await Blog.findOne({_id: _id})
+  if (blog.status=="published"){
+    blog.viewCount += 1
+    msg = "view increased"
+    blog.save()
+  }
+  else{
+    msg = "blog is not published yet"
+  }
+  
+  http_status = 201 
+  res.status(200).json(msg)
+})
 
 
 router.post("/blog/viewcount", async (req, res) => {
@@ -113,10 +140,10 @@ router.post("/blog/viewcount", async (req, res) => {
     //console.log(blog.readTime*120 > totalTime)
     if (((blog.readTime)*60 < totalTime) & ((blog.readTime)*60 + 30 > totalTime)){
       viewsMonth.viewCount += 1
-      blog.viewCount += 1
+      //blog.viewCount += 1
       msg = "view increased"
       http_status = 201 
-      blog.save()
+      //blog.save()
       viewsMonth.save()
       res.json({ message: msg }).status(201);
     }
@@ -160,6 +187,119 @@ router.post('/updateReadingTimeBlog', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+router.post('/updateReadingCountUser', async (req, res) => {
+  let user = jwtVerify(req);
+  const _id = req.body.blogId;
+  const ip = req.ip
+
+  let blog = await Blog.findOne({ //Find blog using corresponding blogId
+    _id: _id
+  })
+
+  if (blog.status!="published"){
+    res.status(401).json("Blog is not published yet, cannot increase count")
+    return null
+  }
+
+
+  if (blog==null){
+    res.status(404).json("Blog Id is wrong")
+    return null
+  }
+
+  if (user==null){
+    user = req.ip
+  }
+  else{
+    user = user.user._id
+  }
+
+  let date = new Date(), y = date.getFullYear(), m = date.getMonth();//current date
+
+  date = date
+
+  ////console.log("date = ", date)
+  let startDate = new Date(y, m, 2);
+  let endDate = new Date(y, m + 1, 0);
+
+  console.log("date = ", date, startDate, endDate)
+
+  new_counts = await new userViewCounts({
+    userId: user,
+    blogId: _id,
+    count: 1,
+    ip: ip,
+    date:date,
+    author: await blog.userId
+  })
+  new_counts.save()
+  //if count already exists increment it by 1
+  res.status(200).json("count updated")
+})
+
+router.post("/getUserReadTimes", async (req,res)=>{
+  let user = jwtVerify(req);
+
+  let date = new Date(), y = date.getFullYear();//current date
+
+  let userId = req.body.userId
+  let blogId = req.body.blogId
+  let author = req.body.author
+
+  console.log("author = ", author)
+
+  let m = req.body.month
+
+  if ((m==undefined) | (m==null)){
+    m = date.getMonth()
+  }
+
+  else{
+    m = m - 1
+  }
+
+  console.log("m = ", m, "y = ", y)
+
+  date = date
+
+  ////console.log("date = ", date)
+  let startDate = new Date(y, m, 2);
+  let endDate = new Date(y, m + 1, 0);
+
+  console.log("date = ", date, startDate, endDate)
+
+  if ((blogId!=undefined) | (blogId!=null)){
+    counts = await userViewCounts.find({
+    blogId: blogId, 
+    date: {
+      $gte: startDate, $lte: endDate
+      }
+    }) 
+  }
+  else if ((userId!=undefined) | (userId!=null)){
+    userId = decrypt(req.body.userId)
+    counts = await userViewCounts.find({
+      userId: userId, 
+      date: {
+        $gte: startDate, $lte: endDate
+        }
+      })
+  }
+  else if ((author!=undefined) | (author!=null)){
+    author = decrypt(req.body.author)
+    console.log("author = ", author)
+    counts = await userViewCounts.find({
+      author: author,
+      date: {
+        $gte: startDate, $lte: endDate
+        }
+      })
+  }
+  res.status(200).json(counts)
+
+})
 
 router.post('/updateReadingTimeUser', async (req, res) => {
   try {

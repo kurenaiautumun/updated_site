@@ -48,14 +48,14 @@ router.get("/dashboard", async (req, res) => {
 router.get("/currentUser", async (req, res) => {
   //console.log("func = ", jwtVerify(req))
   let user = jwtVerify(req);
-  //console.log("user = ", user)
+  console.log("user = ", user)
   if (user){
     user.user._id = encrypt(user.user._id)
     //console.log("user in current user = ", user)
     res.json(user)
   }
   else{
-    res.json(null)
+    res.render("login")
   }
 })
 

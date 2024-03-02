@@ -119,6 +119,7 @@ router.post("/googleLogin", upload.single("image"), async function(req, res){
           const referral = new Referral({
             userId: registeredUser._id,
             hisReferral: referralId,
+            paid: false
           });
           referral.save();
           console.log("referral = ", referral)

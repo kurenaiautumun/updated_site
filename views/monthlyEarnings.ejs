@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- ====== TITLE ====== -->
+  <title>Monthly Earnings</title>
+
+  <!-- ====== CSS LINKS ===== -->
+  <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/author.css">
+  <link rel="stylesheet" href="sinup_in.css">
+  <link rel="stylesheet" href="css/compact.css">
+</head>
+
+<body>
+    <%- include('./partials/header') %>
+
+
+  <!-- ======= main ===== -->
+  <main>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-striped" id="blog_reads">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Read Revenue</th>
+              <th>View Revenue</th>
+            </tr>
+          </thead>
+          <tbody id="count_body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <!-- ======= main close ====== -->
+<script type="text/javascript" src="js/base_func.js"></script>
+<script>
+  const months = {1: "Jan", 2: "Feb", 3:"Mar", 4:"April",5:"May", 6:"Jun", 7:"July", 8:"Aug", 9:"Sept", 10:"Oct", 11:"Nov", 12:"Dec"}
+
+  userId = getParams();
+
+  function getParams() {
+    var idx = document.URL.indexOf("?");
+    var params = {};
+    if (idx != -1) {
+      var pairs = document.URL.substring(
+        idx + 1,
+        document.URL.length
+      ).split("&");
+      for (var i = 0; i < pairs.length; i++) {
+        nameVal = pairs[i].split("=");
+        params[nameVal[0]] = nameVal[1];
+      }
+    }
+    console.log("userid in params" + params["userId"]);
+    return params["userId"];
+  }
+
+  async function userViews(type, userId, month, year){ // Get all readers who have read the blog this month
+    console.log("type=", type)
+    let body;
+    if(type=="reads"){
+      body = {
+        userId: await userId, //Provide userId
+      }
+    }
+    else if (type=="writes"){
+      body = {
+        author: await userId
+      }
+    }
+
+    let response = await fetch(`/getUserReadTimes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body),
+    });
+    let reads = await response.json();
+    console.log("reads = ", reads);
+    let count = 0
+    analysis = {}
+    for (read in reads){ //calculate the numbers of readers
+      count += 1
+      if (analysis[reads[read]["blogId"]]==undefined){
+        analysis[reads[read]["blogId"]] = 1
+      }
+      else{
+        analysis[reads[read]["blogId"]] += 1
+      }
+    }
+    console.log("analysis = ", analysis)
+    return analysis
+    //document.getElementById("read_count").innerHTML = `${count}`
+    //document.getElementById("read_amount").innerHTML = `₹ ${count/10}`
+  }
+
+  async function thisMonth(){ //Calculate values for this month
+    let reads = await userViews("reads", userId)
+    let writes = await userViews("writes", userId)
+    console.log(reads, writes)
+    let write_amount = 0
+    for (let i in writes){
+      console.log("writes[i] = ", writes[i])
+      write_amount += Math.floor(writes[i]/100)*10 // Calculate Revenue for Views
+    }
+    let read_amount = 0
+    for (let i in reads){
+      console.log("reads[i] = ", reads[i])
+      read_amount += reads[i] // Calculate Revenue for Reads
+    }
+    let date = new Date()
+    // Write to Table
+    let tbody=  document.getElementById("count_body")
+      let td = document.createElement("tr")
+      td.style.backgroundColor = "yellow"
+      td.innerHTML = `
+        <td>${months[date.getMonth()+1]}, 2024</td>
+        <td>₹${read_amount*0.1}</td>
+        <td>₹${write_amount}</td>
+      `
+      tbody.append(td) 
+  }
+
+  thisMonth()
+
+  async function monthlyViews(userId, month, year){
+    let response = await fetch(`/calculate_monthly_earnings`, { // Get all blogs that have been read by this user
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId: await userId,
+        month: month,  //Use month if a specific month is needed
+        year: year
+      }),
+    });
+    let reads = await response.json();
+    console.log("reads = ", reads);
+    return reads
+    //document.getElementById("read_count").innerHTML = `${count}`
+    //document.getElementById("read_amount").innerHTML = `₹ ${count/10}`
+  }
+  let total_data = {}
+  async function allViews(userId){
+    //month = [1,2,3,4,5,6,7,8,9,10,11, 12]
+    for (let m in months){
+      total_data[months[m]] = await monthlyViews(userId, m, 2024)
+    }
+    console.log("total data = ", await total_data)
+    let tbody=  document.getElementById("count_body")
+    for (let i in await total_data){
+      let td = document.createElement("tr")
+      if (total_data[i]="Date is in Future"){
+        td.innerHTML = `
+          <td>${i}, 2024</td>
+          <td>₹0</td>
+          <td>₹0</td>
+        `
+        tbody.append(td)
+        continue
+      }
+      let write_amount = Math.floor((total_data[i]["blogs"]/100))*10
+      let read_amount = (total_data[i]["reads"])*0.1
+      console.log(read_amount, read_amount==null, read_amount==undefined, read_amount==NaN)
+      if (read_amount==NaN){
+        read_amount = 0
+      }
+      if (write_amount==NaN){
+        write_amount = 0
+      }
+      td.innerHTML = `
+        <td>${i}, 2024</td>
+        <td>₹${read_amount}</td>
+        <td>₹${write_amount}</td>
+      `
+      tbody.append(td)
+    }
+  }
+  allViews(userId)
+</script>
+
+</body>
+
+</html>

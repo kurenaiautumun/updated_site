@@ -938,6 +938,10 @@
                     alert("please Enter Some Tags")
                     return false
                 }
+                if (word_count<800){
+                    alert("Please write aleast 800 words of content")
+                    return false
+                }
                 if (blog.meta=="..."){
                     alert("Please Enter Some Content")
                     return false
@@ -1183,7 +1187,7 @@
                     ////console.log(jsonData.blog[0])
                     jsonData = jsonData.blog;
 
-                    //console.log(jsonData)
+                    console.log("jsonData =", jsonData)
 
                     checkAuthor(jsonData[0].userId)
 
@@ -1413,7 +1417,7 @@
         //}
 
         if (user.user._id!=user_id){
-            alert("You are not the author of the page")
+            alert(`You are not the author of the page ${user.user._id} ${user_id}`)
             console.log("not author")
             window.location.href = `read?blogId=${getParams()}`
         }

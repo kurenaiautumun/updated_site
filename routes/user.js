@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, Referral, transporter, UserInfo, socialReg, socialShare} = require("../models.js");
+const { User, Referral, transporter, UserInfo, socialReg, socialShare, referralEarnings} = require("../models.js");
 const template = require("./template");
 var ObjectId = require('mongodb').ObjectID;
 
@@ -74,6 +74,7 @@ router.post("/signup", async (req, res) => {
           const referral = new Referral({
             userId: registeredUser._id,
             hisReferral: referralId,
+            paid: false
           });
           referral.save();
           console.log("referral = ", referral)
@@ -192,27 +193,37 @@ router.post("/userinfo", function (req, res) {
 router.post("/basicUserInfo", function (req, res) {
   //console.log("id in basic user info = ", req.body.userId)
   let userId;
-  try{
-    userId = decrypt(req.body.userId);
+  console.log(req.body.userId.length)
+  if (req.body.userId.length<25){
+    userId = req.body.userId
   }
-  catch(err){
-    console.log("err = ", err)
-    if (err.toString().includes("Provider routines::bad decrypt")){
-      console.log(true)
-      return res.json("login").status(400)
+  else{
+    try{
+      userId = decrypt(req.body.userId);
     }
-    else{
-      res.status(400).json(err)
+    catch(err){
+      console.log("err = ", err)
+      if (err.toString().includes("Provider routines::bad decrypt")){
+        console.log(true)
+        res.json("login").status(400)
+        return null
+      }
+      else{
+        res.status(400).json(err)
+        return null
+      }
     }
   }
-  //console.log("after decrypt = ", userId)
+  console.log("after decrypt = ", userId)
   User.find({ _id: userId }, (err, user) => {
     try{
       user[0]._id = encrypt(user[0]._id)
     res.status(201).json({ user});
+    return null
     }
     catch(err){
       res.json(err).status(404)
+      return null
     }
   });
 });
@@ -467,4 +478,44 @@ router.get("/analyzeReferrals", async (req,res)=> {
       res.json(err).status(400)
     }
   });
+})
+
+
+async function updateReferralEarnings(id, user){
+  await Referral.updateOne(
+    { hisReferral: id },
+    { $push: { referralArray: user } }
+  );
+}
+
+
+router.post("/paid_refers", async function(req, res){
+  const user = jwtVerify(req); // Verify JWT and extract user data
+  //console.log('user =', user);
+  if (!user) {
+    //console.log('User not authenticated.');
+    return res.json(null);
+  }
+  const refData = await referralEarnings.findOne({ userId: user.user._id });
+  const ref_list = req.body.refs
+  for (let ref in ref_list){
+    await updateReferralEarnings(user.user._id, ref_list[ref])
+  }
+  res.status(200).json("Paid Referrals Updated Successfully")
+})
+
+router.get("/all_refers", function (req,res){
+  res.render("user_refers")
+})
+
+
+router.get("/paid_refers", async function(req, res){
+  const user = jwtVerify(req); // Verify JWT and extract user data
+  //console.log('user =', user);
+  if (!user) {
+    //console.log('User not authenticated.');
+    return res.json(null);
+  }
+  const refData = await referralEarnings.findOne({ userId: user.user._id });
+  res.status(200).json(refData)
 })
