@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/author.css">
     <link rel="stylesheet" href="../css/blog-category-01.css">
     <link rel="stylesheet" href="../css/blog-category-02.css">
+    <link rel="stylesheet" href="css/modal.css">
 
     <style>
         
@@ -57,7 +58,8 @@
 </head>
 <body>
 
-    <%- include('./partials/header') %>
+        <%- include('./partials/header') %>
+<%- include('./partials/modal') %>
 
 
      <main>
@@ -143,7 +145,7 @@
         </section>
      </main>
     
-
+     <script type="text/javascript" src="js/base_func.js"></script>
      <script>
         function burgerFuncation() {
             var element = document.getElementById("myNAV");
@@ -252,32 +254,6 @@
         let userDetails = await data.json()
 
         return userDetails
-    }
-        async function newBlog(){
-        const token = localStorage.getItem("token")
-        const userDetails = await userData();
-        const blog = {
-            "userId": userDetails.user._id,
-            "title": "Title",
-            "views": 0,
-            "status": "draft",
-            "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
-            "userName": userDetails.user._id,
-        }
-        let data = await fetch("/newBlog",{
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-            body: JSON.stringify(blog)
-        })
-
-        let blogs = await data.json()
-
-        //console.log("data = ", blogs)
-
-        window.location.href = `/write?blogId=${blogs.blog._id}`
     }
 
     function setWriteBlog(){

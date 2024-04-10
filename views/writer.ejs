@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/modal.css">
 
     <!-- Site Icons -->
     <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
@@ -675,6 +676,7 @@
 
      <!-- Core JavaScript
     ================================================== -->
+    <script type="text/javascript" src="js/base_func.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -1445,31 +1447,6 @@
         else{
             elem.style.display = ""
         }
-    }
-
-    async function newBlog(){
-        const token = localStorage.getItem("token")
-        const blog = {
-                "userId": localStorage.getItem("user"),
-                "title": "Title",
-                "views": 0,
-                "status": "draft",
-                "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
-            }
-        let data = await fetch("/newBlog",{
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-            body: JSON.stringify(blog)
-        })
-
-        let blogs = await data.json()
-
-        //console.log("data = ", blogs)
-
-        window.location.href = `/write?blogId=${blogs.blog._id}`
     }
 
     function setWriteBlog(){

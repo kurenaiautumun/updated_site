@@ -1,0 +1,41 @@
+.modal_new {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  justify-content: center;
+}
+
+/* Modal Content */
+.modal_new-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+
+.circle{ /*for creating a circle around points count */
+  border-radius: 50%;
+  width: 74px;
+  height: 74px;
+  padding: 10px;
+  background: #fff;
+  border: 5px solid greenyellow;
+  color: greenyellow;
+  text-align: center;
+  font: 22px Arial, sans-serif;
+}
+
+.inside_circle{
+  padding-top: 12px;
+}
+

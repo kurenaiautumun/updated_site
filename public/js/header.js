@@ -44,11 +44,20 @@ async function userData(){
         body: JSON.stringify(blog)
     })
 
-    let blogs = await data.json()
+    let status = await data.status
+      console.log("status = ", status)  
+      let blogs = await data.json()
+      console.log("data = ", await blogs)
+      if (status==201){
+          window.location.href = `/write?blogId=${blogs.blog._id}`
+      }
+      else if (status==404){
+          console.log(blogs)
+          showModal(blogs["msg"], status) // Show Modal will be imported from a separate file
+          setTimeout(closeModal, 4000);
+      }
 
-    //console.log("data = ", blogs)
-
-    window.location.href = `/write?blogId=${blogs.blog._id}`
+      console.log("data = ", blogs)
 }
 
 function setWriteBlog(){

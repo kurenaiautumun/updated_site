@@ -22,10 +22,12 @@
     <link rel="stylesheet" href="css/author.css">
   <link rel="stylesheet" href="sinup_in.css">
   <link rel="stylesheet" href="css/compact.css">
+  <link rel="stylesheet" href="css/modal.css">
 </head>
 
 <body>
-    <%- include('./partials/header') %>
+        <%- include('./partials/header') %>
+<%- include('./partials/modal') %>
 
 
   <!-- ======= main ===== -->
@@ -152,22 +154,27 @@
       }),
     });
     let reads = await response.json();
-    console.log("reads = ", reads);
-    return reads
+    console.log(`Monthly Views for ${month} = `, reads);
+    return await reads
     //document.getElementById("read_count").innerHTML = `${count}`
     //document.getElementById("read_amount").innerHTML = `₹ ${count/10}`
   }
-  let total_data = {}
+
   async function allViews(userId){
     //month = [1,2,3,4,5,6,7,8,9,10,11, 12]
+    let total_data = {}
     for (let m in months){
-      total_data[months[m]] = await monthlyViews(userId, m, 2024)
+      console.log("months = ", m, months[m])
+      let data = await monthlyViews(userId, m, 2024)
+      console.log("data for ", months[m], await data)
+      total_data[months[m]] = data
+      console.log("total data = ", total_data)
     }
     console.log("total data = ", await total_data)
     let tbody=  document.getElementById("count_body")
     for (let i in await total_data){
       let td = document.createElement("tr")
-      if (total_data[i]="Date is in Future"){
+      if (total_data[i]=="Date is in Future"){
         td.innerHTML = `
           <td>${i}, 2024</td>
           <td>₹0</td>
@@ -176,8 +183,11 @@
         tbody.append(td)
         continue
       }
-      let write_amount = Math.floor((total_data[i]["blogs"]/100))*10
-      let read_amount = (total_data[i]["reads"])*0.1
+      else if (total_data[i]=="Currently Going On"){
+        continue
+      }
+      let write_amount =Math.round(((total_data[i]["blogs"])*10)*100)/100 // *100 / 100 is just for round off
+      let read_amount = Math.round(((total_data[i]["reads"])*0.1)*100)/100
       console.log(read_amount, read_amount==null, read_amount==undefined, read_amount==NaN)
       if (read_amount==NaN){
         read_amount = 0
