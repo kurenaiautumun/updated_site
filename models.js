@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   followers: Array,
   following: Array,
   recommendation: Array,
+  userPoints: Number,
   totalEarn:{type:Number,default:0},
   started: Boolean,
 });
@@ -24,6 +25,11 @@ const userSchema = new mongoose.Schema({
 const result = userSchema.index({ email: 1 }, { unique: true })
 const username = userSchema.index({ username: 1 }, { unique: true })
 //console.log(`Index created: ${result}`);
+
+const userPointsSchema = new mongoose.Schema({
+  user: String,
+  points: Number
+})
 
 
 const blogSchema = new mongoose.Schema({
@@ -262,6 +268,8 @@ const referralEarnings = new mongoose.model("referallEarnings", referralEarnings
 
 const LikedBlogs = new mongoose.model("LikedBlogs", LikedBlogsSchema) // To know what blogs are liked by which user
 
+const userPoints = new mongoose.model("userPoints", userPointsSchema) // For adding new blogs
+
 //passport.use(User.createStrategy());
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
@@ -292,6 +300,7 @@ module.exports = {
   userViewCounts,
   userMonthlyEarnings,
   referralEarnings,
-  LikedBlogs
+  LikedBlogs,
+  userPoints
 };
 

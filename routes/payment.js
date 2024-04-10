@@ -334,10 +334,9 @@ router.post("/calculate_monthly_earnings", async function(req,res){ //calculate 
   let startDate = new Date(y, m, 2);
   let endDate = new Date(y, m + 1, 0);
 
-  console.log(await userMonthlyEarnings.find())
-
   userId = decrypt(userId)
-  let pays = await userMonthlyEarnings.findOne({userId: userId})
+  let pays = await userMonthlyEarnings.findOne({userId: userId, startDate: startDate, endDate: endDate})
+  // This will be for 1 month only
 
   console.log("pays = ", pays)
 
@@ -393,13 +392,15 @@ router.post("/calculate_monthly_earnings", async function(req,res){ //calculate 
 
     pays.save() // Save the new object so we don't need to calculate it again
 
-    let total = TotalEarnings.findOne({user:userId}) // Find the total object for wallet
+    let total = await TotalEarnings.findOne({user:userId}) // Find the total object for wallet
+
+    console.log("total = ", total)
 
     console.log("read count = ", read_count, read_count*0.1)
     console.log("write count = ", write_count, write_count*10)
 
-    if (total==null){
-      total = TotalEarnings({
+    if (await total==null){
+      total = new TotalEarnings({
         user: userId,
         remain: (read_count*0.1 + write_count*10),
         withdraw: 0,
@@ -407,9 +408,25 @@ router.post("/calculate_monthly_earnings", async function(req,res){ //calculate 
         updated: date,
       })
     }
+    else{
+        console.log(total.total==null)
+        if (total.total==null){
+          total.total = (read_count*0.1 + write_count*10)
+        }
+        else{
+          total.total += (read_count*0.1 + write_count*10)
+        }
+        total.remain += (read_count*0.1 + write_count*10)
+        
+        total.updated = date
+        console.log("total = ", total)
+        total.save()
+    }
+    console.log(total.updated<date)
+    console.log("whether total was updated or not - ", total.updated, date)
+    res.json(pays).status(200)
+    return null
   }
-
-  res.json(pays).status(200)
 })
 
 router.post("/totalUserPayments", async function(req, res){

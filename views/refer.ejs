@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/blog.css">
     <link rel="stylesheet" href="css/author.css">
   <link rel="stylesheet" href="sinup_in.css">
+  <link rel="stylesheet" href="css/modal.css">
 
   <style>
     /* The Modal (background) */
@@ -117,7 +118,8 @@
 
 <body>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <%- include('./partials/header') %>
+        <%- include('./partials/header') %>
+<%- include('./partials/modal') %>
 
 
   <!-- ======= main ===== -->
@@ -204,7 +206,7 @@
   </main>
   <!-- ======= main close ====== -->
 
-
+  <script type="text/javascript" src="js/base_func.js"></script>
   <script>
     //  Modal Script
     // Get the modal
@@ -341,30 +343,6 @@
       }
   }
 
-  async function newBlog(){
-    const token = localStorage.getItem("token")
-        const blog = {
-                "userId": localStorage.getItem("user"),
-                "title": "Title",
-                "views": 0,
-                "status": "draft",
-                "titleImage": "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
-            }
-      let data = await fetch("/newBlog",{
-          method: "POST",
-          headers: {
-              "content-type": "application/json",
-              Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify(blog)
-      })
-
-      let blogs = await data.json()
-
-      //console.log("data = ", blogs)
-
-      window.location.href = `/write?blogId=${blogs.blog._id}`
-  }
 
   function setWriteBlog(){
       let doc = document.getElementById("write_blog")

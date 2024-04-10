@@ -29,12 +29,42 @@
           body: JSON.stringify(blog)
       })
 
+      let status = await data.status
+      console.log("status = ", status)  
       let blogs = await data.json()
+      console.log("data = ", await blogs)
+      if (status==201){
+          window.location.href = `/write?blogId=${blogs.blog._id}`
+      }
+      else if (status==404){
+          console.log(blogs)
+          showModal(blogs["msg"], status) // Show Modal will be imported from a separate file
+          setTimeout(closeModal, 4000);
+      }
 
-      //console.log("data = ", blogs)
-
-      window.location.href = `/write?blogId=${blogs.blog._id}`
+      console.log("data = ", blogs)
   }
+
+
+  function showModal(msg, status){
+    var modalText = document.getElementById("modal_text");
+    modalText.innerHTML = msg
+    var modal = document.getElementById("myModal_new");
+    modal.style.display = "grid";
+    let points = document.getElementById("points_amount");
+    points.innerHTML = msg.slice(-4)
+    if (status==404){
+        let circle = document.getElementsByClassName("circle")[0]
+        console.log("circle = ", circle)
+        circle.style.border = "5px solid red"
+        points.style.color = "red"
+    }
+}
+
+function closeModal(){
+    var modal = document.getElementById("myModal_new");
+    modal.style.display = "None";
+}
 
   function setWriteBlog(){
       let doc = document.getElementById("write_blog")

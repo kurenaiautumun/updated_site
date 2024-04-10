@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs, userViewCounts} = require("../models.js");
+const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs, userViewCounts, userPoints} = require("../models.js");
 const { encrypt, decrypt } = require("./encrypt.js");
 const jwtVerify = require("./jwt")
 
@@ -203,7 +203,6 @@ router.post('/updateReadingCountUser', async (req, res) => {
     return null
   }
 
-
   if (blog==null){
     res.status(404).json("Blog Id is wrong")
     return null
@@ -234,9 +233,63 @@ router.post('/updateReadingCountUser', async (req, res) => {
     date:date,
     author: await blog.userId
   })
+
+  let user_points = await userPoints.findOne({user: user})
+  if (await user_points!=null){
+    let points = await user_points.points
+    console.log('points in user points - ', points)
+    user_points.points = points + 1
+    user_points.save()
+  }
+  else{
+    let points = await new userPoints({
+      points: 1,
+      user: user
+    })
+    points.save()
+    console.log("no table exists for userPoints")
+  }
   new_counts.save()
   //if count already exists increment it by 1
   res.status(200).json("count updated")
+})
+
+router.get("/getUserPoints", async (req, res)=>{
+  console.log("userId in getUserPoints")
+  let token = jwtVerify(req);
+
+  console.log("token = ", token)
+
+  console.log("user = ", token.user)
+  let userId = token.user._id
+  console.log("userId in getUserPoints = ", userId)
+
+  let user = await User.findOne({_id: userId});
+
+  let user_points = await userPoints.findOne({user: userId})
+
+  let points = null
+  // Check user points and if not we'll create a new object
+  if (await user_points!=null){
+    points = await user_points.points
+    console.log('points in user points - ', points)
+    if (await points<10){
+      res.status(404).json({"msg": `You do not have enough points for adding a new blog - ${points}/10`, "data": points})
+      return null
+    }
+  }
+  else{ // Creating a new object with 0 points
+    points = await new userPoints({
+      points: 0,
+      user: userId
+    })
+    points.save()
+    console.log("no table exists for userPoints")
+  }
+  res.status(200).json({
+    "msg": `These are the Blog Points for this User - ${points}/10`,
+    "data": points.points
+  })
 })
 
 router.post("/getUserReadTimes", async (req,res)=>{
@@ -331,9 +384,6 @@ router.post('/updateReadingTimeUser', async (req, res) => {
 });
 
 
-
-
-
 router.post("/newblog", async (req, res) => {
   const {title, body, views, status, titleImage, group} = req.body;
   const reviewers = []
@@ -343,9 +393,32 @@ router.post("/newblog", async (req, res) => {
   let userId = token.user._id
   let user = await User.findOne({_id: userId});
 
+  let user_points = await userPoints.findOne({user: userId})
+  if (await user_points!=null){
+    let points = await user_points.points
+    console.log('points in user points - ', points)
+    if (await points<10){
+      res.status(404).json({"msg": `You do not have enough points for adding a new blog - ${points}/10`})
+      return null
+    }
+    else{
+      user_points.points = points - 10
+      user_points.save()
+    }
+  }
+  else{
+    let points = await new userPoints({
+      points: 1,
+      user: userId
+    })
+    points.save()
+    console.log("no table exists for userPoints")
+  }
+
   console.log("user = ", await user)
   let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth() + 1, d = blog_date.getDate();
   let date = `${d}/${m}/${y}`
+
   ////console.log("blog date = ", blog_date)
   //console.log(d,m,y)
   ////console.log("date = ", date)

@@ -73,13 +73,13 @@ router.get("/userBlogsPublish", async (req, res) => {
       const skip = (page - 1) * pageSize;
       //console.log(skip);
 
-      const blogData = await Blog.find({ userId: user.user._id, status: "Published" })
+      const blogData = await Blog.find({ userId: user.user._id, status: "published" })
             .skip(skip)
             .limit(pageSize)
             .exec();
             
       //console.log("blogs = ", blogData)
-      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "Published" });
+      const totalDataCount = await Blog.countDocuments({ userId: user.user._id, status: "published" });
       //console.log(totalDataCount);
 
       for(i in blogData){
@@ -221,7 +221,7 @@ router.get("/blogList", async (req, res) => {
     const top5ByLikes = await Blog.find({status: "published"}).sort({"likeCount": -1}).limit(5);
     const top8ByLikes = await Blog.find({status: "published"}).sort({"likeCount": -1}).skip(5).limit(8);
     const top6ByViews = await Blog.find({status: "published" }).sort({"viewCount": -1}).limit(6)
-    const recent = await Blog.find({status: "published"}).sort("date").limit(20);
+    const recent = await Blog.find({status: "published"}).sort({"date": -1}).limit(20);
 
     const restOfBlogs = await Blog.find({status: "published" }).limit(20)
 

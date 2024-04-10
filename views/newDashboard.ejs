@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="/dist/styles.css" />
     <link rel="stylesheet" href="/dist/all.css" />
+    <link rel="stylesheet" href="css/modal.css">
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i"
       rel="stylesheet"
@@ -24,6 +25,22 @@
     <link rel="stylesheet" href="css/dashboard/style.css" />
 
     <style>
+      .circle{ /*for creating a circle around points count */
+        border-radius: 50%;
+        width: 74px;
+        height: 74px;
+        padding: 10px;
+        background: #fff;
+        border: 3px solid greenyellow;
+        color: #000;
+        text-align: center;
+        font: 22px Arial, sans-serif;
+      }
+
+      .inside_circle{
+        padding-top: 12px;
+      }
+
       #customers {
         font-family: Arial, Helvetica, sans-serif;
         border-collapse: collapse;
@@ -152,7 +169,8 @@
   </head>
   <body>
     
-    <%- include('./partials/header') %>
+        <%- include('./partials/header') %>
+<%- include('./partials/modal') %>
 
     <main>
       <!-- ======= hero header ======= -->
@@ -180,9 +198,11 @@
             </a>
             </div>
 
+            <div id="navbar_points" class="circle"><div class="inside_circle">10/10</div></div>
+
             <div class="right_hero_header">
               <div class="dash_hero_header_withdraw r-flex jut-c">
-                Read Count
+                Reads
               </div>
               <div style="width: 100%;" class="dash_hero_header_followers_following r-flex ali-c">
                 <div style="width: 100%; text-align: center;" class="dash_hero_head_following">
@@ -409,6 +429,7 @@
       </section>
     </main>
 
+    <script type="text/javascript" src="js/base_func.js"></script>
     <script>
       function burgerFuncation() {
         var element = document.getElementById("myNAV");
@@ -427,33 +448,6 @@
         } else {
           elem.style.display = "";
         }
-      }
-
-      async function newBlog() {
-        const token = localStorage.getItem("token")
-        const blog = {
-          userId: localStorage.getItem("user"),
-          title: "Title",
-          views: 0,
-          status: "draft",
-          titleImage:
-            "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logo-removebg-preview.png",
-        };
-        let data = await fetch("/newBlog", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            Authorization: "Bearer " + token,
-
-          },
-          body: JSON.stringify(blog),
-        });
-
-        let blogs = await data.json();
-
-        //console.log("data = ", blogs);
-
-        window.location.href = `/write?blogId=${blogs.blog._id}`;
       }
 
       function setWriteBlog() {
@@ -580,6 +574,28 @@
         document.getElementById("read_count").innerHTML = `${count}`
         document.getElementById("read_amount").innerHTML = `₹ ${count/10}`
       }
+
+      async function userViewPoints(userId){ // Get the reads of this user only
+        console.log("read times function")
+        let response = await fetch(`/getUserPoints`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        let points = await response.json(); 
+        console.log("points = ", points["data"])
+        let elem = document.getElementsByClassName("inside_circle")[1];
+        console.log("elem = ", document.getElementsByClassName("inside_circle"))
+        elem.innerHTML = `${points["data"]}/10`
+        if (points["data"]<10){
+          elem.style.color = "red"
+          let circle = document.getElementById("navbar_points")
+          circle.style.border = "3px solid red"
+        }
+      }
+
+      userViewPoints();
 
       function date_string(date) {
         parts = date.split("/");
