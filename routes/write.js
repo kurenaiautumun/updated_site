@@ -6,6 +6,8 @@ const { encrypt, decrypt } = require("./encrypt.js");
 const {Referral, User, socialShare, viewAnalysis, Blog} = require("../models.js");
 const jwtVerify = require("./jwt")
 
+var { Parser } = require('json2csv') // JSON to CSV transfer
+
 //const session = require("express-session");
 
 router.get('/session', (req, res) => {
@@ -158,6 +160,93 @@ router.post("/socialShares", async (req,res)=>{
 
 //Query from view analysis, what Users and IPs are reading
 
+router.get("/analyzeIPSheet", async (req,res)=>{
+  const pageSize = 100//req.query.pageSize;
+  const pageNumber = 1//req.query.pageNumber;
+
+  const userid = req.query.user_id
+  const ip = req.query.ip
+
+  let searchArray = {ip: { $exists: true }}
+
+  //search about the referral array of a single user
+  if (userid){
+    const user_id = decrypt(userid)
+    let referrals = await socialShare.find({userId: user_id})
+    console.log("referrals = ", referrals)
+    let referallArray = []
+    for (let i in await referrals){
+      referallArray.push(referrals[i].ip)
+    }
+    searchArray["ip"] = {$in: referallArray}
+  }
+
+  //search the search history of a single IP
+  if (ip){
+    searchArray["ip"] = ip
+  }
+
+  console.log("searchArray = ", searchArray)
+
+  viewAnalysis.aggregate([
+    { $match: searchArray },
+    { $sort: { createdAt: -1 } },
+    { $skip: pageSize * (pageNumber - 1) },
+    { $limit: pageSize },
+    { $group: { _id: null, count: { $sum: 1 }, items: { $push: "$$ROOT" } } },
+  ]).exec((err, results) => {
+    if (err) {
+      res.status(400).json(err)
+    }
+    try{
+      let { count, items } = results[0];
+      const totalPages = Math.ceil(count / pageSize);
+      //console.log("items = ", results)
+      //console.log("items = ", results[0])
+      //console.log("items = ", results[0].items)
+
+      `
+      _id: new ObjectId("6520f8a7e19e01aa17ddd49b"),
+      blogId: '6504249473493868d0edfe71',
+      time: 30,
+      ip: '::1',
+      __v: 0
+      `
+
+      const fields = [{
+          label: 'id',
+          value: 'blogId'
+        }, 
+        {
+          label: 'Time Spent(s)',
+          value: 'time'
+        }, 
+        {
+          label: 'IP',
+          value: 'ip'
+        }
+    ]
+
+      const json2csv = new Parser({ fields: fields })
+
+      console.log("sending csv")
+      const csv = json2csv.parse(items)
+      res.attachment('data.csv')
+      console.log("sending data")
+      res.status(200).send(csv)
+      
+      //res.status(200).json({
+      //  items,
+      //  totalPages,
+      //  currentPage: pageNumber,
+      //});
+    }
+    catch(err){
+      res.json(err).status(400)
+    }
+  });
+})
+
 router.get("/analyzeIPs", async(req, res)=>{
   res.render("IP_analysis")
 })
@@ -238,6 +327,58 @@ router.post("/analyzeIPs", async (req,res)=> {
     }
   });
 })
+
+
+router.post("/analyzeAll", async (req,res)=> {
+  const pageSize = req.body.pageSize;
+  const pageNumber = req.body.pageNumber;
+
+  const userid = req.body.user_id
+  const ip = req.body.ip
+
+  //let searchArray = {ip: { $exists: true }}
+  let searchArray = {}
+
+  //search about the referral array of a single user
+  // if (userid){
+  //   const user_id = decrypt(userid)
+  //   searchArray["user"] = user_id
+  // }
+// 
+  // //search the search history of a single IP
+  // else if (ip){
+  //   searchArray["ip"] = ip
+  // }
+
+  console.log("searchArray = ", searchArray)
+
+  viewAnalysis.aggregate([
+    { $match: searchArray },
+    { $sort: { createdAt: -1 } },
+    { $skip: pageSize * (pageNumber - 1) },
+    { $limit: pageSize },
+    { $group: { _id: null, count: { $sum: 1 }, items: { $push: "$$ROOT" } } },
+  ]).exec((err, results) => {
+    if (err) {
+      res.status(400).json(err)
+    }
+    try{
+      let { count, items } = results[0];
+      const totalPages = Math.ceil(count / pageSize);
+      console.log("items = ", results)
+      console.log("items = ", results[0])
+      res.status(200).json({
+        items,
+        totalPages,
+        currentPage: pageNumber,
+      });
+    }
+    catch(err){
+      res.json(err).status(400)
+    }
+  });
+})
+
 
 router.post("/write", (req, res) => {
   //console.log(req.body);

@@ -82,6 +82,7 @@ const verification = (link) => `<!DOCTYPE html>
 		<hr>
 		<p class="footer">If you didn't sign up for Kurenai, please ignore this email.</p>
 	</div>
+<%- include('./partials/footer') %>
 </body>
 </html>
 `

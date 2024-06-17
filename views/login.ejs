@@ -18,6 +18,12 @@
     <link rel="stylesheet" href="css/author.css">
   <link rel="stylesheet" href="sinup_in.css">
   <link rel="stylesheet" href="css/modal.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <style>
     .mystyle {
@@ -65,6 +71,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
         <%- include('./partials/header') %>
 <%- include('./partials/modal') %>
+<script src="js/refer.js"></script>
 
 
   <!-- ======= main ===== -->
@@ -178,7 +185,14 @@
 
         localStorage.setItem("userId",user["userId"]);
         
-        window.location.href = "/";
+        console.log("old = ", getQuery("old"))
+        if (getQuery("old")!=null){
+          window.location.href = getQuery("old")
+        }
+        else{
+          window.location.href = "/"
+        }
+        //window.location.href = "/";
       }
       else{
         alert(user)
@@ -217,7 +231,15 @@
 
       localStorage.setItem("token", result["token"]);
       localStorage.setItem("user", result._id);
-      window.location.href = "/";
+      console.log("old = ", getQuery("old"))
+      if (getQuery("old")!=null){
+        window.location.href = getQuery("old")
+        //window.location.reload() // reload after changing href
+      }
+      else{
+        window.location.href = "/"
+      }
+      //window.location.href = "/";
     }
     window.onload = function () {
       google.accounts.id.initialize({
@@ -232,6 +254,19 @@
     }
 </script>
 <script>
+  function getQuery(name) {
+      var idx = document.URL.indexOf('?');
+      var params = {};
+      if (idx != -1) {
+          var pairs = document.URL.substring(idx + 1, document.URL.length).split('&');
+          for (var i = 0; i < pairs.length; i++) {
+              nameVal = pairs[i].split('=');
+              params[nameVal[0]] = nameVal[1];
+          }
+      }
+      ////console.log(params["blogId"])
+      return params[name];
+  }
   //nav bar scripts
   function changeClass(choice){
       //console.log("change class")
@@ -306,12 +341,12 @@
       localStorage.removeItem("user")
       localStorage.removeItem("token")
       localStorage.removeItem("userId");
-
       window.location.href = "/"
   }
 </script>
 
 
+<%- include('./partials/footer') %>
 </body>
 
 </html>

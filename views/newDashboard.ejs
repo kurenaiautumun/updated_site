@@ -12,6 +12,13 @@
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i"
       rel="stylesheet"
     />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -171,6 +178,7 @@
     
         <%- include('./partials/header') %>
 <%- include('./partials/modal') %>
+<script src="js/refer.js"></script>
 
     <main>
       <!-- ======= hero header ======= -->
@@ -624,7 +632,7 @@
 };
 
 let currentTab = "Draft";
-const pageSize = 2;
+const pageSize = 4;
 let currentId = "buttonclass";
 
 
@@ -1197,5 +1205,6 @@ monthlyEarningRefs
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-  </body>
+  <%- include('./partials/footer') %>
+</body>
 </html>

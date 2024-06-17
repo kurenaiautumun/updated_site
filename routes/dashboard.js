@@ -17,6 +17,10 @@ const {encrypt, decrypt} = require("./encrypt")
 //   }
 // });
 
+router.get("/compiler", async (req, res) =>{
+  res.render("compiler")
+})
+
 router.get("/random", (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   Blog.aggregate([{ $sample: { size: limit } }]).exec((err, posts) => {
@@ -221,7 +225,11 @@ router.get("/blogList", async (req, res) => {
     const top5ByLikes = await Blog.find({status: "published"}).sort({"likeCount": -1}).limit(5);
     const top8ByLikes = await Blog.find({status: "published"}).sort({"likeCount": -1}).skip(5).limit(8);
     const top6ByViews = await Blog.find({status: "published" }).sort({"viewCount": -1}).limit(6)
-    const recent = await Blog.find({status: "published"}).sort({"date": -1}).limit(20);
+    const recent = await Blog.find({status: "published"}).sort({"updatedAt": -1}).limit(20);
+
+    for (let i in recent){
+      console.log(recent[i]['date'], recent[i]['author'], recent[i].createdAt, recent[i].updatedAt)
+    }
 
     const restOfBlogs = await Blog.find({status: "published" }).limit(20)
 
@@ -232,7 +240,7 @@ router.get("/blogList", async (req, res) => {
       "restOfBlogs": restOfBlogs,
       "recent": recent
     }
-    console.log("posts = ", posts)
+    //console.log("posts = ", posts)
     res.status(200).json(posts);
 });
 

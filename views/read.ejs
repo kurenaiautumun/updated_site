@@ -10,6 +10,12 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <!-- share Metas -->
     <meta
       property="og:url"
@@ -160,6 +166,8 @@
     
         <%- include('./partials/header') %>
 <%- include('./partials/modal') %>
+<%- include('./partials/new_modal') %>
+<script src="js/refer.js"></script>
 
     <main>
       <!-- ======== hero section ======= -->
@@ -411,6 +419,9 @@
                   <li>
                     <a>
                       <img src="images/like2.png" style="height: 50px;" onclick="likeBlog()">
+                    </a>
+                    <a>
+                      <img src="images/dislike.png" style="height: 40px;" onclick="dislikeBlog()">
                     </a>
                   </li>
                 </ul>
@@ -715,6 +726,14 @@
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/modal.js"></script>
+    <script>
+      let modal_content = `
+        <img src="images/like2.png" style="background: transparent; text-align: center;">
+        <p style="color:white">Thanks for the Like</p>
+      `
+      editModal(modal_content)
+    </script>
     <script>
       function isInViewport(element) {
         // This is for Full Visibility only
@@ -1291,17 +1310,31 @@
       }
 
       async function randomBlogs() {
-        let req = await fetch(`/randomBlogs?size=2`, {
-          method: "GET",
-          headers: {
-            "content-type": "application/json",
-          },
-        });
+        let req = null
+        if (isStory()=="true"){
+          req = await fetch(`/adjacentBlogs`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              blogId: getParams()
+            })
+            });
+        }
+        else{
+          req = await fetch(`/randomBlogs?size=2`, {
+            method: "GET",
+            headers: {
+              "content-type": "application/json",
+            },
+            });
+        }
+        
         let data = await req.json();
-
         data = data.blog;
 
-        ////console.log("data = ", data)
+        console.log("data = ", data.blog)
 
         text = document.getElementsByClassName("left_prev_box");
         ////console.log(text)
@@ -1312,6 +1345,9 @@
         for (let i in data) {
           ////console.log(i)
           ////console.log(text[i].children[0])
+          if (data[i]==null){
+            continue
+          }
           text[
             i
           ].children[0].innerHTML = `<a href=read?blogId=${data[i]._id}>${data[i].title}</a>`;
@@ -2055,6 +2091,7 @@
     // update like count
     async function likeBlog(){
       let blogId = await getParams();
+      timedModal(); // show a modal for like
         let token = localStorage.getItem("token");
         let response = await fetch(`/like`, {
           method: "POST",
@@ -2068,10 +2105,34 @@
         let res = await response.json();
         let status = response.status
         console.log(res, status);
+        let url = window.location.href
         if (status==401){
-          window.location.href = `/login`
+          window.location.href = `/login?old=${url}`
+        }
+    }
+    async function dislikeBlog(){
+      let blogId = await getParams();
+      timedModal(); // show a modal for like
+        let token = localStorage.getItem("token");
+        let response = await fetch(`/like`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            blogId: await blogId,
+            dislike: true
+          }),
+        });
+        let res = await response.json();
+        let status = response.status
+        console.log(res, status);
+        let url = window.location.href
+        if (status==401){
+          window.location.href = `/login?old=${url}`
         }
     }
     </script>
-  </body>
+  <%- include('./partials/footer') %>
+</body>
 </html>

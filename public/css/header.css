@@ -129,3 +129,22 @@ header{
         background-color: white;
     }
 }
+/*Navbar toogle for small and big screens*/
+.close_nav_berger{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+    display: none;
+}
+
+.open_nav_burger{
+    display: none;
+}
+@media (max-width: 920px){
+    .close_nav_berger,
+    .open_nav_burger{
+        display: block;
+        cursor: pointer;
+    }
+}

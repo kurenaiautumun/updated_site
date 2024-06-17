@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs, userViewCounts, userPoints} = require("../models.js");
+const { date, User, Blog, monthlyViews, viewAnalysis,popularBlogs, userViewCounts, userPoints, Story} = require("../models.js");
 const { encrypt, decrypt } = require("./encrypt.js");
 const jwtVerify = require("./jwt")
+
 
 router.get("/blogss", (req, res) => {
   const _id = req.query.blogId;
@@ -288,7 +289,7 @@ router.get("/getUserPoints", async (req, res)=>{
   }
   res.status(200).json({
     "msg": `These are the Blog Points for this User - ${points}/10`,
-    "data": points.points
+    "data": points
   })
 })
 
@@ -385,7 +386,7 @@ router.post('/updateReadingTimeUser', async (req, res) => {
 
 
 router.post("/newblog", async (req, res) => {
-  const {title, body, views, status, titleImage, group} = req.body;
+  const {title, body, views, status, titleImage, group, tags} = req.body;
   const reviewers = []
   let token = jwtVerify(req);
 
@@ -419,14 +420,15 @@ router.post("/newblog", async (req, res) => {
   let blog_date = new Date(), y = blog_date.getFullYear(), m = blog_date.getMonth() + 1, d = blog_date.getDate();
   let date = `${d}/${m}/${y}`
 
-  ////console.log("blog date = ", blog_date)
+  console.log("blog date = ", blog_date)
   //console.log(d,m,y)
   ////console.log("date = ", date)
   const author = user.username;
-  const blog = new Blog({
+  const blog = await new Blog({
     userId,
     title,
     body,
+    tags,
     views,
     status,
     group,
@@ -435,20 +437,20 @@ router.post("/newblog", async (req, res) => {
     titleImage,
     author,
     status,
-  });
+  })//, { timestamps: true });
 
   ////console.log("date = ", date)
   ////console.log("m = ", m)
   let startDate = new Date(y, m, 2);
   let endDate = new Date(y, m + 1, 0);
-  blog.save((err, blog) => {
-      viewsMonth = new monthlyViews({
-        blogId: blog._id,
-        startDate: startDate,
-        endDate: endDate,
-        viewCount: 0
-      })
-  });
+  blog.save()
+  let viewsMonth = await new monthlyViews({
+    blogId: await blog._id,
+    startDate: startDate,
+    endDate: endDate,
+    viewCount: 0
+  })//, { timestamps: true });
+  viewsMonth.save()
   res.status(201).json({ message: "blog saved", user, blog });
 });
 
@@ -618,5 +620,3 @@ router.post("/review", (req, res)=>{
 
 
 module.exports = router;
-
-
