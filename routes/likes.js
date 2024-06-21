@@ -45,6 +45,7 @@ router.get("/like/:blogId/:userId",(req,res)=>{
 //})
 
 router.post("/like", async(req,res)=>{
+  let dislike = req.body.dislike
   let blogId = req.body.blogId;
   let user = jwtVerify(req); // Verify user token and get user object
   //console.log("user = ", user)
@@ -66,7 +67,7 @@ router.post("/like", async(req,res)=>{
     let likedBlogs = await LikedBlogs.findOne({blogId: blogId, userId: userId})
 
     console.log("likedblog - ", likedBlogs)
-    console.log("all = ", await LikedBlogs.find())
+    //console.log("all = ", await LikedBlogs.find())
 
     let likes = blog.likeCount
 
@@ -74,23 +75,37 @@ router.post("/like", async(req,res)=>{
       likes = 0
     }
 
-    likes += 1
+    console.log("likes = ", likes)
 
-    if (likedBlogs==null){
-      const newBlog = await Blog.findOneAndUpdate(
-        { _id: blogId },
-        {
-          $set: { likeCount: likes },
-        },
-        { strict: false }
-      );
-      msg = "Likes Increased by one"
-      let newLike = new LikedBlogs({
-        blogId: blogId,
-        userId: userId
-      })
-      newLike.save()
+    if (dislike==true){
+      msg = "likes not decreased by one"
+      if (likedBlogs==null){
+        likes -= 1
+        likedBlogs.delete()
+        msg = "likes decreased by one"
+      } 
     }
+    else{
+      msg = "Likes not Increased by one"
+      if (likedBlogs==null){
+        console.log("likes = ", likes)
+        likes += 1
+        let newLike = new LikedBlogs({
+          blogId: blogId,
+          userId: userId
+        })
+        newLike.save()
+        msg = "Likes Increased by one"
+      }
+    }
+
+    const newBlog = await Blog.findOneAndUpdate(
+      { _id: blogId },
+      {
+        $set: { likeCount: likes },
+      },
+      { strict: false }
+    );
   }
   res.status(200).json(msg)
 })

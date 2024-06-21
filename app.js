@@ -23,6 +23,7 @@ const rankingRoute = require("./routes/ranking");
 const writeRoute = require("./routes/write.js");
 const payment = require("./routes/payment")
 const chats = require("./routes/chat")
+const stories = require("./routes/stories")
 
 //const cookieParser = require("cookie-parser");
 
@@ -72,6 +73,8 @@ app.use("/", rankingRoute);
 app.use("/", writeRoute);
 app.use("/", payment);
 app.use("/", chats);
+app.use("/", stories);
+
 app.listen(process.env.PORT, function () {
   console.log(`Server started on http://localhost:${process.env.PORT}`);
 });
@@ -81,6 +84,7 @@ app.listen(process.env.PORT, function () {
 // });
 
 
- process.on('uncaughtException', err => {
-  console.log(`Uncaught Exception - : ${err.message}`)
-})
+//hanlding uncaught errors
+// process.on('uncaughtException', err => {
+//  console.log(`Uncaught Exception - : ${err.message}`)
+//})

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- ====== TITLE ====== -->
+  <title>CodeMark</title>
+
+  <!-- ====== CSS LINKS ===== -->
+  <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/author.css">
+  <link rel="stylesheet" href="sinup_in.css">
+  <link rel="stylesheet" href="css/compact.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/compiler.css">
+  <script type="module" src="https://cdn.jsdelivr.net/gh/vanillawc/wc-monaco-editor@1/index.js"></script>
+  <style>
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0,0,0,.5);
+        -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+    }
+
+    /**{
+      overflow-x: hidden;
+    }*/
+
+  </style>
+</head>
+
+<body style="overflow: hidden;">
+        <%- include('./partials/header') %>
+<div id="myModal_new" class="modal_new">
+
+  <!-- Modal content -->
+  <div class="modal_new-content">
+    <p id="modal_text">Changing the Editor's Language now will erase all content. Please confirm your choice.</p></br>
+    <button onclick="changeCode(true)" class=" btn btn-primary">Yes</button>
+    <button onclick="changeCode(false)" class="btn btn-danger" style="float: right">No</button>
+  </div>
+
+</div>
+
+
+  <!-- ======= main ===== -->
+  <main style="height: 100%; width:100%; overflow-x: hidden;">
+    <div class="basicSettings">
+      <label for="sel1" class="form-label">Select list (select one):</label>
+      <select class="form-select" id="languageSelector" name="sellist1" onchange="changeLanguage()">
+      </select>
+      <button onclick="submitCode()" class="btn btn-primary" style="float: right; padding-bottom: 0px;">Submit</button>
+    </div>
+    <div class="row" style="height: 100%;">
+      <div class="col-sm-5" style="max-height: 650px; overflow:auto;">
+        <h2 style="justify-content: center; display: grid;">
+              Code Statement: 
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sodales purus. Maecenas porttitor lacus et elit mollis, id suscipit tortor tempus. Integer accumsan viverra odio, at dapibus quam dapibus congue. Suspendisse dolor metus, tristique quis turpis at, congue malesuada magna. Cras nec orci nunc. Nulla non congue arcu. In vel justo metus. Ut facilisis erat in pretium iaculis. Sed nec posuere ligula, vel ullamcorper mauris. Sed sed egestas tellus. Morbi sed justo dapibus, tempus neque id, cursus lacus. Duis ac elit et nisl consequat molestie. Curabitur vulputate interdum mauris.
+
+Maecenas at consectetur ex. Phasellus nec erat eu magna dapibus sollicitudin. Vestibulum porta leo nibh, porta placerat diam bibendum nec. Aliquam vitae leo sit amet risus posuere molestie. Vivamus quis elementum urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum luctus dolor ut elit tempus dignissim. Quisque non molestie lorem, a fermentum mi. Nunc vel varius ex, non congue arcu. In non dignissim velit, non venenatis nulla. Morbi et sem et leo vehicula sagittis. Morbi ornare ligula eros, id imperdiet mi imperdiet sit amet. Aliquam mauris odio, congue ut faucibus euismod, dictum quis nibh.
+
+Aliquam ultrices est in vehicula luctus. Donec suscipit, justo ut luctus luctus, libero risus interdum metus, vitae iaculis velit nunc at turpis. Fusce rhoncus orci metus, eu pharetra magna vulputate sagittis. Maecenas velit ligula, vestibulum non diam ut, rhoncus pharetra magna. Aenean tellus quam, lacinia sed orci in, molestie finibus quam. Vestibulum ut odio magna. In turpis arcu, fringilla molestie sodales ultrices, tempus non sem. Duis ornare ipsum vitae lorem congue vestibulum. Quisque lacinia accumsan imperdiet. Praesent eu justo eu felis tincidunt hendrerit ut nec nulla. Vestibulum eget felis faucibus, dictum odio nec, vulputate enim. Morbi vel elit et augue malesuada feugiat ac sollicitudin leo. Pellentesque sagittis arcu quis quam auctor, at placerat quam feugiat.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sodales purus. Maecenas porttitor lacus et elit mollis, id suscipit tortor tempus. Integer accumsan viverra odio, at dapibus quam dapibus congue. Suspendisse dolor metus, tristique quis turpis at, congue malesuada magna. Cras nec orci nunc. Nulla non congue arcu. In vel justo metus. Ut facilisis erat in pretium iaculis. Sed nec posuere ligula, vel ullamcorper mauris. Sed sed egestas tellus. Morbi sed justo dapibus, tempus neque id, cursus lacus. Duis ac elit et nisl consequat molestie. Curabitur vulputate interdum mauris.
+
+Maecenas at consectetur ex. Phasellus nec erat eu magna dapibus sollicitudin. Vestibulum porta leo nibh, porta placerat diam bibendum nec. Aliquam vitae leo sit amet risus posuere molestie. Vivamus quis elementum urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum luctus dolor ut elit tempus dignissim. Quisque non molestie lorem, a fermentum mi. Nunc vel varius ex, non congue arcu. In non dignissim velit, non venenatis nulla. Morbi et sem et leo vehicula sagittis. Morbi ornare ligula eros, id imperdiet mi imperdiet sit amet. Aliquam mauris odio, congue ut faucibus euismod, dictum quis nibh.
+
+Aliquam ultrices est in vehicula luctus. Donec suscipit, justo ut luctus luctus, libero risus interdum metus, vitae iaculis velit nunc at turpis. Fusce rhoncus orci metus, eu pharetra magna vulputate sagittis. Maecenas velit ligula, vestibulum non diam ut, rhoncus pharetra magna. Aenean tellus quam, lacinia sed orci in, molestie finibus quam. Vestibulum ut odio magna. In turpis arcu, fringilla molestie sodales ultrices, tempus non sem. Duis ornare ipsum vitae lorem congue vestibulum. Quisque lacinia accumsan imperdiet. Praesent eu justo eu felis tincidunt hendrerit ut nec nulla. Vestibulum eget felis faucibus, dictum odio nec, vulputate enim. Morbi vel elit et augue malesuada feugiat ac sollicitudin leo. Pellentesque sagittis arcu quis quam auctor, at placerat quam feugiat.
+
+        </p>
+        
+      </div>
+      <div class="col-sm-7" style="max-height: 650px; overflow:initial;">
+        <div class="row">
+          <div class="editor_block">
+            <div id="editorHolder">
+              <wc-monaco-editor id="monacoEditor" style="min-height: 500px;" language="python" fontSize="16"></wc-monaco-editor>
+            </div>
+          </div>
+        </div>
+          <div class="col-sm-12" style="padding-bottom: 10px">
+            <h2 style="justify-content: center; display: grid;;">Test Cases</h2>
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Time(ms)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td># Test Case-1</td>
+                  <td>Fail</td>
+                  <td>0.00</td>
+                </tr>
+                <tr>
+                  <td># Test Case-2</td>
+                  <td>Fail</td>
+                  <td>0.00</td>
+                </tr>
+                <tr>
+                  <td># Test Case-3</td>
+                  <td>Fail</td>
+                  <td>0.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      
+  </main>
+  <!-- ======= main close ====== -->
+<script type="text/javascript" src="js/base_func.js"></script>
+<script>
+
+  let selectedLanguage = "python";
+  let languageCode = 71
+  let languageDict = {}
+
+  async function testCases(){
+    // Get all the Test cases and use them in submit code
+    const allCases = {
+      1: "1 2 3",
+      2: "2 3 4",
+      3: "3 4 5"
+    }
+    return allCases
+  }
+
+  async function submitCode(){
+    const url = "https://judge0-ce.p.rapidapi.com/submissions/batch?base64_encoded=true&fields=*";
+    let editor = document.getElementsByClassName("monaco-scrollable-element")[0]
+    console.log(editor.innerText)
+
+    let encodedString = btoa(unescape(encodeURIComponent(editor.innerText)));//Base64.encode(editor.innerText);
+
+    let batchBody = {
+      "submissions": []
+    }
+
+    allCases = await testCases();
+    console.log("allCases = ", await allCases)
+    for (cases in await allCases){
+      let encodedStdin = btoa(unescape(encodeURIComponent(allCases[cases])));//Base64.encode(editor.innerText);
+      batchBody["submissions"].push({
+        language_id: languageCode,
+        source_code: encodedString,
+        stdin: encodedStdin
+      })
+    }
+
+    const body = JSON.stringify(
+      batchBody
+    )
+
+    console.log("body = ", body)
+
+    const options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "Content-Type": "application/json",
+        "X-RapidAPI-Key": "64aa6b24d2msh22d5a0cb438b9b2p1e6dc0jsn11c105dc81d4",
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
+      },
+      body: body
+
+    };
+    //console.log("encoded = ", encodedString);
+//
+    try {
+    	const response = await fetch(url, options);
+    	const result = await response.json();
+    	console.log(result);
+      let tokens = ""
+      for (let token in result){
+        console.log("token, result = ", token, result[token])
+        tokens += result[token].token + ","
+      }
+      tokens = tokens.slice(0, -1); 
+      console.log("tokens = ", tokens)
+    } catch (error) {
+    	console.error(error);
+    }
+  }
+
+
+  function changeLanguage(){
+    // For changing the language after one time
+    console.log("changing language")
+    let language = document.getElementById("languageSelector").value
+    console.log("selected language = ", language)
+
+    let languageCode = languageDict[language]
+    console.log("selected language ID = ", languageCode)
+
+    let lowerLanguage = language.toLowerCase();
+    console.log("lower language = ", lowerLanguage)
+
+    let editor = document.getElementById("monacoEditor")
+
+    allowed = ["python", "java", "javascript", "c++"]
+
+    selection = ""
+
+    for (name in allowed){
+      if (lowerLanguage.includes(allowed[name])){
+        console.log("editor = ", editor)
+        selection = allowed[name]
+        // editor.setAttribute("language", allowed[name])
+        //let elem = document.getElementById("editorHolder")
+        //elem.innerHTML = `<wc-monaco-editor id="monacoEditor" style="min-height: 400px;" language="${allowed[name]}" fontSize="16"></wc-monaco-editor>`
+      }
+    }
+    if (selection!=""){
+      selectedLanguage = selection
+    }
+    showModal();
+  }
+
+  function showModal(){
+    var modal = document.getElementById("myModal_new");
+    modal.style.display = "grid";
+}
+
+function closeModal(){
+    var modal = document.getElementById("myModal_new");
+    modal.style.display = "None";
+}
+
+  function changeCode(option){
+    if (option==true){
+        let elem = document.getElementById("editorHolder")
+        elem.innerHTML = `<wc-monaco-editor id="monacoEditor" style="min-height: 500px;" language="${selectedLanguage}" fontSize="16"></wc-monaco-editor>`
+    }
+    closeModal();
+  }
+
+  async function setAllLanguages(languages){
+    let llist = document.getElementById("languageSelector")
+    for (language in languages){
+      //console.log("language = ", language, languages[language])
+      let options = document.createElement("option")
+      options.innerHTML = languages[language]["name"]
+      languageDict[languages[language]["name"]] = languages[language]["id"]
+      llist.append(options)
+    }
+  }
+
+  // Get all Languages available for compilation
+  async function getAllLanguages(){
+      const url = "https://ce.judge0.com/languages/all"
+      const options = {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          "Content-Type": "application/json",
+          //"X-RapidAPI-Key": "64aa6b24d2msh22d5a0cb438b9b2p1e6dc0jsn11c105dc81d4",
+          //"X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
+        },
+      }
+      try {
+      	const response = await fetch(url, options);
+      	const result = await response.json();
+      	//console.log("all languages = ", result);
+        setAllLanguages(result);
+      } catch (error) {
+      	console.error("all languages =", error);
+      }
+    }
+  getAllLanguages();
+</script>
+
+
+<%- include('./partials/footer') %>
+</body>
+
+</html>

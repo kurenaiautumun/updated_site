@@ -39,6 +39,7 @@
 
     #refer_column{
       height: 600px;
+      overflow: auto;
     }
 
     #image_column{
@@ -60,5 +61,6 @@
       }
       #refer_column{
       height: 100%;
+      overflow: auto;
     }
     }

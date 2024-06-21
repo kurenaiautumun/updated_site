@@ -3,9 +3,17 @@
         <script
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
         </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     </head>
     <body>
         <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+        <script src="js/table.js"></script>
         <script>
             function displayChart(x, y){
                 const xValues = x//[100,200,300,400,500,600,700,800,900,1000];
@@ -51,6 +59,15 @@
                       "pageNumber": 2,
                       "pageSize": 20,
                       user_id: user_id
+                    });
+
+                    let response0 = await fetch("/analyzeAll", { 
+                      method: "POST",
+                      body: JSON.stringify({
+                        "pageNumber": 1,
+                        "pageSize": 20,
+                      }),
+                      headers: headersList
                     });
 
                     let response = await fetch("/analyzeIPs", { 
@@ -110,5 +127,6 @@
             }
             IP_data();
         </script>
-    </body>
+    <%- include('./partials/footer') %>
+</body>
 </html>

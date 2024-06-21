@@ -90,6 +90,7 @@
 
     #refer_column{
       height: 600px;
+      overflow-y: scroll;
     }
 
     #image_column{
@@ -111,8 +112,24 @@
       }
       #refer_column{
       height: 100%;
+      overflow-y: visible;
+
     }
     }
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0,0,0,.5);
+        -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+    }
+
+    *{
+      overflow-x: hidden;
+    }
+
   </style>
 </head>
 
@@ -120,12 +137,12 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
         <%- include('./partials/header') %>
 <%- include('./partials/modal') %>
+<script src="js/refer.js"></script>
 
 
   <!-- ======= main ===== -->
   <main style="height: 100%;">
     <div class="row">
-      <div class="col-sm-7" style="text-align: center;" id="image_column"><img style="width:100%" src="images/pexels-lil-artsy-1925536.jpg"><div style="font-size: 11px;"><a href="https://www.pexels.com/photo/person-holding-orange-pen-1925536/">Photo by lil artsy</a></div></div>
       <div id="refer_column" class="col-sm-5">
         <div id="writer_block" style="text-align: center; vertical-align:middle; font-size: 30px; font-family: 'Times New Roman', Times, serif;">
           Join Us as a Writer
@@ -201,7 +218,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-1"></div>
+      <div class="col-sm-7" style="text-align: center;" id="image_column"><img style="width:100%; padding-right: 5px;" src="images/pexels-lil-artsy-1925536.jpg"><div style="font-size: 11px;"><a href="https://www.pexels.com/photo/person-holding-orange-pen-1925536/">Photo by lil artsy</a></div></div>      
     </div>
   </main>
   <!-- ======= main close ====== -->
@@ -411,6 +428,7 @@
 </script>
 
 
+<%- include('./partials/footer') %>
 </body>
 
 </html>

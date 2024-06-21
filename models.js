@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   userPoints: Number,
   totalEarn:{type:Number,default:0},
   started: Boolean,
-});
+}, { timestamps: true });
 
 const result = userSchema.index({ email: 1 }, { unique: true })
 const username = userSchema.index({ username: 1 }, { unique: true })
@@ -55,8 +55,11 @@ const blogSchema = new mongoose.Schema({
   totalTimeSpent:{
     type:Number,
     default:0
-  }
-});
+  },
+  story: String, // If it a part of some story
+  //createdAt: Date,
+  //updatedAt: Date
+}, { timestamps: true });
 
 const LikedBlogsSchema = new mongoose.Schema({
   userId: String,
@@ -71,8 +74,12 @@ const StoriesSchema = new mongoose.Schema({
   chapters: Object,
   titleImage: String,
   finished: Boolean,
-  tags: [String]
-})
+  description: String,
+  tags: [String],
+  rating: Number,
+  Likes: Number,
+  Views: Number
+}, { timestamps: true });
 
 const storyName = StoriesSchema.index({ title: 1 }, { unique: true })
 
